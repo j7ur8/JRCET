@@ -15,7 +15,6 @@ public class Index extends DiyJComponent {
 
     public JComponent main(){
         JPanel root = new JPanel(new GridBagLayout());
-//        root.setBounds(0,0,800,600);
         root.setOpaque(true);
         root.setBackground(Color.orange);
 
@@ -27,16 +26,11 @@ public class Index extends DiyJComponent {
         root.add(rootTopPanel(),topPanelProperty);
 //        JPanel panel2 = new JPanel();
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridheight=20;
-        gbc.gridy = 1;
-        gbc.gridx= 0;
+        gbc.gridy = 1; gbc.gridx= 0;
         gbc.fill=GridBagConstraints.BOTH;
         gbc.anchor=GridBagConstraints.NORTHWEST;
-        gbc.weightx = 70;
-        gbc.weighty = 70;
-//        gbc.insets = new Insets(2, 2, 2, 2);
-//        root.add(panel2, gbc);
-//        root.add(toolsButton);
+        gbc.weightx = 100; gbc.weighty = 100;
+
 
         DiyJComponent m=new ExploitComponent();
         root.add(m.main(),gbc);
@@ -76,7 +70,6 @@ public class Index extends DiyJComponent {
         targetJButton.setFont(new Font("宋体",1,16));
         targetJButton.setPreferredSize(new Dimension(80,30));
         targetJButton.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-//        targetJButton.setOpaque(true);
         targetJButton.setBackground(Color.WHITE);
     }
 
