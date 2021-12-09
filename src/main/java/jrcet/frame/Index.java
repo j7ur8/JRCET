@@ -67,8 +67,9 @@ public class Index extends DiyJComponent {
     }
 
     private void settingDiyJButton(DiyJButton targetJButton){
-        targetJButton.setFont(new Font("宋体",1,16));
-        targetJButton.setPreferredSize(new Dimension(80,30));
+        targetJButton.setFont(new Font("微软雅黑",0,14));
+//        targetJButton
+        targetJButton.setPreferredSize(new Dimension(70,25));
         targetJButton.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         targetJButton.setBackground(Color.WHITE);
     }
