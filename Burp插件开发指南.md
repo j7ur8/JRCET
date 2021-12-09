@@ -82,3 +82,6 @@ public class BurpExtender implements IBurpExtender, ITab, IHttpListener{
 
 ![](img/1.png)
 
+# Demo：新建右键上下文菜单项
+
+需要继承`IContextMenuFactory`接口，重写createMenuItems类。
