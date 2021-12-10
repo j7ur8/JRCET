@@ -18,8 +18,8 @@ public class DiyJLabel extends JLabel implements MouseListener {
         setBackground(new Color(251,251,251));
         setOpaque(true);
         setHorizontalAlignment(JLabel.CENTER);
-        setFont(new Font("微软雅黑",0,16));
-        setPreferredSize(new Dimension(80,29));
+        setFont(new Font("微软雅黑",0,14));
+        setPreferredSize(new Dimension(80,28));
     }
 
     public void setMapPanel(JComponent targetPanel){

@@ -16,19 +16,15 @@ import javax.swing.SwingConstants;
 
 public class test{
 
-    private JFrame frame;
-    private JPanel buttonPanel;
-    private GridBagConstraints constraints;
-
     public test() throws MalformedURLException{
 
-        frame = new JFrame();
+        JFrame frame = new JFrame();
 
-        buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         frame.add(buttonPanel);
 
         buttonPanel.setLayout(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.insets = new Insets(5, 5, 3, 5);
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -38,8 +34,8 @@ public class test{
 
         String[] text = {"some Text","this text is longer" };
 
-        for (int i = 0; i < text.length; i++) {
-            JButton button= new JButton(text[i], new ImageIcon(new File("icon.png").toURI().toURL()));
+        for (String s : text) {
+            JButton button = new JButton(s, new ImageIcon(new File("icon.png").toURI().toURL()));
             button.setAlignmentX(SwingConstants.WEST);
             button.setIconTextGap(30);
             button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
@@ -55,12 +51,8 @@ public class test{
 
     }
 
-    public static void main(String[] args){
-        try {
-            new test();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws MalformedURLException {
+        new test();
     }
 
 }
