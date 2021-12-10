@@ -3,8 +3,8 @@ package jrcet.frame;
 import javax.swing.*;
 import java.awt.*;
 
-import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.DiyJLabel;
 import jrcet.frame.exploit.ExploitComponent;
 import jrcet.frame.setting.SettingComponent;
 import jrcet.frame.tools.ToolsComponent;
@@ -14,66 +14,47 @@ public class Index extends DiyJComponent {
     public Index(){}
 
     public JComponent main(){
-        JPanel root = new JPanel(new GridBagLayout());
-        root.setOpaque(true);
-        root.setBackground(Color.orange);
+        JPanel rootPanel = new JPanel(new GridBagLayout());
+        rootPanel.setOpaque(true);
+        rootPanel.setBackground(Color.orange);
 
-        GridBagConstraints topPanelProperty = new GridBagConstraints();
-        topPanelProperty.gridx = topPanelProperty.gridy = 0;
-        topPanelProperty.fill = GridBagConstraints.BOTH;
-        topPanelProperty.anchor = GridBagConstraints.NORTHWEST;
+        GridBagConstraints rootTopPanelProperty = new GridBagConstraints();
+        rootTopPanelProperty.gridx = rootTopPanelProperty.gridy = 0;
+        rootTopPanelProperty.fill = GridBagConstraints.BOTH;
+        rootPanel.add(rootTopPanel(),rootTopPanelProperty);
 
-        root.add(rootTopPanel(),topPanelProperty);
-//        JPanel panel2 = new JPanel();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 1; gbc.gridx= 0;
-        gbc.fill=GridBagConstraints.BOTH;
-        gbc.anchor=GridBagConstraints.NORTHWEST;
-        gbc.weightx = 100; gbc.weighty = 100;
+        GridBagConstraints defaultRootCenterPanelProperty = new GridBagConstraints();
+        defaultRootCenterPanelProperty.gridy = 1; defaultRootCenterPanelProperty.gridx= 0;
+        defaultRootCenterPanelProperty.fill=GridBagConstraints.BOTH;
+        defaultRootCenterPanelProperty.weightx = 100; defaultRootCenterPanelProperty.weighty = 100;
+        JComponent defaultRootCenterPanel=new ExploitComponent().main();
+        rootPanel.add(defaultRootCenterPanel, defaultRootCenterPanelProperty);
 
-
-        DiyJComponent m=new ExploitComponent();
-        root.add(m.main(),gbc);
-        return root;
+        return rootPanel;
     }
 
     private JComponent rootTopPanel(){
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+        JPanel menuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
 
-        topPanel.setOpaque(true);
-        topPanel.setBackground(Color.YELLOW);
+         menuPanel.setOpaque(true);
+         menuPanel.setBackground(Color.YELLOW);
 
-        DiyJButton setButton = new DiyJButton("Setting");
+        DiyJLabel setLabel = new DiyJLabel("Setting");
+        setLabel.setMapPanel(Setting());
+        menuPanel.add(setLabel);
 
-        settingDiyJButton(setButton);
+        DiyJLabel exploitLabel = new DiyJLabel("Exploit");
+        exploitLabel.clicked=true;
+        exploitLabel.setMapPanel(Exploit());
+        exploitLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
+        menuPanel.add(exploitLabel);
 
-        setButton.variablePanelMap.put(setButton.getText(), Setting());
-        topPanel.add(setButton);
+        DiyJLabel toolsLabel = new DiyJLabel("Tools");
+        toolsLabel.setMapPanel(Tools());
+        menuPanel.add(toolsLabel);
 
-        DiyJButton exploitButton = new DiyJButton("Exploit");
-
-        settingDiyJButton(exploitButton);
-//        exploitButton.setBackground(new Color(251,251,251));
-        exploitButton.variablePanelMap.put(exploitButton.getText(), Exploit());
-        exploitButton.setBorder(BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51)));
-        exploitButton.clicked=true;
-        topPanel.add(exploitButton);
-
-        DiyJButton toolsButton = new DiyJButton("Tools");
-        settingDiyJButton(toolsButton);
-        toolsButton.variablePanelMap.put(toolsButton.getText(), Tools());
-        topPanel.add(toolsButton);
-        return topPanel;
+        return  menuPanel;
     }
-
-    private void settingDiyJButton(DiyJButton targetJButton){
-        targetJButton.setFont(new Font("微软雅黑",0,14));
-//        targetJButton
-        targetJButton.setPreferredSize(new Dimension(70,25));
-        targetJButton.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-        targetJButton.setBackground(Color.WHITE);
-    }
-
 
     private static JComponent Exploit(){
         DiyJComponent exploitPanel=new ExploitComponent();
