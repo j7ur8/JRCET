@@ -18,8 +18,8 @@ public class DiyJLabel extends JLabel implements MouseListener {
         setBackground(new Color(251,251,251));
         setOpaque(true);
         setHorizontalAlignment(JLabel.CENTER);
-        setFont(new Font("微软雅黑",0,14));
-        setPreferredSize(new Dimension(80,28));
+        setFont(new Font("微软雅黑",0,13));
+        setPreferredSize(new Dimension(80,26));
     }
 
     public void setMapPanel(JComponent targetPanel){
@@ -28,28 +28,30 @@ public class DiyJLabel extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         for(Component i:this.getParent().getComponents()){
             if(i instanceof DiyJLabel){
                 DiyJLabel ii=(DiyJLabel)i;
-                ii.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+                ii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209))));
                 ii.clicked=false;
             }
         }
         DiyJLabel hitButtonLabel = (DiyJLabel)e.getSource();
         hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
         JComponent parentPanel=(JPanel)hitButtonLabel.getParent().getParent();
-        parentPanel.remove(parentPanel.getComponents().length-1);
+        int parentComponentsNums = parentPanel.getComponents().length;
+        parentPanel.remove(parentComponentsNums-1);
         GridBagConstraints defaultContentPanel = new GridBagConstraints();
         defaultContentPanel.gridy = 1; defaultContentPanel.gridx= 0;
+        defaultContentPanel.gridwidth=parentComponentsNums-1;
         defaultContentPanel.fill=GridBagConstraints.BOTH;
         defaultContentPanel.weightx = 100; defaultContentPanel.weighty = 100;
         parentPanel.add(mapPanel.get(getText()),defaultContentPanel);
         parentPanel.validate();
         parentPanel.repaint();
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
 //        System.out.println("Pressed");
     }
 
