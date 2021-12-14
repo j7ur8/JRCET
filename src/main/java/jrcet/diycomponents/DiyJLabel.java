@@ -15,11 +15,11 @@ public class DiyJLabel extends JLabel implements MouseListener {
     public DiyJLabel(String labelName){
         addMouseListener(this);
         setText(labelName);
-        setBackground(new Color(251,251,251));
+        setBackground(Color.WHITE);
         setOpaque(true);
         setHorizontalAlignment(JLabel.CENTER);
-        setFont(new Font("微软雅黑",0,13));
-        setPreferredSize(new Dimension(80,26));
+        setFont(new Font("微软雅黑",0,14));
+        setPreferredSize(new Dimension(80,27));
     }
 
     public void setMapPanel(JComponent targetPanel){
@@ -39,38 +39,36 @@ public class DiyJLabel extends JLabel implements MouseListener {
                 ii.clicked=false;
             }
         }
-        DiyJLabel hitButtonLabel = (DiyJLabel)e.getSource();
-        hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
-        JComponent parentPanel=(JPanel)hitButtonLabel.getParent().getParent();
-        int parentComponentsNums = parentPanel.getComponents().length;
-        parentPanel.remove(parentComponentsNums-1);
-        GridBagConstraints defaultContentPanel = new GridBagConstraints();
-        defaultContentPanel.gridy = 1; defaultContentPanel.gridx= 0;
-        defaultContentPanel.gridwidth=parentComponentsNums-1;
-        defaultContentPanel.fill=GridBagConstraints.BOTH;
-        defaultContentPanel.weightx = 100; defaultContentPanel.weighty = 100;
-        parentPanel.add(mapPanel.get(getText()),defaultContentPanel);
-        parentPanel.validate();
-        parentPanel.repaint();
+
+        if(mapPanel.get(getText())!=null){
+            DiyJLabel hitButtonLabel = (DiyJLabel)e.getSource();
+            hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
+            JComponent parentPanel=(JPanel)hitButtonLabel.getParent().getParent();
+            int parentComponentsNums = parentPanel.getComponents().length;
+            parentPanel.remove(parentComponentsNums-1);
+            GridBagConstraints defaultContentPanel = new GridBagConstraints();
+            defaultContentPanel.gridy = 1; defaultContentPanel.gridx= 0;
+            defaultContentPanel.gridwidth=parentComponentsNums-1;
+            defaultContentPanel.fill=GridBagConstraints.BOTH;
+            defaultContentPanel.weightx = 100; defaultContentPanel.weighty = 100;
+            parentPanel.add(mapPanel.get(getText()),defaultContentPanel);
+            parentPanel.validate();
+            parentPanel.repaint();
 //        System.out.println("Pressed");
+        }
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-//        DiyJLabel hitButtonLabel = (DiyJLabel)e.getSource();
-//
-//        System.out.println(hitButtonLabel.getText());
-//        System.out.println("Released");
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-//        System.out.println("Entered");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-//        System.out.println("Exited");
     }
 
 }
