@@ -26,12 +26,17 @@ public class DiyJLabel extends JLabel implements MouseListener {
         mapPanel.put(getText(),targetPanel);
     }
 
+    public JComponent getMapPanel(String name){
+        return mapPanel.get(name);
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+//        System.out.println(getLocationOnScreen());
         for(Component i:this.getParent().getComponents()){
             if(i instanceof DiyJLabel){
                 DiyJLabel ii=(DiyJLabel)i;

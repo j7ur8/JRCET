@@ -12,12 +12,13 @@ public class DiyJButton extends JButton implements MouseListener {
     public boolean clicked=false;
     public Map<String,JComponent> variablePanelMap=new HashMap<String,JComponent>();
     public DiyJButton(String text) {
+        setPreferredSize(new Dimension(160,30));
         addMouseListener(this);
         setFocusPainted(false);
-        setFont(new Font("宋体",0,12));
-        setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        setFont(new Font("微软雅黑",0,14));
         setOpaque(true);
         setText(text);
+
         this.addActionListener( (e)->{
 
         });

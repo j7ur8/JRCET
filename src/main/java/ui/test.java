@@ -1,58 +1,53 @@
 package ui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.io.File;
-import java.net.MalformedURLException;
+import java.awt.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
+public class test {
 
-public class test{
-
-    public test() throws MalformedURLException{
-
-        JFrame frame = new JFrame();
-
+    protected void initUI() {
+        JFrame frame = new JFrame(test.class.getSimpleName());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel buttonPanel = new JPanel();
-        frame.add(buttonPanel);
+        buttonPanel.setPreferredSize(new Dimension(50,0));
+        buttonPanel.setOpaque(true);
+        buttonPanel.setBackground(Color.ORANGE);
 
-        buttonPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        JTextArea textField = new JTextArea();
+        JLabel label = new JLabel("A cool long nice label that will stretch.");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
-        constraints.insets = new Insets(5, 5, 3, 5);
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setOpaque(true);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;// Fill the "cell" in both direction
+        gbc.weightx = 1.0;// Allocate extra-width to the label
+        gbc.weighty = 1.0;// Allocate extra-height to the label
+        gbc.gridwidth = GridBagConstraints.REMAINDER;// The label takes all the available width of the "row"
+        panel.add(label, gbc);
 
+        gbc.weighty = 0; // Don't stretch TF vertically
+        gbc.fill = GridBagConstraints.BOTH; // Fill horizontally
+        gbc.gridwidth = GridBagConstraints.RELATIVE;
+        panel.add(textField, gbc);
+        gbc.weightx = 0; // No extra horizontal space is given to the button
+        gbc.fill = GridBagConstraints.NONE; // No fill for the button
+        panel.add(buttonPanel, gbc);
 
-        String[] text = {"some Text","this text is longer" };
-
-        for (String s : text) {
-            JButton button = new JButton(s, new ImageIcon(new File("icon.png").toURI().toURL()));
-            button.setAlignmentX(SwingConstants.WEST);
-            button.setIconTextGap(30);
-            button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 10));
-
-
-            buttonPanel.add(button, constraints);
-            constraints.gridy++;
-        }
-
+        frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-
-
     }
 
-    public static void main(String[] args) throws MalformedURLException {
-        new test();
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new test().initUI();
+            }
+        });
     }
-
 }
+

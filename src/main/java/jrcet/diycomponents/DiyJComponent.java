@@ -7,8 +7,9 @@ public class DiyJComponent extends JComponent{
 
 
     public DiyJComponent() {
-
     }
+
+//    protected DiyJComponent(String componentName,)
 
     public JComponent main(){
         return null;

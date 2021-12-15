@@ -57,6 +57,7 @@ public class Index extends DiyJComponent {
         rootTopPanel.add(exploitLabel);
 
         DiyJLabel toolsLabel = new DiyJLabel("Tools");
+//        toolsLabel.getLocation();
         toolsLabel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
         toolsLabel.setMapPanel(Tools());
         rootTopPanel.add(toolsLabel);
