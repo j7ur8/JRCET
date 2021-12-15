@@ -36,10 +36,25 @@ public class RScript extends DiyJComponent {
         RScriptPanel.setOpaque(true);
         RScriptPanel.setBackground(Color.WHITE);
 
+        JPanel RScriptMenuPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
+        RScriptMenuPanel.setOpaque(true);
+        RScriptMenuPanel.setBackground(Color.WHITE);
+        RScriptMenuPanel.setPreferredSize(new Dimension(0,40));
+        RScriptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
+        RScriptMenuPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        DiyJButton RScriptMenuCopyButton = new DiyJButton("Copy");
+        RScriptMenuPanel.add(RScriptMenuCopyButton);
+
+        GridBagConstraints RScriptMenuPanelProperty = new GridBagConstraints();
+        RScriptMenuPanelProperty.gridx=0;RScriptMenuPanelProperty.gridy=0;
+        RScriptMenuPanelProperty.weighty=0;RScriptMenuPanelProperty.weightx=1;
+        RScriptMenuPanelProperty.fill=GridBagConstraints.BOTH;
+        RScriptPanel.add(RScriptMenuPanel,RScriptMenuPanelProperty);
+
         JTextArea RScriptJTextArea = new JTextArea();
         RScriptJTextArea.setLineWrap(true);
         RScriptJTextArea.setWrapStyleWord(true);
-
         JScrollPane RScriptJTextAreaScroll = new JScrollPane(RScriptJTextArea);
         RScriptJTextAreaScroll.setBorder(null);
         TextLineNumber tln = new TextLineNumber(RScriptJTextArea);
@@ -50,24 +65,6 @@ public class RScript extends DiyJComponent {
         RScriptJTextAreaScrollProperty.fill=GridBagConstraints.BOTH;
         RScriptPanel.add(RScriptJTextAreaScroll,RScriptJTextAreaScrollProperty);
 
-        JPanel RScriptMenuPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
-        RScriptMenuPanel.setOpaque(true);
-        RScriptMenuPanel.setBackground(Color.WHITE);
-        RScriptMenuPanel.setPreferredSize(new Dimension(0,40));
-        RScriptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        RScriptMenuPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-
-        DiyJButton RScriptMenuSCopyButton = new DiyJButton("Copy With Session");
-        DiyJButton RScriptMenuCopyButton = new DiyJButton("Copy");
-        RScriptMenuPanel.add(RScriptMenuCopyButton);
-        RScriptMenuPanel.add(RScriptMenuSCopyButton);
-
-        GridBagConstraints RScriptMenuPanelProperty = new GridBagConstraints();
-        RScriptMenuPanelProperty.gridx=0;RScriptMenuPanelProperty.gridy=0;
-        RScriptMenuPanelProperty.weighty=0;RScriptMenuPanelProperty.weightx=1;
-        RScriptMenuPanelProperty.fill=GridBagConstraints.BOTH;
-        RScriptPanel.add(RScriptMenuPanel,RScriptMenuPanelProperty);
-
         return RScriptPanel;
     }
 
@@ -75,8 +72,13 @@ public class RScript extends DiyJComponent {
         this.helpers=helpers;
         int i = 0;
         StringBuilder py = new StringBuilder("import requests");
+        boolean withSessionObject = false;
         String requestsMethodPrefix =
-                "\n" + "requests" + ".";
+                "\n" + (withSessionObject ? SESSION_VAR : "requests") + ".";
+
+        if (withSessionObject) {
+            py.append("\n\n" + SESSION_VAR + " = requests.session()");
+        }
 
         for (IHttpRequestResponse message : messages) {
             IRequestInfo ri = helpers.analyzeRequest(message);

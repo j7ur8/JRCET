@@ -54,11 +54,11 @@ public class BurpExtender implements IBurpExtender, ITab,IContextMenuFactory{
             DiyJLabel aJLabel = (DiyJLabel) a.getComponent(2);
             JPanel aaJPanel = (JPanel) aJLabel.getMapPanel("Tools").getComponent(0);
             DiyJLabel aaJLabel = (DiyJLabel) aaJPanel.getComponent(0);
-            JScrollPane bb = (JScrollPane) aaJLabel.getMapPanel(aaJLabel.getText()).getComponent(0);
+            JScrollPane bb = (JScrollPane) aaJLabel.getMapPanel(aaJLabel.getText()).getComponent(1);
 //            stdout.println(bb.get);
             JTextArea bbb = (JTextArea) bb.getViewport().getComponent(0);
 
-//            stdout.println();
+//            stdout.println(bbb);
             bbb.setText(new RScript().initScript(messages,helpers));
             a.validate();
             a.repaint();

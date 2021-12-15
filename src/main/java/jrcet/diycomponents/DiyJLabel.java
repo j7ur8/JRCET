@@ -36,7 +36,7 @@ public class DiyJLabel extends JLabel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-//        System.out.println(getLocationOnScreen());
+
         for(Component i:this.getParent().getComponents()){
             if(i instanceof DiyJLabel){
                 DiyJLabel ii=(DiyJLabel)i;
