@@ -7,9 +7,11 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DiyJLabel extends JLabel implements MouseListener {
+public class DiyJLabel<Q> extends JLabel implements MouseListener {
 
     private Map<String,JComponent> mapPanel=new HashMap<String,JComponent>();
+    private Map<String,Q> mapStream = new HashMap<String,Q>();
+
     public Boolean clicked=false;
 
     public DiyJLabel(String labelName){
@@ -26,8 +28,16 @@ public class DiyJLabel extends JLabel implements MouseListener {
         mapPanel.put(getText(),targetPanel);
     }
 
+    public void setMapStream(String k,Q v){
+        mapStream.put(k,v);
+    }
+
     public JComponent getMapPanel(String name){
         return mapPanel.get(name);
+    }
+
+    public Q getMapStream(String k){
+        return mapStream.get(k);
     }
 
     @Override

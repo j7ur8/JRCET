@@ -4,21 +4,18 @@ import burp.IExtensionHelpers;
 import burp.IHttpRequestResponse;
 import burp.IRequestInfo;
 import burp.lib.Json;
-import burp.lib.TextLineNumber;
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJComponent;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-import java.util.List;
 
-public class RScript extends DiyJComponent {
+public class RScript {
+
     private final static String[] PYTHON_ESCAPE = new String[256];
     private final static String SESSION_VAR = "session";
     private enum BodyType {JSON, DATA};
     private IExtensionHelpers helpers;
+    private IHttpRequestResponse[] messages;
+
     static {
         for (int i = 0x00; i <= 0xFF; i++) PYTHON_ESCAPE[i] = String.format("\\x%02x", i);
         for (int i = 0x20; i < 0x80; i++) PYTHON_ESCAPE[i] = String.valueOf((char)i);
@@ -30,56 +27,27 @@ public class RScript extends DiyJComponent {
     }
 
 
-    @Override
-    public JComponent main() {
-        JPanel RScriptPanel = new JPanel(new GridBagLayout());
-        RScriptPanel.setOpaque(true);
-        RScriptPanel.setBackground(Color.WHITE);
-
-        JPanel RScriptMenuPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
-        RScriptMenuPanel.setOpaque(true);
-        RScriptMenuPanel.setBackground(Color.WHITE);
-        RScriptMenuPanel.setPreferredSize(new Dimension(0,40));
-        RScriptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        RScriptMenuPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-
-        DiyJButton RScriptMenuCopyButton = new DiyJButton("Copy");
-        RScriptMenuPanel.add(RScriptMenuCopyButton);
-
-        GridBagConstraints RScriptMenuPanelProperty = new GridBagConstraints();
-        RScriptMenuPanelProperty.gridx=0;RScriptMenuPanelProperty.gridy=0;
-        RScriptMenuPanelProperty.weighty=0;RScriptMenuPanelProperty.weightx=1;
-        RScriptMenuPanelProperty.fill=GridBagConstraints.BOTH;
-        RScriptPanel.add(RScriptMenuPanel,RScriptMenuPanelProperty);
-
-        JTextArea RScriptJTextArea = new JTextArea();
-        RScriptJTextArea.setLineWrap(true);
-        RScriptJTextArea.setWrapStyleWord(true);
-        JScrollPane RScriptJTextAreaScroll = new JScrollPane(RScriptJTextArea);
-        RScriptJTextAreaScroll.setBorder(null);
-        TextLineNumber tln = new TextLineNumber(RScriptJTextArea);
-        RScriptJTextAreaScroll.setRowHeaderView( tln );
-        GridBagConstraints RScriptJTextAreaScrollProperty = new GridBagConstraints();
-        RScriptJTextAreaScrollProperty.gridx=0;RScriptJTextAreaScrollProperty.gridy=1;
-        RScriptJTextAreaScrollProperty.weightx=100;RScriptJTextAreaScrollProperty.weighty=100;
-        RScriptJTextAreaScrollProperty.fill=GridBagConstraints.BOTH;
-        RScriptPanel.add(RScriptJTextAreaScroll,RScriptJTextAreaScrollProperty);
-
-        return RScriptPanel;
-    }
-
     public String initScript(IHttpRequestResponse[] messages, IExtensionHelpers helpers){
         this.helpers=helpers;
+        this.messages = messages;
+        return String.valueOf(reqPacket(false));
+    }
+
+    public String initSessionScript(IHttpRequestResponse[] messages, IExtensionHelpers helpers){
+        this.helpers=helpers;
+        this.messages = messages;
+        return String.valueOf(reqPacket(true));
+    }
+
+    private StringBuilder reqPacket(boolean ifSession){
         int i = 0;
         StringBuilder py = new StringBuilder("import requests");
-        boolean withSessionObject = false;
         String requestsMethodPrefix =
-                "\n" + (withSessionObject ? SESSION_VAR : "requests") + ".";
+                "\n" + (ifSession ? SESSION_VAR : "requests") + ".";
 
-        if (withSessionObject) {
+        if (ifSession) {
             py.append("\n\n" + SESSION_VAR + " = requests.session()");
         }
-
         for (IHttpRequestResponse message : messages) {
             IRequestInfo ri = helpers.analyzeRequest(message);
             byte[] req = message.getRequest();
@@ -104,10 +72,8 @@ public class RScript extends DiyJComponent {
             }
             py.append(')');
         }
-
-        return String.valueOf(py);
+        return py;
     }
-
     private static boolean processCookies(String prefix, StringBuilder py,
                                           List<String> headers) {
         ListIterator<String> iter = headers.listIterator();
@@ -161,7 +127,7 @@ public class RScript extends DiyJComponent {
     }
 
     private RScript.BodyType processBody(String prefix, StringBuilder py,
-                                              byte[] req, IRequestInfo ri) {
+                                                  byte[] req, IRequestInfo ri) {
         int bo = ri.getBodyOffset();
         if (bo >= req.length - 2) return null;
         py.append('\n').append(prefix);
@@ -295,5 +261,4 @@ public class RScript extends DiyJComponent {
         }
         output.append('"');
     }
-
 }

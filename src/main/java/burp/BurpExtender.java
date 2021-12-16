@@ -1,16 +1,13 @@
 package burp;
 
-import burp.lib.Json;
-import jrcet.diycomponents.DiyJComboBox;
-import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.frame.Index;
 import jrcet.frame.tools.RScript.RScript;
+import jrcet.frame.tools.RScript.RScriptComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.List;
 
@@ -46,20 +43,17 @@ public class BurpExtender implements IBurpExtender, ITab,IContextMenuFactory{
     public List<JMenuItem> createMenuItems(IContextMenuInvocation iContextMenuInvocation) {
 
         IHttpRequestResponse[] messages = iContextMenuInvocation.getSelectedMessages();
-
-//        stdout.println(py);
         JMenuItem RScriptItem = new JMenuItem("RScript");
         RScriptItem.addActionListener(e -> {
             JComponent a= (JComponent) t.getComponent(0);
             DiyJLabel aJLabel = (DiyJLabel) a.getComponent(2);
             JPanel aaJPanel = (JPanel) aJLabel.getMapPanel("Tools").getComponent(0);
             DiyJLabel aaJLabel = (DiyJLabel) aaJPanel.getComponent(0);
+            aaJLabel.setMapStream("IHttpRequestResponse",messages);
+            aaJLabel.setMapStream("IExtensionHelpers",helpers);
             JScrollPane bb = (JScrollPane) aaJLabel.getMapPanel(aaJLabel.getText()).getComponent(1);
-//            stdout.println(bb.get);
             JTextArea bbb = (JTextArea) bb.getViewport().getComponent(0);
-
-//            stdout.println(bbb);
-            bbb.setText(new RScript().initScript(messages,helpers));
+            bbb.setText(new RScript().initScript((IHttpRequestResponse[]) aaJLabel.getMapStream("IHttpRequestResponse"),(IExtensionHelpers) aaJLabel.getMapStream("IExtensionHelpers")));
             a.validate();
             a.repaint();
         });

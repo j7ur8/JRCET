@@ -2,7 +2,7 @@ package jrcet.frame.tools;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
-import jrcet.frame.tools.RScript.RScript;
+import jrcet.frame.tools.RScript.RScriptComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +60,7 @@ public class ToolsComponent extends DiyJComponent {
     }
 
     private JComponent RScript(){
-        DiyJComponent RScriptPanelInstance = new RScript();
+        DiyJComponent RScriptPanelInstance = new RScriptComponent();
         JComponent RScriptPanel = RScriptPanelInstance.main();
         return RScriptPanel;
     }
