@@ -2,6 +2,7 @@ package jrcet.frame.tools;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
+import jrcet.diycomponents.DiyJPanel;
 import jrcet.frame.tools.RScript.RScriptComponent;
 
 import javax.swing.*;
@@ -48,6 +49,11 @@ public class ToolsComponent extends DiyJComponent {
         toolsMenuRScriptLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
         toolsMenuPanel.add(toolsMenuRScriptLabel);
 
+        DiyJLabel toolsMenuJSEncryptLabel = new DiyJLabel(("JSEncrypt"));
+        toolsMenuJSEncryptLabel.setMapPanel(RScript);
+        toolsMenuJSEncryptLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209))));
+        toolsMenuPanel.add(toolsMenuJSEncryptLabel);
+
         return toolsMenuPanel;
     }
 
@@ -65,4 +71,7 @@ public class ToolsComponent extends DiyJComponent {
         return RScriptPanel;
     }
 
+//    private JComponent JSEncrypt(){
+//
+//    }
 }
