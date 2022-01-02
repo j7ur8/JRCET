@@ -1,12 +1,14 @@
 package jrcet.frame.tools.RScript;
 
 import burp.lib.TextLineNumber;
+import burp.lib.test;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJCheckBox;
 import jrcet.diycomponents.DiyJComponent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class RScriptComponent extends DiyJComponent {
 
@@ -31,7 +33,7 @@ public class RScriptComponent extends DiyJComponent {
 
         GridBagConstraints RScriptMenuPanelProperty = new GridBagConstraints();
         RScriptMenuPanelProperty.gridx=0;RScriptMenuPanelProperty.gridy=0;
-        RScriptMenuPanelProperty.weighty=0;RScriptMenuPanelProperty.weightx=1;
+        RScriptMenuPanelProperty.weightx=1;RScriptMenuPanelProperty.weighty=0;
         RScriptMenuPanelProperty.fill=GridBagConstraints.BOTH;
         RScriptPanel.add(RScriptMenuPanel,RScriptMenuPanelProperty);
 
@@ -50,5 +52,6 @@ public class RScriptComponent extends DiyJComponent {
 
         return RScriptPanel;
     }
+
 
 }

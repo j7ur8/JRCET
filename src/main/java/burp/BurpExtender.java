@@ -1,5 +1,6 @@
 package burp;
 
+import javafx.beans.binding.ListExpression;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.frame.Index;
 import jrcet.frame.tools.RScript.RScript;
@@ -11,10 +12,10 @@ import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
-public class BurpExtender implements IBurpExtender, ITab,IContextMenuFactory{
-    private IBurpExtenderCallbacks callbacks;
-    private IExtensionHelpers helpers;
-    private PrintWriter stdout;
+public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, IIntruderPayloadProcessor{
+    public static IBurpExtenderCallbacks callbacks;
+    public static IExtensionHelpers helpers;
+    public static PrintWriter stdout;
     private final JComponent t=new Index().main();
 
 
@@ -22,7 +23,7 @@ public class BurpExtender implements IBurpExtender, ITab,IContextMenuFactory{
     public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks) {
 
         stdout = new PrintWriter(callbacks.getStdout(), true);
-        this.callbacks = callbacks;
+        BurpExtender.callbacks = callbacks;
         helpers = callbacks.getHelpers();
         callbacks.setExtensionName("J7ur8's RCE Tool");
         callbacks.registerContextMenuFactory(this);
@@ -44,6 +45,7 @@ public class BurpExtender implements IBurpExtender, ITab,IContextMenuFactory{
 
         IHttpRequestResponse[] messages = iContextMenuInvocation.getSelectedMessages();
         JMenuItem RScriptItem = new JMenuItem("RScript");
+
         RScriptItem.addActionListener(e -> {
             JComponent a= (JComponent) t.getComponent(0);
             DiyJLabel aJLabel = (DiyJLabel) a.getComponent(2);
@@ -57,8 +59,18 @@ public class BurpExtender implements IBurpExtender, ITab,IContextMenuFactory{
             a.validate();
             a.repaint();
         });
+
         return Arrays.asList(RScriptItem);
     }
 
 
+    @Override
+    public String getProcessorName() {
+        return "JRCET's JSEncrypt";
+    }
+
+    @Override
+    public byte[] processPayload(byte[] bytes, byte[] bytes1, byte[] bytes2) {
+        return new byte[0];
+    }
 }

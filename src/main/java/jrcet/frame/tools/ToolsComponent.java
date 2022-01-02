@@ -3,7 +3,9 @@ package jrcet.frame.tools;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJPanel;
+import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
+import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,8 @@ import java.awt.*;
 public class ToolsComponent extends DiyJComponent {
 
     private JComponent RScript = RScript();
+    private JComponent JSEncrypt = JSEncrypt();
+    private JComponent SoLibrary = SoLibrary();
     public ToolsComponent(){}
 
     @Override
@@ -50,9 +54,14 @@ public class ToolsComponent extends DiyJComponent {
         toolsMenuPanel.add(toolsMenuRScriptLabel);
 
         DiyJLabel toolsMenuJSEncryptLabel = new DiyJLabel(("JSEncrypt"));
-        toolsMenuJSEncryptLabel.setMapPanel(RScript);
+        toolsMenuJSEncryptLabel.setMapPanel(JSEncrypt);
         toolsMenuJSEncryptLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209))));
         toolsMenuPanel.add(toolsMenuJSEncryptLabel);
+
+        DiyJLabel toolsMenuJSEncryptLabelSoLibraryLabel = new DiyJLabel("SoLibrary");
+        toolsMenuJSEncryptLabelSoLibraryLabel.setMapPanel(SoLibrary);
+        toolsMenuJSEncryptLabelSoLibraryLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209))));
+        toolsMenuPanel.add(toolsMenuJSEncryptLabelSoLibraryLabel);
 
         return toolsMenuPanel;
     }
@@ -71,7 +80,15 @@ public class ToolsComponent extends DiyJComponent {
         return RScriptPanel;
     }
 
-//    private JComponent JSEncrypt(){
-//
-//    }
+    private JComponent JSEncrypt(){
+        DiyJComponent JSEncryptInstance = new JSEncryptComponent();
+        JComponent JSEncryptPanel = JSEncryptInstance.main();
+        return JSEncryptPanel;
+    }
+
+    private JComponent SoLibrary(){
+        DiyJComponent SoLibraryInstance = new SoLibraryComponent();
+        JComponent SoLibraryPanel = SoLibraryInstance.main();
+        return SoLibraryPanel;
+    }
 }
