@@ -4,6 +4,9 @@ import burp.lib.Helper;
 import burp.lib.TextLineNumber;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -88,6 +91,7 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptMenuPanelProperty.fill=GridBagConstraints.BOTH;
         JSEncryptPanel.add(JSEncryptMenuPanel,JSEncryptMenuPanelProperty);
 
+        centerViewPanel.setPreferredSize(new Dimension(0,0));
         GridBagConstraints centerViewPanelProperty = new GridBagConstraints();
         centerViewPanelProperty.gridx=0;centerViewPanelProperty.gridy=1;
         centerViewPanelProperty.weighty=1;centerViewPanelProperty.weightx=1;
@@ -102,34 +106,25 @@ public class JSEncryptComponent extends DiyJComponent {
         centerViewPanel.setOpaque(true);
         centerViewPanel.setBackground(Color.PINK);
 
-        JTextArea JSEncryptEditorJTextArea = new JTextArea();
-        JSEncryptEditorJTextArea.setName("adsf");
-        JSEncryptEditorJTextArea.setLineWrap(true);
-        JSEncryptEditorJTextArea.setWrapStyleWord(true);
-        JSEncryptEditorJTextArea.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(203, 208, 209)));
-        JScrollPane JSEncryptJTextAreaScroll = new JScrollPane(JSEncryptEditorJTextArea);
-        JSEncryptJTextAreaScroll.setBorder(null);
-        TextLineNumber tln1 = new TextLineNumber(JSEncryptEditorJTextArea,2);
-        JSEncryptJTextAreaScroll.setRowHeaderView(tln1);
-        GridBagConstraints JSEncryptJTextAreaScrollProperty = new GridBagConstraints();
-        JSEncryptJTextAreaScrollProperty.gridx = 0;
-        JSEncryptJTextAreaScrollProperty.gridy = 0;
-        JSEncryptJTextAreaScrollProperty.weightx = 0.7;
-        JSEncryptJTextAreaScrollProperty.weighty = 1;
-        JSEncryptJTextAreaScrollProperty.gridheight = 1;
-        JSEncryptJTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
-        centerViewPanel.add(JSEncryptJTextAreaScroll, JSEncryptJTextAreaScrollProperty);
-        JSEncryptEditorJTextArea.setText(Helper.readFile(jScriptLocation));
-        JSEncryptEditorJTextArea.addKeyListener(new KeyListener(){
+        RSyntaxTextArea JSEncryptEditorRSyntaxTextArea = new RSyntaxTextArea();
+        JSEncryptEditorRSyntaxTextArea.setText("<?php\neval(\"phpinfo();\");\n?>");
+        JSEncryptEditorRSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        JSEncryptEditorRSyntaxTextArea.setCodeFoldingEnabled(true);
+        RTextScrollPane JSEncryptEditorRSyntaxTextAreaScroll = new RTextScrollPane(JSEncryptEditorRSyntaxTextArea);
+        GridBagConstraints JSEncryptEditorRSyntaxTextAreaScrollProperty = new GridBagConstraints();
+        JSEncryptEditorRSyntaxTextAreaScrollProperty.gridx = 0;
+        JSEncryptEditorRSyntaxTextAreaScrollProperty.gridy = 0;
+        JSEncryptEditorRSyntaxTextAreaScrollProperty.weighty = 1;
+        JSEncryptEditorRSyntaxTextAreaScrollProperty.weightx = 0.7;
+        JSEncryptEditorRSyntaxTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
+        centerViewPanel.add(JSEncryptEditorRSyntaxTextAreaScroll, JSEncryptEditorRSyntaxTextAreaScrollProperty);
+        JSEncryptEditorRSyntaxTextArea.setText(Helper.readFile(jScriptLocation));
+        JSEncryptEditorRSyntaxTextArea.addKeyListener(new KeyListener(){
             @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
+            public void keyTyped(KeyEvent e) {}
 
             @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
+            public void keyPressed(KeyEvent e) {}
 
             @Override
             public void keyReleased(KeyEvent e) {
@@ -141,15 +136,14 @@ public class JSEncryptComponent extends DiyJComponent {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-
                 }
             }
-
         });
 
         JTextArea JSEncryptOriginPayloadJTextArea = new JTextArea();
         JSEncryptOriginPayloadJTextArea.setLineWrap(true);
         JSEncryptOriginPayloadJTextArea.setWrapStyleWord(true);
+        JSEncryptOriginPayloadJTextArea.setPreferredSize(new Dimension(0,0));
         JScrollPane JSEncryptOriginPayloadJTTextAreaScroll = new JScrollPane(JSEncryptOriginPayloadJTextArea);
         JSEncryptOriginPayloadJTTextAreaScroll.setBorder(null);
         TextLineNumber tln2 = new TextLineNumber(JSEncryptOriginPayloadJTextArea,2);
@@ -158,8 +152,8 @@ public class JSEncryptComponent extends DiyJComponent {
         GridBagConstraints JSEncryptOriginPayloadJTTextAreaScrollProperty = new GridBagConstraints();
         JSEncryptOriginPayloadJTTextAreaScrollProperty.gridx = 1;
         JSEncryptOriginPayloadJTTextAreaScrollProperty.gridy = 0;
+        JSEncryptOriginPayloadJTTextAreaScrollProperty.weightx = 0.25;
         JSEncryptOriginPayloadJTTextAreaScrollProperty.weighty = 1;
-        JSEncryptOriginPayloadJTTextAreaScrollProperty.weightx = 0.15;
         JSEncryptOriginPayloadJTTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
         centerViewPanel.add(JSEncryptOriginPayloadJTTextAreaScroll, JSEncryptOriginPayloadJTTextAreaScrollProperty);
         StringBuilder tmp = new StringBuilder();
@@ -171,6 +165,7 @@ public class JSEncryptComponent extends DiyJComponent {
         JTextArea JSEncryptResultJTextArea = new JTextArea();
         JSEncryptResultJTextArea.setLineWrap(true);
         JSEncryptResultJTextArea.setWrapStyleWord(true);
+        JSEncryptResultJTextArea.setPreferredSize(new Dimension(0,0));
         JScrollPane JSEncryptResultJTextAreaScroll = new JScrollPane(JSEncryptResultJTextArea);
         JSEncryptResultJTextAreaScroll.setBorder(null);
         TextLineNumber tln3 = new TextLineNumber(JSEncryptResultJTextArea);
@@ -179,7 +174,7 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptResultJTextAreaScrollProperty.gridx = 2;
         JSEncryptResultJTextAreaScrollProperty.gridy = 0;
         JSEncryptResultJTextAreaScrollProperty.weighty = 1;
-        JSEncryptResultJTextAreaScrollProperty.weightx = 0.15;
+        JSEncryptResultJTextAreaScrollProperty.weightx = 0.25;
         JSEncryptResultJTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
         centerViewPanel.add(JSEncryptResultJTextAreaScroll, JSEncryptResultJTextAreaScrollProperty);
 
