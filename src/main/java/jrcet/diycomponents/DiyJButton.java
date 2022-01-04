@@ -19,7 +19,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         setPreferredSize(new Dimension(160,30));
         addMouseListener(this);
         setFocusPainted(false);
-        setFont(new Font("微软雅黑",0,14));
+        setFont(new Font("微软雅黑", Font.PLAIN,14));
         setOpaque(true);
         setBackground(Color.WHITE);
         setText(text);
@@ -41,6 +41,8 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 case "JSTest":
                     jSTestJSEncrypt(targetButton);
                     break;
+                case "SetPhantomJS":
+                    SetPhantomJS(targetButton);
                 case "DisConnect":
                     try {
                         jsDisConnect(targetButton);
@@ -51,6 +53,11 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             }
 
         });
+    }
+
+    private void SetPhantomJS(DiyJButton targetButton) {
+        JPanel parentPanel = (JPanel) targetButton.getParent();
+        JLabel targetLabel = (JLabel) parentPanel.getComponent(11);
     }
 
     private void jsDisConnect(DiyJButton targetButton) throws InterruptedException {

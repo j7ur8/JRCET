@@ -5,6 +5,9 @@ import burp.lib.test;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJCheckBox;
 import jrcet.diycomponents.DiyJComponent;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,13 +40,11 @@ public class RScriptComponent extends DiyJComponent {
         RScriptMenuPanelProperty.fill=GridBagConstraints.BOTH;
         RScriptPanel.add(RScriptMenuPanel,RScriptMenuPanelProperty);
 
-        JTextArea RScriptJTextArea = new JTextArea();
-        RScriptJTextArea.setLineWrap(true);
-        RScriptJTextArea.setWrapStyleWord(true);
-        JScrollPane RScriptJTextAreaScroll = new JScrollPane(RScriptJTextArea);
-        RScriptJTextAreaScroll.setBorder(null);
-        TextLineNumber tln = new TextLineNumber(RScriptJTextArea);
-        RScriptJTextAreaScroll.setRowHeaderView( tln );
+        RSyntaxTextArea RScriptJTextArea = new RSyntaxTextArea();
+        RScriptJTextArea.setPreferredSize(new Dimension(0,0));
+        RScriptJTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        RScriptJTextArea.setCodeFoldingEnabled(true);
+        RTextScrollPane RScriptJTextAreaScroll = new RTextScrollPane(RScriptJTextArea);
         GridBagConstraints RScriptJTextAreaScrollProperty = new GridBagConstraints();
         RScriptJTextAreaScrollProperty.gridx=0;RScriptJTextAreaScrollProperty.gridy=1;
         RScriptJTextAreaScrollProperty.weightx=100;RScriptJTextAreaScrollProperty.weighty=100;

@@ -3,6 +3,7 @@ package burp;
 import javafx.beans.binding.ListExpression;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.frame.Index;
+import jrcet.frame.tools.JSEncrypt.Utils;
 import jrcet.frame.tools.RScript.RScript;
 import jrcet.frame.tools.RScript.RScriptComponent;
 
@@ -70,7 +71,9 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     }
 
     @Override
-    public byte[] processPayload(byte[] bytes, byte[] bytes1, byte[] bytes2) {
-        return new byte[0];
+    public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
+        String payload = new String(currentPayload);
+        String newPayload = Utils.sendPayload(payload);
+        return helpers.stringToBytes(newPayload);
     }
 }

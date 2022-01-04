@@ -10,25 +10,357 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/BurpLearn_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/lib/rsyntaxtextarea-3.1.5.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/j7ur8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/lib/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/lib/test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/io/DocumentReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/io/UnicodeReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/io/UnicodeWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/io/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/print/RPrintUtilities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/print/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/AbstractJFlexCTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/AbstractJFlexTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/AbstractTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/AbstractTokenMakerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/ActiveLineRangeEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/ActiveLineRangeListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/CodeTemplateManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/DefaultOccurrenceMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/DefaultTokenFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/DefaultTokenMakerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/DefaultTokenPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/DocumentRange.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/ErrorStrip.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/FileFileLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/FileLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/FileTypeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/FoldingAwareIconRowHeader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/HtmlOccurrenceMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/HtmlUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/LinkGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/LinkGeneratorResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/MarkOccurrencesSupport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/MatchedBracketPopup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/OccurrenceMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/ParserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/PopupWindowDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSTAView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxDocument.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxTextAreaDefaultInputMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxTextAreaEditorKit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxTextAreaHighlighter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxTextAreaUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RSyntaxUtilities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RTfToText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/RtfGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/SelectRegionLinkGeneratorResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/SquiggleUnderlineHighlightPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/Style.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/StyledTextTransferable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/SyntaxConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/SyntaxScheme.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/SyntaxView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TextEditorPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/Theme.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/Token.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenIterator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenMakerBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenMakerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenOrientedView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenTypes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/TokenUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/URLFileLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/VisibleWhitespaceTokenPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/WrappedSyntaxView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/WrappedSyntaxView2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/XmlOccurrenceMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/focusabletip/SizeGrip.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/focusabletip/TipUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/focusabletip/TipWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/focusabletip/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/CurlyFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/DefaultFoldManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/Fold.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/FoldCollapser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/FoldManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/FoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/FoldParserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/FoldType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/HtmlFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/JsonFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/LatexFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/LinesWithContentFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/LispFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/NsisFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/PythonFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/XmlFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/YamlFoldParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/folding/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/AbstractMarkupTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/ActionScriptTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/ActionScriptTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/Assembler6502TokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/Assembler6502TokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/AssemblerX86TokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/AssemblerX86TokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/BBCodeTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/BBCodeTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CPlusPlusTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CPlusPlusTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CSSTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CSSTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CSharpTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CSharpTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/ClojureTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/ClojureTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CsvTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/CsvTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DartTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DartTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DelphiTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DelphiTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DockerTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DockerTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DtdTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/DtdTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/FortranTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/FortranTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/GoTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/GoTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/GroovyTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/GroovyTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/HTMLTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/HTMLTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/HostsTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/HostsTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/HtaccessTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/HtaccessTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/IniTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/IniTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JSPTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JSPTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JavaScriptTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JavaScriptTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JavaTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JavaTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JshintrcTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JsonTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/JsonTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/KotlinTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/KotlinTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LatexTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LatexTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LessTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LispTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LispTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LuaTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/LuaTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/MakefileTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/MakefileTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/MarkdownTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/MarkdownTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/MxmlTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/MxmlTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/NSISTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/NSISTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PHPTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PHPTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PerlTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PerlTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PlainTextTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PlainTextTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PropertiesFileTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PropertiesFileTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PythonTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/PythonTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/RubyTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/RubyTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/SASTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/SASTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/SQLTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/SQLTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/ScalaTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/ScalaTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/TclTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/TclTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/TypeScriptTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/TypeScriptTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/UnixShellTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/VisualBasicTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/VisualBasicTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/WindowsBatchTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/XMLTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/XMLTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/YamlTokenMaker.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/YamlTokenMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/modes/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/AbstractParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/DefaultParseResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/DefaultParserNotice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/ExtendedHyperlinkListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/ParseResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/Parser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/ParserNotice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/TaskTagParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/ToolTipInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/XmlParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/parser/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/templates/AbstractCodeTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/templates/CodeTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/templates/StaticCodeTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rsyntaxtextarea/templates/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/AbstractGutterComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/BackgroundPainterStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/BufferedImageBackgroundPainterStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/CaretStyle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ChangeableHighlightPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ClipboardHistory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ClipboardHistoryPopup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ColorBackgroundPainterStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ConfigurableCaret.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/FoldIndicator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/Gutter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/GutterIconInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/IconGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/IconRowHeader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ImageBackgroundPainterStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/LineHighlightManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/LineNumberList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/Macro.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RDocument.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RDocumentCharSequence.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTADefaultInputMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTATextTransferHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextArea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextAreaBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextAreaEditorKit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextAreaHighlighter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextAreaUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextScrollPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RUndoManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RecordableTextAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RegExReplaceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/SearchContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/SearchEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/SearchResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/SmartHighlightPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/ToolTipSupplier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/VolatileImageBackgroundPainterStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/util/DynamicIntArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/fife/util/package.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_ar.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_de.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_es.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_fi.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_fr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_hu.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_in.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_it.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_ja.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_ko.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_nl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_pl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_pt.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_pt_BR.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_ru.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_tr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_uk.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_zh_CN.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/ErrorStrip_zh_TW.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_ar.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_de.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_es.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_fi.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_fr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_hu.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_in.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_it.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_ja.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_ko.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_nl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_pl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_pt.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_pt_BR.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_ru.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_tr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_uk.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_zh_CN.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/RSyntaxTextArea_zh_TW.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_ar.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_de.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_es.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_fi.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_fr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_hu.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_in.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_it.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_ja.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_ko.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_nl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_pl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_pt.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_pt_BR.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_ru.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_tr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_uk.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_zh_CN.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/focusabletip/FocusableTip_zh_TW.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/dark.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/default-alt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/druid.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/eclipse.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/monokai.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/theme.dtd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rsyntaxtextarea/themes/vs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_ar.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_de.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_es.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_fi.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_fr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_hu.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_in.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_it.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_ja.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_ko.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_nl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_pl.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_pt.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_pt_BR.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_ru.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_tr.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_uk.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_zh_CN.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/fife/ui/rtextarea/RTextArea_zh_TW.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/BurpLearn_jar/BurpLearn.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/BurpLearn_jar/BurpLearn.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/lib/rsyntaxtextarea-3.1.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/JSEncryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/JSEncryptComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/BurpLearn-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/BurpLearn-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/lib/test$StreamGobble.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/lib/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/lib/test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jrcet/diycomponents/DiyJButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jrcet/diycomponents/DiyJButton.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/jrcet/frame/tools/JSEncrypt/JSEncryptComponent$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jrcet/frame/tools/JSEncrypt/JSEncryptComponent$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/jrcet/frame/tools/JSEncrypt/JSEncryptComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jrcet/frame/tools/JSEncrypt/JSEncryptComponent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jrcet/frame/tools/RScript/RScriptComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jrcet/frame/tools/RScript/RScriptComponent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -80,9 +412,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/burp/lib/fife/io" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="工件" />
+    <property name="project.structure.last.edited" value="库" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.36666667" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.testRunning" />
@@ -137,6 +469,26 @@
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/BurpLearn-1.0-SNAPSHOT.jar" />
       <method v="2" />
     </configuration>
+    <configuration name="burp" type="Remote">
+      <module name="BurpLearn" />
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="5005" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JAR 应用程序.BurpLearn-1.0-SNAPSHOT.jar" />
+      <item itemvalue="应用程序.Start" />
+      <item itemvalue="应用程序.test" />
+      <item itemvalue="远程 JVM 调试.burp" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.Start" />
@@ -156,6 +508,8 @@
       <workItem from="1640915981512" duration="45000" />
       <workItem from="1640916038305" duration="38481000" />
       <workItem from="1641200197939" duration="3551000" />
+      <workItem from="1641220420771" duration="10334000" />
+      <workItem from="1641287657730" duration="724000" />
     </task>
     <servers />
   </component>
@@ -175,6 +529,27 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/src.zip!/javax/swing/text/JTextComponent.java</url>
+          <line>2624</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/fife/ui/rtextarea/RTextArea.java</url>
+          <line>1040</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/src.zip!/javax/swing/text/JTextComponent.java</url>
+          <line>2579</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/BurpLearn$Start.ic" NAME="Start 覆盖结果" MODIFIED="1641127554106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

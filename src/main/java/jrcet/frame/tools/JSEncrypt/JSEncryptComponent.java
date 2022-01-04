@@ -32,56 +32,60 @@ public class JSEncryptComponent extends DiyJComponent {
         JPanel JSEncryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,5,5));
         JSEncryptMenuPanel.setOpaque(true);
         JSEncryptMenuPanel.setBackground(Color.WHITE);
-        JSEncryptMenuPanel.setPreferredSize(new Dimension(0,40));
+        JSEncryptMenuPanel.setPreferredSize(new Dimension(0,30));
         JSEncryptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
         JSEncryptMenuPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
         JLabel JSEncryptMenuHostLabel = new JLabel("Host: ");
         JSEncryptMenuPanel.add(JSEncryptMenuHostLabel);
         JTextField JSEncryptMenuHostTextField = new JTextField("127.0.0.1");
-        JSEncryptMenuHostTextField.setPreferredSize(new Dimension(100,30));
+        JSEncryptMenuHostTextField.setPreferredSize(new Dimension(100,20));
         JSEncryptMenuPanel.add(JSEncryptMenuHostTextField);
 
         JLabel JSEncryptMenuHostPortLabel = new JLabel("Port: ");
         JSEncryptMenuPanel.add(JSEncryptMenuHostPortLabel);
         JTextField JSEncryptMenuHostPortTextField = new JTextField("1664");
-        JSEncryptMenuHostPortTextField.setPreferredSize(new Dimension(50,30));
+        JSEncryptMenuHostPortTextField.setPreferredSize(new Dimension(50,20));
         JSEncryptMenuPanel.add(JSEncryptMenuHostPortTextField);
 
         JLabel JSEncryptMenuTimeoutLabel = new JLabel("Timeout: ");
         JSEncryptMenuPanel.add(JSEncryptMenuTimeoutLabel);
         JTextField JSEncryptMenuTimeoutField = new JTextField("5000");
-        JSEncryptMenuTimeoutField.setPreferredSize(new Dimension(50,30));
+        JSEncryptMenuTimeoutField.setPreferredSize(new Dimension(50,20));
         JSEncryptMenuPanel.add(JSEncryptMenuTimeoutField);
 
         JLabel JSEncryptMenuPhantomjsLabel = new JLabel("Phantomjs: ");
         JSEncryptMenuPanel.add(JSEncryptMenuPhantomjsLabel);
         JTextField JSEncryptMenuPhantomjsField = new JTextField("/Users/j7ur8/Documents/local/bin/phantomjs");
-        JSEncryptMenuPhantomjsField.setPreferredSize(new Dimension(100,30));
+        JSEncryptMenuPhantomjsField.setPreferredSize(new Dimension(100,20));
         JSEncryptMenuPanel.add(JSEncryptMenuPhantomjsField);
 
         JLabel JSEncryptMenuJScriptLabel = new JLabel("JScript: ");
         JSEncryptMenuPanel.add(JSEncryptMenuJScriptLabel);
         JTextField JSEncryptMenuJScriptField = new JTextField("/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js");
-        JSEncryptMenuJScriptField.setPreferredSize(new Dimension(100,30));
+        JSEncryptMenuJScriptField.setPreferredSize(new Dimension(100,20));
         JSEncryptMenuPanel.add(JSEncryptMenuJScriptField);
 
-        JLabel JSEncryptMenuConnectedFlagLabel = new JLabel("IsConnected: ");
+        JLabel JSEncryptMenuConnectedFlagLabel = new JLabel("   IsConnected: ");
         JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabel);
         JLabel JSEncryptMenuConnectedFlagLabelValue = new JLabel("False");
-        JSEncryptMenuConnectedFlagLabelValue.setPreferredSize(new Dimension(50,30));
+        JSEncryptMenuConnectedFlagLabelValue.setPreferredSize(new Dimension(50,20));
         JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabelValue);
 
         DiyJButton JSEncryptMenuConnectButton = new DiyJButton("Connection");
-        JSEncryptMenuConnectButton.setPreferredSize(new Dimension(120,30));
+        JSEncryptMenuConnectButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuConnectButton);
 
+        DiyJButton JSEncryptMenuSetPhantomjsButton = new DiyJButton("SetPhantomJS");
+        JSEncryptMenuSetPhantomjsButton.setPreferredSize(new Dimension(120,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuSetPhantomjsButton);
+
         DiyJButton JSEncryptMenuConnectTestButton = new DiyJButton("JSTest");
-        JSEncryptMenuConnectTestButton.setPreferredSize(new Dimension(120,30));
+        JSEncryptMenuConnectTestButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuConnectTestButton);
 
         DiyJButton JSEncryptMenuDisConnectButton = new DiyJButton("DisConnect");
-        JSEncryptMenuDisConnectButton.setPreferredSize(new Dimension(120,30));
+        JSEncryptMenuDisConnectButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuDisConnectButton);
 //        JSEncryptMenuConnectButton
 
@@ -107,17 +111,18 @@ public class JSEncryptComponent extends DiyJComponent {
         centerViewPanel.setBackground(Color.PINK);
 
         RSyntaxTextArea JSEncryptEditorRSyntaxTextArea = new RSyntaxTextArea();
-        JSEncryptEditorRSyntaxTextArea.setText("<?php\neval(\"phpinfo();\");\n?>");
         JSEncryptEditorRSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         JSEncryptEditorRSyntaxTextArea.setCodeFoldingEnabled(true);
         RTextScrollPane JSEncryptEditorRSyntaxTextAreaScroll = new RTextScrollPane(JSEncryptEditorRSyntaxTextArea);
+        JSEncryptEditorRSyntaxTextAreaScroll.setPreferredSize(new Dimension(0,0));
         GridBagConstraints JSEncryptEditorRSyntaxTextAreaScrollProperty = new GridBagConstraints();
         JSEncryptEditorRSyntaxTextAreaScrollProperty.gridx = 0;
         JSEncryptEditorRSyntaxTextAreaScrollProperty.gridy = 0;
         JSEncryptEditorRSyntaxTextAreaScrollProperty.weighty = 1;
-        JSEncryptEditorRSyntaxTextAreaScrollProperty.weightx = 0.7;
+        JSEncryptEditorRSyntaxTextAreaScrollProperty.weightx = 0.6;
         JSEncryptEditorRSyntaxTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
         centerViewPanel.add(JSEncryptEditorRSyntaxTextAreaScroll, JSEncryptEditorRSyntaxTextAreaScrollProperty);
+
         JSEncryptEditorRSyntaxTextArea.setText(Helper.readFile(jScriptLocation));
         JSEncryptEditorRSyntaxTextArea.addKeyListener(new KeyListener(){
             @Override
@@ -152,7 +157,7 @@ public class JSEncryptComponent extends DiyJComponent {
         GridBagConstraints JSEncryptOriginPayloadJTTextAreaScrollProperty = new GridBagConstraints();
         JSEncryptOriginPayloadJTTextAreaScrollProperty.gridx = 1;
         JSEncryptOriginPayloadJTTextAreaScrollProperty.gridy = 0;
-        JSEncryptOriginPayloadJTTextAreaScrollProperty.weightx = 0.25;
+        JSEncryptOriginPayloadJTTextAreaScrollProperty.weightx = 0.2;
         JSEncryptOriginPayloadJTTextAreaScrollProperty.weighty = 1;
         JSEncryptOriginPayloadJTTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
         centerViewPanel.add(JSEncryptOriginPayloadJTTextAreaScroll, JSEncryptOriginPayloadJTTextAreaScrollProperty);
@@ -174,7 +179,7 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptResultJTextAreaScrollProperty.gridx = 2;
         JSEncryptResultJTextAreaScrollProperty.gridy = 0;
         JSEncryptResultJTextAreaScrollProperty.weighty = 1;
-        JSEncryptResultJTextAreaScrollProperty.weightx = 0.25;
+        JSEncryptResultJTextAreaScrollProperty.weightx = 0.2;
         JSEncryptResultJTextAreaScrollProperty.fill = GridBagConstraints.BOTH;
         centerViewPanel.add(JSEncryptResultJTextAreaScroll, JSEncryptResultJTextAreaScrollProperty);
 
