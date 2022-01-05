@@ -35,12 +35,7 @@ public class Utils {
         hc.setReadTimeout(5000);
         hc.sendGet();
         byte[] aa = hc.getRspData().getBytes();
-        if((hc.getStatusCode() == 200)){
-            return true;
-        }else{
-            phantomjsProcess.destroy();
-            return false;
-        }
+        return hc.getStatusCode() == 200;
     }
 
 

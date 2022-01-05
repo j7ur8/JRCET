@@ -27,4 +27,9 @@ public class Helper {
         out.close();
     }
 
+    public static boolean isFile(String filename){
+        File file = new File(filename);
+        return file.isFile();
+    }
+
 }

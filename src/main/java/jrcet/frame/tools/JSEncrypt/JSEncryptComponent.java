@@ -68,6 +68,10 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptMenuJScriptField.setPreferredSize(new Dimension(100,20));
         JSEncryptMenuPanel.add(JSEncryptMenuJScriptField);
 
+        DiyJButton JSEncryptMenuSetPhantomjsButton = new DiyJButton("SetPath");
+        JSEncryptMenuSetPhantomjsButton.setPreferredSize(new Dimension(120,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuSetPhantomjsButton);
+
         JLabel JSEncryptMenuConnectedFlagLabel = new JLabel("   IsConnected: ");
         JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabel);
         JLabel JSEncryptMenuConnectedFlagLabelValue = new JLabel("False");
@@ -78,9 +82,6 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptMenuConnectButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuConnectButton);
 
-        DiyJButton JSEncryptMenuSetPhantomjsButton = new DiyJButton("SetPhantomJS");
-        JSEncryptMenuSetPhantomjsButton.setPreferredSize(new Dimension(120,20));
-        JSEncryptMenuPanel.add(JSEncryptMenuSetPhantomjsButton);
 
         DiyJButton JSEncryptMenuConnectTestButton = new DiyJButton("JSTest");
         JSEncryptMenuConnectTestButton.setPreferredSize(new Dimension(120,20));

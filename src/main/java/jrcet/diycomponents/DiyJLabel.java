@@ -69,7 +69,6 @@ public class DiyJLabel<Q> extends JLabel implements MouseListener {
             parentPanel.add(mapPanel.get(getText()),defaultContentPanel);
             parentPanel.validate();
             parentPanel.repaint();
-//        System.out.println("Pressed");
         }
 
     }

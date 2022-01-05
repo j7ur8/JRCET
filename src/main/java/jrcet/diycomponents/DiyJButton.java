@@ -1,6 +1,9 @@
 package jrcet.diycomponents;
 
 import burp.Services;
+import burp.lib.Helper;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.JSEncrypt.Utils;
 
@@ -12,6 +15,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner {
 
@@ -42,8 +46,13 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 case "JSTest":
                     jSTestJSEncrypt(targetButton);
                     break;
-                case "SetPhantomJS":
-                    SetPhantomJS(targetButton);
+                case "SetPath":
+                    try {
+                        SetPath(targetButton);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 case "DisConnect":
                     try {
                         jsDisConnect(targetButton);
@@ -56,20 +65,41 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         });
     }
 
-    private void SetPhantomJS(DiyJButton targetButton) {
+    private void SetPath(DiyJButton targetButton) throws InterruptedException {
         JPanel parentPanel = (JPanel) targetButton.getParent();
-        JLabel targetLabel = (JLabel) parentPanel.getComponent(11);
+        JTextField phantomjsTextField = (JTextField) parentPanel.getComponent(7);
+        JTextField jsScriptTextField = (JTextField) parentPanel.getComponent(9);
+        String phantomjsLocation = phantomjsTextField.getText();
+        String jsScriptLocation = jsScriptTextField.getText();
+        if (Helper.isFile(phantomjsLocation) && Helper.isFile(jsScriptLocation)){
+            JSEncryptComponent.phantomjsLocation=phantomjsLocation;
+            JSEncryptComponent.jScriptLocation=jsScriptLocation;
+
+            JPanel buzhongyaodemingzi = (JPanel) parentPanel.getParent();
+            JPanel buzhongyaodemingzi2 = (JPanel) buzhongyaodemingzi.getComponent(1);
+            RTextArea targetJTextArea = ((RTextScrollPane) buzhongyaodemingzi2.getComponent(0)).getTextArea();
+            targetJTextArea.setText(Helper.readFile(JSEncryptComponent.jScriptLocation));
+            if(Utils.sendTestConnect()){
+                jsDisConnect(targetButton);
+            }
+        }
+//        JSEncryptComponent.jScriptLocation.ad
+
     }
 
     private void jsDisConnect(DiyJButton targetButton) throws InterruptedException {
-        Utils.phantomjsProcess.destroy();
+         Utils.phantomjsProcess.destroy();
         JPanel parentPanel = (JPanel) targetButton.getParent();
-        JLabel targetLabel = (JLabel) parentPanel.getComponent(11);
+        JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
         if(Utils.sendTestConnect()){
             targetLabel.setText("True");
         }else{
             targetLabel.setText("False");
         }
+
+    }
+
+    private void loadRScript(String jsFilename){
 
     }
 
@@ -87,7 +117,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         Utils.phantomjsProcess = Utils.StreamGobble.p;
         Services.setService("phantomjs",Utils.phantomjsProcess);
         JPanel parentPanel = (JPanel) targetButton.getParent();
-        JLabel targetLabel = (JLabel) parentPanel.getComponent(11);
+        JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
         if(Utils.sendTestConnect()){
             targetLabel.setText("True");
         }else{
