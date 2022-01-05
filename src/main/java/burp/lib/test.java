@@ -1,9 +1,8 @@
 package burp.lib;
 
-import jrcet.frame.Index;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rtextarea.RTextScrollPane;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;

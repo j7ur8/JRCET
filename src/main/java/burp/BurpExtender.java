@@ -29,6 +29,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         callbacks.setExtensionName("J7ur8's RCE Tool");
         callbacks.registerContextMenuFactory(this);
         callbacks.addSuiteTab(this);
+        callbacks.registerIntruderPayloadProcessor(this);
     }
 
     @Override
@@ -74,6 +75,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
         String payload = new String(currentPayload);
         String newPayload = Utils.sendPayload(payload);
+        stdout.println(newPayload);
         return helpers.stringToBytes(newPayload);
     }
 }

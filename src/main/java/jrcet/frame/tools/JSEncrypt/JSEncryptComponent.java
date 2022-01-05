@@ -4,9 +4,9 @@ import burp.lib.Helper;
 import burp.lib.TextLineNumber;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rtextarea.RTextScrollPane;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +18,9 @@ import java.io.IOException;
 import static jrcet.frame.tools.JSEncrypt.Utils.testPayload;
 
 public class JSEncryptComponent extends DiyJComponent {
-    public static String phantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
-    public static String jScriptLocation = "/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js";
+//    public static String phantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
+    public static String phantomjsLocation = "C:\\Users\\J7ur8\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe";
+    public static String jScriptLocation = "C:\\Users\\J7ur8\\Desktop\\GitHub\\jsEncrypter\\test\\TestScript\\Base64\\jsEncrypter_base64.js";
 
     static public JComponent centerViewPanel=centerViewPanel();
 

@@ -1,17 +1,14 @@
 package jrcet.frame.tools.RScript;
 
-import burp.lib.TextLineNumber;
-import burp.lib.test;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJCheckBox;
 import jrcet.diycomponents.DiyJComponent;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rtextarea.RTextScrollPane;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class RScriptComponent extends DiyJComponent {
 

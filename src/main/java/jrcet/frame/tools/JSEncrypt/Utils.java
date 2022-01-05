@@ -50,7 +50,8 @@ public class Utils {
         private final String code;
 
         public StreamGobble(String phantomjsLocation, String jScriptLocation){
-            this.code = "nohup "+phantomjsLocation+" "+jScriptLocation+" &>/dev/null 2>&1 &";
+//            this.code = "nohup "+phantomjsLocation+" "+jScriptLocation+" &>/dev/null 2>&1 &";
+            this.code="start /b "+phantomjsLocation+" "+jScriptLocation;
         }
 
         @Override
