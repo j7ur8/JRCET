@@ -1,5 +1,6 @@
 package jrcet.diycomponents;
 
+import burp.Services;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.JSEncrypt.Utils;
 
@@ -84,6 +85,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         phantomjsThread.start();
         Thread.sleep(1000);
         Utils.phantomjsProcess = Utils.StreamGobble.p;
+        Services.setService("phantomjs",Utils.phantomjsProcess);
         JPanel parentPanel = (JPanel) targetButton.getParent();
         JLabel targetLabel = (JLabel) parentPanel.getComponent(11);
         if(Utils.sendTestConnect()){
@@ -107,7 +109,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             String[] payloads = testPayload.split("\r|\n");
             String tmp = "";
             for (String payload : payloads) {
-                if(payload.equals(null)||payload.equals("")){
+                if(payload == null ||payload.equals("")){
                     continue;
                 }
                 String newPayload = Utils.sendPayload(payload);

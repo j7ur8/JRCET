@@ -18,12 +18,12 @@
             <artifactId>sisu-guice</artifactId>
             <version>4.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.fifesoft</groupId>
-            <artifactId>rsyntaxtextarea</artifactId>
-            <version>3.1.4</version>
-<!--            <scope>compile</scope>-->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.fifesoft</groupId>-->
+<!--            <artifactId>rsyntaxtextarea</artifactId>-->
+<!--            <version>3.1.4</version>-->
+<!--&lt;!&ndash;            <scope>compile</scope>&ndash;&gt;-->
+<!--        </dependency>-->
     </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -50,14 +50,14 @@ public class Utils {
         private final String code;
 
         public StreamGobble(String phantomjsLocation, String jScriptLocation){
-//            this.code = "nohup "+phantomjsLocation+" "+jScriptLocation+" &>/dev/null 2>&1 &";
-            this.code="start /b "+phantomjsLocation+" "+jScriptLocation;
+            this.code = "nohup "+phantomjsLocation+" "+jScriptLocation+" &>/dev/null 2>&1 &";
+//            this.code="start /b "+phantomjsLocation+" "+jScriptLocation;
         }
 
         @Override
         public void run() {
             try {
-                System.out.println("start");
+//                System.out.println("start");
                 StreamGobble.p = Runtime.getRuntime().exec(this.code);
             } catch (IOException ioe) {
                 ioe.printStackTrace();

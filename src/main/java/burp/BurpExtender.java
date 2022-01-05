@@ -1,11 +1,10 @@
 package burp;
 
-import javafx.beans.binding.ListExpression;
+
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.frame.Index;
 import jrcet.frame.tools.JSEncrypt.Utils;
 import jrcet.frame.tools.RScript.RScript;
-import jrcet.frame.tools.RScript.RScriptComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +18,9 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public static PrintWriter stdout;
     private final JComponent t=new Index().main();
 
+    public BurpExtender(){
+        Runtime.getRuntime().addShutdownHook(new ShutdownThread());
+    }
 
     @Override
     public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks) {
