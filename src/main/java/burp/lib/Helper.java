@@ -29,7 +29,15 @@ public class Helper {
 
     public static boolean isFile(String filename){
         File file = new File(filename);
+
         return file.isFile();
     }
 
+    /*
+    根据匹配的字符串检测进程，并返回pid
+     */
+//    public static String[] detectProcess(String keyValue) throws IOException {
+//        Process a=Runtime.getRuntime().exec("ps aux|grep "+keyValue+" |awk '{print $2}'");
+//
+//    }
 }

@@ -93,8 +93,10 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
         if(Utils.sendTestConnect()){
             targetLabel.setText("True");
+            targetLabel.setForeground(Color.GREEN);
         }else{
             targetLabel.setText("False");
+            targetLabel.setForeground(Color.RED);
         }
 
     }
@@ -120,8 +122,10 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
         if(Utils.sendTestConnect()){
             targetLabel.setText("True");
+            targetLabel.setForeground(Color.GREEN);
         }else{
             targetLabel.setText("False");
+            targetLabel.setForeground(Color.RED);
         }
     }
 

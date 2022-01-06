@@ -75,6 +75,7 @@ public class JSEncryptComponent extends DiyJComponent {
         JLabel JSEncryptMenuConnectedFlagLabel = new JLabel("   IsConnected: ");
         JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabel);
         JLabel JSEncryptMenuConnectedFlagLabelValue = new JLabel("False");
+        JSEncryptMenuConnectedFlagLabelValue.setForeground(Color.RED);
         JSEncryptMenuConnectedFlagLabelValue.setPreferredSize(new Dimension(50,20));
         JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabelValue);
 

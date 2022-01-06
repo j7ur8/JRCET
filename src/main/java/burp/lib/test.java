@@ -1,33 +1,49 @@
 package burp.lib;
 
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.sql.*;
+//import org.xerial.sqlite-jdbc;
 
 public class test {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        JFrame frame = new JFrame("J7ur8's Remote Code Execute Tools");
-//        Container root=new Index().main();
-        Container root = new JPanel();
-        root.setBackground(Color.BLUE);
-        RSyntaxTextArea textArea = new RSyntaxTextArea();
-        textArea.setText("<?php\neval(\"phpinfo();\");\n?>");
-        textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        textArea.setCodeFoldingEnabled(true);
-        RTextScrollPane sp = new RTextScrollPane(textArea);
-        root.add(sp);
-        frame.setContentPane(root);
-        frame.setResizable(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 1000);
-        centerInScreen(frame);
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
+//        new SQLi
+        String [] tables ={
+            "aa"
+        };
 
-        frame.setVisible(true);
+        Class.forName("org.sqlite.JDBC");
+        String db = "/Users/j7ur8/Desktop/SoLibra.db";
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + db);
+        Statement state = conn.createStatement();
+        String data,sql,name,idCard,phone;
+        ResultSet rs;
+        for (String table : tables){
+            try{
+                sql = "SELECT 姓名,身份证号,手机 FROM '"+table+"'";
+                rs = state.executeQuery(sql);
+                while (rs.next()) {
+                    name = rs.getString(1).replace(",","");
+                    idCard = rs.getString(2).replace(",","");
+                    phone = rs.getString(3).replace(",","");
+                    data = name+","+idCard+","+phone+","+table+"\n";
+//                  System.out.print(data);
+
+                        BufferedWriter bw = new BufferedWriter(
+                            new OutputStreamWriter(new FileOutputStream("/Users/j7ur8/Desktop/aa",true), StandardCharsets.UTF_8));
+                        bw.write(data);
+                        bw.flush();
+                        bw.close();
+
+                }
+                rs.close();
+            }catch(Exception e){
+                System.out.println(table);
+            }
+        }
+        conn.close();
     }
 
     public static void centerInScreen(Window win) {

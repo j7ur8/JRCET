@@ -10,7 +10,6 @@ public class SoLibraryComponent extends DiyJComponent {
     @Override
     public JComponent main() {
         JPanel SoLibraryPanel = new JPanel(new GridBagLayout());
-//        JSEncryptPanel
         SoLibraryPanel.setOpaque(true);
         SoLibraryPanel.setBackground(Color.YELLOW);
         return SoLibraryPanel;

@@ -333,7 +333,7 @@ public class RTATextTransferHandler extends TransferHandler {
 
 		private Position p0;
 		private Position p1;
-		private JTextComponent c;
+		private final JTextComponent c;
 
 		protected String plainData;
 
@@ -347,7 +347,7 @@ public class RTATextTransferHandler extends TransferHandler {
 				p0 = doc.createPosition(start);
 				p1 = doc.createPosition(end);
 				plainData = c.getSelectedText();
-			} catch (BadLocationException ble) {
+			} catch (BadLocationException ignored) {
 			}
 		}
 
@@ -364,13 +364,11 @@ public class RTATextTransferHandler extends TransferHandler {
 		 *
 		 * @param flavor the requested flavor for the data
 		 * @see DataFlavor#getRepresentationClass
-		 * @exception IOException                if the data is no longer available
-		 *              in the requested flavor.
 		 * @exception UnsupportedFlavorException if the requested data flavor is
 		 *              not supported.
 		 */
 		@Override
-		public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+		public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
 			if (isPlainFlavor(flavor)) {
 				String data = getPlainData();
 				data = (data == null) ? "" : data;
@@ -482,7 +480,7 @@ public class RTATextTransferHandler extends TransferHandler {
 				try {
 					Document doc = c.getDocument();
 					doc.remove(p0.getOffset(), p1.getOffset() - p0.getOffset());
-				} catch (BadLocationException e) {
+				} catch (BadLocationException ignored) {
 				}
 			}
 		}
