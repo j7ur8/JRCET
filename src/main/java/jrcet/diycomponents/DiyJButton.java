@@ -6,6 +6,8 @@ import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.JSEncrypt.Utils;
+import jrcet.frame.tools.Solibrary.SoLibrary;
+import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,9 +62,22 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                         ex.printStackTrace();
                     }
                     break;
+                case "Search":
+                    Search(targetButton);
+                    break;
             }
 
         });
+    }
+
+    private void Search(DiyJButton targetButton){
+        JPanel parentPanel = (JPanel) targetButton.getParent();
+        JTextField nameField = (JTextField) parentPanel.getComponent(1);
+        JTextField cardField = (JTextField) parentPanel.getComponent(3);
+        JTextField phoneField = (JTextField) parentPanel.getComponent(5);
+        ((JPanel)((JScrollPane)SoLibraryComponent.searchResultScrollPanel).getViewport().getView()).removeAll();
+        SoLibrary.Search(nameField.getText(),cardField.getText(),phoneField.getText());
+
     }
 
     private void SetPath(DiyJButton targetButton) throws InterruptedException {
@@ -83,7 +98,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 jsDisConnect(targetButton);
             }
         }
-//        JSEncryptComponent.jScriptLocation.ad
 
     }
 
