@@ -21,7 +21,6 @@ import java.awt.event.MouseListener;
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner {
 
-
     public DiyJButton(String text) {
         setPreferredSize(new Dimension(160,30));
         addMouseListener(this);
@@ -65,16 +64,25 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 case "Search":
                     Search(targetButton);
                     break;
+                case "SetDatabase":
+                    SetDatabase(targetButton);
+                    break;
             }
 
         });
     }
 
+    private void SetDatabase(DiyJButton targetButton) {
+        JPanel parentPanel = (JPanel) targetButton.getParent();
+        JTextField DatabaseTextField = (JTextField) parentPanel.getComponent(1);
+        SoLibraryComponent.databasePath=DatabaseTextField.getText();
+    }
+
     private void Search(DiyJButton targetButton){
         JPanel parentPanel = (JPanel) targetButton.getParent();
-        JTextField nameField = (JTextField) parentPanel.getComponent(1);
-        JTextField cardField = (JTextField) parentPanel.getComponent(3);
-        JTextField phoneField = (JTextField) parentPanel.getComponent(5);
+        JTextField nameField = (JTextField) parentPanel.getComponent(4);
+        JTextField cardField = (JTextField) parentPanel.getComponent(6);
+        JTextField phoneField = (JTextField) parentPanel.getComponent(8);
         ((JPanel)((JScrollPane)SoLibraryComponent.searchResultScrollPanel).getViewport().getView()).removeAll();
         SoLibrary.Search(nameField.getText(),cardField.getText(),phoneField.getText());
 

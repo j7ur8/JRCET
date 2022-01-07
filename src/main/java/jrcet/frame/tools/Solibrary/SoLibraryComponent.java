@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class SoLibraryComponent extends DiyJComponent {
 
+    public static String databasePath="/Users/j7ur8/Documents/DocumentArchive/SoLibra.db";
     public static JComponent searchMenuPanel=searchMenuPanel();
     public static JComponent searchResultScrollPanel=searchResultScrollPanel();
 
@@ -37,6 +38,17 @@ public class SoLibraryComponent extends DiyJComponent {
     private static JComponent searchMenuPanel(){
         JPanel searchMenu = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
         searchMenu.setPreferredSize(new Dimension(0,30));
+
+        JLabel databaseLabel = new JLabel("Database:");
+        searchMenu.add(databaseLabel);
+        JTextField databaseJTextField = new JTextField();
+        databaseJTextField.setText(databasePath);
+        databaseJTextField.setPreferredSize(new Dimension(300,20));
+        searchMenu.add(databaseJTextField);
+
+        DiyJButton setDatabaseButton = new DiyJButton("SetDatabase");
+        setDatabaseButton.setPreferredSize(new Dimension(120,20));
+        searchMenu.add(setDatabaseButton);
 
         JLabel nameLabel = new JLabel("姓名:");
         searchMenu.add(nameLabel);
@@ -69,7 +81,7 @@ public class SoLibraryComponent extends DiyJComponent {
         JPanel searchResultPanel=new JPanel(new GridBagLayout());
 
         searchResultPanel.setOpaque(true);
-        searchResultPanel.setBackground(Color.GRAY);
+        searchResultPanel.setBackground(Color.WHITE);
 
         JScrollPane searchResultScrollPanel = new JScrollPane(searchResultPanel);
         searchResultScrollPanel.setPreferredSize(new Dimension(0,0));

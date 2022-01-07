@@ -16,6 +16,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import burp.BurpExtender;
 import org.sqlite.date.FastDateFormat;
 
 import org.sqlite.SQLiteConfig;
@@ -165,6 +166,7 @@ public abstract class CoreConnection {
                 // search the class path
                 ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
                 URL resourceAddr = contextCL.getResource(resourceName);
+                BurpExtender.stdout.println(resourceAddr);
                 if (resourceAddr == null) {
                     try {
                         resourceAddr = new URL(resourceName);

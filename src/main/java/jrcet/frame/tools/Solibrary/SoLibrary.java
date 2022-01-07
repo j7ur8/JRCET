@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SoLibrary {
+
     static {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -60,8 +61,8 @@ public class SoLibrary {
         if(Objects.equals(sqlInit,"")) return;
         try{
             sql = String.format(sqlInit,"users");
-            String db = "/Users/j7ur8/Desktop/SoLibra.db";
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:" + db);
+            String databasePath = SoLibraryComponent.databasePath;
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery(sql);
             String tmpTable="";
@@ -86,7 +87,6 @@ public class SoLibrary {
                     Object[] tmpValueArray = new String[columnCount];
                     for(int i=0;i<columnCount;i++){
                         tmpValueArray[i]=tmpResult.getString(i+1);
-//                        System.out.println(tmpResult.getString(i+1));
                     }
                     valueArray.add(tmpValueArray);
                 }
@@ -105,7 +105,6 @@ public class SoLibrary {
                         stackTraceElement.getMethodName());
             }
         }
-
     }
 
     private static JTable createJTable(ArrayList<Object> columnsArray, ArrayList<Object[]> valueArray){
@@ -113,8 +112,7 @@ public class SoLibrary {
         Object[][] rowData = valueArray.toArray(new Object[0][]);
         JTable newJTable = new JTable(rowData,columnNames);
         newJTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumnAdjuster tca = new TableColumnAdjuster(newJTable);
-        tca.adjustColumns();
+        new TableColumnAdjuster(newJTable).adjustColumns();
         return newJTable;
     }
 
@@ -124,12 +122,11 @@ public class SoLibrary {
         int elementCount = targetPanel.getComponentCount();
 
         JScrollPane tmpScrollPane=new JScrollPane(targetJTable);
-
+        tmpScrollPane.setPreferredSize(new Dimension(0,200));
         GridBagConstraints tmpScrollPaneProperty = new GridBagConstraints();
-        tmpScrollPaneProperty.gridx=0;tmpScrollPaneProperty.gridy=elementCount+1;
-        tmpScrollPaneProperty.weightx=1;tmpScrollPaneProperty.weighty=0;
+        tmpScrollPaneProperty.gridx=0;tmpScrollPaneProperty.gridy=elementCount;
+        tmpScrollPaneProperty.weightx=1;tmpScrollPaneProperty.weighty=1;
         tmpScrollPaneProperty.fill= GridBagConstraints.BOTH;
-        tmpScrollPaneProperty.anchor=GridBagConstraints.NORTH;
         targetPanel.add(tmpScrollPane,tmpScrollPaneProperty);
 
         targetScrollPanel.validate();
