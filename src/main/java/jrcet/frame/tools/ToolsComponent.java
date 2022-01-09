@@ -3,6 +3,9 @@ package jrcet.frame.tools;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJPanel;
+import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.setting.Setting;
+import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
@@ -12,9 +15,10 @@ import java.awt.*;
 
 public class ToolsComponent extends DiyJComponent {
 
-    private JComponent RScript = RScript();
-    private JComponent JSEncrypt = JSEncrypt();
-    private JComponent SoLibrary = SoLibrary();
+    private final JComponent RScript = RScript();
+    private final JComponent JSEncrypt = JSEncrypt();
+    private final JComponent SoLibrary = SoLibrary();
+    private final JComponent Dencrypt = Dencrypt();
     public ToolsComponent(){}
 
     @Override
@@ -23,44 +27,61 @@ public class ToolsComponent extends DiyJComponent {
         toolsPanel.setOpaque(true);
         toolsPanel.setBackground(Color.WHITE);
 
-        GridBagConstraints toolsMenuPanelProperty = new GridBagConstraints();
-        toolsMenuPanelProperty.gridx=0;toolsMenuPanelProperty.gridy=0;
+        GridBagConstraints toolsMenuPanelProperty = new GridBagConstraints(
+                0,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         toolsPanel.add(toolsMenuPanel(), toolsMenuPanelProperty);
 
-        GridBagConstraints toolsMenuBorderPanelProperty = new GridBagConstraints();
-        toolsMenuBorderPanelProperty.gridx=1;toolsMenuBorderPanelProperty.gridy=0;
-        toolsMenuBorderPanelProperty.weightx=100;toolsMenuBorderPanelProperty.weighty=0;
-        toolsMenuBorderPanelProperty.fill=GridBagConstraints.BOTH;
+        GridBagConstraints toolsMenuBorderPanelProperty = new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         toolsPanel.add(toolsMenuBorderPanel(),toolsMenuBorderPanelProperty);
 
-        GridBagConstraints defaultToolPanelProperty = new GridBagConstraints();
-        defaultToolPanelProperty.gridx=0;defaultToolPanelProperty.gridy=1;
-        defaultToolPanelProperty.weightx=100;defaultToolPanelProperty.weighty=100;
-        defaultToolPanelProperty.gridheight=1;defaultToolPanelProperty.gridwidth=2;
-        defaultToolPanelProperty.fill=GridBagConstraints.BOTH;
+        GridBagConstraints defaultToolPanelProperty = new GridBagConstraints(
+                0,1,
+                2,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         toolsPanel.add(RScript,defaultToolPanelProperty);
 
         return toolsPanel;
     }
 
+    public static DiyJTabLabel toolsMenuRScriptLabel = new DiyJTabLabel("RScript",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
     private JComponent toolsMenuPanel(){
         JPanel toolsMenuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
         toolsMenuPanel.setOpaque(true);
         toolsMenuPanel.setBackground(Color.WHITE);
 
-        DiyJLabel toolsMenuRScriptLabel = new DiyJLabel("RScript");
+        DiyJTabLabel toolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        toolsMenuDencryptLabel.setMapPanel(Dencrypt);
+        toolsMenuPanel.add(toolsMenuDencryptLabel);
+
         toolsMenuRScriptLabel.setMapPanel(RScript);
-        toolsMenuRScriptLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
         toolsMenuPanel.add(toolsMenuRScriptLabel);
 
-        DiyJLabel toolsMenuJSEncryptLabel = new DiyJLabel(("JSEncrypt"));
+        DiyJTabLabel toolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         toolsMenuJSEncryptLabel.setMapPanel(JSEncrypt);
-        toolsMenuJSEncryptLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209))));
         toolsMenuPanel.add(toolsMenuJSEncryptLabel);
 
-        DiyJLabel toolsMenuJSEncryptLabelSoLibraryLabel = new DiyJLabel("SoLibrary");
+        DiyJTabLabel toolsMenuJSEncryptLabelSoLibraryLabel = new DiyJTabLabel("SoLibrary",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         toolsMenuJSEncryptLabelSoLibraryLabel.setMapPanel(SoLibrary);
-        toolsMenuJSEncryptLabelSoLibraryLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209))));
         toolsMenuPanel.add(toolsMenuJSEncryptLabelSoLibraryLabel);
 
         return toolsMenuPanel;
@@ -72,6 +93,12 @@ public class ToolsComponent extends DiyJComponent {
         toolsMenuBorderPanel.setBackground(Color.WHITE);
         toolsMenuBorderPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
         return toolsMenuBorderPanel;
+    }
+
+    private JComponent Dencrypt(){
+        DiyJComponent DencryptInstance = new DencryptComponent();
+        JComponent DecryptPanel = DencryptInstance.main();
+        return DecryptPanel;
     }
 
     private JComponent RScript(){
@@ -91,4 +118,5 @@ public class ToolsComponent extends DiyJComponent {
         JComponent SoLibraryPanel = SoLibraryInstance.main();
         return SoLibraryPanel;
     }
+
 }

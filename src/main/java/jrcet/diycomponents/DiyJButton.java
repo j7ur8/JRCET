@@ -15,67 +15,36 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class DiyJButton extends JButton implements MouseListener, ClipboardOwner {
+public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
 
     public DiyJButton(String text) {
-        setPreferredSize(new Dimension(160,30));
-        addMouseListener(this);
-        setFocusPainted(false);
-        setFont(new Font("微软雅黑", Font.PLAIN,14));
-        setOpaque(true);
-        setBackground(Color.WHITE);
         setText(text);
+        setOpaque(true);
+        setFocusPainted(false);
+        addMouseListener(this);
+        setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(120,30));
+        addActionListener(this);
+        setFont(new Font("微软雅黑", Font.PLAIN,14));
 
-        this.addActionListener( (e)->{
-            DiyJButton targetButton = (DiyJButton)e.getSource();
-
-            switch (targetButton.getText()){
-                case "Copy":
-                    writeRScript(targetButton);
-                    break;
-                case "Connection":
-                    try {
-                        conTestJSEncrypt(targetButton);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    break;
-                case "JSTest":
-                    jSTestJSEncrypt(targetButton);
-                    break;
-                case "SetPath":
-                    try {
-                        SetPath(targetButton);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    break;
-                case "DisConnect":
-                    try {
-                        jsDisConnect(targetButton);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    break;
-                case "Search":
-                    Search(targetButton);
-                    break;
-                case "SetDatabase":
-                    SetDatabase(targetButton);
-                    break;
-            }
-
-        });
     }
 
     private void SetDatabase(DiyJButton targetButton) {
         JPanel parentPanel = (JPanel) targetButton.getParent();
         JTextField DatabaseTextField = (JTextField) parentPanel.getComponent(1);
-        SoLibraryComponent.databasePath=DatabaseTextField.getText();
+        if(Helper.isFile(DatabaseTextField.getText())){
+            SoLibraryComponent.databasePath=DatabaseTextField.getText();
+        }else{
+            DatabaseTextField.setText("文件路径错误");
+            SoLibraryComponent.databasePath="";
+        }
+
     }
 
     private void Search(DiyJButton targetButton){
@@ -211,4 +180,44 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     public void lostOwnership(Clipboard clipboard, Transferable contents) {
 
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        DiyJButton targetButton = (DiyJButton) e.getSource();
+
+        switch (targetButton.getText()) {
+            case "Copy":
+                writeRScript(targetButton);
+                break;
+            case "Connection":
+                try {
+                    conTestJSEncrypt(targetButton);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                break;
+            case "JSTest": jSTestJSEncrypt(targetButton);
+                break;
+            case "SetPath":
+                try {
+                    SetPath(targetButton);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                break;
+            case "DisConnect":
+                try {
+                    jsDisConnect(targetButton);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                break;
+            case "Search":
+                Search(targetButton);
+                break;
+            case "SetDatabase":
+                SetDatabase(targetButton);
+                break;
+            }
+        }
 }

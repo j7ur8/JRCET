@@ -51,10 +51,15 @@ public class DiyJComboBox extends JComboBox implements ItemListener {
                 if(targetPanel!=null) {
                     JPanel parentPanel= (JPanel) tmpComboBox.getParent().getParent();
                     parentPanel.remove(1);
-                    GridBagConstraints targetPanelProperty = new GridBagConstraints();
-                    targetPanelProperty.gridy=1;targetPanelProperty.gridx=0;
-                    targetPanelProperty.weightx=100;targetPanelProperty.weighty=100;
-                    targetPanelProperty.fill = GridBagConstraints.BOTH;
+                    GridBagConstraints targetPanelProperty = new GridBagConstraints(
+                            0,1,
+                            1,1,
+                            1,1,
+                            GridBagConstraints.CENTER,
+                            GridBagConstraints.BOTH,
+                            new Insets(0,0,0,0),
+                            0,0
+                    );
                     parentPanel.add(targetPanel.main(),targetPanelProperty);
                     parentPanel.validate();
                     parentPanel.repaint();

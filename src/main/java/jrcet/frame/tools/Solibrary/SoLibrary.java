@@ -62,6 +62,7 @@ public class SoLibrary {
         try{
             sql = String.format(sqlInit,"users");
             String databasePath = SoLibraryComponent.databasePath;
+            if(Objects.equals(databasePath,"")) return;
             Connection conn = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery(sql);
@@ -123,10 +124,15 @@ public class SoLibrary {
 
         JScrollPane tmpScrollPane=new JScrollPane(targetJTable);
         tmpScrollPane.setPreferredSize(new Dimension(0,200));
-        GridBagConstraints tmpScrollPaneProperty = new GridBagConstraints();
-        tmpScrollPaneProperty.gridx=0;tmpScrollPaneProperty.gridy=elementCount;
-        tmpScrollPaneProperty.weightx=1;tmpScrollPaneProperty.weighty=1;
-        tmpScrollPaneProperty.fill= GridBagConstraints.BOTH;
+        GridBagConstraints tmpScrollPaneProperty = new GridBagConstraints(
+                0,elementCount,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         targetPanel.add(tmpScrollPane,tmpScrollPaneProperty);
 
         targetScrollPanel.validate();

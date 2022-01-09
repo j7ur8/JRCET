@@ -2,3 +2,4 @@
 src/main/resources/SoLibra.db
 target/
 .DS_Store
+out/artifacts/BurpLearn_jar/BurpLearn.jar

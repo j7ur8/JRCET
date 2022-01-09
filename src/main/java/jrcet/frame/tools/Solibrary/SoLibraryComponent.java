@@ -19,16 +19,26 @@ public class SoLibraryComponent extends DiyJComponent {
         SoLibraryPanel.setOpaque(true);
         SoLibraryPanel.setBackground(Color.YELLOW);
 
-        GridBagConstraints searchMenuPanelProperty = new GridBagConstraints();
-        searchMenuPanelProperty.gridx=0;searchMenuPanelProperty.gridy=0;
-        searchMenuPanelProperty.weightx=1;searchMenuPanelProperty.weighty=0;
-        searchMenuPanelProperty.fill=GridBagConstraints.BOTH;
+        GridBagConstraints searchMenuPanelProperty = new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         SoLibraryPanel.add(searchMenuPanel,searchMenuPanelProperty);
 
-        GridBagConstraints searchResultPanelScrollProperty = new GridBagConstraints();
-        searchResultPanelScrollProperty.gridx=0;searchMenuPanelProperty.gridy=1;
-        searchResultPanelScrollProperty.weightx=1;searchResultPanelScrollProperty.weighty=1;
-        searchResultPanelScrollProperty.fill=GridBagConstraints.BOTH;
+        GridBagConstraints searchResultPanelScrollProperty = new GridBagConstraints(
+                0,1,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         SoLibraryPanel.add(searchResultScrollPanel,searchResultPanelScrollProperty);
 
 
@@ -37,6 +47,7 @@ public class SoLibraryComponent extends DiyJComponent {
 
     private static JComponent searchMenuPanel(){
         JPanel searchMenu = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
+        searchMenu.setBackground(Color.WHITE);
         searchMenu.setPreferredSize(new Dimension(0,30));
 
         JLabel databaseLabel = new JLabel("Database:");
@@ -71,7 +82,6 @@ public class SoLibraryComponent extends DiyJComponent {
         DiyJButton searchButton = new DiyJButton("Search");
         searchButton.setPreferredSize(new Dimension(120,20));
         searchMenu.add(searchButton);
-
 
         return searchMenu;
     }

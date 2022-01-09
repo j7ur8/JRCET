@@ -2,64 +2,77 @@ package jrcet.frame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Set;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
+import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.exploit.ExploitComponent;
+import jrcet.frame.setting.Setting;
 import jrcet.frame.setting.SettingComponent;
 import jrcet.frame.tools.ToolsComponent;
 
 public class Index extends DiyJComponent {
 
+    private final JComponent setting = Setting();
+    private final JComponent exploit = Exploit();
+    private final JComponent tools = Tools();
     public Index(){}
 
     public JComponent main(){
         JPanel rootPanel = new JPanel(new GridBagLayout());
         rootPanel.setOpaque(true);
-        rootPanel.setBackground(Color.orange);
+        rootPanel.setBackground(Color.WHITE);
 
-        GridBagConstraints rootTopPanelProperty = new GridBagConstraints();
-        rootTopPanelProperty.gridx = rootTopPanelProperty.gridy = 0;
-        rootTopPanelProperty.fill = GridBagConstraints.BOTH;
+        GridBagConstraints rootTopPanelProperty = new GridBagConstraints(
+                0,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         rootPanel.add(rootTopPanel(),rootTopPanelProperty);
 
-        GridBagConstraints rootTopBorderPanelProperty = new GridBagConstraints();
-        rootTopBorderPanelProperty.gridx = 1; rootTopBorderPanelProperty.gridy=0;
-        rootTopBorderPanelProperty.fill=GridBagConstraints.BOTH;
-        rootTopBorderPanelProperty.weighty=0;rootTopBorderPanelProperty.weightx=100;
+        GridBagConstraints rootTopBorderPanelProperty = new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         rootPanel.add(rootTopBorderPanel(),rootTopBorderPanelProperty);
 
-        GridBagConstraints defaultRootCenterPanelProperty = new GridBagConstraints();
-        defaultRootCenterPanelProperty.gridwidth=2;
-        defaultRootCenterPanelProperty.gridy = 1; defaultRootCenterPanelProperty.gridx= 0;
-        defaultRootCenterPanelProperty.fill=GridBagConstraints.BOTH;
-        defaultRootCenterPanelProperty.weightx = 100; defaultRootCenterPanelProperty.weighty = 100;
-        JComponent defaultRootCenterPanel=new ExploitComponent().main();
-        rootPanel.add(defaultRootCenterPanel, defaultRootCenterPanelProperty);
+        GridBagConstraints defaultRootCenterPanelProperty = new GridBagConstraints(0,1,
+                2,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
+        rootPanel.add(exploit, defaultRootCenterPanelProperty);
 
         return rootPanel;
     }
 
     private JComponent rootTopPanel(){
         JPanel rootTopPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
-         rootTopPanel.setOpaque(true);
+        rootTopPanel.setOpaque(true);
 
-        DiyJLabel setLabel = new DiyJLabel("Setting");
-        setLabel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        setLabel.setMapPanel(Setting());
+        DiyJTabLabel setLabel = new DiyJTabLabel("Setting",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        setLabel.setMapPanel(setting);
         rootTopPanel.add(setLabel);
 
-        DiyJLabel exploitLabel = new DiyJLabel("Exploit");
-        exploitLabel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        exploitLabel.clicked=true;
-        exploitLabel.setMapPanel(Exploit());
-        exploitLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,new Color(255,102,51))));
+        DiyJTabLabel exploitLabel = new DiyJTabLabel("Exploit", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
+        exploitLabel.setMapPanel(exploit);
         rootTopPanel.add(exploitLabel);
 
-        DiyJLabel toolsLabel = new DiyJLabel("Tools");
-//        toolsLabel.getLocation();
-        toolsLabel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        toolsLabel.setMapPanel(Tools());
+        DiyJTabLabel toolsLabel = new DiyJTabLabel("Tools",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        toolsLabel.setMapPanel(tools);
         rootTopPanel.add(toolsLabel);
 
         return  rootTopPanel;

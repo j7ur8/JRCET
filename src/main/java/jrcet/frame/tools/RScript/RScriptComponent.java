@@ -12,9 +12,12 @@ import java.awt.*;
 
 public class RScriptComponent extends DiyJComponent {
 
+    public static JPanel RScriptPanel = new JPanel(new GridBagLayout());
+    public static RSyntaxTextArea RScriptJTextArea = new RSyntaxTextArea();
+
     @Override
     public JComponent main() {
-        JPanel RScriptPanel = new JPanel(new GridBagLayout());
+
         RScriptPanel.setOpaque(true);
         RScriptPanel.setBackground(Color.WHITE);
 
@@ -31,21 +34,30 @@ public class RScriptComponent extends DiyJComponent {
         DiyJButton RScriptMenuCopyButton = new DiyJButton("Copy");
         RScriptMenuPanel.add(RScriptMenuCopyButton);
 
-        GridBagConstraints RScriptMenuPanelProperty = new GridBagConstraints();
-        RScriptMenuPanelProperty.gridx=0;RScriptMenuPanelProperty.gridy=0;
-        RScriptMenuPanelProperty.weightx=1;RScriptMenuPanelProperty.weighty=0;
-        RScriptMenuPanelProperty.fill=GridBagConstraints.BOTH;
+        GridBagConstraints RScriptMenuPanelProperty = new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         RScriptPanel.add(RScriptMenuPanel,RScriptMenuPanelProperty);
 
-        RSyntaxTextArea RScriptJTextArea = new RSyntaxTextArea();
         RScriptJTextArea.setPreferredSize(new Dimension(0,0));
         RScriptJTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         RScriptJTextArea.setCodeFoldingEnabled(true);
         RTextScrollPane RScriptJTextAreaScroll = new RTextScrollPane(RScriptJTextArea);
-        GridBagConstraints RScriptJTextAreaScrollProperty = new GridBagConstraints();
-        RScriptJTextAreaScrollProperty.gridx=0;RScriptJTextAreaScrollProperty.gridy=1;
-        RScriptJTextAreaScrollProperty.weightx=100;RScriptJTextAreaScrollProperty.weighty=100;
-        RScriptJTextAreaScrollProperty.fill=GridBagConstraints.BOTH;
+        GridBagConstraints RScriptJTextAreaScrollProperty = new GridBagConstraints(
+                0,1,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        );
         RScriptPanel.add(RScriptJTextAreaScroll,RScriptJTextAreaScrollProperty);
 
         return RScriptPanel;
