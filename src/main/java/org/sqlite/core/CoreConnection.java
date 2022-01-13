@@ -331,25 +331,25 @@ public abstract class CoreConnection {
 
     /**
      * Whether an SQLite library interface to the database has been established.
-     * @throws SQLException.
+     * @throws SQLException
      */
     protected void checkOpen() throws SQLException {
         if (db == null)
             throw new SQLException("database connection closed");
     }
 
-    /**
-     * Checks whether the type, concurrency, and holdability settings for a
-     * {@link ResultSet} are supported by the SQLite interface. Supported
-     * settings are:<ul>
-     *  <li>type: {@link ResultSet.TYPE_FORWARD_ONLY}</li>
-     *  <li>concurrency: {@link ResultSet.CONCUR_READ_ONLY})</li>
-     *  <li>holdability: {@link ResultSet.CLOSE_CURSORS_AT_COMMIT}</li></ul>
-     * @param rst the type setting.
-     * @param rsc the concurrency setting.
-     * @param rsh the holdability setting.
-     * @throws SQLException
-     */
+//    /**
+//     * Checks whether the type, concurrency, and holdability settings for a
+//     * {@link ResultSet} are supported by the SQLite interface. Supported
+//     * settings are:<ul>
+//     *  <li>type: {@link ResultSet.TYPE_FORWARD_ONLY}</li>
+//     *  <li>concurrency: {@link ResultSet.CONCUR_READ_ONLY})</li>
+//     *  <li>holdability: {@link ResultSet.CLOSE_CURSORS_AT_COMMIT}</li></ul>
+//     * @param rst the type setting.
+//     * @param rsc the concurrency setting.
+//     * @param rsh the holdability setting.
+//     * @throws SQLException
+//     */
     protected void checkCursor(int rst, int rsc, int rsh) throws SQLException {
         if (rst != ResultSet.TYPE_FORWARD_ONLY)
             throw new SQLException("SQLite only supports TYPE_FORWARD_ONLY cursors");

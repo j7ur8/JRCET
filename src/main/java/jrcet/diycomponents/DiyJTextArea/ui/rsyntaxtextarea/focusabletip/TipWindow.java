@@ -267,7 +267,7 @@ class TipWindow extends JWindow implements ActionListener {
 			if (fg==null) { // Non BasicLookAndFeel-derived Looks
 				fg = Color.GRAY;
 			}
-			label.setOpaque(true);
+			label.setOpaque(false);
 			Color bg = TipUtil.getToolTipBackground();
 			label.setBackground(bg);
 			label.setForeground(fg);

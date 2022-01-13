@@ -18,11 +18,11 @@ public class RScriptComponent extends DiyJComponent {
     @Override
     public JComponent main() {
 
-        RScriptPanel.setOpaque(true);
+        RScriptPanel.setOpaque(false);
         RScriptPanel.setBackground(Color.WHITE);
 
         JPanel RScriptMenuPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
-        RScriptMenuPanel.setOpaque(true);
+        RScriptMenuPanel.setOpaque(false);
         RScriptMenuPanel.setBackground(Color.WHITE);
         RScriptMenuPanel.setPreferredSize(new Dimension(0,40));
         RScriptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));

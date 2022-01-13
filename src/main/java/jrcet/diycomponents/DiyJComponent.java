@@ -15,6 +15,7 @@ public class DiyJComponent extends JComponent{
         return null;
     };
 
+
     public JComponent main(String panelName){
         return null;
     }

@@ -4,8 +4,10 @@ import burp.Services;
 import burp.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
+import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
-import jrcet.frame.tools.JSEncrypt.Utils;
+import jrcet.frame.tools.JSEncrypt.JSEncrypt;
 import jrcet.frame.tools.Solibrary.SoLibrary;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
@@ -19,6 +21,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
@@ -32,7 +36,27 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         setPreferredSize(new Dimension(120,30));
         addActionListener(this);
         setFont(new Font("微软雅黑", Font.PLAIN,14));
+    }
 
+    public DiyJButton(String text,boolean flag) {
+
+        setMargin(new Insets(0,0,0,0));
+        StringBuilder buildText= new StringBuilder();
+        for(int x = 0; x<text.length()-1;x++){
+            String ch = Character.toString(text.charAt(x));
+            buildText.append(ch).append("<br>");
+        }
+        buildText.append(text.charAt(text.length()-1));
+        buildText = new StringBuilder("<html>"+buildText+"</html>");
+        setText(String.valueOf(buildText));
+        setOpaque(false);
+        setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(144,144,160)));
+        setFocusPainted(false);
+        addMouseListener(this);
+        setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(20,50));
+        addActionListener(this);
+        setVerticalTextPosition( SwingConstants.CENTER );
     }
 
     private void SetDatabase(DiyJButton targetButton) {
@@ -71,7 +95,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             JPanel buzhongyaodemingzi2 = (JPanel) buzhongyaodemingzi.getComponent(1);
             RTextArea targetJTextArea = ((RTextScrollPane) buzhongyaodemingzi2.getComponent(0)).getTextArea();
             targetJTextArea.setText(Helper.readFile(JSEncryptComponent.jScriptLocation));
-            if(Utils.sendTestConnect()){
+            if(JSEncrypt.sendTestConnect()){
                 jsDisConnect(targetButton);
             }
         }
@@ -79,10 +103,10 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     }
 
     private void jsDisConnect(DiyJButton targetButton) throws InterruptedException {
-         Utils.phantomjsProcess.destroy();
+         JSEncrypt.phantomjsProcess.destroy();
         JPanel parentPanel = (JPanel) targetButton.getParent();
         JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
-        if(Utils.sendTestConnect()){
+        if(JSEncrypt.sendTestConnect()){
             targetLabel.setText("True");
             targetLabel.setForeground(Color.GREEN);
         }else{
@@ -104,14 +128,14 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     }
 
     private void conTestJSEncrypt(DiyJButton targetButton) throws InterruptedException {
-        Thread phantomjsThread = new Utils.StreamGobble(JSEncryptComponent.phantomjsLocation,JSEncryptComponent.jScriptLocation);
+        Thread phantomjsThread = new JSEncrypt.StreamGobble(JSEncryptComponent.phantomjsLocation,JSEncryptComponent.jScriptLocation);
         phantomjsThread.start();
         Thread.sleep(1000);
-        Utils.phantomjsProcess = Utils.StreamGobble.p;
-        Services.setService("phantomjs",Utils.phantomjsProcess);
+        JSEncrypt.phantomjsProcess = JSEncrypt.StreamGobble.p;
+        Services.setService("phantomjs", JSEncrypt.phantomjsProcess);
         JPanel parentPanel = (JPanel) targetButton.getParent();
         JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
-        if(Utils.sendTestConnect()){
+        if(JSEncrypt.sendTestConnect()){
             targetLabel.setText("True");
             targetLabel.setForeground(Color.GREEN);
         }else{
@@ -137,14 +161,14 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 if(payload == null ||payload.equals("")){
                     continue;
                 }
-                String newPayload = Utils.sendPayload(payload);
+                String newPayload = JSEncrypt.sendPayload(payload);
                 newPayload += System.lineSeparator();
                 tmp += newPayload;
             }
 
             // 如果是Windows，先UTF-8编码在显示，解决Windows上乱码问题
             if(System.getProperty("os.name").toLowerCase().contains("win")){
-                tmp = Utils.transformCharset(tmp,"UTF-8");
+                tmp = JSEncrypt.transformCharset(tmp,"UTF-8");
             }
             targetJTextArea.setText(tmp);
         });
@@ -218,6 +242,78 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             case "SetDatabase":
                 SetDatabase(targetButton);
                 break;
+            case "Pause":
+                Pause(targetButton);
+                break;
+            case "Continue":
+                Continue(targetButton);
             }
         }
+
+    private void Continue(DiyJButton targetButton) {
+        Color targetButtonColor = Color.WHITE;
+        targetButton.setBackground(targetButtonColor);
+        targetButton.setBorderPainted(true);
+
+        JPanel baseInstancePanel = (JPanel) targetButton.getParent().getParent();
+
+        JPanel basePanel = (JPanel)baseInstancePanel.getParent();
+        Component[] baseInstancePanels = basePanel.getComponents();
+
+        for(int i=0; i<baseInstancePanels.length;i++){
+            if(baseInstancePanels[i]==baseInstancePanel){
+                System.out.println(i);
+            }
+        }
+
+        baseInstancePanel.setBackground(Color.WHITE);
+
+        JTextArea targetJTextArea = (JTextArea) ((JScrollPane)baseInstancePanel.getComponent(1)).getViewport().getComponent(0);
+        targetJTextArea.setBackground(Color.WHITE);
+
+        BaseComponent.tmpBaseFunctionInstance targetTmpFunctionInstancePanel= ((BaseComponent)DencryptComponent.nowPanelInstance).baseInstanceList.get(Integer.parseInt(targetJTextArea.getName()));
+
+        DiyJButton[][] buttonArray = targetTmpFunctionInstancePanel.buttonArray;
+//
+        for (DiyJButton[] diyJButtons : buttonArray) {
+            for (DiyJButton diyJButton : diyJButtons) {
+                diyJButton.setBackground(targetButtonColor);
+                diyJButton.setBorderPainted(true);
+            }
+        }
+        targetButton.setText("Pause");
+    }
+
+    private void Pause(DiyJButton targetButton) {
+        Color targetButtonColor = Color.LIGHT_GRAY;
+        targetButton.setBackground(targetButtonColor);
+        targetButton.setBorderPainted(false);
+
+        JPanel baseInstancePanel = (JPanel) targetButton.getParent().getParent();
+
+        JPanel basePanel = (JPanel)baseInstancePanel.getParent();
+        Component[] baseInstancePanels = basePanel.getComponents();
+
+        for(int i=0; i<baseInstancePanels.length;i++){
+            if(baseInstancePanels[i]==baseInstancePanel){
+                System.out.println(i);
+            }
+        }
+
+        baseInstancePanel.setBackground(Color.WHITE);
+
+        baseInstancePanel.setBackground(Color.GRAY);
+
+        JTextArea targetJTextArea = (JTextArea) ((JScrollPane)baseInstancePanel.getComponent(1)).getViewport().getComponent(0);
+        targetJTextArea.setBackground(new Color(179,179,179));
+        BaseComponent.tmpBaseFunctionInstance targetTmpFunctionInstancePanel= ((BaseComponent)DencryptComponent.nowPanelInstance).baseInstanceList.get(Integer.parseInt(targetJTextArea.getName()));
+        DiyJButton[][] buttonArray = targetTmpFunctionInstancePanel.buttonArray;
+        for (DiyJButton[] diyJButtons : buttonArray) {
+            for (DiyJButton diyJButton : diyJButtons) {
+                diyJButton.setBackground(targetButtonColor);
+                diyJButton.setBorderPainted(false);
+            }
+        }
+        targetButton.setText("Continue");
+    }
 }

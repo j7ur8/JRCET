@@ -11,7 +11,7 @@ public class test {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(50,0));
-        buttonPanel.setOpaque(true);
+        buttonPanel.setOpaque(false);
         buttonPanel.setBackground(Color.ORANGE);
 
         JTextArea textField = new JTextArea();
@@ -20,7 +20,7 @@ public class test {
         label.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setOpaque(true);
+        panel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;// Fill the "cell" in both direction
         gbc.weightx = 1.0;// Allocate extra-width to the label

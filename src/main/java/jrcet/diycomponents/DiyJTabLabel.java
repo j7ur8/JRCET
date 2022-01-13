@@ -20,7 +20,6 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
         addMouseListener(this);
         this.defaultColor=defaultColor; this.clickColor=clickColor;
         setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,defaultColor)));
-
     }
 
     public DiyJTabLabel(String labelName,Color defaultColor,Color clickColor,boolean flag){

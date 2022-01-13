@@ -2,7 +2,6 @@ package jrcet.frame.tools.Solibrary;
 
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
-import sun.awt.image.GifImageDecoder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +15,7 @@ public class SoLibraryComponent extends DiyJComponent {
     @Override
     public JComponent main() {
         JPanel SoLibraryPanel = new JPanel(new GridBagLayout());
-        SoLibraryPanel.setOpaque(true);
+        SoLibraryPanel.setOpaque(false);
         SoLibraryPanel.setBackground(Color.YELLOW);
 
         GridBagConstraints searchMenuPanelProperty = new GridBagConstraints(
@@ -90,7 +89,7 @@ public class SoLibraryComponent extends DiyJComponent {
 
         JPanel searchResultPanel=new JPanel(new GridBagLayout());
 
-        searchResultPanel.setOpaque(true);
+        searchResultPanel.setOpaque(false);
         searchResultPanel.setBackground(Color.WHITE);
 
         JScrollPane searchResultScrollPanel = new JScrollPane(searchResultPanel);

@@ -16,15 +16,12 @@ public class DiyJLabel extends JLabel  {
         setLabelProperty(labelName);
     }
 
-
-
-
     private void setLabelProperty(String labelName){
         setOpaque(true);
         setText(labelName);
         setBackground(Color.WHITE);
         setHorizontalAlignment(JLabel.CENTER);
-        setFont(new Font("微软雅黑",0,14));
+        setFont(new Font("微软雅黑", Font.PLAIN,14));
         setPreferredSize(new Dimension(80,27));
     }
 

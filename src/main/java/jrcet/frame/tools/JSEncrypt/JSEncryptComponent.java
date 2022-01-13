@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import static jrcet.frame.tools.JSEncrypt.Utils.testPayload;
+import static jrcet.frame.tools.JSEncrypt.JSEncrypt.testPayload;
 
 public class JSEncryptComponent extends DiyJComponent {
     public static String phantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
@@ -28,11 +28,11 @@ public class JSEncryptComponent extends DiyJComponent {
     @Override
     public JComponent main() {
         JPanel JSEncryptPanel = new JPanel(new GridBagLayout());
-        JSEncryptPanel.setOpaque(true);
+        JSEncryptPanel.setOpaque(false);
         JSEncryptPanel.setBackground(Color.ORANGE);
 
         JPanel JSEncryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,5,5));
-        JSEncryptMenuPanel.setOpaque(true);
+        JSEncryptMenuPanel.setOpaque(false);
         JSEncryptMenuPanel.setBackground(Color.WHITE);
         JSEncryptMenuPanel.setPreferredSize(new Dimension(0,30));
         JSEncryptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
@@ -120,7 +120,7 @@ public class JSEncryptComponent extends DiyJComponent {
 
     private static JComponent centerViewPanel() {
         JPanel centerViewPanel = new JPanel(new GridBagLayout());
-        centerViewPanel.setOpaque(true);
+        centerViewPanel.setOpaque(false);
         centerViewPanel.setBackground(Color.PINK);
 
         RSyntaxTextArea JSEncryptEditorRSyntaxTextArea = new RSyntaxTextArea();

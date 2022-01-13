@@ -2,10 +2,8 @@ package jrcet.frame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Set;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.exploit.ExploitComponent;
 import jrcet.frame.setting.Setting;
@@ -21,7 +19,8 @@ public class Index extends DiyJComponent {
 
     public JComponent main(){
         JPanel rootPanel = new JPanel(new GridBagLayout());
-        rootPanel.setOpaque(true);
+        JComponent rootTopPanel = rootTopPanel();
+        rootPanel.setOpaque(false);
         rootPanel.setBackground(Color.WHITE);
 
         GridBagConstraints rootTopPanelProperty = new GridBagConstraints(
@@ -33,7 +32,7 @@ public class Index extends DiyJComponent {
                 new Insets(0,0,0,0),
                 0,0
         );
-        rootPanel.add(rootTopPanel(),rootTopPanelProperty);
+        rootPanel.add(rootTopPanel,rootTopPanelProperty);
 
         GridBagConstraints rootTopBorderPanelProperty = new GridBagConstraints(
                 1,0,
@@ -61,7 +60,7 @@ public class Index extends DiyJComponent {
 
     private JComponent rootTopPanel(){
         JPanel rootTopPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
-        rootTopPanel.setOpaque(true);
+        rootTopPanel.setOpaque(false);
 
         DiyJTabLabel setLabel = new DiyJTabLabel("Setting",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         setLabel.setMapPanel(setting);

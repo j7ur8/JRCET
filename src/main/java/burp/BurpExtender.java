@@ -2,7 +2,7 @@ package burp;
 
 
 import jrcet.frame.Index;
-import jrcet.frame.tools.JSEncrypt.Utils;
+import jrcet.frame.tools.JSEncrypt.JSEncrypt;
 import jrcet.frame.tools.RScript.RScript;
 
 import javax.swing.*;
@@ -73,7 +73,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     @Override
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
         String payload = new String(currentPayload);
-        String newPayload = Utils.sendPayload(payload);
+        String newPayload = JSEncrypt.sendPayload(payload);
         stdout.println(newPayload);
         return helpers.stringToBytes(newPayload);
     }

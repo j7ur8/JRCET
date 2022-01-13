@@ -1,8 +1,6 @@
 package jrcet.frame.tools;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
-import jrcet.diycomponents.DiyJPanel;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
@@ -66,7 +64,7 @@ public class ToolsComponent extends DiyJComponent {
     public static DiyJTabLabel toolsMenuRScriptLabel = new DiyJTabLabel("RScript",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
     private JComponent toolsMenuPanel(){
         JPanel toolsMenuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
-        toolsMenuPanel.setOpaque(true);
+        toolsMenuPanel.setOpaque(false);
         toolsMenuPanel.setBackground(Color.WHITE);
 
         DiyJTabLabel toolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
@@ -89,7 +87,7 @@ public class ToolsComponent extends DiyJComponent {
 
     private JComponent toolsMenuBorderPanel(){
         JPanel toolsMenuBorderPanel = new JPanel();
-        toolsMenuBorderPanel.setOpaque(true);
+        toolsMenuBorderPanel.setOpaque(false);
         toolsMenuBorderPanel.setBackground(Color.WHITE);
         toolsMenuBorderPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
         return toolsMenuBorderPanel;
