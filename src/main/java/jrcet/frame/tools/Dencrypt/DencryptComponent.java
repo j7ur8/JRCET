@@ -12,7 +12,7 @@ import java.util.*;
 
 public class DencryptComponent extends DiyJComponent {
 
-    public static final BaseComponent BasePanelInstance = BasePanelInstance();
+    public static final BaseComponent BasePanelInstance = new BaseComponent();
     public static final JComponent BasePanel = BasePanelInstance.main();
     public static final JComponent AESPanel = AESPanel();
 
@@ -128,7 +128,7 @@ public class DencryptComponent extends DiyJComponent {
      public class DencryptMenuTabPanel{
 
         public  JPanel DencryptMenuTabPanel = new JPanel(new GridBagLayout());
-        public  JPanel DencryptMenuTabListPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        public  JPanel DencryptMenuTabListPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         public Integer tabNums=1;
 
         public JComponent main(JComponent defaultPanel){
@@ -170,10 +170,6 @@ public class DencryptComponent extends DiyJComponent {
 
     }
 
-    public static BaseComponent BasePanelInstance(){
-
-        return new BaseComponent();
-    }
 
     public static JComponent AESPanel(){
         JPanel AESPanel = new JPanel();

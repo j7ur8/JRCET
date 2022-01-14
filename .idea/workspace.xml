@@ -10,37 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/lib/test2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/Base64.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Decrypt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/lib/TextLineNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/lib/TextLineNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/lib/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/lib/test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTabLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTabLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextArea/ui/rsyntaxtextarea/focusabletip/TipWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextArea/ui/rsyntaxtextarea/focusabletip/TipWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Index.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Index.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/exploit/ExploitComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/exploit/ExploitComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/exploit/php/PbootCMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/exploit/php/PbootCMS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/exploit/php/ThinkPHP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/exploit/php/ThinkPHP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/Setting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/SettingComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/SettingComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/Base64.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/Base.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/DencryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/DencryptComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/JSEncrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/JSEncrypt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/JSEncryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/JSEncryptComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/JSEncrypt/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Solibrary/SoLibraryComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Solibrary/SoLibraryComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/ToolsComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/ToolsComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/sqlite/core/CoreConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/sqlite/core/CoreConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,8 +179,8 @@
       <item itemvalue="JAR 应用程序.BurpLearn-1.0-SNAPSHOT.jar" />
       <item itemvalue="应用程序.Start" />
       <item itemvalue="应用程序.test" />
-      <item itemvalue="远程 JVM 调试.burp" />
       <item itemvalue="应用程序.test2" />
+      <item itemvalue="远程 JVM 调试.burp" />
     </list>
     <recent_temporary>
       <list>
@@ -239,7 +214,8 @@
       <workItem from="1641559038617" duration="4262000" />
       <workItem from="1641642150440" duration="18465000" />
       <workItem from="1641739936688" duration="14000" />
-      <workItem from="1641740110171" duration="57961000" />
+      <workItem from="1641740110171" duration="58258000" />
+      <workItem from="1642122232202" duration="12056000" />
     </task>
     <servers />
   </component>
@@ -278,11 +254,6 @@
           <line>2579</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java</url>
-          <line>93</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -292,7 +263,7 @@
     </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/JRCET$Start.ic" NAME="Start 覆盖结果" MODIFIED="1641867991248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/JRCET$Start.ic" NAME="Start 覆盖结果" MODIFIED="1642129869326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>jrcet.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/BurpLearn$Start.ic" NAME="Start 覆盖结果" MODIFIED="1641127554106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

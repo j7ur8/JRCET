@@ -4,6 +4,7 @@ import burp.Services;
 import burp.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+import jrcet.frame.tools.Dencrypt.Base.Base;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
@@ -12,6 +13,7 @@ import jrcet.frame.tools.Solibrary.SoLibrary;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
 import javax.swing.*;
+import javax.xml.soap.Text;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -23,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
@@ -208,8 +211,8 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     @Override
     public void actionPerformed(ActionEvent e){
         DiyJButton targetButton = (DiyJButton) e.getSource();
-
-        switch (targetButton.getText()) {
+        String caseString = targetButton.getText().replaceAll("<[a-z/]{1,6}>","");
+        switch (caseString) {
             case "Copy":
                 writeRScript(targetButton);
                 break;
@@ -247,8 +250,60 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 break;
             case "Continue":
                 Continue(targetButton);
+                break;
+            case "B16":
+                Base(targetButton,caseString);
+                break;
+            case "B32":
+                Base(targetButton,caseString);
+                break;
+            case "B58":
+                Base(targetButton,caseString);
+                break;
+            case "B64":
+                Base(targetButton,caseString);
+                break;
+            case "B85":
+                Base(targetButton,caseString);
+                break;
+            case "B91":
+                Base(targetButton,caseString);
+                break;
+            case "B92":
+                Base(targetButton,caseString);
             }
         }
+
+    private void Base(JButton targetButton, String caseString) {
+
+        String type = ((JLabel)targetButton.getParent().getComponent(0)).getText().toLowerCase().replace(": ","");
+        BaseComponent baseComponent = (BaseComponent)DencryptComponent.nowPanelInstance;
+        int nowLocation = Integer.parseInt(targetButton.getName());
+        int hashmapLength = baseComponent.hashmapLength;
+
+        if(hashmapLength<=nowLocation+1){
+            baseComponent.addTmpBaseFunctionPanel();
+        }
+
+        BaseComponent.tmpBaseFunctionInstance targetTmpFunctionInstancePanel= baseComponent.baseInstanceList.get(nowLocation);
+        String result = Base.door(caseString,type,targetTmpFunctionInstancePanel.dataArea.getText());
+        BaseComponent.tmpBaseFunctionInstance resultTmpFunctionInstancePanel= baseComponent.baseInstanceList.get(nowLocation+1);
+        resultTmpFunctionInstancePanel.dataArea.setText(result);
+
+        //设置按钮
+
+        for(DiyJButton[] buttons:targetTmpFunctionInstancePanel.buttonArray){
+            for(DiyJButton button:buttons){
+                button.setOpaque(true);
+                button.setBackground(Color.WHITE);
+            }
+        }
+        targetButton.setOpaque(true);
+        targetButton.setBackground(Color.GREEN);
+
+        DencryptComponent.DencryptBaseMenuTabPanel.validate();
+        DencryptComponent.DencryptBaseMenuTabPanel.repaint();
+    }
 
     private void Continue(DiyJButton targetButton) {
         Color targetButtonColor = Color.WHITE;
@@ -299,8 +354,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 System.out.println(i);
             }
         }
-
-        baseInstancePanel.setBackground(Color.WHITE);
 
         baseInstancePanel.setBackground(Color.GRAY);
 

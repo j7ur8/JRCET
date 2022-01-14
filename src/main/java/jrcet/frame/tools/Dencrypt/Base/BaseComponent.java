@@ -15,10 +15,11 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
 public class BaseComponent extends DiyJComponent {
 
-    public Integer hashmapLength=0;
+    public Integer hashmapLength=0; //此处有bug
     public JComponent defaultBaseFunctionInstancePanel;
     public ArrayList<tmpBaseFunctionInstance> baseInstanceList=new ArrayList<>();
     public JComponent blackInstance = blackInstance();
+    public JPanel BasePanel = new JPanel(new GridBagLayout());
 
     {
         baseInstanceList.add(new tmpBaseFunctionInstance());
@@ -27,7 +28,6 @@ public class BaseComponent extends DiyJComponent {
 
     public JComponent main(){
 
-        JPanel BasePanel = new JPanel(new GridBagLayout());
         BasePanel.setOpaque(false);
         BasePanel.setBackground(Color.WHITE);
 
@@ -60,15 +60,38 @@ public class BaseComponent extends DiyJComponent {
 
     }
 
+    public void addTmpBaseFunctionPanel(){
+        BasePanel.remove(BasePanel.getComponents().length-1);
+        baseInstanceList.add(new tmpBaseFunctionInstance());
+        BasePanel.add(baseInstanceList.get(hashmapLength).main(),new GridBagConstraints(
+                0,BasePanel.getComponentCount(),
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(10,10,10,10),
+                0,0
+        ));
+        BasePanel.add(blackInstance, new GridBagConstraints(
+                0,BasePanel.getComponentCount(),
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+    }
+
      public class tmpBaseFunctionInstance {
         public final JComponent instancePanel = new JPanel(new GridBagLayout());
         public DiyJButton[][] buttonArray=new DiyJButton[2][7];
+        public JTextArea dataArea = new JTextArea();
 
         public JComponent main(){
             instancePanel.setOpaque(true);
             instancePanel.setBackground(Color.WHITE);
             instancePanel.setPreferredSize(new Dimension(0,200));
-            instancePanel.setName("BaseInstancePanel");
 
             JPanel leftBlackPanel = new JPanel();
             leftBlackPanel.setOpaque(false);
@@ -83,9 +106,6 @@ public class BaseComponent extends DiyJComponent {
                     0,0
             ));
 
-            JTextArea dataArea = new JTextArea();
-            dataArea.setName(String.valueOf(hashmapLength));
-            hashmapLength++;
             dataArea.setLineWrap(true);
             dataArea.setWrapStyleWord(true);
             dataArea.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(144,144,160)));
@@ -174,8 +194,19 @@ public class BaseComponent extends DiyJComponent {
                     new Insets(0,0,0,0),
                     0,0
             ));
-
+            reSetName(instancePanel);
+            hashmapLength++;
             return instancePanel;
+        }
+
+        private void reSetName(JComponent target){
+            Component[] components = target.getComponents();
+            if(components.length!=0)
+                for(Component i : components){
+                    reSetName((JComponent) i);
+            }
+            target.setName(String.valueOf(hashmapLength));
+
         }
 
         private void buttonList(JPanel buttonListPanel, String type) {

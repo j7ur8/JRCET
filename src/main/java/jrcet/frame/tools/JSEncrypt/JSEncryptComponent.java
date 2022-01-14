@@ -20,7 +20,7 @@ import static jrcet.frame.tools.JSEncrypt.JSEncrypt.testPayload;
 public class JSEncryptComponent extends DiyJComponent {
     public static String phantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
 //    public static String phantomjsLocation = "C:\\Users\\J7ur8\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe";
-//    public static String jScriptLocation = "C:\\Users\\J7ur8\\Desktop\\GitHub\\jsEncrypter\\test\\TestScript\\Base64\\jsEncrypter_base64.js";
+//    public static String jScriptLocation = "C:\\Users\\J7ur8\\Desktop\\GitHub\\jsEncrypter\\test\\TestScript\\Base\\jsEncrypter_base64.js";
     public static String jScriptLocation = "/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js";
 
     static public JComponent centerViewPanel=centerViewPanel();
