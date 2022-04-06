@@ -1,5 +1,9 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
+/**
+ * @实现Base家族加解密的类
+ */
+
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;

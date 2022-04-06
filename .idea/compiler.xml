@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="BurpLearn" />
         <module name="JRCET" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="JRCET" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

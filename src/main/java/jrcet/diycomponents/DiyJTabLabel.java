@@ -1,5 +1,7 @@
 package jrcet.diycomponents;
 
+import jrcet.frame.Jrcet;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -35,12 +37,12 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
         mapPanel.put(getText(),targetPanel);
     }
 
-    public void setMapStream(String k,Object v){
-        mapStream.put(k,v);
+    public JComponent getMapPanel(String k){
+        return mapPanel.get(k);
     }
 
-    public JComponent getMapPanel(String name){
-        return mapPanel.get(name);
+    public void setMapStream(String k,Object v){
+        mapStream.put(k,v);
     }
 
     public Object getMapStream(String k){
@@ -67,7 +69,7 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
             JComponent parentPanel=(JPanel)hitButtonLabel.getParent().getParent();
             int parentComponentsNums = parentPanel.getComponents().length;
             parentPanel.remove(parentComponentsNums-1);
-            GridBagConstraints defaultContentPanel = new GridBagConstraints(
+            parentPanel.add(mapPanel.get(getText()),new GridBagConstraints(
                     0,1,
                     parentComponentsNums-1,1,
                     1,1,
@@ -75,8 +77,7 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
                     GridBagConstraints.BOTH,
                     new Insets(0,0,0,0),
                     0,0
-            );
-            parentPanel.add(mapPanel.get(getText()),defaultContentPanel);
+            ));
             parentPanel.validate();
             parentPanel.repaint();
         }

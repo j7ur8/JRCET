@@ -1,7 +1,7 @@
 package burp;
 
 
-import jrcet.frame.Index;
+import jrcet.frame.Jrcet;
 import jrcet.frame.tools.JSEncrypt.JSEncrypt;
 import jrcet.frame.tools.RScript.RScript;
 
@@ -11,15 +11,15 @@ import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
-import static jrcet.frame.tools.RScript.RScriptComponent.RScriptJTextArea;
-import static jrcet.frame.tools.RScript.RScriptComponent.RScriptPanel;
-import static jrcet.frame.tools.ToolsComponent.toolsMenuRScriptLabel;
+import static jrcet.frame.tools.RScript.RScriptComponent.RScriptMainEditor;
+import static jrcet.frame.tools.RScript.RScriptComponent.RScriptComponentPanel;
+import static jrcet.frame.tools.ToolsComponent.ToolsMenuRScriptLabel;
 
 public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, IIntruderPayloadProcessor{
     public static IBurpExtenderCallbacks callbacks;
     public static IExtensionHelpers helpers;
     public static PrintWriter stdout;
-    private final JComponent t=new Index().main();
+    private final JComponent t=new Jrcet().main();
 
     public BurpExtender(){
         Runtime.getRuntime().addShutdownHook(new ShutdownThread());
@@ -54,11 +54,11 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         JMenuItem RScriptItem = new JMenuItem("RScript");
 
         RScriptItem.addActionListener(e -> {
-            toolsMenuRScriptLabel.setMapStream("IHttpRequestResponse",messages);
-            toolsMenuRScriptLabel.setMapStream("IExtensionHelpers",helpers);
-            RScriptJTextArea.setText(new RScript().initScript((IHttpRequestResponse[]) toolsMenuRScriptLabel.getMapStream("IHttpRequestResponse"),(IExtensionHelpers) toolsMenuRScriptLabel.getMapStream("IExtensionHelpers")));
-            RScriptPanel.validate();
-            RScriptPanel.repaint();
+            ToolsMenuRScriptLabel.setMapStream("IHttpRequestResponse",messages);
+            ToolsMenuRScriptLabel.setMapStream("IExtensionHelpers",helpers);
+            RScriptMainEditor.setText(new RScript().initScript((IHttpRequestResponse[]) ToolsMenuRScriptLabel.getMapStream("IHttpRequestResponse"),(IExtensionHelpers) ToolsMenuRScriptLabel.getMapStream("IExtensionHelpers")));
+            RScriptComponentPanel.validate();
+            RScriptComponentPanel.repaint();
         });
 
         return Collections.singletonList(RScriptItem);

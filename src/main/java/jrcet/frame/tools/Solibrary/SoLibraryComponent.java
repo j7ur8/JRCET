@@ -9,16 +9,18 @@ import java.awt.*;
 public class SoLibraryComponent extends DiyJComponent {
 
     public static String databasePath="/Users/j7ur8/Documents/DocumentArchive/SoLibra.db";
-    public static JComponent searchMenuPanel=searchMenuPanel();
-    public static JComponent searchResultScrollPanel=searchResultScrollPanel();
+    public static JComponent SoLibraryMenuTabPanel = SoLibraryMenuTabPanel();
+    public static JComponent SoLibraryResultScrollPanel = SoLibraryResultScrollPanel();
 
     @Override
     public JComponent main() {
-        JPanel SoLibraryPanel = new JPanel(new GridBagLayout());
-        SoLibraryPanel.setOpaque(false);
-        SoLibraryPanel.setBackground(Color.YELLOW);
 
-        GridBagConstraints searchMenuPanelProperty = new GridBagConstraints(
+        JPanel SoLibraryComponentPanel = new JPanel(new GridBagLayout());
+        SoLibraryComponentPanel.setName("SoLibraryComponentPanel");
+        SoLibraryComponentPanel.setOpaque(false);
+        SoLibraryComponentPanel.setBackground(Color.YELLOW);
+
+        SoLibraryComponentPanel.add(SoLibraryMenuTabPanel,new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -26,10 +28,10 @@ public class SoLibraryComponent extends DiyJComponent {
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
-        );
-        SoLibraryPanel.add(searchMenuPanel,searchMenuPanelProperty);
+        ));
 
-        GridBagConstraints searchResultPanelScrollProperty = new GridBagConstraints(
+
+        SoLibraryComponentPanel.add(SoLibraryResultScrollPanel,new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -37,62 +39,67 @@ public class SoLibraryComponent extends DiyJComponent {
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
-        );
-        SoLibraryPanel.add(searchResultScrollPanel,searchResultPanelScrollProperty);
+        ));
 
 
-        return SoLibraryPanel;
+        return SoLibraryComponentPanel;
     }
 
-    private static JComponent searchMenuPanel(){
-        JPanel searchMenu = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
-        searchMenu.setBackground(Color.WHITE);
-        searchMenu.setPreferredSize(new Dimension(0,30));
+    private static JComponent SoLibraryMenuTabPanel(){
 
-        JLabel databaseLabel = new JLabel("Database:");
-        searchMenu.add(databaseLabel);
-        JTextField databaseJTextField = new JTextField();
-        databaseJTextField.setText(databasePath);
-        databaseJTextField.setPreferredSize(new Dimension(300,20));
-        searchMenu.add(databaseJTextField);
+        JPanel SoLibraryMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
+        SoLibraryMenuTabPanel.setName("SoLibraryMenuTabPanel");
+        SoLibraryMenuTabPanel.setBackground(Color.WHITE);
+        SoLibraryMenuTabPanel.setPreferredSize(new Dimension(0,30));
 
-        DiyJButton setDatabaseButton = new DiyJButton("SetDatabase");
-        setDatabaseButton.setPreferredSize(new Dimension(120,20));
-        searchMenu.add(setDatabaseButton);
+        JLabel SoLibraryMenuTabDatabaseLabel = new JLabel("Database:");
+        SoLibraryMenuTabDatabaseLabel.setName("SoLibraryMenuTabDatabaseLabel");
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabDatabaseLabel);
 
-        JLabel nameLabel = new JLabel("姓名:");
-        searchMenu.add(nameLabel);
-        JTextField nameJTextField = new JTextField();
-        nameJTextField.setPreferredSize(new Dimension(100,20));
-        searchMenu.add(nameJTextField);
+        JTextField SoLibraryMenuTabDatabaseJTextField = new JTextField();
+        SoLibraryMenuTabDatabaseJTextField.setText(databasePath);
+        SoLibraryMenuTabDatabaseJTextField.setPreferredSize(new Dimension(300,20));
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabDatabaseJTextField);
 
-        JLabel cardLabel = new JLabel("身份证:");
-        searchMenu.add(cardLabel);
-        JTextField cardJTextField = new JTextField();
-        cardJTextField.setPreferredSize(new Dimension(160,20));
-        searchMenu.add(cardJTextField);
+        DiyJButton SoLibraryMenuTabSetDBButton = new DiyJButton("SetDatabase");
+        SoLibraryMenuTabSetDBButton.setPreferredSize(new Dimension(120,20));
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabSetDBButton);
 
-        JLabel phoneLabel = new JLabel("手机:");
-        searchMenu.add(phoneLabel);
-        JTextField phoneJTextField = new JTextField();
-        phoneJTextField.setPreferredSize(new Dimension(100,20));
-        searchMenu.add(phoneJTextField);
+        JLabel SoLibraryMenuTabNameLabel = new JLabel("姓名:");
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabNameLabel);
 
-        DiyJButton searchButton = new DiyJButton("Search");
-        searchButton.setPreferredSize(new Dimension(120,20));
-        searchMenu.add(searchButton);
+        JTextField SoLibraryMenuTabNameJTextField = new JTextField();
+        SoLibraryMenuTabNameJTextField.setPreferredSize(new Dimension(100,20));
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabNameJTextField);
 
-        return searchMenu;
+        JLabel SoLibraryMenuTabCardLabel = new JLabel("身份证:");
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabCardLabel);
+
+        JTextField SoLibraryMenuTabCardLabelJTextField = new JTextField();
+        SoLibraryMenuTabCardLabelJTextField.setPreferredSize(new Dimension(160,20));
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabCardLabelJTextField);
+
+        JLabel SoLibraryMenuTabPhoneLabel = new JLabel("手机:");
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabPhoneLabel);
+
+        JTextField SoLibraryMenuTabPhoneJTextField = new JTextField();
+        SoLibraryMenuTabPhoneJTextField.setPreferredSize(new Dimension(100,20));
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabPhoneJTextField);
+
+        DiyJButton SoLibraryMenuTabSearchButton = new DiyJButton("Search");
+        SoLibraryMenuTabSearchButton.setPreferredSize(new Dimension(120,20));
+        SoLibraryMenuTabPanel.add(SoLibraryMenuTabSearchButton);
+
+        return SoLibraryMenuTabPanel;
     }
 
-    private static JComponent searchResultScrollPanel(){
+    private static JComponent SoLibraryResultScrollPanel(){
 
-        JPanel searchResultPanel=new JPanel(new GridBagLayout());
+        JPanel SoLibraryResultPanel=new JPanel(new GridBagLayout());
+        SoLibraryResultPanel.setOpaque(false);
+        SoLibraryResultPanel.setBackground(Color.WHITE);
 
-        searchResultPanel.setOpaque(false);
-        searchResultPanel.setBackground(Color.WHITE);
-
-        JScrollPane searchResultScrollPanel = new JScrollPane(searchResultPanel);
+        JScrollPane searchResultScrollPanel = new JScrollPane(SoLibraryResultPanel);
         searchResultScrollPanel.setPreferredSize(new Dimension(0,0));
 
         return searchResultScrollPanel;

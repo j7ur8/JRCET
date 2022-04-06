@@ -1,6 +1,5 @@
 package jrcet.frame.tools.Dencrypt;
 
-import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.setting.Setting;
@@ -12,41 +11,28 @@ import java.util.*;
 
 public class DencryptComponent extends DiyJComponent {
 
-    public static final BaseComponent BasePanelInstance = new BaseComponent();
-    public static final JComponent BasePanel = BasePanelInstance.main();
-    public static final JComponent AESPanel = AESPanel();
+    //设置默认显示的DencryptPanel
+    public static String DefaultDencryptPanel = "Base";
+    //HashMap DencryptPanelMap实现一个存储ArrayList<Object>的结构，键名为加解密类型。
+    public static HashMap<String,ArrayList<JComponent>> DencryptPanelMap = new HashMap<>();
 
-    public static JComponent DencryptMenuPanel;
+    public DencryptComponent(){
 
-    public static DencryptMenuTabPanel DencryptBaseMenuTabInstance;
-    public static DencryptMenuTabPanel DencryptAESMenuTabInstance;
-    public static JComponent DencryptBaseMenuTabPanel;
-    public static JComponent DencryptAESMenuTabPanel;
-    public static Object nowPanelInstance;
+        DencryptPanelMap.put("Base",new ArrayList<>(Collections.singletonList(new BaseComponent())));
+        DencryptPanelMap.put("AES",new ArrayList<>(Collections.singletonList(AESPanel())));
 
-    public static HashMap<String,ArrayList<Object>> FunctionPanelMap = new HashMap<>();
-
-    {
-
-        DencryptBaseMenuTabInstance= new DencryptMenuTabPanel();
-        DencryptBaseMenuTabPanel = DencryptBaseMenuTabInstance.main(BasePanel);
-
-        DencryptAESMenuTabInstance = new DencryptMenuTabPanel();
-        DencryptAESMenuTabPanel = DencryptAESMenuTabInstance.main(AESPanel);
-
-        DencryptMenuPanel = DencryptMenuPanel();
-
-        nowPanelInstance = BasePanelInstance;
-        FunctionPanelMap.put("Base",new ArrayList<>(Collections.singletonList(BasePanelInstance)));
-//        FunctionPanelMap.put("AES",new ArrayList<>(Collections.singletonList(DencryptAESMenuTabInstance)));
     }
 
     public JPanel main(){
-        JPanel DencryptPanel = new JPanel(new GridBagLayout());
-        DencryptPanel.setOpaque(true);
-        DencryptPanel.setBackground(Color.WHITE);
+        JPanel DencryptComponentPanel = new JPanel(new GridBagLayout());
+        DencryptComponentPanel.setName("DencryptComponentPanel");
+        DencryptComponentPanel.setOpaque(true);
+        DencryptComponentPanel.setBackground(Color.WHITE);
 
-        DencryptPanel.add(DencryptMenuBorderPanel(),new GridBagConstraints(
+        /*
+            DencryptMenuBorderPanel()左右复用更好。
+         */
+        DencryptComponentPanel.add(DencryptMenuBorderPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 0.5,0,
@@ -56,7 +42,10 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptPanel.add(DencryptMenuPanel,new GridBagConstraints(
+        /*
+            DencryptMenuPanel是AES、Base这一栏目
+        */
+        DencryptComponentPanel.add(DencryptMenuTabPanel(),new GridBagConstraints(
                 1,0,
                 1,1,
                 0,0,
@@ -66,7 +55,7 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptPanel.add(DencryptMenuBorderPanel(),new GridBagConstraints(
+        DencryptComponentPanel.add(DencryptMenuBorderPanel(),new GridBagConstraints(
                 2,0,
                 1,1,
                 0.5,0,
@@ -76,7 +65,10 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptPanel.add(DencryptBaseMenuTabPanel,new GridBagConstraints(
+        /*
+            是分页(0,1,2,3...)栏
+        */
+        DencryptComponentPanel.add(getDefaultDencryptPanel(DefaultDencryptPanel),new GridBagConstraints(
                 0,2,
                 3,1,
                 1,1,
@@ -86,89 +78,64 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        return DencryptPanel;
+        return DencryptComponentPanel;
     }
 
-    public static JComponent DencryptMenuPanel(){
+    public static JComponent DencryptMenuTabPanel(){
 
         JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        DencryptMenuPanel.setName("DencryptMenuPanel");
         DencryptMenuPanel.setOpaque(false);
         DencryptMenuPanel.setBackground(Color.WHITE);
 
-        DiyJTabLabel BaseTab = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
-        DencryptMenuPanel.add(BaseTab);
-        BaseTab.setMapPanel(DencryptBaseMenuTabPanel);
+        //添加加密Tab
+        //Base
+        DiyJTabLabel DencryptMenuBaseTab = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
+        DencryptMenuBaseTab.setName("DencryptMenuBaseTab");
+        DencryptMenuBaseTab.setMapPanel(getDefaultDencryptPanel(DencryptMenuBaseTab.getText()));
+        DencryptMenuPanel.add(DencryptMenuBaseTab);
 
-        DiyJTabLabel AESTab = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
-        DencryptMenuPanel.add(AESTab);
-        AESTab.setMapPanel(DencryptAESMenuTabPanel);
+        //AES
+        DiyJTabLabel DencryptMenuAESTab = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DencryptMenuAESTab.setMapPanel(getDefaultDencryptPanel(DencryptMenuAESTab.getText()));
+        DencryptMenuPanel.add(DencryptMenuAESTab);
 
-        diyJTabLabel(DencryptMenuPanel);
+        //设置 Tab 的按钮属性（高宽等）
+        for(Component label : DencryptMenuPanel.getComponents()){
+            label.setFont(new Font("微软雅黑", Font.PLAIN,12));
+            label.setPreferredSize(new Dimension(50,20));
+        }
+
         return DencryptMenuPanel;
     }
 
-    private static void diyJTabLabel(JComponent DencryptMenuPanel){
-        for(Component targetJTabLabel :DencryptMenuPanel.getComponents()){
-            targetJTabLabel.setFont(new Font("微软雅黑", Font.PLAIN,12));
-            targetJTabLabel.setPreferredSize(new Dimension(50,20));
-        }
-    }
-
+    //设置DencryptMenu组件下边框的格式
     public JComponent DencryptMenuBorderPanel(){
+
         JPanel DencryptMenuBorderPanel = new JPanel();
-        DencryptMenuBorderPanel.setOpaque(false);
-        DencryptMenuBorderPanel.setBackground(Color.WHITE);
+        DencryptMenuBorderPanel.setName("DencryptMenuBorderPanel");
+        DencryptMenuBorderPanel.setOpaque(true);
+        DencryptMenuBorderPanel.setBackground(Color.YELLOW);
         DencryptMenuBorderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class1DefaultDiyJTabBorderColor)));
         DencryptMenuBorderPanel.setPreferredSize(new Dimension(0,0));
 
         return DencryptMenuBorderPanel;
     }
 
-
-     public class DencryptMenuTabPanel{
-
-        public  JPanel DencryptMenuTabPanel = new JPanel(new GridBagLayout());
-        public  JPanel DencryptMenuTabListPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
-        public Integer tabNums=1;
-
-        public JComponent main(JComponent defaultPanel){
-            DencryptMenuTabPanel.setOpaque(false);
-            DencryptMenuTabPanel.setPreferredSize(new Dimension(0,0));
-            DencryptMenuTabPanel.setName(defaultPanel.getName());
-
-            DencryptMenuTabListPanel.setOpaque(false);
-            DencryptMenuTabListPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
-
-            DiyJAddLabel defaultDiyJTabLabel = new DiyJAddLabel("1",true);
-            DencryptMenuTabListPanel.add(defaultDiyJTabLabel);
-            defaultDiyJTabLabel.setMapPanel(defaultPanel);
-
-            DiyJAddLabel defaultAddDiyJTabLabel = new DiyJAddLabel("···");
-            DencryptMenuTabListPanel.add(defaultAddDiyJTabLabel);
-
-            DencryptMenuTabPanel.add(DencryptMenuTabListPanel,new GridBagConstraints(
-                    0,0,
-                    1,1,
-                    1,0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
-            DencryptMenuTabPanel.add(defaultPanel,new GridBagConstraints(
-                    0,1,
-                    1,1,
-                    1,1,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
-
-            return DencryptMenuTabPanel;
+    /*
+    根据传入的值从DencryptPanelMap中获取默认的Panel，失败则返回一个空Panel
+     */
+    private static JComponent getDefaultDencryptPanel(String dencryptName){
+        if(DencryptPanelMap.containsKey(dencryptName)){
+            ArrayList<JComponent> targetDencryptArrayList = DencryptPanelMap.get(dencryptName);
+            if ( (targetDencryptArrayList.get(0))  instanceof  DiyJComponent){
+                return  ((DiyJComponent)targetDencryptArrayList.get(0)).main();
+            }
+            return BlackPanel();
         }
-
+        return BlackPanel();
     }
+
 
 
     public static JComponent AESPanel(){
@@ -180,5 +147,13 @@ public class DencryptComponent extends DiyJComponent {
         return AESPanel;
     }
 
+    public static JComponent BlackPanel(){
+        JPanel BlackPanel = new JPanel();
+        BlackPanel.setName("Black");
+        BlackPanel.setOpaque(true);
+        BlackPanel.setBackground(Color.PINK);
+
+        return BlackPanel;
+    }
 
 }

@@ -8,7 +8,7 @@ import java.io.IOException;
 public class JSEncrypt {
     public static Process phantomjsProcess;
 
-    static public String[] testPayload = {
+    static public String[] JSEncryptPayload = {
             "123456","a123456","123456a","5201314",
             "111111","woaini1314","qq123456","123123",
             "000000","1qaz2wsx","1q2w3e4r","qwe123",

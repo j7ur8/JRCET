@@ -5,14 +5,14 @@ import burp.IHttpRequestResponse;
 import burp.IRequestInfo;
 import burp.lib.Json;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class RScript {
 
     private final static String[] PYTHON_ESCAPE = new String[256];
     private final static String SESSION_VAR = "session";
-    private enum BodyType {JSON, DATA};
+    private enum BodyType {JSON, DATA}
     private IExtensionHelpers helpers;
     private IHttpRequestResponse[] messages;
 
@@ -196,7 +196,7 @@ public class RScript {
     private static void escapeJson(Json node, StringBuilder output) {
         if (node.isObject()) {
             output.append('{');
-            Map<String, Json> tm = new TreeMap(String.CASE_INSENSITIVE_ORDER);
+            Map<String, Json> tm = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
             tm.putAll(node.asJsonMap());
             final Iterator<Map.Entry<String, Json>> iter = tm.entrySet().iterator();
             if (iter.hasNext()) {
@@ -237,11 +237,7 @@ public class RScript {
     }
 
     private static String byteSliceToString(byte[] input, int from, int till) {
-        try {
-            return new String(input, from, till - from, "ISO-8859-1");
-        } catch (UnsupportedEncodingException uee) {
-            throw new RuntimeException("All JVMs must support ISO-8859-1");
-        }
+        return new String(input, from, till - from, StandardCharsets.ISO_8859_1);
     }
 
     private static void escapeString(String input, StringBuilder output) {

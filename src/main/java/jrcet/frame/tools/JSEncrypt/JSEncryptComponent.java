@@ -15,22 +15,45 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import static jrcet.frame.tools.JSEncrypt.JSEncrypt.testPayload;
+import static jrcet.frame.tools.JSEncrypt.JSEncrypt.JSEncryptPayload;
 
 public class JSEncryptComponent extends DiyJComponent {
-    public static String phantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
-//    public static String phantomjsLocation = "C:\\Users\\J7ur8\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe";
-//    public static String jScriptLocation = "C:\\Users\\J7ur8\\Desktop\\GitHub\\jsEncrypter\\test\\TestScript\\Base\\jsEncrypter_base64.js";
-    public static String jScriptLocation = "/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js";
 
-    static public JComponent centerViewPanel=centerViewPanel();
+    public static String JSEncryptPhantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
+    public static String JSEncryptScriptLocation = "/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js";
 
     @Override
     public JComponent main() {
-        JPanel JSEncryptPanel = new JPanel(new GridBagLayout());
-        JSEncryptPanel.setOpaque(false);
-        JSEncryptPanel.setBackground(Color.ORANGE);
 
+        JPanel JSEncryptComponentPanel = new JPanel(new GridBagLayout());
+        JSEncryptComponentPanel.setName("JSEncryptComponentPanel");
+        JSEncryptComponentPanel.setOpaque(false);
+        JSEncryptComponentPanel.setBackground(Color.ORANGE);
+
+        JSEncryptComponentPanel.add(JSEncryptMenuPanel(),new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        JSEncryptComponentPanel.add(JSEncryptMainPanel(),new GridBagConstraints(
+                0,1,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return JSEncryptComponentPanel;
+    }
+
+    private JComponent JSEncryptMenuPanel(){
         JPanel JSEncryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,5,5));
         JSEncryptMenuPanel.setOpaque(false);
         JSEncryptMenuPanel.setBackground(Color.WHITE);
@@ -92,43 +115,18 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptMenuDisConnectButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuDisConnectButton);
 
-        GridBagConstraints JSEncryptMenuPanelProperty = new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        );
-        JSEncryptPanel.add(JSEncryptMenuPanel,JSEncryptMenuPanelProperty);
-
-        centerViewPanel.setPreferredSize(new Dimension(0,0));
-        GridBagConstraints centerViewPanelProperty = new GridBagConstraints(
-                0,1,
-                1,1,
-                1,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        );
-        JSEncryptPanel.add(centerViewPanel,centerViewPanelProperty);
-
-        return JSEncryptPanel;
+        return JSEncryptMenuPanel;
     }
 
-    private static JComponent centerViewPanel() {
-        JPanel centerViewPanel = new JPanel(new GridBagLayout());
-        centerViewPanel.setOpaque(false);
-        centerViewPanel.setBackground(Color.PINK);
+    private JComponent JSEncryptMainPanel() {
 
-        RSyntaxTextArea JSEncryptEditorRSyntaxTextArea = new RSyntaxTextArea();
-        JSEncryptEditorRSyntaxTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        JSEncryptEditorRSyntaxTextArea.setCodeFoldingEnabled(true);
-        RTextScrollPane JSEncryptEditorRSyntaxTextAreaScroll = new RTextScrollPane(JSEncryptEditorRSyntaxTextArea);
-        JSEncryptEditorRSyntaxTextAreaScroll.setPreferredSize(new Dimension(0,0));
-        GridBagConstraints JSEncryptEditorRSyntaxTextAreaScrollProperty = new GridBagConstraints(
+        JPanel JSEncryptMainPanel = new JPanel(new GridBagLayout());
+        JSEncryptMainPanel.setName("JSEncryptMainPanel");
+        JSEncryptMainPanel.setPreferredSize(new Dimension(0,0));
+        JSEncryptMainPanel.setOpaque(false);
+        JSEncryptMainPanel.setBackground(Color.PINK);
+
+        JSEncryptMainPanel.add(JSEncryptMainScriptEditorScrollPanel(), new GridBagConstraints(
                 0,0,
                 1,1,
                 0.6,1,
@@ -136,11 +134,44 @@ public class JSEncryptComponent extends DiyJComponent {
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
-        );
-        centerViewPanel.add(JSEncryptEditorRSyntaxTextAreaScroll, JSEncryptEditorRSyntaxTextAreaScrollProperty);
+        ));
 
-        JSEncryptEditorRSyntaxTextArea.setText(Helper.readFile(jScriptLocation));
-        JSEncryptEditorRSyntaxTextArea.addKeyListener(new KeyListener(){
+        JSEncryptMainPanel.add(JSEncryptMainPayloadScrollPanel(), new GridBagConstraints(
+                1,0,
+                1,1,
+                0.2,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        JSEncryptMainPanel.add(JSEncryptMainResultScrollPanel(), new GridBagConstraints(
+                2,0,
+                1,1,
+                0.2,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return JSEncryptMainPanel;
+    }
+
+    private JComponent JSEncryptMainScriptEditorScrollPanel(){
+
+        RSyntaxTextArea JSEncryptMainScriptEditor = new RSyntaxTextArea();
+        JSEncryptMainScriptEditor.setName("JSEncryptMainScriptEditor");
+        JSEncryptMainScriptEditor.setCodeFoldingEnabled(true);
+        JSEncryptMainScriptEditor.setText((Helper.isFile(JSEncryptScriptLocation)?Helper.readFile(JSEncryptScriptLocation):"File Not Found"));
+        JSEncryptMainScriptEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+
+        RTextScrollPane JSEncryptMainScriptEditorScrollPanel = new RTextScrollPane(JSEncryptMainScriptEditor);
+        JSEncryptMainScriptEditorScrollPanel.setName("JSEncryptMainScriptEditorScrollPanel");
+        JSEncryptMainScriptEditorScrollPanel.setPreferredSize(new Dimension(0,0));
+
+        JSEncryptMainScriptEditor.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e) {}
 
@@ -153,7 +184,7 @@ public class JSEncryptComponent extends DiyJComponent {
                     JTextArea parent = (JTextArea) e.getSource();
                     String jScriptContent = parent.getText();
                     try {
-                        Helper.writeFile(jScriptContent,jScriptLocation);
+                        Helper.writeFile(jScriptContent, JSEncryptScriptLocation);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -161,51 +192,46 @@ public class JSEncryptComponent extends DiyJComponent {
             }
         });
 
-        JTextArea JSEncryptOriginPayloadJTextArea = new JTextArea();
-        JSEncryptOriginPayloadJTextArea.setLineWrap(true);
-        JSEncryptOriginPayloadJTextArea.setWrapStyleWord(true);
-        JSEncryptOriginPayloadJTextArea.setPreferredSize(new Dimension(0,0));
-        JScrollPane JSEncryptOriginPayloadJTTextAreaScroll = new JScrollPane(JSEncryptOriginPayloadJTextArea);
-        JSEncryptOriginPayloadJTTextAreaScroll.setBorder(null);
-        TextLineNumber tln2 = new TextLineNumber(JSEncryptOriginPayloadJTextArea,2);
-        JSEncryptOriginPayloadJTextArea.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(203, 208, 209)));
-        JSEncryptOriginPayloadJTTextAreaScroll.setRowHeaderView(tln2);
-        GridBagConstraints JSEncryptOriginPayloadJTTextAreaScrollProperty = new GridBagConstraints(
-                1,0,
-                1,1,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        );
-        centerViewPanel.add(JSEncryptOriginPayloadJTTextAreaScroll, JSEncryptOriginPayloadJTTextAreaScrollProperty);
-        StringBuilder tmp = new StringBuilder();
-        for (String payload : testPayload) {
-            tmp.append(payload).append(System.lineSeparator());
+        return  JSEncryptMainScriptEditorScrollPanel;
+    }
+
+    public JComponent JSEncryptMainPayloadScrollPanel(){
+
+        StringBuilder JSEncryptMainPayload = new StringBuilder();
+        for (String payload : JSEncryptPayload) {
+            JSEncryptMainPayload.append(payload).append(System.lineSeparator());
         }
-        JSEncryptOriginPayloadJTextArea.setText(tmp.toString());
 
-        JTextArea JSEncryptResultJTextArea = new JTextArea();
-        JSEncryptResultJTextArea.setLineWrap(true);
-        JSEncryptResultJTextArea.setWrapStyleWord(true);
-        JSEncryptResultJTextArea.setPreferredSize(new Dimension(0,0));
-        JScrollPane JSEncryptResultJTextAreaScroll = new JScrollPane(JSEncryptResultJTextArea);
-        JSEncryptResultJTextAreaScroll.setBorder(null);
-        TextLineNumber tln3 = new TextLineNumber(JSEncryptResultJTextArea);
-        JSEncryptResultJTextAreaScroll.setRowHeaderView(tln3);
-        GridBagConstraints JSEncryptResultJTextAreaScrollProperty = new GridBagConstraints(
-                2,0,
-                1,1,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        );
-        centerViewPanel.add(JSEncryptResultJTextAreaScroll, JSEncryptResultJTextAreaScrollProperty);
+        JTextArea JSEncryptMainPayloadEditor = new JTextArea();
+        JSEncryptMainPayloadEditor.setLineWrap(true);
+        JSEncryptMainPayloadEditor.setWrapStyleWord(true);
+        JSEncryptMainPayloadEditor.setName("JSEncryptMainPayloadEditor");
+        JSEncryptMainPayloadEditor.setText(JSEncryptMainPayload.toString());
+        JSEncryptMainPayloadEditor.setPreferredSize(new Dimension(0,0));
+        JSEncryptMainPayloadEditor.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(203, 208, 209)));
 
-        return centerViewPanel;
+        JScrollPane JSEncryptMainPayloadEditorScrollPanel = new JScrollPane(JSEncryptMainPayloadEditor);
+        JSEncryptMainPayloadEditorScrollPanel.setBorder(null);
+        JSEncryptMainPayloadEditorScrollPanel.setName("JSEncryptMainPayloadEditorScrollPanel");
+        JSEncryptMainPayloadEditorScrollPanel.setRowHeaderView(new TextLineNumber(JSEncryptMainPayloadEditor,2));
+
+        return JSEncryptMainPayloadEditorScrollPanel;
+    }
+
+    private JComponent JSEncryptMainResultScrollPanel(){
+        
+        JTextArea JSEncryptMainResultEditor = new JTextArea();
+        JSEncryptMainResultEditor.setLineWrap(true);
+        JSEncryptMainResultEditor.setWrapStyleWord(true);
+        JSEncryptMainResultEditor.setName("JSEncryptMainResultEditor");
+        JSEncryptMainResultEditor.setPreferredSize(new Dimension(0,0));
+
+        JScrollPane JSEncryptMainResultScrollPanel = new JScrollPane(JSEncryptMainResultEditor);
+        JSEncryptMainResultScrollPanel.setName("JSEncryptMainResultScrollPanel");
+        JSEncryptMainResultScrollPanel.setBorder(null);
+        JSEncryptMainResultScrollPanel.setRowHeaderView(new TextLineNumber(JSEncryptMainResultEditor));
+
+        return  JSEncryptMainResultScrollPanel;
     }
 
 }

@@ -1,7 +1,7 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.exploit.php.PbootCMS;
-import jrcet.frame.exploit.php.ThinkPHP;
+import jrcet.frame.exploit.php.PbootCMS.PbootCMSComponent;
+import jrcet.frame.exploit.php.ThinkPHP.ThinkPHPComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.event.ItemListener;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DiyJComboBox extends JComboBox implements ItemListener {
+public class DiyJComboBox extends JComboBox<String> implements ItemListener {
     public String[] types = new String[]{"PHP","Java","Nodejs","Other"};
     public DiyJComboBox(String[] targetList){
         super(targetList);
@@ -28,7 +28,7 @@ public class DiyJComboBox extends JComboBox implements ItemListener {
             return;
         }
         if(tmpComboBox.getParent()!=null){
-            if(!Arrays.asList(types).contains(e.getItem())){
+            if(!Arrays.asList(types).contains((String) e.getItem())){
                 String nowSelectItem= (String) e.getItem();
                 System.out.println(tmpComboBox.getParent());
                 JLabel nowSelectLabel=(JLabel) tmpComboBox.getParent().getComponent(4);
@@ -36,10 +36,10 @@ public class DiyJComboBox extends JComboBox implements ItemListener {
                 DiyJComponent targetPanel=null;
                 switch (Objects.requireNonNull(nowSelectItem)){
                     case "ThinkPHP":
-                        targetPanel=new ThinkPHP();
+                        targetPanel=new ThinkPHPComponent();
                         break;
                     case "PbootCMS":
-                        targetPanel=new PbootCMS();
+                        targetPanel=new PbootCMSComponent();
                         break;
                     case "Shiro":
 //                    targetPanel=new Shiro();

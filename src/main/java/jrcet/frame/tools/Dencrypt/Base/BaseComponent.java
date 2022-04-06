@@ -1,13 +1,16 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
+/**
+ * 实现Base页面组件的类
+ */
+
+import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
@@ -15,39 +18,32 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
 public class BaseComponent extends DiyJComponent {
 
-    public Integer hashmapLength=0; //此处有bug
-    public JComponent defaultBaseFunctionInstancePanel;
-    public ArrayList<tmpBaseFunctionInstance> baseInstanceList=new ArrayList<>();
-    public JComponent blackInstance = blackInstance();
-    public JPanel BasePanel = new JPanel(new GridBagLayout());
+    public final JComponent BaseMainPanel = BaseMainPanel();
+    public final JComponent DefaultBaseMainPanel = BaseMainPanel;
 
-    {
-        baseInstanceList.add(new tmpBaseFunctionInstance());
-        defaultBaseFunctionInstancePanel = baseInstanceList.get(0).main();
+    public BaseComponent(){
+
     }
 
     public JComponent main(){
 
-        BasePanel.setOpaque(false);
-        BasePanel.setBackground(Color.WHITE);
+        JPanel BaseComponentPanel = new JPanel(new GridBagLayout());
+        BaseComponentPanel.setName("BaseComponentPanel");
+        BaseComponentPanel.setOpaque(false);
+        BaseComponentPanel.setPreferredSize(new Dimension(0,0));
 
-        JScrollPane BaseScrollPane = new JScrollPane(BasePanel,VERTICAL_SCROLLBAR_AS_NEEDED,HORIZONTAL_SCROLLBAR_NEVER);
-        BaseScrollPane.setBorder(null);
-        BaseScrollPane.setPreferredSize(new Dimension(0,0));
-        BaseScrollPane.setName("Base-1");
-
-        BasePanel.add(defaultBaseFunctionInstancePanel, new GridBagConstraints(
-                0,BasePanel.getComponentCount(),
+        BaseComponentPanel.add(BaseTagTabPanel(),new GridBagConstraints(
+                0,0,
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(10,10,10,10),
+                new Insets(0,0,0,0),
                 0,0
         ));
 
-        BasePanel.add(blackInstance, new GridBagConstraints(
-                0,BasePanel.getComponentCount(),
+        BaseComponentPanel.add(DefaultBaseMainPanel,new GridBagConstraints(
+                0,1,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -56,15 +52,41 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
-        return BaseScrollPane;
-
+        return BaseComponentPanel;
     }
 
-    public void addTmpBaseFunctionPanel(){
-        BasePanel.remove(BasePanel.getComponents().length-1);
-        baseInstanceList.add(new tmpBaseFunctionInstance());
-        BasePanel.add(baseInstanceList.get(hashmapLength).main(),new GridBagConstraints(
-                0,BasePanel.getComponentCount(),
+    public JComponent BaseTagTabPanel(){
+        JPanel BaseTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
+        BaseTagTabPanel.setName("BaseTagTabPanel");
+        BaseTagTabPanel.setOpaque(false);
+        BaseTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
+
+        DiyJAddLabel BaseMenuDefaultTagLabel = new DiyJAddLabel("1",true);
+        BaseMenuDefaultTagLabel.setName("BaseMenuDefaultTagLabel");
+        BaseTagTabPanel.add(BaseMenuDefaultTagLabel);
+        BaseMenuDefaultTagLabel.setMapPanel(BaseMainPanel);
+
+        DiyJAddLabel BaseMenuAddTagLabel = new DiyJAddLabel("···",false);
+        BaseMenuAddTagLabel.setName("BaseMenuAddTagLabel");
+        BaseTagTabPanel.add(BaseMenuAddTagLabel);
+
+        return BaseTagTabPanel;
+    }
+
+    public JComponent BaseMainPanel(){
+        JComponent BaseMainPanel = new JPanel(new GridBagLayout());
+        BaseMainPanel.setName("BaseMainPanel");
+        BaseMainPanel.setOpaque(false);
+        BaseMainPanel.setBackground(Color.WHITE);
+
+        JScrollPane BaseMainScrollPane = new JScrollPane(BaseMainPanel,VERTICAL_SCROLLBAR_AS_NEEDED,HORIZONTAL_SCROLLBAR_NEVER);
+        BaseMainScrollPane.setName("BaseMainScrollPane");
+        BaseMainScrollPane.setBorder(null);
+        BaseMainScrollPane.setPreferredSize(new Dimension(0,0));
+        BaseMainScrollPane.setName("BaseMainScrollPane");
+
+        BaseMainPanel.add(BaseMainContentPanel(), new GridBagConstraints(
+                0, BaseMainPanel.getComponentCount(),
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
@@ -72,8 +94,9 @@ public class BaseComponent extends DiyJComponent {
                 new Insets(10,10,10,10),
                 0,0
         ));
-        BasePanel.add(blackInstance, new GridBagConstraints(
-                0,BasePanel.getComponentCount(),
+
+        BaseMainPanel.add(BaseMainBlackPanel(), new GridBagConstraints(
+                0, BaseMainPanel.getComponentCount(),
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -81,157 +104,178 @@ public class BaseComponent extends DiyJComponent {
                 new Insets(0,0,0,0),
                 0,0
         ));
+
+        return BaseMainScrollPane;
     }
 
-     public class tmpBaseFunctionInstance {
-        public final JComponent instancePanel = new JPanel(new GridBagLayout());
-        public DiyJButton[][] buttonArray=new DiyJButton[2][7];
-        public JTextArea dataArea = new JTextArea();
+    public JComponent BaseMainContentPanel(){
+        JComponent BaseMainContentPanel = new JPanel(new GridBagLayout());
+        BaseMainContentPanel.setName("BaseMainContentPanel");
+        BaseMainContentPanel.setOpaque(true);
+        BaseMainContentPanel.setBackground(Color.WHITE);
+        BaseMainContentPanel.setPreferredSize(new Dimension(0,200));
 
-        public JComponent main(){
-            instancePanel.setOpaque(true);
-            instancePanel.setBackground(Color.WHITE);
-            instancePanel.setPreferredSize(new Dimension(0,200));
+        BaseMainContentPanel.add(BaseMainContentBlackPanel(),new GridBagConstraints(
+                0,0,
+                1,1,
+                0.1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-            JPanel leftBlackPanel = new JPanel();
-            leftBlackPanel.setOpaque(false);
-            leftBlackPanel.setPreferredSize(new Dimension(0,0));
-            instancePanel.add(leftBlackPanel,new GridBagConstraints(
-                    0,0,
-                    1,1,
-                    0.1,1,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
+        BaseMainContentPanel.add(BaseMainContentTextareaPanel(),new GridBagConstraints(
+                1,0,
+                1,1,
+                0.45,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(5,5,5,5),
+                0,0
+        ));
 
-            dataArea.setLineWrap(true);
-            dataArea.setWrapStyleWord(true);
-            dataArea.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(144,144,160)));
-            JScrollPane dataAreaScroll = new JScrollPane(dataArea);
-            dataAreaScroll.setBorder(null);
-            dataAreaScroll.setPreferredSize(new Dimension(0,0));
+        BaseMainContentPanel.add(BaseMainContentMenuPanel(),new GridBagConstraints(
+                2,0,
+                1,1,
+                0,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-            instancePanel.add(dataAreaScroll,new GridBagConstraints(
-                    1,0,
-                    1,1,
-                    0.45,1,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(5,5,5,5),
-                    0,0
-            ));
+        BaseMainContentPanel.add( BaseMainContentStatusPanel(),new GridBagConstraints(
+                3,0,
+                1,1,
+                0.10,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-            JPanel menuPanel = new JPanel(new GridBagLayout());
-            menuPanel.setPreferredSize(new Dimension(270,0));
-            menuPanel.setOpaque(false);
-            instancePanel.add(menuPanel,new GridBagConstraints(
-                    2,0,
-                    1,1,
-                    0,1,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
+        BaseMainContentPanel.add(BaseMainContentBlackPanel(),new GridBagConstraints(
+                4,0,
+                1,1,
+                0.1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-            JPanel menuEncodePanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,25));
-            menuEncodePanel.setOpaque(false);
-            menuEncodePanel.setPreferredSize(new Dimension(0,0));
-            menuPanel.add(menuEncodePanel,new GridBagConstraints(
-                    0,0,
-                    1,1,
-                    1,0.5,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,10,0,0),
-                    0,0
-            ));
+        return BaseMainContentPanel;
+    }
 
-            buttonList(menuEncodePanel,"Encode: ");
+    private JComponent BaseMainContentTextareaPanel(){
+        JTextArea BaseMainContentTextAreaPanel = new JTextArea();
+        BaseMainContentTextAreaPanel.setName("BaseMainContentTextAreaPanel");
+        BaseMainContentTextAreaPanel.setLineWrap(true);
+        BaseMainContentTextAreaPanel.setWrapStyleWord(true);
+        BaseMainContentTextAreaPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(144,144,160)));
 
-            JPanel menuDecodePanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,25));
-            menuDecodePanel.setOpaque(false);
-            menuDecodePanel.setPreferredSize(new Dimension(0,0));
-            menuPanel.add(menuDecodePanel,new GridBagConstraints(
-                    0,1,
-                    1,1,
-                    1,0.5,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,10,0,0),
-                    0,0
-            ));
+        JScrollPane BaseMainContentTextAreaScrollPanel = new JScrollPane(BaseMainContentTextAreaPanel);
+        BaseMainContentTextAreaScrollPanel.setName("BaseMainContentTextAreaScrollPanel");
+        BaseMainContentTextAreaScrollPanel.setBorder(null);
+        BaseMainContentTextAreaScrollPanel.setPreferredSize(new Dimension(0,0));
 
-            buttonList(menuDecodePanel,"Decode: ");
+        return BaseMainContentTextAreaScrollPanel;
+    }
 
-            JPanel menuDecodeStatusPanel = new JPanel(new GridBagLayout());
-            menuDecodeStatusPanel.setOpaque(false);
-            menuDecodeStatusPanel.setPreferredSize(new Dimension(0,0));
-            instancePanel.add(menuDecodeStatusPanel,new GridBagConstraints(
-                    3,0,
-                    1,1,
-                    0.10,1,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
 
-            DiyJButton pauseButton = new DiyJButton("Pause");
-            menuDecodeStatusPanel.add(pauseButton);
+    private JComponent BaseMainContentMenuPanel(){
 
-            JPanel rightBlackPanel = new JPanel();
-            rightBlackPanel.setPreferredSize(new Dimension(0,0));
-            rightBlackPanel.setOpaque(false);
-            instancePanel.add(rightBlackPanel,new GridBagConstraints(
-                    4,0,
-                    1,1,
-                    0.1,0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
-            reSetName(instancePanel);
-            hashmapLength++;
-            return instancePanel;
-        }
+        JPanel BaseMainContentMenuPanel = new JPanel(new GridBagLayout());
+        BaseMainContentMenuPanel.setName("BaseMainContentMenuPanel");
+        BaseMainContentMenuPanel.setPreferredSize(new Dimension(270,0));
+        BaseMainContentMenuPanel.setOpaque(false);
 
-        private void reSetName(JComponent target){
-            Component[] components = target.getComponents();
-            if(components.length!=0)
-                for(Component i : components){
-                    reSetName((JComponent) i);
-            }
-            target.setName(String.valueOf(hashmapLength));
+        JPanel BaseMainContentMenuEncodePanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,25));
+        BaseMainContentMenuEncodePanel.setName("BaseMainContentMenuEncodePanel");
+        BaseMainContentMenuEncodePanel.setOpaque(false);
+        BaseMainContentMenuEncodePanel.setPreferredSize(new Dimension(0,0));
+        BaseMainContentMenuAddButton(BaseMainContentMenuEncodePanel,"Encode: ");
 
-        }
+        BaseMainContentMenuPanel.add(BaseMainContentMenuEncodePanel,new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,10,0,0),
+                0,0
+        ));
 
-        private void buttonList(JPanel buttonListPanel, String type) {
-            DiyJLabel label = new DiyJLabel(type);
-            int iType = Objects.equals(type, "Encode: ") ?0:1;
-            label.setOpaque(false);
-            label.setPreferredSize(new Dimension(100,50));
-            buttonListPanel.add(label);
+        JPanel BaseMainContentMenuDecodePanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,25));
+        BaseMainContentMenuDecodePanel.setName("BaseMainContentMenuDecodePanel");
+        BaseMainContentMenuDecodePanel.setOpaque(false);
+        BaseMainContentMenuDecodePanel.setPreferredSize(new Dimension(0,0));
+        BaseMainContentMenuAddButton(BaseMainContentMenuDecodePanel,"Decode: ");
+        BaseMainContentMenuPanel.add(BaseMainContentMenuDecodePanel,new GridBagConstraints(
+                0,1,
+                1,1,
+                1,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,10,0,0),
+                0,0
+        ));
 
-            String[] baseFamily ={"B16","B32","B58","B64","B85","B91","B92"};
+        return BaseMainContentMenuPanel;
+    }
 
-            for(int i=0;i<baseFamily.length;i++){
-                DiyJButton iButton = new DiyJButton(baseFamily[i],true);
-                buttonListPanel.add(iButton);
-                buttonArray[iType][i]=iButton;
-            }
+    //Pause、Continue按钮的设置
+    private JComponent BaseMainContentStatusPanel(){
+
+        JPanel BaseMainContentStatusPanel = new JPanel(new GridBagLayout());
+        BaseMainContentStatusPanel.setName("BaseMainContentStatusPanel");
+        BaseMainContentStatusPanel.setOpaque(false);
+        BaseMainContentStatusPanel.setPreferredSize(new Dimension(0,0));
+
+        DiyJButton BaseMainContentStatusPauseButton = new DiyJButton("Pause");
+        BaseMainContentStatusPauseButton.setName("BaseMainContentStatusPauseButton");
+        BaseMainContentStatusPanel.add(BaseMainContentStatusPauseButton);
+
+        return BaseMainContentStatusPanel;
+    }
+
+    //设置按钮的格式
+    private void BaseMainContentMenuAddButton(JPanel buttonListPanel, String type) {
+
+        DiyJButton[][] buttonArray=new DiyJButton[2][7];
+        DiyJLabel label = new DiyJLabel(type);
+        int iType = Objects.equals(type, "Encode: ") ?0:1;
+        label.setOpaque(false);
+        label.setPreferredSize(new Dimension(100,50));
+        buttonListPanel.add(label);
+
+        String[] baseFamily ={"B16","B32","B58","B64","B85","B91","B92"};
+
+        for(int i=0;i<baseFamily.length;i++){
+            DiyJButton iButton = new DiyJButton(baseFamily[i],true);
+            buttonListPanel.add(iButton);
+            buttonArray[iType][i]=iButton;
         }
     }
 
-    private JComponent blackInstance(){
-        JPanel instancePanel = new JPanel();
-        instancePanel.setOpaque(false);
-        instancePanel.setBackground(Color.WHITE);
-        instancePanel.setPreferredSize(new Dimension(0,0));
-        return instancePanel;
+    //BaseMainContentPanel的BlackPanel
+    private JComponent BaseMainContentBlackPanel(){
+        JPanel BaseMainContentBlackPanel = new JPanel();
+        BaseMainContentBlackPanel.setName("BaseMainContentBlackPanel");
+        BaseMainContentBlackPanel.setPreferredSize(new Dimension(0,0));
+        BaseMainContentBlackPanel.setOpaque(false);
+        return BaseMainContentBlackPanel;
+    }
+
+    //BasePanel的BlackPanel
+    private JComponent BaseMainBlackPanel(){
+        JPanel BaseMainBlackPanel = new JPanel();
+        BaseMainBlackPanel.setName("BaseMainBlackPanel");
+        BaseMainBlackPanel.setOpaque(false);
+        BaseMainBlackPanel.setBackground(Color.WHITE);
+        BaseMainBlackPanel.setPreferredSize(new Dimension(0,0));
+        return BaseMainBlackPanel;
     }
 
 }

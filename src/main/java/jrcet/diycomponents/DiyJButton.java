@@ -4,16 +4,12 @@ import burp.Services;
 import burp.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.tools.Dencrypt.Base.Base;
-import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
-import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncrypt;
 import jrcet.frame.tools.Solibrary.SoLibrary;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
 import javax.swing.*;
-import javax.xml.soap.Text;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -23,9 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
@@ -79,7 +72,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JTextField nameField = (JTextField) parentPanel.getComponent(4);
         JTextField cardField = (JTextField) parentPanel.getComponent(6);
         JTextField phoneField = (JTextField) parentPanel.getComponent(8);
-        ((JPanel)((JScrollPane)SoLibraryComponent.searchResultScrollPanel).getViewport().getView()).removeAll();
+        ((JPanel)((JScrollPane)SoLibraryComponent.SoLibraryResultScrollPanel).getViewport().getView()).removeAll();
         SoLibrary.Search(nameField.getText(),cardField.getText(),phoneField.getText());
 
     }
@@ -91,13 +84,13 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         String phantomjsLocation = phantomjsTextField.getText();
         String jsScriptLocation = jsScriptTextField.getText();
         if (Helper.isFile(phantomjsLocation) && Helper.isFile(jsScriptLocation)){
-            JSEncryptComponent.phantomjsLocation=phantomjsLocation;
-            JSEncryptComponent.jScriptLocation=jsScriptLocation;
+            JSEncryptComponent.JSEncryptPhantomjsLocation =phantomjsLocation;
+            JSEncryptComponent.JSEncryptScriptLocation =jsScriptLocation;
 
             JPanel buzhongyaodemingzi = (JPanel) parentPanel.getParent();
             JPanel buzhongyaodemingzi2 = (JPanel) buzhongyaodemingzi.getComponent(1);
             RTextArea targetJTextArea = ((RTextScrollPane) buzhongyaodemingzi2.getComponent(0)).getTextArea();
-            targetJTextArea.setText(Helper.readFile(JSEncryptComponent.jScriptLocation));
+            targetJTextArea.setText(Helper.readFile(JSEncryptComponent.JSEncryptScriptLocation));
             if(JSEncrypt.sendTestConnect()){
                 jsDisConnect(targetButton);
             }
@@ -131,7 +124,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     }
 
     private void conTestJSEncrypt(DiyJButton targetButton) throws InterruptedException {
-        Thread phantomjsThread = new JSEncrypt.StreamGobble(JSEncryptComponent.phantomjsLocation,JSEncryptComponent.jScriptLocation);
+        Thread phantomjsThread = new JSEncrypt.StreamGobble(JSEncryptComponent.JSEncryptPhantomjsLocation,JSEncryptComponent.JSEncryptScriptLocation);
         phantomjsThread.start();
         Thread.sleep(1000);
         JSEncrypt.phantomjsProcess = JSEncrypt.StreamGobble.p;
@@ -276,97 +269,13 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
     private void Base(JButton targetButton, String caseString) {
 
-        String type = ((JLabel)targetButton.getParent().getComponent(0)).getText().toLowerCase().replace(": ","");
-        BaseComponent baseComponent = (BaseComponent)DencryptComponent.nowPanelInstance;
-        int nowLocation = Integer.parseInt(targetButton.getName());
-        int hashmapLength = baseComponent.hashmapLength;
-
-        if(hashmapLength<=nowLocation+1){
-            baseComponent.addTmpBaseFunctionPanel();
-        }
-
-        BaseComponent.tmpBaseFunctionInstance targetTmpFunctionInstancePanel= baseComponent.baseInstanceList.get(nowLocation);
-        String result = Base.door(caseString,type,targetTmpFunctionInstancePanel.dataArea.getText());
-        BaseComponent.tmpBaseFunctionInstance resultTmpFunctionInstancePanel= baseComponent.baseInstanceList.get(nowLocation+1);
-        resultTmpFunctionInstancePanel.dataArea.setText(result);
-
-        //设置按钮
-
-        for(DiyJButton[] buttons:targetTmpFunctionInstancePanel.buttonArray){
-            for(DiyJButton button:buttons){
-                button.setOpaque(true);
-                button.setBackground(Color.WHITE);
-            }
-        }
-        targetButton.setOpaque(true);
-        targetButton.setBackground(Color.GREEN);
-
-        DencryptComponent.DencryptBaseMenuTabPanel.validate();
-        DencryptComponent.DencryptBaseMenuTabPanel.repaint();
     }
 
     private void Continue(DiyJButton targetButton) {
-        Color targetButtonColor = Color.WHITE;
-        targetButton.setBackground(targetButtonColor);
-        targetButton.setBorderPainted(true);
 
-        JPanel baseInstancePanel = (JPanel) targetButton.getParent().getParent();
-
-        JPanel basePanel = (JPanel)baseInstancePanel.getParent();
-        Component[] baseInstancePanels = basePanel.getComponents();
-
-        for(int i=0; i<baseInstancePanels.length;i++){
-            if(baseInstancePanels[i]==baseInstancePanel){
-                System.out.println(i);
-            }
-        }
-
-        baseInstancePanel.setBackground(Color.WHITE);
-
-        JTextArea targetJTextArea = (JTextArea) ((JScrollPane)baseInstancePanel.getComponent(1)).getViewport().getComponent(0);
-        targetJTextArea.setBackground(Color.WHITE);
-
-        BaseComponent.tmpBaseFunctionInstance targetTmpFunctionInstancePanel= ((BaseComponent)DencryptComponent.nowPanelInstance).baseInstanceList.get(Integer.parseInt(targetJTextArea.getName()));
-
-        DiyJButton[][] buttonArray = targetTmpFunctionInstancePanel.buttonArray;
-//
-        for (DiyJButton[] diyJButtons : buttonArray) {
-            for (DiyJButton diyJButton : diyJButtons) {
-                diyJButton.setBackground(targetButtonColor);
-                diyJButton.setBorderPainted(true);
-            }
-        }
-        targetButton.setText("Pause");
     }
 
     private void Pause(DiyJButton targetButton) {
-        Color targetButtonColor = Color.LIGHT_GRAY;
-        targetButton.setBackground(targetButtonColor);
-        targetButton.setBorderPainted(false);
 
-        JPanel baseInstancePanel = (JPanel) targetButton.getParent().getParent();
-
-        JPanel basePanel = (JPanel)baseInstancePanel.getParent();
-        Component[] baseInstancePanels = basePanel.getComponents();
-
-        for(int i=0; i<baseInstancePanels.length;i++){
-            if(baseInstancePanels[i]==baseInstancePanel){
-                System.out.println(i);
-            }
-        }
-
-        baseInstancePanel.setBackground(Color.GRAY);
-
-        JTextArea targetJTextArea = (JTextArea) ((JScrollPane)baseInstancePanel.getComponent(1)).getViewport().getComponent(0);
-        targetJTextArea.setBackground(new Color(179,179,179));
-        BaseComponent.tmpBaseFunctionInstance targetTmpFunctionInstancePanel= ((BaseComponent)DencryptComponent.nowPanelInstance).baseInstanceList.get(Integer.parseInt(targetJTextArea.getName()));
-        DiyJButton[][] buttonArray = targetTmpFunctionInstancePanel.buttonArray;
-        for (DiyJButton[] diyJButtons : buttonArray) {
-            for (DiyJButton diyJButton : diyJButtons) {
-                diyJButton.setBackground(targetButtonColor);
-                diyJButton.setBorderPainted(false);
-            }
-        }
-        targetButton.setText("Continue");
     }
 }

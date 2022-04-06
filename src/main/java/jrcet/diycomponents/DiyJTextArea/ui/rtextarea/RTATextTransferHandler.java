@@ -63,11 +63,8 @@ public class RTATextTransferHandler extends TransferHandler {
 	 * </ol>
 	 *
 	 * @param flavors The flavors to check if c will accept them.
-	 * @param c The text component to see whether it will accept any of the
-	 *        specified data flavors as input.
 	 */
-	 protected DataFlavor getImportFlavor(DataFlavor[] flavors,
-	 								JTextComponent c) {
+	 protected DataFlavor getImportFlavor(DataFlavor[] flavors) {
 
 		DataFlavor refFlavor = null;
 		DataFlavor stringFlavor = null;
@@ -93,13 +90,9 @@ public class RTATextTransferHandler extends TransferHandler {
 		if (refFlavor != null) {
 			return refFlavor;
 		}
-		else if (stringFlavor != null) {
-			return stringFlavor;
-		}
+		else return stringFlavor;
 
-		return null;
-
-	}
+	 }
 
 
 	/**
@@ -287,7 +280,7 @@ public class RTATextTransferHandler extends TransferHandler {
 		}
 
 		boolean imported = false;
-		DataFlavor importFlavor = getImportFlavor(t.getTransferDataFlavors(), c);
+		DataFlavor importFlavor = getImportFlavor(t.getTransferDataFlavors());
 		if (importFlavor != null) {
 			try {
 				InputContext ic = c.getInputContext();
@@ -322,7 +315,7 @@ public class RTATextTransferHandler extends TransferHandler {
 		if (!(c.isEditable() && c.isEnabled())) {
 			return false;
 		}
-		return getImportFlavor(flavors, c) != null;
+		return getImportFlavor(flavors) != null;
 	}
 
 

@@ -2,7 +2,6 @@ package jrcet.frame.tools.Solibrary;
 
 import burp.BurpExtender;
 import jrcet.diycomponents.TableColumnAdjuster;
-import org.sqlite.SQLiteConnection;
 
 import javax.swing.*;
 import java.awt.*;
@@ -118,7 +117,7 @@ public class SoLibrary {
     }
 
     private static void addJTable(JTable targetJTable){
-        JScrollPane targetScrollPanel = (JScrollPane) SoLibraryComponent.searchResultScrollPanel;
+        JScrollPane targetScrollPanel = (JScrollPane) SoLibraryComponent.SoLibraryResultScrollPanel;
         JPanel targetPanel = (JPanel) targetScrollPanel.getViewport().getView();
         int elementCount = targetPanel.getComponentCount();
 
