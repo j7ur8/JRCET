@@ -95,10 +95,10 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuJSEncryptLabel.setMapPanel(JSEncryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuJSEncryptLabel);
 
-        DiyJTabLabel ToolsMenuSoLibraryLabel = new DiyJTabLabel("SoLibrary",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
-        ToolsMenuSoLibraryLabel.setName("ToolsMenuSoLibraryLabel");
-        ToolsMenuSoLibraryLabel.setMapPanel(SoLibraryComponentPanel);
-        ToolsMenuTabPanel.add(ToolsMenuSoLibraryLabel);
+        DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        ToolsMenuSOLibraryLabel.setName("ToolsMenuSOLibraryLabel");
+        ToolsMenuSOLibraryLabel.setMapPanel(SoLibraryComponentPanel);
+        ToolsMenuTabPanel.add(ToolsMenuSOLibraryLabel);
 
         return ToolsMenuTabPanel;
     }

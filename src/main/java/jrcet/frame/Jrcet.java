@@ -74,10 +74,10 @@ public class Jrcet extends DiyJComponent {
         JrcetMenuExploitLabel.setMapPanel(ExploitComponentPanel);
         JrcetMenuPanel.add(JrcetMenuExploitLabel);
 
-        DiyJTabLabel JrcetMenuToolsPanel = new DiyJTabLabel("Tools",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
-        JrcetMenuToolsPanel.setName("JrcetMenuToolsPanel");
-        JrcetMenuToolsPanel.setMapPanel(ToolsComponentPanel);
-        JrcetMenuPanel.add(JrcetMenuToolsPanel);
+        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
+        JrcetMenuToolsLabel.setName("JrcetMenuToolsLabel");
+        JrcetMenuToolsLabel.setMapPanel(ToolsComponentPanel);
+        JrcetMenuPanel.add(JrcetMenuToolsLabel);
 
         return  JrcetMenuPanel;
     }

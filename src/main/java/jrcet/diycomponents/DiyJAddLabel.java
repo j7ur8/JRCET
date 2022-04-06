@@ -17,6 +17,7 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
 
     private final Map<String, JComponent> mapPanel= new HashMap<>();
+    private final Map<String, String> specialKeyMap = new HashMap<>();
 
     public DiyJAddLabel(String labelName,boolean flag) {
         setOpaque(true);
@@ -28,15 +29,27 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         setBorder(BorderFactory.createMatteBorder(0,1,1,0,Setting.class4DefaultDiyJTabBorderColor));
         addMouseListener(this);
         setBorder(BorderFactory.createMatteBorder(0,1,0,0,Setting.class4DefaultDiyJTabBorderColor));
-
+        specialKeyMap.put("1","Default");
+        specialKeyMap.put("···","Add");
     }
-
 
     public void setMapPanel(JComponent targetPanel){
-        mapPanel.put(getText(),targetPanel);
+        if(specialKeyMap.containsKey(getText())){
+            mapPanel.put(specialKeyMap.get(getText()),targetPanel);
+        }else {
+            mapPanel.put(getText(),targetPanel);
+        }
     }
-    public JComponent getMapPanel(String name){
-        return mapPanel.get(name);
+
+    public JComponent getMapPanel(String k){
+        if(mapPanel.containsKey(k)){
+            return mapPanel.get(k);
+        }else{
+            JComponent blackPanel = new JPanel();
+            blackPanel.setName("NullPanelBySomeLabel");
+            return blackPanel;
+        }
+
     }
 
     @Override

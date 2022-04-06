@@ -57,63 +57,86 @@ public class JSEncryptComponent extends DiyJComponent {
         JPanel JSEncryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,5,5));
         JSEncryptMenuPanel.setOpaque(false);
         JSEncryptMenuPanel.setBackground(Color.WHITE);
+        JSEncryptMenuPanel.setName("JSEncryptMenuPanel");
         JSEncryptMenuPanel.setPreferredSize(new Dimension(0,30));
         JSEncryptMenuPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
         JSEncryptMenuPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
         JLabel JSEncryptMenuHostLabel = new JLabel("Host: ");
         JSEncryptMenuPanel.add(JSEncryptMenuHostLabel);
-        JTextField JSEncryptMenuHostTextField = new JTextField("127.0.0.1");
-        JSEncryptMenuHostTextField.setPreferredSize(new Dimension(100,20));
-        JSEncryptMenuPanel.add(JSEncryptMenuHostTextField);
+        JSEncryptMenuHostLabel.setName("JSEncryptMenuHostLabel");
+
+        JTextField JSEncryptMenuHostField = new JTextField("127.0.0.1");
+        JSEncryptMenuHostField.setName("JSEncryptMenuHostField");
+        JSEncryptMenuHostField.setPreferredSize(new Dimension(100,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuHostField);
 
         JLabel JSEncryptMenuHostPortLabel = new JLabel("Port: ");
         JSEncryptMenuPanel.add(JSEncryptMenuHostPortLabel);
-        JTextField JSEncryptMenuHostPortTextField = new JTextField("1664");
-        JSEncryptMenuHostPortTextField.setPreferredSize(new Dimension(50,20));
-        JSEncryptMenuPanel.add(JSEncryptMenuHostPortTextField);
+        JSEncryptMenuHostPortLabel.setName("JSEncryptMenuHostPortLabel");
+
+        JTextField JSEncryptMenuPortField = new JTextField("1664");
+        JSEncryptMenuPortField.setName("JSEncryptMenuPortField");
+        JSEncryptMenuPortField.setPreferredSize(new Dimension(50,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuPortField);
 
         JLabel JSEncryptMenuTimeoutLabel = new JLabel("Timeout: ");
         JSEncryptMenuPanel.add(JSEncryptMenuTimeoutLabel);
+        JSEncryptMenuTimeoutLabel.setName("JSEncryptMenuTimeoutLabel");
+
         JTextField JSEncryptMenuTimeoutField = new JTextField("5000");
+        JSEncryptMenuTimeoutField.setName("JSEncryptMenuTimeoutField");
         JSEncryptMenuTimeoutField.setPreferredSize(new Dimension(50,20));
         JSEncryptMenuPanel.add(JSEncryptMenuTimeoutField);
 
         JLabel JSEncryptMenuPhantomjsLabel = new JLabel("Phantomjs: ");
         JSEncryptMenuPanel.add(JSEncryptMenuPhantomjsLabel);
+        JSEncryptMenuPhantomjsLabel.setName("JSEncryptMenuPhantomjsLabel");
+
         JTextField JSEncryptMenuPhantomjsField = new JTextField("/Users/j7ur8/Documents/local/bin/phantomjs");
+        JSEncryptMenuPhantomjsField.setName("JSEncryptMenuPhantomjsField");
         JSEncryptMenuPhantomjsField.setPreferredSize(new Dimension(100,20));
         JSEncryptMenuPanel.add(JSEncryptMenuPhantomjsField);
 
         JLabel JSEncryptMenuJScriptLabel = new JLabel("JScript: ");
         JSEncryptMenuPanel.add(JSEncryptMenuJScriptLabel);
+        JSEncryptMenuJScriptLabel.setName("JSEncryptMenuJScriptLabel");
+
         JTextField JSEncryptMenuJScriptField = new JTextField("/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js");
+        JSEncryptMenuJScriptField.setName("JSEncryptMenuJScriptField");
         JSEncryptMenuJScriptField.setPreferredSize(new Dimension(100,20));
         JSEncryptMenuPanel.add(JSEncryptMenuJScriptField);
 
         DiyJButton JSEncryptMenuSetPhantomjsButton = new DiyJButton("SetPath");
+        JSEncryptMenuSetPhantomjsButton.setName("JSEncryptMenuSetPhantomjsButton");
         JSEncryptMenuSetPhantomjsButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuSetPhantomjsButton);
 
-        JLabel JSEncryptMenuConnectedFlagLabel = new JLabel("   IsConnected: ");
-        JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabel);
-        JLabel JSEncryptMenuConnectedFlagLabelValue = new JLabel("False");
-        JSEncryptMenuConnectedFlagLabelValue.setForeground(Color.WHITE);
-        JSEncryptMenuConnectedFlagLabelValue.setPreferredSize(new Dimension(50,20));
-        JSEncryptMenuPanel.add(JSEncryptMenuConnectedFlagLabelValue);
+        JLabel JSEncryptMenuFlagLabel = new JLabel("   IsConnected: ");
+        JSEncryptMenuFlagLabel.setName("JSEncryptMenuFlagLabel");
+        JSEncryptMenuPanel.add(JSEncryptMenuFlagLabel);
 
-        DiyJButton JSEncryptMenuConnectButton = new DiyJButton("Connection");
+        JLabel JSEncryptMenuStatusLabel = new JLabel("False");
+        JSEncryptMenuStatusLabel.setForeground(Color.WHITE);
+        JSEncryptMenuStatusLabel.setName("JSEncryptMenuStatusLabel");
+        JSEncryptMenuStatusLabel.setPreferredSize(new Dimension(50,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuStatusLabel);
+
+        DiyJButton JSEncryptMenuConnectButton = new DiyJButton("Connect");
+        JSEncryptMenuConnectButton.setName("JSEncryptMenuConnectButton");
         JSEncryptMenuConnectButton.setPreferredSize(new Dimension(120,20));
         JSEncryptMenuPanel.add(JSEncryptMenuConnectButton);
 
 
-        DiyJButton JSEncryptMenuConnectTestButton = new DiyJButton("JSTest");
-        JSEncryptMenuConnectTestButton.setPreferredSize(new Dimension(120,20));
-        JSEncryptMenuPanel.add(JSEncryptMenuConnectTestButton);
+        DiyJButton JSEncryptMenuTestButton = new DiyJButton("JSTest");
+        JSEncryptMenuTestButton.setName("JSEncryptMenuTestButton");
+        JSEncryptMenuTestButton.setPreferredSize(new Dimension(120,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuTestButton);
 
-        DiyJButton JSEncryptMenuDisConnectButton = new DiyJButton("DisConnect");
-        JSEncryptMenuDisConnectButton.setPreferredSize(new Dimension(120,20));
-        JSEncryptMenuPanel.add(JSEncryptMenuDisConnectButton);
+        DiyJButton JSEncryptMenuBreakButton = new DiyJButton("Break");
+        JSEncryptMenuBreakButton.setName("JSEncryptMenuBreakButton");
+        JSEncryptMenuBreakButton.setPreferredSize(new Dimension(120,20));
+        JSEncryptMenuPanel.add(JSEncryptMenuBreakButton);
 
         return JSEncryptMenuPanel;
     }

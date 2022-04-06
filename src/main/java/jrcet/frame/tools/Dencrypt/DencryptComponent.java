@@ -90,15 +90,16 @@ public class DencryptComponent extends DiyJComponent {
 
         //添加加密Tab
         //Base
-        DiyJTabLabel DencryptMenuBaseTab = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
-        DencryptMenuBaseTab.setName("DencryptMenuBaseTab");
-        DencryptMenuBaseTab.setMapPanel(getDefaultDencryptPanel(DencryptMenuBaseTab.getText()));
-        DencryptMenuPanel.add(DencryptMenuBaseTab);
+        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
+        DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
+        DencryptMenuBaseLabel.setMapPanel(getDefaultDencryptPanel(DencryptMenuBaseLabel.getText()));
+        DencryptMenuPanel.add(DencryptMenuBaseLabel);
 
         //AES
-        DiyJTabLabel DencryptMenuAESTab = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
-        DencryptMenuAESTab.setMapPanel(getDefaultDencryptPanel(DencryptMenuAESTab.getText()));
-        DencryptMenuPanel.add(DencryptMenuAESTab);
+        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DencryptMenuAESLabel.setMapPanel(getDefaultDencryptPanel(DencryptMenuAESLabel.getText()));
+        DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
+        DencryptMenuPanel.add(DencryptMenuAESLabel);
 
         //设置 Tab 的按钮属性（高宽等）
         for(Component label : DencryptMenuPanel.getComponents()){
@@ -149,7 +150,7 @@ public class DencryptComponent extends DiyJComponent {
 
     public static JComponent BlackPanel(){
         JPanel BlackPanel = new JPanel();
-        BlackPanel.setName("Black");
+        BlackPanel.setName("DencryptBlackPanel");
         BlackPanel.setOpaque(true);
         BlackPanel.setBackground(Color.PINK);
 

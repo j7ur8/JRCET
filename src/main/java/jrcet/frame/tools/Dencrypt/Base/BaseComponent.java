@@ -61,14 +61,14 @@ public class BaseComponent extends DiyJComponent {
         BaseTagTabPanel.setOpaque(false);
         BaseTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
 
-        DiyJAddLabel BaseMenuDefaultTagLabel = new DiyJAddLabel("1",true);
-        BaseMenuDefaultTagLabel.setName("BaseMenuDefaultTagLabel");
-        BaseTagTabPanel.add(BaseMenuDefaultTagLabel);
-        BaseMenuDefaultTagLabel.setMapPanel(BaseMainPanel);
+        DiyJAddLabel BaseTagDefaultLabel = new DiyJAddLabel("1",true);
+        BaseTagDefaultLabel.setName("BaseTagDefaultLabel");
+        BaseTagTabPanel.add(BaseTagDefaultLabel);
+        BaseTagDefaultLabel.setMapPanel(BaseMainPanel);
 
-        DiyJAddLabel BaseMenuAddTagLabel = new DiyJAddLabel("···",false);
-        BaseMenuAddTagLabel.setName("BaseMenuAddTagLabel");
-        BaseTagTabPanel.add(BaseMenuAddTagLabel);
+        DiyJAddLabel BaseTabAddLabel = new DiyJAddLabel("···",false);
+        BaseTabAddLabel.setName("BaseTabAddLabel");
+        BaseTagTabPanel.add(BaseTabAddLabel);
 
         return BaseTagTabPanel;
     }
@@ -83,7 +83,6 @@ public class BaseComponent extends DiyJComponent {
         BaseMainScrollPane.setName("BaseMainScrollPane");
         BaseMainScrollPane.setBorder(null);
         BaseMainScrollPane.setPreferredSize(new Dimension(0,0));
-        BaseMainScrollPane.setName("BaseMainScrollPane");
 
         BaseMainPanel.add(BaseMainContentPanel(), new GridBagConstraints(
                 0, BaseMainPanel.getComponentCount(),

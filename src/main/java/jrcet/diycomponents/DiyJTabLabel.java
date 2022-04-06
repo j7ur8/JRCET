@@ -38,7 +38,14 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
     }
 
     public JComponent getMapPanel(String k){
-        return mapPanel.get(k);
+        if(mapPanel.containsKey(k)){
+            return mapPanel.get(k);
+        }else{
+            JComponent blackPanel = new JPanel();
+            blackPanel.setName("NullPanelBySomeLabel");
+            return blackPanel;
+        }
+
     }
 
     public void setMapStream(String k,Object v){
