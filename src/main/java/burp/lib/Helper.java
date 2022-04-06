@@ -22,12 +22,12 @@ public class Helper {
 
     public static void travelComponent(JComponent tComponent){
         if(deep==1){
-            System.out.println(String.join("", Collections.nCopies(deep-1, "\t"))+"Name: "+tComponent.getName());
+            System.out.println(String.join("", Collections.nCopies(deep-1, "\t"))+tComponent.getName());
         }
 
         if(tComponent instanceof JScrollPane){
             Component s = ((JScrollPane)tComponent).getViewport().getComponent(0);
-            System.out.println(String.join("", Collections.nCopies(deep, "\t"))+"Name: "+s.getName());
+            System.out.println(String.join("", Collections.nCopies(deep, "\t"))+s.getName());
             deep+=1;
             travelComponent((JComponent)s);
             deep-=1;
@@ -39,22 +39,22 @@ public class Helper {
 //            System.out.println(Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1));
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)){
                 case "JPanel":
-                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+"Name: "+ii.getName());
+                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+ii.getName());
                     deep+=1;
                     travelComponent(ii);
                     deep-=1;
                     break;
                 case "DiyJAddLabel":
-                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+"Name: "+ii.getName());
+                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+ii.getName());
                     List<String> ar = Arrays.asList(ii.getName().split("(?=[A-Z])"));
                     JComponent aj = ((DiyJAddLabel) i).getMapPanel(ar.get(ar.size()-2));
-                    System.out.println(String.join("", Collections.nCopies(deep+1, "\t"))+"Name: "+aj.getName());
+                    System.out.println(String.join("", Collections.nCopies(deep+1, "\t"))+aj.getName());
                     deep+=2;
                     travelComponent(aj);
                     deep-=2;
                     break;
                 case "DiyJTabLabel" :
-                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+"Name: "+ii.getName());
+                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+ii.getName());
                     String[] tr = ii.getName().split("(?=[A-Z])");
                     StringBuilder k= new StringBuilder(); int flag = 0;
                     for(String ttr :  tr){
@@ -67,13 +67,13 @@ public class Helper {
                         }
                     }
                     JComponent tj = ((DiyJTabLabel) i).getMapPanel( k.length()==0? Arrays.asList(tr).get(Arrays.asList(tr).size()-2) : k.toString() );
-                    System.out.println(String.join("", Collections.nCopies(deep+1, "\t"))+"Name: "+tj.getName());
+                    System.out.println(String.join("", Collections.nCopies(deep+1, "\t"))+tj.getName());
                     deep+=2;
                     travelComponent(tj);
                     deep-=2;
                     break;
                 case "RTextScrollPane":
-                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+"Name: "+((RTextScrollPane)i).getViewport().getComponent(0).getName());
+                    System.out.println(String.join("", Collections.nCopies(deep, "\t"))+((RTextScrollPane)i).getViewport().getComponent(0).getName());
                     break;
             }
 
