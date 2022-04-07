@@ -18,70 +18,70 @@ public class test {
 
         String lineBuffer = "";
         String fileLocation = "C:\\Users\\J7ur8\\Desktop\\Jrcet.coffee";
-        ArrayList<String> lineList = new ArrayList<>();
-        ArrayList<String> renderedLineList = new ArrayList<>();
+        ArrayList<String> JrcetComponentList = new ArrayList<>();
+        ArrayList<String> JrcetTreeList = new ArrayList<>();
         BufferedReader fileBuffer = new BufferedReader(new InputStreamReader(new FileInputStream(fileLocation), StandardCharsets.UTF_8));
 
         while ((lineBuffer = fileBuffer.readLine()) != null) {
-            lineList.add(lineBuffer);
+            JrcetComponentList.add(lineBuffer);
         }
 
-//        System.out.println(lineList.size()); //├─   └─ │
+//        System.out.println(JrcetComponentList.size()); //├─   └─ │
 
-        for(int i=0; i<=lineList.size()-1;i++){
+        for(int i=0; i<=JrcetComponentList.size()-1;i++){
 
             int j = i+1;
-            int nowLineTabCount = CharCount(lineList.get(i), " ");
+            int nowLineTabCount = CharCount(JrcetComponentList.get(i), " ");
 
-            if(i==lineList.size()-1){
-                renderedLineList.add(Pattern.compile(" ([^ ]*)$").matcher(lineList.get(i)).replaceAll(" └─$1"));
+            if(i==JrcetComponentList.size()-1){
+                JrcetTreeList.add(Pattern.compile(" ([^ ]*)$").matcher(JrcetComponentList.get(i)).replaceAll(" └─$1"));
             }
 
-            while(j<lineList.size()) {
-                int tmpTabCount = CharCount(lineList.get(j)," ");
-                if(nowLineTabCount < tmpTabCount &&  j==lineList.size()-1){
-                    renderedLineList.add(Pattern.compile(" ([^ ]*)$").matcher(lineList.get(i)).replaceAll(" └─$1"));
+            while(j<JrcetComponentList.size()) {
+                int tmpTabCount = CharCount(JrcetComponentList.get(j)," ");
+                if(nowLineTabCount < tmpTabCount &&  j==JrcetComponentList.size()-1){
+                    JrcetTreeList.add(Pattern.compile(" ([^ ]*)$").matcher(JrcetComponentList.get(i)).replaceAll(" └─$1"));
                     break;
                 }
                 if(nowLineTabCount > tmpTabCount) {
-                    renderedLineList.add(Pattern.compile(" ([^ ]*)$").matcher(lineList.get(i)).replaceAll(" └─$1"));
+                    JrcetTreeList.add(Pattern.compile(" ([^ ]*)$").matcher(JrcetComponentList.get(i)).replaceAll(" └─$1"));
                     break;
                 }
 
                 if( nowLineTabCount == tmpTabCount ) {
-                    renderedLineList.add(Pattern.compile(" ([^ ]*)$").matcher(lineList.get(i)).replaceAll(" ├─$1"));
+                    JrcetTreeList.add(Pattern.compile(" ([^ ]*)$").matcher(JrcetComponentList.get(i)).replaceAll(" ├─$1"));
                     break;
                 }
                 j++;
             }
         }
 
-        for (int i=0; i<renderedLineList.size()-1;i++){
+        for (int i=0; i<JrcetTreeList.size()-1;i++){
 
             int j = i+1;
-            int pos = renderedLineList.get(i).indexOf("├");
+            int pos = JrcetTreeList.get(i).indexOf("├");
 
-            while (j<renderedLineList.size()-1){
+            while (j<JrcetTreeList.size()-1){
 
-                if(j==1 || renderedLineList.get(j).indexOf("│") == pos || renderedLineList.get(j).indexOf("└") == pos){
+                if(j==1 || JrcetTreeList.get(j).indexOf("│") == pos || JrcetTreeList.get(j).indexOf("└") == pos){
                     break;
                 }
 
-                if(renderedLineList.get(j).indexOf("├") == pos){
+                if(JrcetTreeList.get(j).indexOf("├") == pos){
                     j=j+1;
                     continue;
                 }
 
-                StringBuilder lineBuilder = new StringBuilder(renderedLineList.get(j));
-                if(!Objects.equals(renderedLineList.get(j), " ")){
-                    renderedLineList.set(j,lineBuilder.replace(pos,pos+1,"│").toString());
+                StringBuilder lineBuilder = new StringBuilder(JrcetTreeList.get(j));
+                if(!Objects.equals(JrcetTreeList.get(j), " ")){
+                    JrcetTreeList.set(j,lineBuilder.replace(pos,pos+1,"│").toString());
                 }
                 j=j+1;
             }
 
         }
 
-        for(String line:renderedLineList) {
+        for(String line:JrcetTreeList) {
             System.out.println(line);
         }
     }
