@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/lib/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/lib/Helper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +111,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="应用程序.test">
+  <component name="RunManager" selected="应用程序.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -167,8 +166,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.test" />
         <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.test" />
       </list>
     </recent_temporary>
   </component>
@@ -217,6 +216,7 @@
       <workItem from="1649150371812" duration="14185000" />
       <workItem from="1649225828243" duration="10169000" />
       <workItem from="1649250676260" duration="8132000" />
+      <workItem from="1649331697781" duration="12914000" />
     </task>
     <servers />
   </component>
@@ -268,6 +268,12 @@
         <PinnedItemInfo parentTag="javax.swing.JPanel" memberName="layoutMgr" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="renderedLineList2.get(100)" />
+        <watch expression="renderedLineList2.get(98)" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/BurpLearn$Start.ic" NAME="Start 覆盖结果" MODIFIED="1641127554106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
