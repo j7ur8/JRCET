@@ -58,7 +58,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        String eName = ((DiyJAddLabel)e.getSource()).getName();
+        if(Objects.equals(eName, "···")){
 
+        }
     }
 
     @Override

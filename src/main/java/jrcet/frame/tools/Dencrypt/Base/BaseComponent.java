@@ -11,18 +11,18 @@ import jrcet.diycomponents.DiyJLabel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+import java.util.*;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
 public class BaseComponent extends DiyJComponent {
 
-    public final JComponent BaseMainPanel = BaseMainPanel();
-    public final JComponent DefaultBaseMainPanel = BaseMainPanel;
+
+    public static HashMap<String, ArrayList<JComponent>> BaseMainPanelHashMap= new HashMap<>();
 
     public BaseComponent(){
-
+        BaseMainPanelHashMap.put("1", new ArrayList<>(Collections.singletonList(BaseMainPanel())));
     }
 
     public JComponent main(){
@@ -42,7 +42,7 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
-        BaseComponentPanel.add(DefaultBaseMainPanel,new GridBagConstraints(
+        BaseComponentPanel.add(getBasePanel("1"),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -63,8 +63,10 @@ public class BaseComponent extends DiyJComponent {
 
         DiyJAddLabel BaseTagDefaultLabel = new DiyJAddLabel("1",true);
         BaseTagDefaultLabel.setName("BaseTagDefaultLabel");
+        BaseTagDefaultLabel.setMapPanel(getBasePanel("1"));
+
         BaseTagTabPanel.add(BaseTagDefaultLabel);
-        BaseTagDefaultLabel.setMapPanel(BaseMainPanel);
+
 
         DiyJAddLabel BaseTabAddLabel = new DiyJAddLabel("···",false);
         BaseTabAddLabel.setName("BaseTabAddLabel");
@@ -275,6 +277,29 @@ public class BaseComponent extends DiyJComponent {
         BaseMainBlackPanel.setBackground(Color.WHITE);
         BaseMainBlackPanel.setPreferredSize(new Dimension(0,0));
         return BaseMainBlackPanel;
+    }
+
+    /*
+根据传入的值从DencryptPanelMap中获取默认的Panel，失败则返回一个空Panel
+ */
+    private static JComponent getBasePanel(String BaseTagName){
+        if(BaseMainPanelHashMap.containsKey(BaseTagName)){
+            ArrayList<JComponent> targetDencryptArrayList = BaseMainPanelHashMap.get(BaseTagName);
+            if ((targetDencryptArrayList.get(0)) != null){
+                return targetDencryptArrayList.get(0);
+            }
+            return BlackPanel();
+        }
+        return BlackPanel();
+    }
+
+    public static JComponent BlackPanel(){
+        JPanel BlackPanel = new JPanel();
+        BlackPanel.setName("BaseBlackPanel");
+        BlackPanel.setOpaque(true);
+        BlackPanel.setBackground(Color.PINK);
+
+        return BlackPanel;
     }
 
 }

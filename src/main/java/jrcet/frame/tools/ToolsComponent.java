@@ -53,7 +53,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(RScriptComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(DencryptComponent,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -80,12 +80,12 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuTabPanel.setOpaque(false);
         ToolsMenuTabPanel.setBackground(Color.WHITE);
 
-        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
         ToolsMenuDencryptLabel.setMapPanel(DencryptComponent);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);
 
-        ToolsMenuRScriptLabel = new DiyJTabLabel("RScript",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
+        ToolsMenuRScriptLabel = new DiyJTabLabel("RScript",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         ToolsMenuRScriptLabel.setName("ToolsMenuRScriptLabel");
         ToolsMenuRScriptLabel.setMapPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);

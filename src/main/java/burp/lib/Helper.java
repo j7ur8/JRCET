@@ -13,24 +13,31 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static jrcet.Main.JrcetComponentList;
+
 public class Helper {
 
     /*
     组件类函数
      */
     private static int deep = 1;
-    public static ArrayList<String> JrcetComponentList =new ArrayList<>();
 
+
+    //寻找指定名字的组件，并返回该组件的Panel
+//    public static JComponent findComponent(String componentName){
+//
+//    }
+
+
+    // 遍历传入组件下的全部组件
     public static void travelComponent(JComponent tComponent){
 
         if(deep==1){
-//            System.out.println(String.join("", tComponent.getName()));
             JrcetComponentList.add(String.join("", tComponent.getName()));
         }
 
         if(tComponent instanceof JScrollPane){
             Component s = ((JScrollPane)tComponent).getViewport().getComponent(0);
-//            System.out.println(String.join("", Collections.nCopies(deep, "    "))+s.getName());
             JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+s.getName());
             deep+=1;
             travelComponent((JComponent)s);
@@ -41,25 +48,21 @@ public class Helper {
             JComponent ii = (JComponent) i;
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)){
                 case "JPanel":
-//                    System.out.println(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
                     deep+=1;
                     travelComponent(ii);
                     deep-=1;
                     break;
                 case "DiyJAddLabel":
-//                    System.out.println(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
                     List<String> ar = Arrays.asList(ii.getName().split("(?=[A-Z])"));
                     JComponent aj = ((DiyJAddLabel) i).getMapPanel(ar.get(ar.size()-2));
-//                    System.out.println(String.join("", Collections.nCopies(deep+1, "    "))+aj.getName());
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+aj.getName());
                     deep+=2;
                     travelComponent(aj);
                     deep-=2;
                     break;
                 case "DiyJTabLabel" :
-//                    System.out.println(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
                     String[] tr = ii.getName().split("(?=[A-Z])");
                     StringBuilder k= new StringBuilder(); int flag = 0;
@@ -73,20 +76,19 @@ public class Helper {
                         }
                     }
                     JComponent tj = ((DiyJTabLabel) i).getMapPanel( k.length()==0? Arrays.asList(tr).get(Arrays.asList(tr).size()-2) : k.toString() );
-//                    System.out.println(String.join("", Collections.nCopies(deep+1, "    "))+tj.getName());
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+tj.getName());
                     deep+=2;
                     travelComponent(tj);
                     deep-=2;
                     break;
                 case "RTextScrollPane":
-//                    System.out.println(String.join("", Collections.nCopies(deep, "    "))+((RTextScrollPane)i).getViewport().getComponent(0).getName());
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+((RTextScrollPane)i).getViewport().getComponent(0).getName());
                     break;
             }
         }
     }
 
+    //实现类似Tree命令效果的图形显示
     public static ArrayList<String> treeComponent(ArrayList<String> targetList){
 
         ArrayList<String> JrcetTreeList =new ArrayList<>();
@@ -142,6 +144,11 @@ public class Helper {
         return JrcetTreeList;
     }
 
+
+    /*
+    文件类函数
+     */
+
     public static int CharCount(String srcText, String findText) {
         int count = 0;
         Pattern p = Pattern.compile(findText);
@@ -151,9 +158,8 @@ public class Helper {
         }
         return count;
     }
-    /*
-    文件类函数
-     */
+
+    //读取文件并返回字符串
     public static String readFile(String filename) {
 
         StringBuilder content = new StringBuilder();
