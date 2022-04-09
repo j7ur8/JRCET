@@ -2,14 +2,13 @@ package burp.lib;
 
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,12 +21,52 @@ public class Helper {
      */
     private static int deep = 1;
 
-
     //寻找指定名字的组件，并返回该组件的Panel
-//    public static JComponent findComponent(String componentName){
-//
-//    }
+    public static JComponent getComponent(JComponent rootComponent, String tComponentName){
 
+        if (Objects.equals(rootComponent.getName(), tComponentName)){
+            return rootComponent;
+        }
+
+        for( Component i : rootComponent.getComponents()) {
+            JViewport viewport = null;
+            if (Objects.equals(i.getName(), tComponentName)){
+                return (JComponent) i;
+            }
+            switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
+                case "JPanel":
+                case "JList":
+                    JComponent cj = getComponent((JComponent) i,tComponentName);
+                    if(cj!=null){
+                        return cj;
+                    }
+                    break;
+                case "DiyJAddLabel":
+                case "DiyJTabLabel":
+                    String[] cn = i.getName().split("(?=[A-Z])");
+                    StringBuilder k= new StringBuilder();
+                    for(int l=1; l<cn.length;l++){
+                        k.append(cn[l].length()==1?cn[l]:(cn[l-1].length()==1?cn[l]:""));
+                    }
+                    if(k.toString().equals("")) k.append(cn[cn.length-2]);
+
+                    JComponent cd = getComponent(getRenderedComponent(i, cn, k),tComponentName);
+                    if(cd!=null){
+                        return cd;
+                    }
+                    break;
+                case "RTextScrollPane":
+                case "JScrollPane":
+                    viewport = ((JScrollPane)i).getViewport();
+                    JComponent cs = getComponent(viewport,tComponentName);
+                    if(cs!=null){
+                        return cs;
+                    }
+                    break;
+            }
+        }
+        return null;
+    }
 
     // 遍历传入组件下的全部组件
     public static void travelComponent(JComponent tComponent){
@@ -36,56 +75,54 @@ public class Helper {
             JrcetComponentList.add(String.join("", tComponent.getName()));
         }
 
-        if(tComponent instanceof JScrollPane){
-            Component s = ((JScrollPane)tComponent).getViewport().getComponent(0);
-            JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+s.getName());
-            deep+=1;
-            travelComponent((JComponent)s);
-            deep-=1;
-        }
-
+        JViewport viewport = null;
         for( Component i : tComponent.getComponents()){
-            JComponent ii = (JComponent) i;
+
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)){
                 case "JPanel":
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
                     deep+=1;
-                    travelComponent(ii);
+                    travelComponent((JComponent) i);
                     deep-=1;
                     break;
                 case "DiyJAddLabel":
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
-                    List<String> ar = Arrays.asList(ii.getName().split("(?=[A-Z])"));
-                    JComponent aj = ((DiyJAddLabel) i).getMapPanel(ar.get(ar.size()-2));
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+aj.getName());
-                    deep+=2;
-                    travelComponent(aj);
-                    deep-=2;
-                    break;
                 case "DiyJTabLabel" :
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+ii.getName());
-                    String[] tr = ii.getName().split("(?=[A-Z])");
-                    StringBuilder k= new StringBuilder(); int flag = 0;
-                    for(String ttr :  tr){
-                        if(ttr.length()==1){
-                            k.append(ttr);
-                            flag=1;
-                        }else if(flag==1){
-                            k.append(ttr);
-                            flag=0;
-                        }
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
+                    String[] cn = i.getName().split("(?=[A-Z])");
+                    StringBuilder k= new StringBuilder();
+                    for(int l=1; l<cn.length;l++){
+                        k.append(cn[l].length()==1?cn[l]:(cn[l-1].length()==1?cn[l]:""));
                     }
-                    JComponent tj = ((DiyJTabLabel) i).getMapPanel( k.length()==0? Arrays.asList(tr).get(Arrays.asList(tr).size()-2) : k.toString() );
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+tj.getName());
+
+                    JComponent c = getRenderedComponent(i, cn, k);
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+c.getName());
                     deep+=2;
-                    travelComponent(tj);
+                    travelComponent(c);
                     deep-=2;
                     break;
                 case "RTextScrollPane":
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+((RTextScrollPane)i).getViewport().getComponent(0).getName());
+                case "JScrollPane":
+                    viewport = ((JScrollPane)i).getViewport();
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+viewport.getComponent(0).getName());
+                    deep+=1;
+                    travelComponent(viewport);
+                    deep-=1;
+                    break;
+                case "JList":
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
                     break;
             }
         }
+    }
+
+    private static JComponent getRenderedComponent(Component i, String[] cn, StringBuilder k) {
+        JComponent c;
+        try{
+            c = ((DiyJTabLabel) i).getMapPanel( k.length()==0? Arrays.asList(cn).get(Arrays.asList(cn).size()-2) : k.toString() );
+        }catch (Exception e){
+            c = ((DiyJAddLabel) i).getMapPanel( k.length()==0? Arrays.asList(cn).get(Arrays.asList(cn).size()-2) : k.toString() );
+        }
+        return c;
     }
 
     //实现类似Tree命令效果的图形显示

@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static burp.lib.Helper.getComponent;
+
 
 public class Main {
 
@@ -28,10 +30,8 @@ public class Main {
         // 遍历组件，存放到JrcetComponentList中
         Helper.travelComponent(JrcetPanel);
 
-//        for(String i: Helper.treeComponent(JrcetComponentList)){
-//            System.out.println(i);
-//        }
-
+        JComponent aa= getComponent(JrcetPanel,"BaseMainBlackPanel");
+        System.out.println(aa);
     }
 
     public static void centerInScreen(Window win) {
