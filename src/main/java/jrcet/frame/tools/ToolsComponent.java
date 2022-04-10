@@ -22,9 +22,6 @@ public class ToolsComponent extends DiyJComponent {
         toolsMenuPanel和toolsMenuBorderPanel会先被调用。
         必须其调用的Rscript、..、Dencrypt的后面。
      */
-    private final JComponent ToolsMenuPanel = ToolsMenuTabPanel();
-    private final JComponent ToolsMenuBorderPanel = ToolsMenuTabBorderPanel();
-
 
     @Override
     public JComponent main(){
@@ -33,7 +30,7 @@ public class ToolsComponent extends DiyJComponent {
         ToolsComponentPanel.setOpaque(true);
         ToolsComponentPanel.setBackground(Color.WHITE);
 
-        ToolsComponentPanel.add(ToolsMenuPanel, new GridBagConstraints(
+        ToolsComponentPanel.add(ToolsMenuTabPanel(), new GridBagConstraints(
                 0,0,
                 1,1,
                 0,0,
@@ -43,7 +40,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(ToolsMenuBorderPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(ToolsMenuTabBorderPanel(),new GridBagConstraints(
                 1,0,
                 1,1,
                 1,0,

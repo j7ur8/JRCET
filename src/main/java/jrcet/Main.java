@@ -7,18 +7,20 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static burp.lib.Helper.getComponent;
+import static burp.lib.Helper.treeComponent;
 
 
 public class Main {
 
     public static ArrayList<String> JrcetComponentList =new ArrayList<>();
+    public static JComponent JrcetPanel=new Jrcet().main();
 
     public static void main(String[] args) {
         
         JFrame JrcetFrame = new JFrame("J7ur8's Remote Code Execute Tools");
 
         //setContentPane需放在前面，不然需要更改界面尺寸才会显示。
-        JComponent JrcetPanel=new Jrcet().main();
+
         JrcetFrame.setContentPane(JrcetPanel);
 
         JrcetFrame.setResizable(true);
@@ -29,6 +31,10 @@ public class Main {
 
         // 遍历组件，存放到JrcetComponentList中
         Helper.travelComponent(JrcetPanel);
+
+        for(String i : treeComponent(JrcetComponentList)){
+            System.out.println(i);
+        }
 
         JComponent aa= getComponent(JrcetPanel,"BaseMainBlackPanel");
         System.out.println(aa);

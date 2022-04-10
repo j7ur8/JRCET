@@ -18,11 +18,10 @@ public class Jrcet extends DiyJComponent {
 
     public final JComponent DefaultComponentPanel = ToolsComponentPanel;
 
-    public static JComponent JrcetComponentPanel;
 
     public JComponent main(){
 
-        JrcetComponentPanel = new JPanel(new GridBagLayout());
+        JComponent JrcetComponentPanel = new JPanel(new GridBagLayout());
         JrcetComponentPanel.setName("JrcetComponentPanel");
         JrcetComponentPanel.setOpaque(false);
         JrcetComponentPanel.setBackground(Color.WHITE);

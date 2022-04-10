@@ -1,55 +1,54 @@
 package jrcet.diycomponents;
 
+import burp.lib.Helper;
+import jrcet.Main;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
-import jrcet.frame.tools.Dencrypt.DencryptComponent;
+import sun.awt.AWTAccessor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static jrcet.frame.setting.Setting.class2ClickedDiyJTabBorderColor;
+import static jrcet.frame.setting.Setting.class2DefaultDiyJTabBorderColor;
+import static jrcet.frame.tools.Dencrypt.DencryptComponent.getNewStickerLabel;
+
 public class DiyJAddLabel extends JLabel implements MouseListener {
 
+    private JComponent mapPanel = null;
 
-    private final Map<String, JComponent> mapPanel= new HashMap<>();
-    private final Map<String, String> specialKeyMap = new HashMap<>();
-
-    public DiyJAddLabel(String labelName,boolean flag) {
+    public DiyJAddLabel(String labelName) {
         setOpaque(true);
         setText(labelName);
         setBackground(Color.WHITE);
         setHorizontalAlignment(JLabel.CENTER);
         setFont(new Font("微软雅黑", Font.PLAIN,12));
         setPreferredSize(new Dimension(50,15));
-        setBorder(BorderFactory.createMatteBorder(0,1,1,0,Setting.class4DefaultDiyJTabBorderColor));
+        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,class2DefaultDiyJTabBorderColor)));
+
         addMouseListener(this);
-        setBorder(BorderFactory.createMatteBorder(0,1,0,0,Setting.class4DefaultDiyJTabBorderColor));
-        specialKeyMap.put("1","Default");
-        specialKeyMap.put("···","Add");
     }
 
-    public void setMapPanel(JComponent targetPanel){
-        if(specialKeyMap.containsKey(getText())){
-            mapPanel.put(specialKeyMap.get(getText()),targetPanel);
-        }else {
-            mapPanel.put(getText(),targetPanel);
+    public DiyJAddLabel(String labelName,boolean flag){
+        this(labelName);
+        if(flag){
+            setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
         }
+
     }
 
-    public JComponent getMapPanel(String k){
-        if(mapPanel.containsKey(k)){
-            return mapPanel.get(k);
-        }else{
-            JComponent blackPanel = new JPanel();
-            blackPanel.setName("NullPanelBySomeLabel");
-            return blackPanel;
-        }
+    public void setPanel(JComponent targetPanel){
+        mapPanel = targetPanel;
+    }
 
+    public JComponent getPanel(){
+        return mapPanel!=null?mapPanel:new JPanel();
     }
 
     @Override
@@ -58,9 +57,44 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        String eName = ((DiyJAddLabel)e.getSource()).getName();
-        if(Objects.equals(eName, "···")){
 
+        for(Component i:this.getParent().getComponents()){
+            if(i instanceof DiyJAddLabel){
+                ((DiyJAddLabel)i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,class2DefaultDiyJTabBorderColor)));
+            }
+        }
+
+
+        DiyJAddLabel eLabel = (DiyJAddLabel)e.getSource();
+        String[] eNameArray = eLabel.getName().split("(?=[A-Z])");
+        String eName = eNameArray[eNameArray.length-2];
+        String eIndex = eName.substring(eName.length()-1);
+        if(Objects.equals(eName, "Add")){
+            JPanel eTagTabPanel = (JPanel) eLabel.getParent();
+            DiyJAddLabel newStickerLabel = getNewStickerLabel(eTagTabPanel);
+            eTagTabPanel.add(newStickerLabel,eTagTabPanel.getComponents().length-1);
+            eTagTabPanel.updateUI();
+
+            newStickerLabel.mousePressed(new MouseEvent(newStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
+        }else{
+            JComponent rootPanel;
+            switch (eNameArray[0]){
+                case "Base":
+                    eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
+                    rootPanel = Helper.getComponent(Main.JrcetPanel,"BaseComponentPanel");
+                    rootPanel.remove(rootPanel.getComponents().length-1);
+                    rootPanel.add(BaseComponent.MainPanelHashMap.get(eIndex),new GridBagConstraints(
+                            0,1,
+                            2,1,
+                            1,1,
+                            GridBagConstraints.CENTER,
+                            GridBagConstraints.BOTH,
+                            new Insets(0,0,0,0),
+                            0,0
+                    ));
+                    rootPanel.updateUI();
+                    break;
+            }
         }
     }
 

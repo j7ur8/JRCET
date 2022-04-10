@@ -147,7 +147,6 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptMainPanel.setName("JSEncryptMainPanel");
         JSEncryptMainPanel.setPreferredSize(new Dimension(0,0));
         JSEncryptMainPanel.setOpaque(false);
-        JSEncryptMainPanel.setBackground(Color.PINK);
 
         JSEncryptMainPanel.add(JSEncryptMainScriptEditorScrollPanel(), new GridBagConstraints(
                 0,0,

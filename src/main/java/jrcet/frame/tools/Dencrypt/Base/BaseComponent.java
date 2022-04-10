@@ -8,6 +8,7 @@ import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
+import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,20 +20,20 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 public class BaseComponent extends DiyJComponent {
 
 
-    public static HashMap<String, ArrayList<JComponent>> BaseMainPanelHashMap= new HashMap<>();
+    public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
 
     public BaseComponent(){
-        BaseMainPanelHashMap.put("1", new ArrayList<>(Collections.singletonList(BaseMainPanel())));
+        MainPanelHashMap.put("1", BaseMainPanel());
     }
 
     public JComponent main(){
 
         JPanel BaseComponentPanel = new JPanel(new GridBagLayout());
         BaseComponentPanel.setName("BaseComponentPanel");
-        BaseComponentPanel.setOpaque(false);
+        BaseComponentPanel.setBackground(Color.WHITE);
         BaseComponentPanel.setPreferredSize(new Dimension(0,0));
 
-        BaseComponentPanel.add(BaseTagTabPanel(),new GridBagConstraints(
+        BaseComponentPanel.add(BaseTagBlackPanel(), new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -42,9 +43,19 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
-        BaseComponentPanel.add(getBasePanel("1"),new GridBagConstraints(
-                0,1,
+        BaseComponentPanel.add(BaseTagTabPanel(),new GridBagConstraints(
+                1,0,
                 1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+//        BaseComponentPanel.
+        BaseComponentPanel.add(getBaseMainPanel("1"),new GridBagConstraints(
+                0,1,
+                2,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -55,27 +66,33 @@ public class BaseComponent extends DiyJComponent {
         return BaseComponentPanel;
     }
 
+    public JComponent BaseTagBlackPanel(){
+        JComponent BaseTagBlackPanel = new JPanel();
+        BaseTagBlackPanel.setName("BaseTagBlackPanel");
+        BaseTagBlackPanel.setOpaque(false);
+        BaseTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class4DefaultDiyJTabBorderColor));
+        return BaseTagBlackPanel;
+    }
+
     public JComponent BaseTagTabPanel(){
         JPanel BaseTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         BaseTagTabPanel.setName("BaseTagTabPanel");
-        BaseTagTabPanel.setOpaque(false);
+//        BaseTagTabPanel.setOpaque(false);
         BaseTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
 
-        DiyJAddLabel BaseTagDefaultLabel = new DiyJAddLabel("1",true);
-        BaseTagDefaultLabel.setName("BaseTagDefaultLabel");
-        BaseTagDefaultLabel.setMapPanel(getBasePanel("1"));
+        DiyJAddLabel BaseTagTabSticker1Label = new DiyJAddLabel("1",true);
+        BaseTagTabSticker1Label.setName("BaseTagTabSticker1Label");
+        BaseTagTabSticker1Label.setPanel(getBaseMainPanel("1"));
+        BaseTagTabPanel.add(BaseTagTabSticker1Label);
 
-        BaseTagTabPanel.add(BaseTagDefaultLabel);
-
-
-        DiyJAddLabel BaseTabAddLabel = new DiyJAddLabel("···",false);
+        DiyJAddLabel BaseTabAddLabel = new DiyJAddLabel("···");
         BaseTabAddLabel.setName("BaseTabAddLabel");
         BaseTagTabPanel.add(BaseTabAddLabel);
 
         return BaseTagTabPanel;
     }
 
-    public JComponent BaseMainPanel(){
+    public static JComponent BaseMainPanel(){
         JComponent BaseMainPanel = new JPanel(new GridBagLayout());
         BaseMainPanel.setName("BaseMainPanel");
         BaseMainPanel.setOpaque(false);
@@ -109,7 +126,7 @@ public class BaseComponent extends DiyJComponent {
         return BaseMainScrollPane;
     }
 
-    public JComponent BaseMainContentPanel(){
+    public static JComponent BaseMainContentPanel(){
         JComponent BaseMainContentPanel = new JPanel(new GridBagLayout());
         BaseMainContentPanel.setName("BaseMainContentPanel");
         BaseMainContentPanel.setOpaque(true);
@@ -146,7 +163,7 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
-        BaseMainContentPanel.add( BaseMainContentStatusPanel(),new GridBagConstraints(
+        BaseMainContentPanel.add(BaseMainContentStatusPanel(),new GridBagConstraints(
                 3,0,
                 1,1,
                 0.10,1,
@@ -169,7 +186,7 @@ public class BaseComponent extends DiyJComponent {
         return BaseMainContentPanel;
     }
 
-    private JComponent BaseMainContentTextareaPanel(){
+    private static JComponent BaseMainContentTextareaPanel(){
         JTextArea BaseMainContentTextAreaPanel = new JTextArea();
         BaseMainContentTextAreaPanel.setName("BaseMainContentTextAreaPanel");
         BaseMainContentTextAreaPanel.setLineWrap(true);
@@ -185,7 +202,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
 
-    private JComponent BaseMainContentMenuPanel(){
+    private static JComponent BaseMainContentMenuPanel(){
 
         JPanel BaseMainContentMenuPanel = new JPanel(new GridBagLayout());
         BaseMainContentMenuPanel.setName("BaseMainContentMenuPanel");
@@ -227,7 +244,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //Pause、Continue按钮的设置
-    private JComponent BaseMainContentStatusPanel(){
+    private static JComponent BaseMainContentStatusPanel(){
 
         JPanel BaseMainContentStatusPanel = new JPanel(new GridBagLayout());
         BaseMainContentStatusPanel.setName("BaseMainContentStatusPanel");
@@ -242,7 +259,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //设置按钮的格式
-    private void BaseMainContentMenuAddButton(JPanel buttonListPanel, String type) {
+    private static void BaseMainContentMenuAddButton(JPanel buttonListPanel, String type) {
 
         DiyJButton[][] buttonArray=new DiyJButton[2][7];
         DiyJLabel label = new DiyJLabel(type);
@@ -261,7 +278,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //BaseMainContentPanel的BlackPanel
-    private JComponent BaseMainContentBlackPanel(){
+    private static JComponent BaseMainContentBlackPanel(){
         JPanel BaseMainContentBlackPanel = new JPanel();
         BaseMainContentBlackPanel.setName("BaseMainContentBlackPanel");
         BaseMainContentBlackPanel.setPreferredSize(new Dimension(0,0));
@@ -270,7 +287,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //BasePanel的BlackPanel
-    private JComponent BaseMainBlackPanel(){
+    private static JComponent BaseMainBlackPanel(){
         JPanel BaseMainBlackPanel = new JPanel();
         BaseMainBlackPanel.setName("BaseMainBlackPanel");
         BaseMainBlackPanel.setOpaque(false);
@@ -282,24 +299,20 @@ public class BaseComponent extends DiyJComponent {
     /*
 根据传入的值从DencryptPanelMap中获取默认的Panel，失败则返回一个空Panel
  */
-    private static JComponent getBasePanel(String BaseTagName){
-        if(BaseMainPanelHashMap.containsKey(BaseTagName)){
-            ArrayList<JComponent> targetDencryptArrayList = BaseMainPanelHashMap.get(BaseTagName);
-            if ((targetDencryptArrayList.get(0)) != null){
-                return targetDencryptArrayList.get(0);
-            }
-            return BlackPanel();
-        }
-        return BlackPanel();
+    private static JComponent getBaseMainPanel(String TagName){
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):BaseBlackPanel()):BaseBlackPanel();
     }
 
-    public static JComponent BlackPanel(){
-        JPanel BlackPanel = new JPanel();
-        BlackPanel.setName("BaseBlackPanel");
-        BlackPanel.setOpaque(true);
-        BlackPanel.setBackground(Color.PINK);
+    public static JComponent BaseBlackPanel(){
+        JPanel BaseBlackPanel = new JPanel();
+        BaseBlackPanel.setName("BaseBlackPanel");
+        BaseBlackPanel.setOpaque(true);
+        BaseBlackPanel.setBackground(Color.PINK);
 
-        return BlackPanel;
+        return BaseBlackPanel;
     }
 
+    public static JComponent getNewMainPanel(){
+        return BaseMainPanel();
+    }
 }

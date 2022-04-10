@@ -5,7 +5,6 @@ import jrcet.diycomponents.DiyJTabLabel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -29,7 +28,6 @@ public class Helper {
         }
 
         for( Component i : rootComponent.getComponents()) {
-            JViewport viewport = null;
             if (Objects.equals(i.getName(), tComponentName)){
                 return (JComponent) i;
             }
@@ -37,9 +35,7 @@ public class Helper {
                 case "JPanel":
                 case "JList":
                     JComponent cj = getComponent((JComponent) i,tComponentName);
-                    if(cj!=null){
-                        return cj;
-                    }
+                    if(cj!=null) return cj;
                     break;
                 case "DiyJAddLabel":
                 case "DiyJTabLabel":
@@ -51,17 +47,12 @@ public class Helper {
                     if(k.toString().equals("")) k.append(cn[cn.length-2]);
 
                     JComponent cd = getComponent(getRenderedComponent(i, cn, k),tComponentName);
-                    if(cd!=null){
-                        return cd;
-                    }
+                    if(cd!=null) return cd;
                     break;
                 case "RTextScrollPane":
                 case "JScrollPane":
-                    viewport = ((JScrollPane)i).getViewport();
-                    JComponent cs = getComponent(viewport,tComponentName);
-                    if(cs!=null){
-                        return cs;
-                    }
+                    JComponent cs = getComponent(((JScrollPane)i).getViewport(),tComponentName);
+                    if(cs!=null) return cs;
                     break;
             }
         }
@@ -75,7 +66,6 @@ public class Helper {
             JrcetComponentList.add(String.join("", tComponent.getName()));
         }
 
-        JViewport viewport = null;
         for( Component i : tComponent.getComponents()){
 
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)){
@@ -102,10 +92,10 @@ public class Helper {
                     break;
                 case "RTextScrollPane":
                 case "JScrollPane":
-                    viewport = ((JScrollPane)i).getViewport();
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+viewport.getComponent(0).getName());
+                    JComponent viewPanel = (JComponent) ((JScrollPane)i).getViewport().getComponent(0);
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+viewPanel.getName()+"("+i.getName()+")");
                     deep+=1;
-                    travelComponent(viewport);
+                    travelComponent(viewPanel);
                     deep-=1;
                     break;
                 case "JList":
@@ -120,7 +110,7 @@ public class Helper {
         try{
             c = ((DiyJTabLabel) i).getMapPanel( k.length()==0? Arrays.asList(cn).get(Arrays.asList(cn).size()-2) : k.toString() );
         }catch (Exception e){
-            c = ((DiyJAddLabel) i).getMapPanel( k.length()==0? Arrays.asList(cn).get(Arrays.asList(cn).size()-2) : k.toString() );
+            c = ((DiyJAddLabel) i).getPanel();
         }
         return c;
     }
@@ -181,7 +171,7 @@ public class Helper {
         return JrcetTreeList;
     }
 
-
+//    public static
     /*
     文件类函数
      */
