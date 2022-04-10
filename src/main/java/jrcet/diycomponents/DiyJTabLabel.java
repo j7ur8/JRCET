@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Jrcet;
+import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,41 +11,30 @@ import java.util.Map;
 
 public class DiyJTabLabel extends DiyJLabel implements MouseListener {
 
-    private final Map<String,JComponent> mapPanel= new HashMap<>();
+    private JComponent mapPanel=null;
     private final Map<String,Object> mapStream = new HashMap<>();
-    private Color defaultColor=null;
-    private Color clickColor=null;
 
 
     public DiyJTabLabel(String labelName, Color defaultColor, Color clickColor){
         super(labelName);
         addMouseListener(this);
-        this.defaultColor=defaultColor; this.clickColor=clickColor;
         setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,defaultColor)));
     }
 
     public DiyJTabLabel(String labelName,Color defaultColor,Color clickColor,boolean flag){
         super(labelName);
         addMouseListener(this);
-        this.defaultColor=defaultColor; this.clickColor=clickColor;
         if(flag){
             setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,clickColor)));
         }
     }
 
-    public void setMapPanel(JComponent targetPanel){
-        mapPanel.put(getText(),targetPanel);
+    public void setPanel(JComponent targetPanel){
+        mapPanel=targetPanel;
     }
 
-    public JComponent getMapPanel(String k){
-        if(mapPanel.containsKey(k)){
-            return mapPanel.get(k);
-        }else{
-            JComponent blackPanel = new JPanel();
-            blackPanel.setName("NullPanelBySomeLabel");
-            return blackPanel;
-        }
-
+    public JComponent getPanel(){
+        return mapPanel==null?new JPanel():mapPanel;
     }
 
     public void setMapStream(String k,Object v){
@@ -66,17 +55,17 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
         for(Component i:this.getParent().getComponents()){
             if(i instanceof DiyJLabel){
                 DiyJLabel ii=(DiyJLabel)i;
-                ii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,defaultColor)));
+                ii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0, Setting.class2DefaultDiyJTabBorderColor)));
             }
         }
 
-        if(mapPanel.get(getText())!=null){
+        if(mapPanel!=null){
             DiyJLabel hitButtonLabel = (DiyJLabel)e.getSource();
-            hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,clickColor)));
+            hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.class2ClickedDiyJTabBorderColor)));
             JComponent parentPanel=(JPanel)hitButtonLabel.getParent().getParent();
             int parentComponentsNums = parentPanel.getComponents().length;
             parentPanel.remove(parentComponentsNums-1);
-            parentPanel.add(mapPanel.get(getText()),new GridBagConstraints(
+            parentPanel.add(mapPanel,new GridBagConstraints(
                     0,1,
                     parentComponentsNums-1,1,
                     1,1,

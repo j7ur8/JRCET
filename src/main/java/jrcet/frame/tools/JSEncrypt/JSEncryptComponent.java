@@ -202,7 +202,7 @@ public class JSEncryptComponent extends DiyJComponent {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                if(e.getModifiers()== InputEvent.META_MASK && e.getKeyCode()==83){
+                if((e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==83){
                     JTextArea parent = (JTextArea) e.getSource();
                     String jScriptContent = parent.getText();
                     try {

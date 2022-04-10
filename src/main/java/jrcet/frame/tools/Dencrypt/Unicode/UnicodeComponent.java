@@ -1,6 +1,7 @@
 package jrcet.frame.tools.Dencrypt.Unicode;
 
 import burp.lib.Helper;
+import jdk.internal.util.xml.impl.Input;
 import jrcet.Main;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
@@ -177,7 +178,7 @@ public class UnicodeComponent extends DiyJComponent {
         @Override
         public void keyReleased(KeyEvent e) {
 
-            if(e.getModifiers()== InputEvent.CTRL_MASK && e.getKeyCode()==71){
+            if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
                 RSyntaxTextArea outputArea = null;
                 switch (eArea.getName()){

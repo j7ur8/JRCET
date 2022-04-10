@@ -4,7 +4,10 @@ import burp.lib.Helper;
 import jrcet.Main;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
+import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
+import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 import sun.awt.AWTAccessor;
+import sun.rmi.runtime.NewThreadAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +20,7 @@ import java.util.Objects;
 
 import static jrcet.frame.setting.Setting.class2ClickedDiyJTabBorderColor;
 import static jrcet.frame.setting.Setting.class2DefaultDiyJTabBorderColor;
+import static jrcet.frame.tools.Dencrypt.DencryptComponent.changeMainPanelBySticker;
 import static jrcet.frame.tools.Dencrypt.DencryptComponent.getNewStickerLabel;
 
 public class DiyJAddLabel extends JLabel implements MouseListener {
@@ -77,13 +81,11 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
             newStickerLabel.mousePressed(new MouseEvent(newStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
         }else{
+            eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
             JComponent rootPanel;
             switch (eNameArray[0]){
                 case "Base":
-                    eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
-                    rootPanel = Helper.getComponent(Main.JrcetPanel,"BaseComponentPanel");
-                    rootPanel.remove(rootPanel.getComponents().length-1);
-                    rootPanel.add(BaseComponent.MainPanelHashMap.get(eIndex),new GridBagConstraints(
+                    changeMainPanelBySticker("BaseComponentPanel", BaseComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
                             0,1,
                             2,1,
                             1,1,
@@ -92,7 +94,17 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                             new Insets(0,0,0,0),
                             0,0
                     ));
-                    rootPanel.updateUI();
+                    break;
+                case "Unicode":
+                    changeMainPanelBySticker("UnicodeComponentPanel", UnicodeComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
+                            0,1,
+                            2,1,
+                            1,1,
+                            GridBagConstraints.CENTER,
+                            GridBagConstraints.BOTH,
+                            new Insets(5,5,5,5),
+                            0,0
+                    ));
                     break;
             }
         }

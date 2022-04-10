@@ -79,22 +79,22 @@ public class ToolsComponent extends DiyJComponent {
 
         DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
-        ToolsMenuDencryptLabel.setMapPanel(DencryptComponent);
+        ToolsMenuDencryptLabel.setPanel(DencryptComponent);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);
 
         ToolsMenuRScriptLabel = new DiyJTabLabel("RScript",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         ToolsMenuRScriptLabel.setName("ToolsMenuRScriptLabel");
-        ToolsMenuRScriptLabel.setMapPanel(RScriptComponentPanel);
+        ToolsMenuRScriptLabel.setPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);
 
         DiyJTabLabel ToolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         ToolsMenuJSEncryptLabel.setName("ToolsMenuJSEncryptLabel");
-        ToolsMenuJSEncryptLabel.setMapPanel(JSEncryptComponentPanel);
+        ToolsMenuJSEncryptLabel.setPanel(JSEncryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuJSEncryptLabel);
 
         DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
         ToolsMenuSOLibraryLabel.setName("ToolsMenuSOLibraryLabel");
-        ToolsMenuSOLibraryLabel.setMapPanel(SoLibraryComponentPanel);
+        ToolsMenuSOLibraryLabel.setPanel(SoLibraryComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuSOLibraryLabel);
 
         return ToolsMenuTabPanel;

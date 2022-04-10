@@ -1,5 +1,7 @@
 package jrcet.frame.tools.Dencrypt;
 
+import burp.lib.Helper;
+import jrcet.Main;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
@@ -10,8 +12,7 @@ import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 
 public class DencryptComponent extends DiyJComponent {
 
@@ -81,25 +82,25 @@ public class DencryptComponent extends DiyJComponent {
 
         JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         DencryptMenuPanel.setName("DencryptMenuPanel");
-        DencryptMenuPanel.setOpaque(false);
+//        DencryptMenuPanel.setOpaque(t);
         DencryptMenuPanel.setBackground(Color.WHITE);
 
         //添加加密Tab
         //Base
         DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
-        DencryptMenuBaseLabel.setMapPanel(BaseComponentPanel);
+        DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
         DencryptMenuPanel.add(DencryptMenuBaseLabel);
 
         //AES
         DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
-        DencryptMenuAESLabel.setMapPanel(AESComponentPanel);
+        DencryptMenuAESLabel.setPanel(AESComponentPanel);
         DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
         DencryptMenuPanel.add(DencryptMenuAESLabel);
 
         //Unicode
         DiyJTabLabel DencryptMenuUnicodeLabel = new DiyJTabLabel("Unicode", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
-        DencryptMenuUnicodeLabel.setMapPanel(UnicodeComponentPanel);
+        DencryptMenuUnicodeLabel.setPanel(UnicodeComponentPanel);
         DencryptMenuUnicodeLabel.setName("DencryptMenuUnicodeLabel");
         DencryptMenuPanel.add(DencryptMenuUnicodeLabel);
 
@@ -116,6 +117,7 @@ public class DencryptComponent extends DiyJComponent {
     public JComponent DencryptMenuBorderPanel(){
 
         JPanel DencryptMenuBorderPanel = new JPanel();
+        DencryptMenuBorderPanel.setBackground(Color.WHITE);
         DencryptMenuBorderPanel.setName("DencryptMenuBorderPanel");
         DencryptMenuBorderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class1DefaultDiyJTabBorderColor)));
         DencryptMenuBorderPanel.setPreferredSize(new Dimension(0,0));
@@ -156,4 +158,10 @@ public class DencryptComponent extends DiyJComponent {
         return nStickerLabel;
     }
 
+    public static void changeMainPanelBySticker(String tComponentName, HashMap<String,JComponent> map, String  eIndex, GridBagConstraints gbc){
+        JComponent rootPanel = Helper.getComponent(Main.JrcetPanel,tComponentName);
+        rootPanel.remove(rootPanel.getComponents().length-1);
+        rootPanel.add(map.get(eIndex),gbc);
+        rootPanel.updateUI();
+    }
 }

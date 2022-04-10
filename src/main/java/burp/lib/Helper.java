@@ -108,7 +108,7 @@ public class Helper {
     private static JComponent getRenderedComponent(Component i, String[] cn, StringBuilder k) {
         JComponent c;
         try{
-            c = ((DiyJTabLabel) i).getMapPanel( k.length()==0? Arrays.asList(cn).get(Arrays.asList(cn).size()-2) : k.toString() );
+            c = ((DiyJTabLabel) i).getPanel();
         }catch (Exception e){
             c = ((DiyJAddLabel) i).getPanel();
         }
