@@ -1,17 +1,418 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
+import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.DiyJLabel;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.HashMap;
+
 
 public class AesComponent extends DiyJComponent {
+
+    public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
+
+    public AesComponent(){
+        MainPanelHashMap.put("1", AesMainPanel());
+
+    }
+
     public JComponent main(){
         JComponent AesComponentPanel = new JPanel(new GridBagLayout());
         AesComponentPanel.setName("AesComponentPanel");
         AesComponentPanel.setBackground(Color.WHITE);
         AesComponentPanel.setPreferredSize(new Dimension(0,0));
 
+        AesComponentPanel.add(AesTagBlackPanel(), new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesComponentPanel.add(AesTagTabPanel(),new GridBagConstraints(
+                1,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesComponentPanel.add(getAesMainPanel("1"),new GridBagConstraints(
+                0,1,
+                2,1,
+                1,0.7,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(5,5,5,5),
+                0,0
+        ));
+
+        AesComponentPanel.add(getAesMainPanel("1"),new GridBagConstraints(
+                0,1,
+                2,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(5,5,5,5),
+                0,0
+        ));
+
         return AesComponentPanel;
+    }
+
+    public JComponent AesTagBlackPanel(){
+        JComponent AesTagBlackPanel = new JPanel();
+        AesTagBlackPanel.setName("AesTagBlackPanel");
+        AesTagBlackPanel.setOpaque(false);
+        AesTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.class4DefaultDiyJTabBorderColor));
+        return AesTagBlackPanel;
+    }
+
+    public JComponent AesTagTabPanel(){
+        JPanel AesTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
+        AesTagTabPanel.setName("AesTagTabPanel");
+        AesTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
+
+        DiyJAddLabel AesTagTabSticker1Label = new DiyJAddLabel("1",true);
+        AesTagTabSticker1Label.setName("AesTagTabSticker1Label");
+        AesTagTabSticker1Label.setPanel(getAesMainPanel("1"));
+        AesTagTabPanel.add(AesTagTabSticker1Label);
+        DiyJAddLabel AesTabAddLabel = new DiyJAddLabel("···");
+        AesTabAddLabel.setName("AesTabAddLabel");
+        AesTagTabPanel.add(AesTabAddLabel);
+
+        return AesTagTabPanel;
+    }
+
+    public static JComponent AesMainPanel(){
+
+        JComponent AesMainPanel = new JPanel(new GridBagLayout());
+        AesMainPanel.setName("AesMainPanel");
+        AesMainPanel.setPreferredSize(new Dimension(0,0));
+
+        AesMainPanel.add(AesMainInputScrollPane(), new GridBagConstraints(
+                0,0,
+                1,1,
+                0.9,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesMainPanel.add(AesMainOutputScrollPane(), new GridBagConstraints(
+                0,1,
+                1,1,
+                0.9,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesMainPanel.add(AesMainControlPanel(), new GridBagConstraints(
+                1,0,
+                1,2,
+                0.1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AesMainPanel;
+    }
+
+    public static JComponent AesMainInputScrollPane(){
+
+        RSyntaxTextArea AesMainCiphertextArea = new RSyntaxTextArea();
+        AesMainCiphertextArea.setName("AesMainCiphertextArea");
+        AesMainCiphertextArea.setCodeFoldingEnabled(true);
+        AesMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AesMainCiphertextArea.addKeyListener(new AesMainKeyListener());
+
+        RTextScrollPane AesMainCiphertextScrollPane = new RTextScrollPane(AesMainCiphertextArea);
+        AesMainCiphertextScrollPane.setName("AesMainCiphertextScrollPane");
+        AesMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
+
+        return AesMainCiphertextScrollPane;
+
+    }
+
+    public static JComponent AesMainOutputScrollPane(){
+
+        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
+        RSyntaxTextArea AesMainOutputScrollPane = new RSyntaxTextArea();
+        AesMainOutputScrollPane.setName("AesMainOutputScrollPane");
+        AesMainOutputScrollPane.setCodeFoldingEnabled(true);
+        AesMainOutputScrollPane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AesMainOutputScrollPane.addKeyListener(new AesMainKeyListener());
+
+        RTextScrollPane AesMainPlaintextScrollPane = new RTextScrollPane(AesMainOutputScrollPane);
+        AesMainPlaintextScrollPane.setName("AesMainPlaintextScrollPane");
+        AesMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
+
+        return AesMainPlaintextScrollPane;
+    }
+
+    public static JComponent AesMainControlPanel(){
+
+        JComponent AesMainControlPanel = new JPanel(new GridBagLayout());
+        AesMainControlPanel.setName("AesMainControllerPanel");
+        AesMainControlPanel.setBackground(Color.WHITE);
+
+        AesMainControlPanel.add(AesMainControlModelPanel(), new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0.3,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesMainControlPanel.add(AesMainControlActionPanel(), new GridBagConstraints(
+                0,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesMainControlPanel.add(AesMainControlIvPanel(), new GridBagConstraints(
+                0,2,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesMainControlPanel.add(AesMainControlKeyPanel(), new GridBagConstraints(
+                0,3,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AesMainControlPanel.add(AseMainControlBlackPanel(), new GridBagConstraints(
+                0,4,
+                1,1,
+                1,0.7,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AesMainControlPanel;
+    }
+
+    public static JComponent AesMainControlModelPanel(){
+        JComponent AesMainControlModelPanel = new JPanel(new GridBagLayout());
+        AesMainControlModelPanel.setName("AesMainControlModelPanel");
+        AesMainControlModelPanel.setBackground(Color.WHITE);
+
+        JList<String> AesMainControlModeList = new JList<>(new String[]{
+                "AES/ECB/PKCS5Padding",
+                "AES/ECB/NoPadding",
+                "AES/CBC/PKCS5Padding",
+                "AES/CBC/NoPadding"
+        });
+        AesMainControlModeList.setName("AesMainControlModeList");
+        AesMainControlModeList.setFont(new Font("微软雅黑",Font.PLAIN,14));
+        AesMainControlModeList.setBorder(BorderFactory.createEmptyBorder(10,20, 10, 0));
+        AesMainControlModeList.addListSelectionListener(new AesMainControlModeSelectListener());
+        AesMainControlModelPanel.add(AesMainControlModeList,new GridBagConstraints(
+                0,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AesMainControlModelPanel;
+    }
+
+    public static JComponent AesMainControlActionPanel(){
+        JComponent AesMainControlActionPanel = new JPanel(new GridBagLayout());
+        AesMainControlActionPanel.setName("AesMainControlActionPanel");
+        AesMainControlActionPanel.setBackground(Color.WHITE);
+
+        DiyJLabel AesMainControlEncryptLabel = new DiyJLabel("Encrypt");
+        AesMainControlEncryptLabel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.gray));
+        AesMainControlEncryptLabel.setName("AesMainControlEncryptLabel");
+        AesMainControlActionPanel.add(AesMainControlEncryptLabel,new GridBagConstraints(
+                0,0,
+                1,1,
+                0.5,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJLabel AesMainControlDecryptLabel = new DiyJLabel("Decrypt");
+        AesMainControlDecryptLabel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.gray));
+        AesMainControlDecryptLabel.setName("AesMainControlDecryptLabel");
+        AesMainControlActionPanel.add(AesMainControlDecryptLabel,new GridBagConstraints(
+                1,0,
+                1,1,
+                0.5,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+
+        return AesMainControlActionPanel;
+    }
+
+    public static JComponent AesMainControlIvPanel(){
+
+        JComponent AesMainControlIvPanel = new JPanel(new GridBagLayout());
+        AesMainControlIvPanel.setName("AesMainControlIvPanel");
+        AesMainControlIvPanel.setBackground(Color.WHITE);
+        AesMainControlIvPanel.setPreferredSize(new Dimension(0,40));
+        AesMainControlIvPanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,5));
+
+        DiyJLabel AesMainControlIvLabel = new DiyJLabel(" Iv:");
+        AesMainControlIvLabel.setName("AesMainControlIvLabel");
+        AesMainControlIvLabel.setPreferredSize(new Dimension(50,30));
+        AesMainControlIvPanel.add(AesMainControlIvLabel,new GridBagConstraints(
+                0,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        JTextField AesMainControlIvField = new JTextField();
+        AesMainControlIvField.setName("AesMainControlIvField");
+        AesMainControlIvField.setPreferredSize(new Dimension(50,30));
+        AesMainControlIvPanel.add(AesMainControlIvField,new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AesMainControlIvPanel;
+    }
+
+    public static JComponent AesMainControlKeyPanel(){
+        JComponent AesMainControlKeyPanel = new JPanel(new GridBagLayout());
+        AesMainControlKeyPanel.setName("AesMainControlKeyPanel");
+        AesMainControlKeyPanel.setBackground(Color.WHITE);
+        AesMainControlKeyPanel.setPreferredSize(new Dimension(0,40));
+        AesMainControlKeyPanel.setBorder(BorderFactory.createEmptyBorder(5,0,0,5));
+
+        DiyJLabel AesMainControlKeyLabel = new DiyJLabel("Key: ");
+        AesMainControlKeyLabel.setName("AesMainControlKeyLabel");
+        AesMainControlKeyLabel.setPreferredSize(new Dimension(50,30));
+        AesMainControlKeyPanel.add(AesMainControlKeyLabel,new GridBagConstraints(
+                0,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        JTextField AesMainControlKeyField = new JTextField();
+        AesMainControlKeyField.setName("AesMainControlKeyField");
+        AesMainControlKeyField.setPreferredSize(new Dimension(0,30));
+        AesMainControlKeyPanel.add(AesMainControlKeyField,new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AesMainControlKeyPanel;
+    }
+
+
+    public static JComponent AseMainControlBlackPanel(){
+        JComponent AseMainControlBlackPanel = new JPanel();
+        AseMainControlBlackPanel.setBackground(Color.WHITE);
+        AseMainControlBlackPanel.setName("AseMainControlBlackPanel");
+
+        return AseMainControlBlackPanel;
+    }
+
+
+    public JComponent getAesMainPanel(String TagName){
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):AesBlackPanel()):AesBlackPanel();
+    }
+
+    public JComponent AesBlackPanel(){
+        JPanel AesBlackPanel = new JPanel();
+        AesBlackPanel.setName("AesBlackPanel");
+        AesBlackPanel.setOpaque(true);
+        AesBlackPanel.setBackground(Color.PINK);
+
+        return AesBlackPanel;
+    }
+
+    public static JComponent getNewMainPanel(){
+        return AesMainPanel();
+    }
+
+    static class AesMainControlModeSelectListener implements ListSelectionListener{
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+
+        }
+    }
+
+    static class AesMainKeyListener implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
     }
 }

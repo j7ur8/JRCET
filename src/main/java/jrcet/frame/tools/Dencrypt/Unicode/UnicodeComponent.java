@@ -20,7 +20,6 @@ import java.util.HashMap;
 public class UnicodeComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
-    public static int unicodeFlag = 0;
 
     public UnicodeComponent(){
         MainPanelHashMap.put("1", UnicodeMainPanel());
@@ -164,6 +163,9 @@ public class UnicodeComponent extends DiyJComponent {
         return UnicodeBlackPanel;
     }
 
+    public static JComponent getNewMainPanel(){
+        return UnicodeMainPanel();
+    }
 
     static class UnicodeMainKeyListener implements KeyListener {
 
@@ -196,5 +198,6 @@ public class UnicodeComponent extends DiyJComponent {
             }
         }
     }
+
 
 }

@@ -3,6 +3,7 @@ package jrcet.diycomponents;
 import burp.lib.Helper;
 import jrcet.Main;
 import jrcet.frame.setting.Setting;
+import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
@@ -68,7 +69,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             }
         }
 
-
         DiyJAddLabel eLabel = (DiyJAddLabel)e.getSource();
         String[] eNameArray = eLabel.getName().split("(?=[A-Z])");
         String eName = eNameArray[eNameArray.length-2];
@@ -82,10 +82,9 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             newStickerLabel.mousePressed(new MouseEvent(newStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
         }else{
             eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
-            JComponent rootPanel;
             switch (eNameArray[0]){
                 case "Base":
-                    changeMainPanelBySticker("BaseComponentPanel", BaseComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
+                    changeMainPanelBySticker("Base", BaseComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
                             0,1,
                             2,1,
                             1,1,
@@ -96,7 +95,7 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                     ));
                     break;
                 case "Unicode":
-                    changeMainPanelBySticker("UnicodeComponentPanel", UnicodeComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
+                    changeMainPanelBySticker("Unicode", UnicodeComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
                             0,1,
                             2,1,
                             1,1,
@@ -106,6 +105,18 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                             0,0
                     ));
                     break;
+                case "Aes":
+                    changeMainPanelBySticker("Aes", AesComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
+                            0,1,
+                            2,1,
+                            1,1,
+                            GridBagConstraints.CENTER,
+                            GridBagConstraints.BOTH,
+                            new Insets(5,5,5,5),
+                            0,0
+                    ));
+                    break;
+
             }
         }
     }

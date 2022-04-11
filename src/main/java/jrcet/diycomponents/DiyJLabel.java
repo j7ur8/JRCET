@@ -10,8 +10,6 @@ import java.util.Objects;
 
 public class DiyJLabel extends JLabel  {
 
-
-
     public DiyJLabel(String labelName){
         setLabelProperty(labelName);
     }
@@ -24,9 +22,6 @@ public class DiyJLabel extends JLabel  {
         setFont(new Font("微软雅黑", Font.PLAIN,14));
         setPreferredSize(new Dimension(80,27));
     }
-
-
-
 
 
 }

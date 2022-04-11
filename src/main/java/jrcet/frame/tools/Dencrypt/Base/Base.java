@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 public class Base {
 
-    final static java.util.Base64.Encoder b64encoder = java.util.Base64.getEncoder();
-    final static java.util.Base64.Decoder b64decoder = java.util.Base64.getDecoder();
+    public final static java.util.Base64.Encoder b64encoder = java.util.Base64.getEncoder();
+    public final static java.util.Base64.Decoder b64decoder = java.util.Base64.getDecoder();
 
 
     public static String door(String caseString, String type, String text) {

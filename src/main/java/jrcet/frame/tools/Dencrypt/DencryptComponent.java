@@ -144,11 +144,14 @@ public class DencryptComponent extends DiyJComponent {
         String nComponentName = eTagTabPanel.getComponent(0).getName().replace("1", nName);
         switch (eTagTabPanel.getName().split("(?=[A-Z])")[0]){
             case "Base":
-                nPanel=BaseComponent.getNewMainPanel();
-                BaseComponent.MainPanelHashMap.put(nName,nPanel);
+                BaseComponent.MainPanelHashMap.put(nName,BaseComponent.getNewMainPanel());
                 break;
             case "Unicode":
-                UnicodeComponent.MainPanelHashMap.put(nName,UnicodeComponent.UnicodeMainPanel());
+                UnicodeComponent.MainPanelHashMap.put(nName,UnicodeComponent.getNewMainPanel());
+                break;
+            case "Aes":
+                AesComponent.MainPanelHashMap.put(nName,AesComponent.getNewMainPanel());
+                break;
         }
 
         DiyJAddLabel nStickerLabel = new DiyJAddLabel(nName);
@@ -158,8 +161,8 @@ public class DencryptComponent extends DiyJComponent {
         return nStickerLabel;
     }
 
-    public static void changeMainPanelBySticker(String tComponentName, HashMap<String,JComponent> map, String  eIndex, GridBagConstraints gbc){
-        JComponent rootPanel = Helper.getComponent(Main.JrcetPanel,tComponentName);
+    public static void changeMainPanelBySticker(String tComponentName, HashMap<String,JComponent> map, String eIndex, GridBagConstraints gbc){
+        JComponent rootPanel = Helper.getComponent(Main.JrcetPanel,tComponentName+"ComponentPanel");
         rootPanel.remove(rootPanel.getComponents().length-1);
         rootPanel.add(map.get(eIndex),gbc);
         rootPanel.updateUI();
