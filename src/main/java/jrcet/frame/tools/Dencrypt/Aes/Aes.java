@@ -1,12 +1,16 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
+import burp.lib.Helper;
+import com.google.common.primitives.Bytes;
 import org.jetbrains.annotations.NotNull;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import java.lang.invoke.SwitchPoint;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static jrcet.frame.tools.Dencrypt.Base.Base.b64decoder;
@@ -14,62 +18,104 @@ import static jrcet.frame.tools.Dencrypt.Base.Base.b64encoder;
 
 public class Aes {
 
-    public static String Encrypt(String plainText, String Mode, String Key, String Iv) throws Exception {
+    private static String text;
+    private static byte[] key;
+    private static byte[] iv;
+    private static String returned;
 
-        Key = repairKey(Key);
+    public static String Encrypt(String plainText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
 
-        StringBuilder plainTextBuilder = new StringBuilder(plainText);
-        for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
-            plainTextBuilder.append(i);
-        }
-        plainText = plainTextBuilder.toString();
+        repairParam(plainText,Mode,Key,KeyType,Iv,IvType);
+
+        if(returned!=null) return  returned;
 
         Cipher cipher = Cipher.getInstance(Mode);
         switch (Mode){
             case "AES/ECB/NoPadding":
+                StringBuilder plainTextBuilder = new StringBuilder(plainText);
+                for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
+                    plainTextBuilder.append(i);
+                }
+                plainText = plainTextBuilder.toString();
             case "AES/ECB/PKCS5Padding":
-                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Key.getBytes(StandardCharsets.UTF_8), "AES"));
+                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
                 break;
             case "AES/CBC/NoPadding":
             case "AES/CBC/PKCS5Padding":
-                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Key.getBytes(StandardCharsets.UTF_8), "AES"), new IvParameterSpec(Iv.getBytes()));
+                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
 
-        return b64encoder.encodeToString(cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8)));
+        return b64encoder.encodeToString(cipher.doFinal(plainText.getBytes(StandardCharsets.ISO_8859_1)));
 
     }
 
 
     // 解密
-    public static String Decrypt(String cipherText, String Mode, String Key, String Iv) throws Exception {
+    public static String Decrypt(String cipherText, String Mode, String Key, String keyType, String Iv, String IvType) throws Exception {
 
-        Key = repairKey(Key);
 
         Cipher cipher = Cipher.getInstance(Mode);
         switch (Mode){
             case "AES/ECB/NoPadding":
             case "AES/ECB/PKCS5Padding":
-                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Key.getBytes(StandardCharsets.UTF_8), "AES"));
+                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"));
                 break;
             case "AES/CBC/NoPadding":
             case "AES/CBC/PKCS5Padding":
-                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Key.getBytes(StandardCharsets.UTF_8), "AES"), new IvParameterSpec(Iv.getBytes()));
+                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
 
-        return new String(cipher.doFinal(b64decoder.decode(cipherText)), StandardCharsets.UTF_8);
+        return new String(cipher.doFinal(b64decoder.decode(cipherText)), StandardCharsets.ISO_8859_1);
 
     }
 
-    @NotNull
-    private static String repairKey(String Key) {
-        int keyLength = Key.length()<16?16:(Key.length()>24?32:24);
-        StringBuilder keyBuilder = new StringBuilder(Key);
-        for(String i: Collections.nCopies(keyLength- keyBuilder.length()%keyLength,"\000")){
-            keyBuilder.append(i);
+    private static void repairParam(String cipherText, String Mode, String Key, String KeyType, String Iv, String IvType) {
+
+        if (cipherText == null) {
+            returned = "请输入需要解密的字符串";
         }
-        Key = keyBuilder.toString();
-        return Key;
+        if (Mode == null) {
+            returned = "请选择模式";
+        }
+        //设置key和iv
+        String[] s = new String[]{Key, Iv}, t = new String[]{KeyType, IvType};
+        for (int i = 0; i < 2; i++) {
+            byte[] r = new byte[0];
+            switch (t[i]) {
+                case "Base64":
+                    r = b64decoder.decode(s[i]);
+                    break;
+                case "Hex":
+                    r = Helper.hexStringToByteArray(s[i]);
+                    break;
+                case "Raw":
+                    r = s[i].getBytes(StandardCharsets.ISO_8859_1);
+                    break;
+            }
+            if (i == 0) {  //设置key
+                int len = r.length <= 16 ? 16 : (r.length > 24 ? 32 : 24);
+                key = new byte[len];
+                for (int j = 0; j < len; j++) {
+                    if (j < key.length) {
+                        key[j] = r[j];
+                    } else {
+                        key[j] = new Byte("\000");
+                    }
+                }
+            }
+            if (i == 1) { //设置iv
+                iv = new byte[16];
+                for (int j = 0; j < 16; j++) {
+                    if (j < key.length) {
+                        iv[j] = r[j];
+                    } else {
+                        iv[j] = new Byte("\000");
+                    }
+                }
+            }
+        }
     }
+
 }

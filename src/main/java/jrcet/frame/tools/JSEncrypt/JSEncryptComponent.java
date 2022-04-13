@@ -186,10 +186,12 @@ public class JSEncryptComponent extends DiyJComponent {
         RSyntaxTextArea JSEncryptMainScriptEditor = new RSyntaxTextArea();
         JSEncryptMainScriptEditor.setName("JSEncryptMainScriptEditor");
         JSEncryptMainScriptEditor.setCodeFoldingEnabled(true);
+        JSEncryptMainScriptEditor.setLineWrap(true);
         JSEncryptMainScriptEditor.setText((Helper.isFile(JSEncryptScriptLocation)?Helper.readFile(JSEncryptScriptLocation):"File Not Found"));
         JSEncryptMainScriptEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
 
         RTextScrollPane JSEncryptMainScriptEditorScrollPanel = new RTextScrollPane(JSEncryptMainScriptEditor);
+        JSEncryptMainScriptEditorScrollPanel.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         JSEncryptMainScriptEditorScrollPanel.setName("JSEncryptMainScriptEditorScrollPanel");
         JSEncryptMainScriptEditorScrollPanel.setPreferredSize(new Dimension(0,0));
 
@@ -224,34 +226,29 @@ public class JSEncryptComponent extends DiyJComponent {
             JSEncryptMainPayload.append(payload).append(System.lineSeparator());
         }
 
-        JTextArea JSEncryptMainPayloadEditor = new JTextArea();
+        RSyntaxTextArea JSEncryptMainPayloadEditor = new RSyntaxTextArea();
         JSEncryptMainPayloadEditor.setLineWrap(true);
-        JSEncryptMainPayloadEditor.setWrapStyleWord(true);
         JSEncryptMainPayloadEditor.setName("JSEncryptMainPayloadEditor");
         JSEncryptMainPayloadEditor.setText(JSEncryptMainPayload.toString());
-        JSEncryptMainPayloadEditor.setPreferredSize(new Dimension(0,0));
-        JSEncryptMainPayloadEditor.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(203, 208, 209)));
 
-        JScrollPane JSEncryptMainPayloadEditorScrollPanel = new JScrollPane(JSEncryptMainPayloadEditor);
-        JSEncryptMainPayloadEditorScrollPanel.setBorder(null);
+        RTextScrollPane JSEncryptMainPayloadEditorScrollPanel = new RTextScrollPane(JSEncryptMainPayloadEditor);
+        JSEncryptMainPayloadEditorScrollPanel.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         JSEncryptMainPayloadEditorScrollPanel.setName("JSEncryptMainPayloadEditorScrollPanel");
-        JSEncryptMainPayloadEditorScrollPanel.setRowHeaderView(new TextLineNumber(JSEncryptMainPayloadEditor,2));
+        JSEncryptMainPayloadEditorScrollPanel.setPreferredSize(new Dimension(0,0));
+
 
         return JSEncryptMainPayloadEditorScrollPanel;
     }
 
     private JComponent JSEncryptMainResultScrollPanel(){
-        
-        JTextArea JSEncryptMainResultEditor = new JTextArea();
-        JSEncryptMainResultEditor.setLineWrap(true);
-        JSEncryptMainResultEditor.setWrapStyleWord(true);
-        JSEncryptMainResultEditor.setName("JSEncryptMainResultEditor");
-        JSEncryptMainResultEditor.setPreferredSize(new Dimension(0,0));
 
-        JScrollPane JSEncryptMainResultScrollPanel = new JScrollPane(JSEncryptMainResultEditor);
+        RSyntaxTextArea JSEncryptMainResultEditor = new RSyntaxTextArea();
+        JSEncryptMainResultEditor.setLineWrap(true);
+        JSEncryptMainResultEditor.setName("JSEncryptMainResultEditor");
+
+        RTextScrollPane JSEncryptMainResultScrollPanel = new RTextScrollPane(JSEncryptMainResultEditor);
         JSEncryptMainResultScrollPanel.setName("JSEncryptMainResultScrollPanel");
-        JSEncryptMainResultScrollPanel.setBorder(null);
-        JSEncryptMainResultScrollPanel.setRowHeaderView(new TextLineNumber(JSEncryptMainResultEditor));
+        JSEncryptMainResultScrollPanel.setPreferredSize(new Dimension(0,0));
 
         return  JSEncryptMainResultScrollPanel;
     }

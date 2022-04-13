@@ -116,7 +116,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                             0,0
                     ));
                     break;
-
             }
         }
     }

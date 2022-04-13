@@ -1,6 +1,7 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
 import jrcet.diycomponents.DiyJAddLabel;
+import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -62,16 +63,6 @@ public class AesComponent extends DiyJComponent {
                 0,0
         ));
 
-        AesComponentPanel.add(getAesMainPanel("1"),new GridBagConstraints(
-                0,1,
-                2,1,
-                1,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(5,5,5,5),
-                0,0
-        ));
-
         return AesComponentPanel;
     }
 
@@ -105,7 +96,7 @@ public class AesComponent extends DiyJComponent {
         AesMainPanel.setName("AesMainPanel");
         AesMainPanel.setPreferredSize(new Dimension(0,0));
 
-        AesMainPanel.add(AesMainInputScrollPane(), new GridBagConstraints(
+        AesMainPanel.add(AesMainPlaintextScrollPane(), new GridBagConstraints(
                 0,0,
                 1,1,
                 0.9,1,
@@ -115,7 +106,7 @@ public class AesComponent extends DiyJComponent {
                 0,0
         ));
 
-        AesMainPanel.add(AesMainOutputScrollPane(), new GridBagConstraints(
+        AesMainPanel.add(AesMainCiphertextScrollPane(), new GridBagConstraints(
                 0,1,
                 1,1,
                 0.9,1,
@@ -138,36 +129,41 @@ public class AesComponent extends DiyJComponent {
         return AesMainPanel;
     }
 
-    public static JComponent AesMainInputScrollPane(){
+    public static JComponent AesMainPlaintextScrollPane(){
 
-        RSyntaxTextArea AesMainCiphertextArea = new RSyntaxTextArea();
-        AesMainCiphertextArea.setName("AesMainCiphertextArea");
-        AesMainCiphertextArea.setCodeFoldingEnabled(true);
-        AesMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AesMainCiphertextArea.addKeyListener(new AesMainKeyListener());
+        RSyntaxTextArea AesMainPlaintextArea = new RSyntaxTextArea();
+        AesMainPlaintextArea.setName("AesMainPlaintextArea");
+        AesMainPlaintextArea.setCodeFoldingEnabled(true);
+        AesMainPlaintextArea.setLineWrap(true);
+        AesMainPlaintextArea.setText("#请输入...\n#iv和key支持Raw、Base64、Hex三种方式");
+        AesMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AesMainPlaintextArea.addKeyListener(new AesMainKeyListener());
 
-        RTextScrollPane AesMainCiphertextScrollPane = new RTextScrollPane(AesMainCiphertextArea);
-        AesMainCiphertextScrollPane.setName("AesMainCiphertextScrollPane");
-        AesMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
-
-        return AesMainCiphertextScrollPane;
-
-    }
-
-    public static JComponent AesMainOutputScrollPane(){
-
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea AesMainOutputScrollPane = new RSyntaxTextArea();
-        AesMainOutputScrollPane.setName("AesMainOutputScrollPane");
-        AesMainOutputScrollPane.setCodeFoldingEnabled(true);
-        AesMainOutputScrollPane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AesMainOutputScrollPane.addKeyListener(new AesMainKeyListener());
-
-        RTextScrollPane AesMainPlaintextScrollPane = new RTextScrollPane(AesMainOutputScrollPane);
+        RTextScrollPane AesMainPlaintextScrollPane = new RTextScrollPane(AesMainPlaintextArea);
+        AesMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AesMainPlaintextScrollPane.setName("AesMainPlaintextScrollPane");
         AesMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
 
         return AesMainPlaintextScrollPane;
+
+    }
+
+    public static JComponent AesMainCiphertextScrollPane(){
+
+        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
+        RSyntaxTextArea AesMainCiphertextArea = new RSyntaxTextArea();
+        AesMainCiphertextArea.setName("AesMainCiphertextArea");
+        AesMainCiphertextArea.setCodeFoldingEnabled(true);
+        AesMainCiphertextArea.setLineWrap(true);
+        AesMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AesMainCiphertextArea.addKeyListener(new AesMainKeyListener());
+
+        RTextScrollPane AesMainCiphertextScrollPane = new RTextScrollPane(AesMainCiphertextArea);
+        AesMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        AesMainCiphertextScrollPane.setName("AesMainCiphertextScrollPane");
+        AesMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
+
+        return AesMainCiphertextScrollPane;
     }
 
     public static JComponent AesMainControlPanel(){
@@ -215,6 +211,8 @@ public class AesComponent extends DiyJComponent {
                 new Insets(0,0,0,0),
                 0,0
         ));
+
+
 
         AesMainControlPanel.add(AseMainControlBlackPanel(), new GridBagConstraints(
                 0,4,
@@ -319,7 +317,20 @@ public class AesComponent extends DiyJComponent {
         AesMainControlIvPanel.add(AesMainControlIvField,new GridBagConstraints(
                 1,0,
                 1,1,
-                1,0,
+                0.8,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJComboBox<String> AesMainControlIvBox = new DiyJComboBox<>(new String[]{"Raw", "Base64", "Hex"});
+        AesMainControlIvBox.setName("AesMainControlIvBox");
+        AesMainControlIvBox.setPreferredSize(new Dimension(50,30));
+        AesMainControlIvPanel.add(AesMainControlIvBox,new GridBagConstraints(
+                2,0,
+                1,1,
+                0.2,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -351,11 +362,24 @@ public class AesComponent extends DiyJComponent {
 
         JTextField AesMainControlKeyField = new JTextField();
         AesMainControlKeyField.setName("AesMainControlKeyField");
-        AesMainControlKeyField.setPreferredSize(new Dimension(0,30));
+        AesMainControlKeyField.setPreferredSize(new Dimension(50,30));
         AesMainControlKeyPanel.add(AesMainControlKeyField,new GridBagConstraints(
                 1,0,
                 1,1,
-                1,0,
+                0.8,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJComboBox<String> AesMainControlKeyBox = new DiyJComboBox<>(new String[]{"Raw", "Base64", "Hex"});
+        AesMainControlKeyBox.setName("AesMainControlKeyBox");
+        AesMainControlKeyBox.setPreferredSize(new Dimension(50,30));
+        AesMainControlKeyPanel.add(AesMainControlKeyBox,new GridBagConstraints(
+                2,0,
+                1,1,
+                0.2,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),

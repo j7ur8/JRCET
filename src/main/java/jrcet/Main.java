@@ -29,15 +29,6 @@ public class Main {
         centerInScreen(JrcetFrame);
         JrcetFrame.setVisible(true);
 
-        // 遍历组件，存放到JrcetComponentList中
-        Helper.travelComponent(JrcetPanel);
-
-        for(String i : treeComponent(JrcetComponentList)){
-            System.out.println(i);
-        }
-
-        JComponent aa= getComponent(JrcetPanel,"BaseMainBlackPanel");
-        System.out.println(aa);
     }
 
     public static void centerInScreen(Window win) {

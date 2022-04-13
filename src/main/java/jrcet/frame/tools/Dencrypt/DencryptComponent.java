@@ -65,7 +65,7 @@ public class DencryptComponent extends DiyJComponent {
         /*
             是分页(0,1,2,3...)栏
         */
-        DencryptComponentPanel.add(BaseComponentPanel,new GridBagConstraints(
+        DencryptComponentPanel.add(AESComponentPanel,new GridBagConstraints(
                 0,2,
                 3,1,
                 1,1,
@@ -87,13 +87,13 @@ public class DencryptComponent extends DiyJComponent {
 
         //添加加密Tab
         //Base
-        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
+        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
         DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
         DencryptMenuPanel.add(DencryptMenuBaseLabel);
 
         //AES
-        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
         DencryptMenuAESLabel.setPanel(AESComponentPanel);
         DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
         DencryptMenuPanel.add(DencryptMenuAESLabel);

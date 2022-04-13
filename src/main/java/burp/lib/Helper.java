@@ -33,6 +33,7 @@ public class Helper {
             }
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
                 case "JPanel":
+                case "DiyJComboBox":
                 case "JList":
                     JComponent cj = getComponent((JComponent) i,tComponentName);
                     if(cj!=null) return cj;
@@ -98,6 +99,7 @@ public class Helper {
                     travelComponent(viewPanel);
                     deep-=1;
                     break;
+                case "DiyJComboBox":
                 case "JList":
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
                     break;
@@ -169,6 +171,26 @@ public class Helper {
         }
 
         return JrcetTreeList;
+    }
+
+    /*
+    字符操作
+     */
+
+    public static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        try {
+            for (int i = 0; i < len; i += 2) {
+                data[i/2] = (byte) (
+                         (Character.digit(s.charAt(i), 16) << 4)
+                        + Character.digit(s.charAt(i+1), 16)
+                );
+            }
+        } catch (Exception ignored) {
+
+        }
+        return data;
     }
 
 //    public static

@@ -68,13 +68,14 @@ public class test {
 
         String plainText = "www.gowhere.so";
 
-        String Mode = "AES/CBC/NoPadding";
-
-        String cipherText = Aes.Encrypt(plainText, Mode, Key, Iv);
+        String Mode = "AES/CBC/NoPadding    ";
+        String KeyType = "Raw";
+        String IvType = "Raw";
+        String cipherText = Aes.Encrypt(plainText, Mode, Key, KeyType, Iv, IvType);
         System.out.println("加密后的字串是：" + cipherText);
 
         // 解密
-        String DeString = Aes.Decrypt(cipherText, Mode, Key, Iv);
+        String DeString  = Aes.Decrypt(cipherText, Mode, Key, KeyType, Iv, IvType);
         System.out.println("解密后的字串是：" + DeString);
     }
 }
