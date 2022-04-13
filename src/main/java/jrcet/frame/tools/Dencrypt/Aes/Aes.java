@@ -29,10 +29,13 @@ public class Aes {
 
         if(returned!=null) return  returned;
 
+        StringBuilder plainTextBuilder;
         Cipher cipher = Cipher.getInstance(Mode);
+
         switch (Mode){
+
             case "AES/ECB/NoPadding":
-                StringBuilder plainTextBuilder = new StringBuilder(plainText);
+                plainTextBuilder = new StringBuilder(plainText);
                 for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
                     plainTextBuilder.append(i);
                 }
@@ -41,6 +44,11 @@ public class Aes {
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
                 break;
             case "AES/CBC/NoPadding":
+                plainTextBuilder = new StringBuilder(plainText);
+                for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
+                    plainTextBuilder.append(i);
+                }
+                plainText = plainTextBuilder.toString();
             case "AES/CBC/PKCS5Padding":
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
@@ -98,20 +106,20 @@ public class Aes {
                 int len = r.length <= 16 ? 16 : (r.length > 24 ? 32 : 24);
                 key = new byte[len];
                 for (int j = 0; j < len; j++) {
-                    if (j < key.length) {
+                    if (j < Key.length()) {
                         key[j] = r[j];
                     } else {
-                        key[j] = new Byte("\000");
+                        key[j] = (byte)Integer.parseInt("00",16);
                     }
                 }
             }
             if (i == 1) { //设置iv
                 iv = new byte[16];
                 for (int j = 0; j < 16; j++) {
-                    if (j < key.length) {
+                    if (j < Iv.length()) {
                         iv[j] = r[j];
                     } else {
-                        iv[j] = new Byte("\000");
+                        iv[j] = (byte)Integer.parseInt("00",16);
                     }
                 }
             }

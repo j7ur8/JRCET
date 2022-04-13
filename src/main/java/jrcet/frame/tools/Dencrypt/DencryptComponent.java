@@ -8,6 +8,7 @@ import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
+import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
@@ -17,8 +18,10 @@ import java.util.HashMap;
 public class DencryptComponent extends DiyJComponent {
 
     static final private JComponent BaseComponentPanel = BaseComponentPanel();
-    static final private JComponent AESComponentPanel = AESComponentPanel();
+    static final private JComponent AesComponentPanel = AesComponentPanel();
     static final private JComponent UnicodeComponentPanel = UnicodeComponentPanel();
+    static final private JComponent RsaComponentPanel = RsaComponentPanel();
+
 
     public JPanel main(){
         JPanel DencryptComponentPanel = new JPanel(new GridBagLayout());
@@ -65,7 +68,7 @@ public class DencryptComponent extends DiyJComponent {
         /*
             是分页(0,1,2,3...)栏
         */
-        DencryptComponentPanel.add(AESComponentPanel,new GridBagConstraints(
+        DencryptComponentPanel.add(RsaComponentPanel,new GridBagConstraints(
                 0,2,
                 3,1,
                 1,1,
@@ -93,10 +96,16 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuPanel.add(DencryptMenuBaseLabel);
 
         //AES
-        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("AES", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
-        DencryptMenuAESLabel.setPanel(AESComponentPanel);
+        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("Aes", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DencryptMenuAESLabel.setPanel(AesComponentPanel);
         DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
         DencryptMenuPanel.add(DencryptMenuAESLabel);
+
+        //Rsa
+        DiyJTabLabel DencryptMenuRsaLabel = new DiyJTabLabel("Rsa", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
+        DencryptMenuRsaLabel.setPanel(RsaComponentPanel);
+        DencryptMenuRsaLabel.setName("DencryptMenuRsaLabel");
+        DencryptMenuPanel.add(DencryptMenuRsaLabel);
 
         //Unicode
         DiyJTabLabel DencryptMenuUnicodeLabel = new DiyJTabLabel("Unicode", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
@@ -130,8 +139,12 @@ public class DencryptComponent extends DiyJComponent {
         return new BaseComponent().main();
     }
 
-    public static JComponent AESComponentPanel(){
+    public static JComponent AesComponentPanel(){
         return new AesComponent().main();
+    }
+
+    public static JComponent RsaComponentPanel(){
+        return new RsaComponent().main();
     }
 
     public static JComponent UnicodeComponentPanel(){
