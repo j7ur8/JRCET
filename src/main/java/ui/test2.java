@@ -86,6 +86,40 @@ public class test2 {
 
     }
 
+    public static BufferedImage grayImage1(int status,BufferedImage image) throws IOException {
+
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage grayImage = new BufferedImage(width, height, image.getType());
+//BufferedImage grayImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int color = image.getRGB(i, j);
+                final int r = (color >> 16) & 0xff;
+                final int g = (color >> 8) & 0xff;
+                final int b = color & 0xff;
+                int gray=0;
+                if(status==1){
+                    gray=getBigger(r, g, b);//最大值法灰度化
+                }else if(status==2){
+                    gray=getSmall(r, g, b);//最小值法灰度化
+                }else if(status==3){
+                    gray=getAvg(r, g, b);//均值法灰度化
+                }else if(status==4){
+                    gray = (int) (0.3 * r + 0.59 * g + 0.11 * b);//加权法灰度化
+                }
+
+                System.out.println("像素坐标：" + " x=" + i + " y=" + j + " 灰度值=" + gray);
+                grayImage.setRGB(i, j, colorToRGB(0, gray, gray, gray));
+            }
+        }
+
+        return grayImage;
+
+    }
+
 //比较三个数的大小
 
     public static int getBigger(int x,int y,int z){
