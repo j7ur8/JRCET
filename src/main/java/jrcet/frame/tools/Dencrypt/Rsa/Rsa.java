@@ -10,6 +10,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 
+import static jrcet.frame.tools.Dencrypt.Base.Base.b64decoder;
+import static jrcet.frame.tools.Dencrypt.Base.Base.b64encoder;
+
 //参考https://blog.csdn.net/qq_40794973/article/details/119464211
 public class Rsa {
     /**
@@ -39,8 +42,8 @@ public class Rsa {
         KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM_NAME);
         generator.initialize(1024);
         KeyPair keyPair = generator.generateKeyPair();
-        String privateKey = new String(Base64.encodeBase64(keyPair.getPrivate().getEncoded()));
-        String publicKey = new String(Base64.encodeBase64(keyPair.getPublic().getEncoded()));
+        String privateKey = new String(b64encoder.encode(keyPair.getPrivate().getEncoded()));
+        String publicKey = new String(b64encoder.encode(keyPair.getPublic().getEncoded()));
         HashMap<String, String> keyMap = new HashMap<>();
         keyMap.put("privateKey", privateKey);
         keyMap.put("publicKey", publicKey);
@@ -53,7 +56,7 @@ public class Rsa {
      * @param publicKey base64加密的公钥字符串
      */
     public static PublicKey getPublicKey(String publicKey) throws Exception {
-        byte[] decodedKey = Base64.decodeBase64(publicKey.getBytes());
+        byte[] decodedKey = b64decoder.decode(publicKey.getBytes());
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decodedKey);
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_NAME);
         return keyFactory.generatePublic(keySpec);
@@ -88,7 +91,7 @@ public class Rsa {
         out.close();
         // 获取加密内容使用base64进行编码,并以UTF-8为标准转化成字符串
         // 加密后的字符串
-        return new String(Base64.encodeBase64(encryptedData));
+        return new String(b64encoder.encode(encryptedData));
     }
 
     /**
@@ -97,7 +100,7 @@ public class Rsa {
      * @param privateKey base64加密的私钥字符串
      */
     public static PrivateKey getPrivateKey(String privateKey) throws Exception {
-        byte[] decodedKey = Base64.decodeBase64(privateKey.getBytes());
+        byte[] decodedKey = b64decoder.decode(privateKey.getBytes());
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decodedKey);
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_NAME);
         return keyFactory.generatePrivate(keySpec);
@@ -112,7 +115,7 @@ public class Rsa {
     public static String Decrypt(String data, PrivateKey privateKey) throws Exception {
         Cipher cipher = Cipher.getInstance(ALGORITHM_NAME);
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] dataBytes = Base64.decodeBase64(data);
+        byte[] dataBytes = b64decoder.decode(data);
         int inputLen = dataBytes.length;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int offset = 0;
@@ -149,7 +152,7 @@ public class Rsa {
         Signature signature = Signature.getInstance(MD5_RSA);
         signature.initSign(key);
         signature.update(data.getBytes());
-        return new String(Base64.encodeBase64(signature.sign()));
+        return new String(b64encoder.encode(signature.sign()));
     }
 
     /**
@@ -167,40 +170,39 @@ public class Rsa {
         Signature signature = Signature.getInstance(MD5_RSA);
         signature.initVerify(key);
         signature.update(srcData.getBytes());
-        return signature.verify(Base64.decodeBase64(sign.getBytes()));
+        return signature.verify(b64decoder.decode(sign.getBytes()));
     }
 
     public static void main(String[] args) {
         try {
 
-            // 生成密钥对
-            //KeyPair keyPair = getKeyPair();
-            //String privateKey = new String(Base64.encodeBase64(keyPair.getPrivate().getEncoded()));
-            //String publicKey = new String(Base64.encodeBase64(keyPair.getPublic().getEncoded()));
-            //System.out.println("私钥 => " + privateKey + "\n");
-            //System.out.println("公钥 =>" + publicKey + "\n");
-            getPrivateKey("MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMDoBKNMkKRKVr0DGb0Z4/xXDs0AcVQJHa8qDcZEFEHt1oCCO7jAeGq5gFWZJrS4jT6l5CZyBxJRk3XyaI8Ka4dFuf6yvMO8eA4SMKqPQM9n45cwQhsH5GlDb8zz/WIDqLs+ydJrclB8wJ2JX7deBdQE5s80AxJ9QaxiYDN9Vi2PAgMBAAECgYEAuLJtHl0EcAitG7OIRUIwwz4ncahm2WsQ/NFq9tXf/2/U3J3UyIOfx69sbIiCQq4grkbvNtAebS+l3FwIOExlviY6EI+HTp6ANh++SC9dBWNAu3KB99GYIoSjvHKiWORTlST1kGTmW7NY3t5opyzNAyRc1hDDUuF3n9L+uEQdkcECQQD6SvYx52kwv4RqeWF93s+oLrHDLSgWyj1RFPPiEjggXlnKLt13LA6EaunnmN1PbMzQ7Uhs2UcLQlPE11IfiW7ZAkEAxU4SwvWkBiLjP3u4cKZO7cA6IEcWqppwwwUV+uWmT6orLOuNVVBTABmz/nB732sGQDsFoyQZynACSs1ThjcOpwJBAJUxg8lBcIFfV7YD/moCG3PbyZhW3XOgP6aKP8m9JHme5BTRlK+JsmmaNS0ZAKpsZzYOisJfTarXcYl+8/PafxkCQFEhHU3VO7DaP58m/Fw1xla0qDIFiSh1gNBwEu2r6Irxafd6lA70jGyKJR0Gm6julQ9sNZEzkvdOv2KKs0GI+hkCQC3twJozA9a7Jp8HFONNWi1heVur9L01yORrGTwH4HwLxDNIesIUGmW2MshHn1VB9mGjnL6RKhBVFGDBJKJavjM=");
-//            HashMap<String, String> keyPairMap = getKeyPairMap();
-//            String privateKey = keyPairMap.get("privateKey");
-//            String publicKey =  keyPairMap.get("publicKey");
+//             生成密钥对
+//            KeyPair keyPair = getKeyPair();
+//            String privateKey = new String(b64encoder.encode(keyPair.getPrivate().getEncoded()));
+//            String publicKey = new String(b64encoder.encode(keyPair.getPublic().getEncoded()));
 //            System.out.println("私钥 => " + privateKey + "\n");
 //            System.out.println("公钥 =>" + publicKey + "\n");
-//
-//            // RSA加密
-//            //String data = "123456";
-//            String data = "123456";
-//            String encryptData = Encrypt(data, getPublicKey(publicKey));
-//            System.out.println("加密后内容 => " + encryptData + "\n");
-//            // RSA解密
-//            String decryptData = Decrypt(encryptData, getPrivateKey(privateKey));
-//            System.out.println("解密后内容 => " + decryptData + "\n");
-//
-//
-//            // RSA签名
-//            String sign = sign(data, getPrivateKey(privateKey));
-//            // RSA验签
-//            boolean result = verify(data, getPublicKey(publicKey), sign);
-//            System.out.println("验签结果 => " + result + "\n");
+            HashMap<String, String> keyPairMap = getKeyPairMap();
+            String privateKey = keyPairMap.get("privateKey");
+            String publicKey =  keyPairMap.get("publicKey");
+            System.out.println("私钥 => " + privateKey + "\n");
+            System.out.println("公钥 =>" + publicKey + "\n");
+
+            // RSA加密
+            //String data = "123456";
+            String data = "123456";
+            String encryptData = Encrypt(data, getPublicKey(publicKey));
+            System.out.println("加密后内容 => " + encryptData + "\n");
+            // RSA解密
+            String decryptData = Decrypt(encryptData, getPrivateKey(privateKey));
+            System.out.println("解密后内容 => " + decryptData + "\n");
+
+
+            // RSA签名
+            String sign = sign(data, getPrivateKey(privateKey));
+            // RSA验签
+            boolean result = verify(data, getPublicKey(publicKey), sign);
+            System.out.println("验签结果 => " + result + "\n");
 
         } catch (Exception e) {
             e.printStackTrace();
