@@ -129,6 +129,7 @@ public class UnicodeComponent extends DiyJComponent {
         RTextScrollPane UnicodeMainCiphertextScrollPane = new RTextScrollPane(UnicodeMainCiphertextArea);
         UnicodeMainCiphertextScrollPane.setName("UnicodeMainCiphertextScrollPane");
         UnicodeMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
+        UnicodeMainCiphertextScrollPane.setBorder(null);
 
         return UnicodeMainCiphertextScrollPane;
 
@@ -146,6 +147,7 @@ public class UnicodeComponent extends DiyJComponent {
         RTextScrollPane UnicodeMainPlaintextScrollPane = new RTextScrollPane(UnicodeMainPlaintextArea);
         UnicodeMainPlaintextScrollPane.setName("UnicodeMainPlaintextScrollPane");
         UnicodeMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
+        UnicodeMainPlaintextScrollPane.setBorder(null);
 
         return UnicodeMainPlaintextScrollPane;
     }

@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static jrcet.frame.tools.Dencrypt.Base.Base.b64encoder;
+
 public class DiyJLabel extends JLabel implements MouseListener{
 
     public DiyJLabel(String labelName){

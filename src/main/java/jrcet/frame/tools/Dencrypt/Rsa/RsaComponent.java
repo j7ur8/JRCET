@@ -143,6 +143,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         RsaMainPlaintextScrollPane.setName("RsaMainPlaintextScrollPane");
         RsaMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
+        RsaMainPlaintextScrollPane.setBorder(null);
 
         return RsaMainPlaintextScrollPane;
 
@@ -161,6 +162,7 @@ public class RsaComponent extends DiyJComponent {
         RTextScrollPane RsaMainCiphertextScrollPane = new RTextScrollPane(RsaMainCiphertextArea);
         RsaMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         RsaMainCiphertextScrollPane.setName("RsaMainCiphertextScrollPane");
+        RsaMainCiphertextScrollPane.setBorder(null);
         RsaMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
 
         return RsaMainCiphertextScrollPane;
@@ -229,6 +231,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPublicScrollPane.setName("RsaMainControlPublicScrollPane");
         RsaMainControlPublicScrollPane.setLineNumbersEnabled(false);
         RsaMainControlPublicScrollPane.setPreferredSize(new Dimension(0,0));
+        RsaMainControlPublicScrollPane.setBorder(null);
 
         return RsaMainControlPublicScrollPane;
     }
@@ -247,6 +250,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPrivateScrollPane.setName("RsaMainControlPrivateScrollPane");
         RsaMainControlPrivateScrollPane.setLineNumbersEnabled(false);
         RsaMainControlPrivateScrollPane.setPreferredSize(new Dimension(0,0));
+        RsaMainControlPrivateScrollPane.setBorder(null);
 
         return RsaMainControlPrivateScrollPane;
     }

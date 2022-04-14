@@ -1,16 +1,14 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
 import burp.lib.Helper;
-import com.google.common.primitives.Bytes;
-import org.jetbrains.annotations.NotNull;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.security.auth.kerberos.KeyTab;
 
-import java.lang.invoke.SwitchPoint;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Collections;
 
 import static jrcet.frame.tools.Dencrypt.Base.Base.b64decoder;
@@ -18,7 +16,7 @@ import static jrcet.frame.tools.Dencrypt.Base.Base.b64encoder;
 
 public class Aes {
 
-    private static String text;
+    private static String inputText;
     private static byte[] key;
     private static byte[] iv;
     private static String returned;
@@ -35,33 +33,34 @@ public class Aes {
         switch (Mode){
 
             case "AES/ECB/NoPadding":
-                plainTextBuilder = new StringBuilder(plainText);
+                plainTextBuilder = new StringBuilder(inputText);
                 for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
                     plainTextBuilder.append(i);
                 }
-                plainText = plainTextBuilder.toString();
+                inputText = plainTextBuilder.toString();
             case "AES/ECB/PKCS5Padding":
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
                 break;
             case "AES/CBC/NoPadding":
-                plainTextBuilder = new StringBuilder(plainText);
+                plainTextBuilder = new StringBuilder(inputText);
                 for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
                     plainTextBuilder.append(i);
                 }
-                plainText = plainTextBuilder.toString();
+                inputText = plainTextBuilder.toString();
             case "AES/CBC/PKCS5Padding":
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
 
-        return b64encoder.encodeToString(cipher.doFinal(plainText.getBytes(StandardCharsets.ISO_8859_1)));
+        return b64encoder.encodeToString(cipher.doFinal(inputText.getBytes(StandardCharsets.UTF_8)));
 
     }
 
-
     // 解密
-    public static String Decrypt(String cipherText, String Mode, String Key, String keyType, String Iv, String IvType) throws Exception {
+    public static String Decrypt(String cipherText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
 
+        repairParam(cipherText,Mode,Key, KeyType,Iv,IvType);
+        if(returned!=null) return returned;
 
         Cipher cipher = Cipher.getInstance(Mode);
         switch (Mode){
@@ -74,19 +73,30 @@ public class Aes {
                 cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
-
-        return new String(cipher.doFinal(b64decoder.decode(cipherText)), StandardCharsets.ISO_8859_1);
+        StringBuilder outBuilder = new StringBuilder();
+        for(byte b: cipher.doFinal(b64decoder.decode(b64decoder.decode(inputText)))){
+            if(b==(byte)Integer.parseInt("00",16)){
+                continue;
+            }
+            outBuilder.append(new String(new byte[]{b},StandardCharsets.UTF_8));
+        }
+        return new String(b64decoder.decode(outBuilder.toString()),StandardCharsets.UTF_8);
 
     }
 
-    private static void repairParam(String cipherText, String Mode, String Key, String KeyType, String Iv, String IvType) {
+    private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) throws UnsupportedEncodingException {
+        returned=null;
+        key=null;
+        iv=null;
 
-        if (cipherText == null) {
+        if (InputText == null) {
             returned = "请输入需要解密的字符串";
         }
         if (Mode == null) {
             returned = "请选择模式";
         }
+        //对InputText处理
+        inputText = b64encoder.encodeToString(InputText.getBytes(StandardCharsets.UTF_8));
         //设置key和iv
         String[] s = new String[]{Key, Iv}, t = new String[]{KeyType, IvType};
         for (int i = 0; i < 2; i++) {

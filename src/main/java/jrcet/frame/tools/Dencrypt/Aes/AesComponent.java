@@ -143,6 +143,7 @@ public class AesComponent extends DiyJComponent {
         AesMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AesMainPlaintextScrollPane.setName("AesMainPlaintextScrollPane");
         AesMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
+        AesMainPlaintextScrollPane.setBorder(null);
 
         return AesMainPlaintextScrollPane;
 
@@ -162,6 +163,7 @@ public class AesComponent extends DiyJComponent {
         AesMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AesMainCiphertextScrollPane.setName("AesMainCiphertextScrollPane");
         AesMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
+        AesMainCiphertextScrollPane.setBorder(null);
 
         return AesMainCiphertextScrollPane;
     }
