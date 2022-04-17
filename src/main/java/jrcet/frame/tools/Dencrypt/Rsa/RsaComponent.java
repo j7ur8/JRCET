@@ -143,7 +143,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         RsaMainPlaintextScrollPane.setName("RsaMainPlaintextScrollPane");
         RsaMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainPlaintextScrollPane.setBorder(null);
+        RsaMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor));
 
         return RsaMainPlaintextScrollPane;
 
@@ -231,7 +231,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPublicScrollPane.setName("RsaMainControlPublicScrollPane");
         RsaMainControlPublicScrollPane.setLineNumbersEnabled(false);
         RsaMainControlPublicScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainControlPublicScrollPane.setBorder(null);
+        RsaMainControlPublicScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor));
 
         return RsaMainControlPublicScrollPane;
     }

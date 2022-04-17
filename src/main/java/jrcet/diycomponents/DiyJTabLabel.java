@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class DiyJTabLabel extends DiyJLabel implements MouseListener {
 
@@ -15,17 +16,17 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
     private final Map<String,Object> mapStream = new HashMap<>();
 
 
-    public DiyJTabLabel(String labelName, Color defaultColor, Color clickColor){
+    public DiyJTabLabel(String labelName){
         super(labelName);
         addMouseListener(this);
-        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,defaultColor)));
+        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor)));
     }
 
-    public DiyJTabLabel(String labelName,Color defaultColor,Color clickColor,boolean flag){
+    public DiyJTabLabel(String labelName,boolean flag){
         super(labelName);
         addMouseListener(this);
         if(flag){
-            setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,clickColor)));
+            setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0, Setting.class2ClickedDiyJTabBorderColor)));
         }
     }
 

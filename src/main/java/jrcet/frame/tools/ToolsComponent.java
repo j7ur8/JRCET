@@ -16,7 +16,7 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent RScriptComponentPanel = RScriptComponentPanel();
     private final JComponent JSEncryptComponentPanel = JSEncryptComponentPanel();
     private final JComponent SoLibraryComponentPanel = SoLibraryComponentPanel();
-    private final JComponent DencryptComponent = DencryptComponent();
+    private final JComponent DencryptComponentPanel = DencryptComponentPanel();
 
     /*
         toolsMenuPanel和toolsMenuBorderPanel会先被调用。
@@ -50,7 +50,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(DencryptComponent,new GridBagConstraints(
+        ToolsComponentPanel.add(JSEncryptComponentPanel,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -77,22 +77,22 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuTabPanel.setOpaque(false);
         ToolsMenuTabPanel.setBackground(Color.WHITE);
 
-        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
+        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt");
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
-        ToolsMenuDencryptLabel.setPanel(DencryptComponent);
+        ToolsMenuDencryptLabel.setPanel(DencryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);
 
-        ToolsMenuRScriptLabel = new DiyJTabLabel("RScript",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        ToolsMenuRScriptLabel = new DiyJTabLabel("RScript");
         ToolsMenuRScriptLabel.setName("ToolsMenuRScriptLabel");
         ToolsMenuRScriptLabel.setPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);
 
-        DiyJTabLabel ToolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        DiyJTabLabel ToolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt", true);
         ToolsMenuJSEncryptLabel.setName("ToolsMenuJSEncryptLabel");
         ToolsMenuJSEncryptLabel.setPanel(JSEncryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuJSEncryptLabel);
 
-        DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary");
         ToolsMenuSOLibraryLabel.setName("ToolsMenuSOLibraryLabel");
         ToolsMenuSOLibraryLabel.setPanel(SoLibraryComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuSOLibraryLabel);
@@ -113,7 +113,7 @@ public class ToolsComponent extends DiyJComponent {
     }
 
 
-    private JComponent DencryptComponent(){
+    private JComponent DencryptComponentPanel(){
         DiyJComponent DencryptComponentInstance = new DencryptComponent();
         JComponent DencryptComponentPanel = DencryptComponentInstance.main();
         return DencryptComponentPanel;

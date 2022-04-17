@@ -18,7 +18,39 @@ public class test2 {
      * @param blue
      * @return
      */
-
+//    TFloat32 preprocess(List<BufferedImage> sourceImages, int imageHeight, int imageWidth, int imageChannels) {
+//        Shape imageShape = Shape.of(sourceImages.size(), imageHeight, imageWidth, imageChannels);
+//
+//        return TFloat32.tensorOf(imageShape, tensor -> {
+//            // Copy all images to the tensor
+//            int imageIdx = 0;
+//            for (BufferedImage sourceImage : sourceImages) {
+//                // Scale the image to required dimensions if needed
+//                BufferedImage image;
+//                if (sourceImage.getWidth() != imageWidth || sourceImage.getHeight() != imageHeight) {
+//                    image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_3BYTE_BGR);
+//                    Graphics2D graphics = image.createGraphics();
+//                    graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+//                    graphics.drawImage(sourceImage, 0, 0, imageWidth, imageHeight, null);
+//                    graphics.dispose();
+//                } else {
+//                    image = sourceImage;
+//                }
+//
+//                // Converts the image to floats and normalize by subtracting mean values
+//                int i = 0;
+//                for (long h = 0; h < imageHeight; ++h) {
+//                    for (long w = 0; w < imageWidth; ++w)  {
+//                        // "caffe"-style normalization
+//                        tensor.setFloat(image.getData().getDataBuffer().getElemFloat(i++) - 103.939f, imageIdx, h, w, 0);
+//                        tensor.setFloat(image.getData().getDataBuffer().getElemFloat(i++) - 116.779f, imageIdx, h, w, 1);
+//                        tensor.setFloat(image.getData().getDataBuffer().getElemFloat(i++) - 123.68f, imageIdx, h, w, 2);
+//                    }
+//                }
+//                ++imageIdx;
+//            }
+//        });
+//    }
     private static int colorToRGB(int alpha, int red, int green, int blue) {
 
         int newPixel = 0;

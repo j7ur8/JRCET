@@ -63,17 +63,17 @@ public class Jrcet extends DiyJComponent {
         JrcetMenuPanel.setName("JrcetMenuPanel");
         JrcetMenuPanel.setOpaque(false);
 
-        DiyJTabLabel JrcetMenuSettingLabel = new DiyJTabLabel("Setting",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        DiyJTabLabel JrcetMenuSettingLabel = new DiyJTabLabel("Setting");
         JrcetMenuSettingLabel.setName("JrcetMenuSettingLabel");
         JrcetMenuSettingLabel.setPanel(SettingComponentPanel);
         JrcetMenuPanel.add(JrcetMenuSettingLabel);
 
-        DiyJTabLabel JrcetMenuExploitLabel = new DiyJTabLabel("Exploit", Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor);
+        DiyJTabLabel JrcetMenuExploitLabel = new DiyJTabLabel("Exploit");
         JrcetMenuExploitLabel.setName("JrcetMenuExploitLabel");
         JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
         JrcetMenuPanel.add(JrcetMenuExploitLabel);
 
-        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools",Setting.class1DefaultDiyJTabBorderColor,Setting.class1ClickedDiyJTabBorderColor,true);
+        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools",true);
         JrcetMenuToolsLabel.setName("JrcetMenuToolsLabel");
         JrcetMenuToolsLabel.setPanel(ToolsComponentPanel);
         JrcetMenuPanel.add(JrcetMenuToolsLabel);

@@ -85,30 +85,29 @@ public class DencryptComponent extends DiyJComponent {
 
         JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         DencryptMenuPanel.setName("DencryptMenuPanel");
-//        DencryptMenuPanel.setOpaque(t);
         DencryptMenuPanel.setBackground(Color.WHITE);
 
         //添加加密Tab
         //Base
-        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base",Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base");
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
         DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
         DencryptMenuPanel.add(DencryptMenuBaseLabel);
 
         //AES
-        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("Aes", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("Aes");
         DencryptMenuAESLabel.setPanel(AesComponentPanel);
         DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
         DencryptMenuPanel.add(DencryptMenuAESLabel);
 
         //Rsa
-        DiyJTabLabel DencryptMenuRsaLabel = new DiyJTabLabel("Rsa", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor,true);
+        DiyJTabLabel DencryptMenuRsaLabel = new DiyJTabLabel("Rsa",true);
         DencryptMenuRsaLabel.setPanel(RsaComponentPanel);
         DencryptMenuRsaLabel.setName("DencryptMenuRsaLabel");
         DencryptMenuPanel.add(DencryptMenuRsaLabel);
 
         //Unicode
-        DiyJTabLabel DencryptMenuUnicodeLabel = new DiyJTabLabel("Unicode", Setting.class3DefaultDiyJTabBorderColor,Setting.class3ClickedDiyJTabBorderColor);
+        DiyJTabLabel DencryptMenuUnicodeLabel = new DiyJTabLabel("Unicode");
         DencryptMenuUnicodeLabel.setPanel(UnicodeComponentPanel);
         DencryptMenuUnicodeLabel.setName("DencryptMenuUnicodeLabel");
         DencryptMenuPanel.add(DencryptMenuUnicodeLabel);

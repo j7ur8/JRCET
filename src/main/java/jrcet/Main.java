@@ -29,6 +29,11 @@ public class Main {
         centerInScreen(JrcetFrame);
         JrcetFrame.setVisible(true);
 
+//        Helper.travelComponent(Main.JrcetPanel);
+//
+//        for(String i :Helper.treeComponent(JrcetComponentList)){
+//            System.out.println(i);
+//        }
     }
 
     public static void centerInScreen(Window win) {

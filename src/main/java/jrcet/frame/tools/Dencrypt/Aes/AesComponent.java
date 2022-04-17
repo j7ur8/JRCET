@@ -143,7 +143,7 @@ public class AesComponent extends DiyJComponent {
         AesMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AesMainPlaintextScrollPane.setName("AesMainPlaintextScrollPane");
         AesMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        AesMainPlaintextScrollPane.setBorder(null);
+        AesMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor));
 
         return AesMainPlaintextScrollPane;
 
