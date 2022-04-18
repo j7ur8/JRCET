@@ -5,18 +5,17 @@ import burp.lib.Helper;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.security.auth.kerberos.KeyTab;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 
 import static jrcet.frame.tools.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.tools.Dencrypt.Base.Base.b64encoder;
 
 public class Aes {
 
-    private static String inputText;
+    private static byte[] inputTextByte;
+    private static    int len;
     private static byte[] key;
     private static byte[] iv;
     private static String returned;
@@ -27,32 +26,37 @@ public class Aes {
 
         if(returned!=null) return  returned;
 
-        StringBuilder plainTextBuilder;
         Cipher cipher = Cipher.getInstance(Mode);
+        byte[] plainTextByte = new byte[(len%16==0?len/16:len/16+1)*16];
 
         switch (Mode){
-
             case "AES/ECB/NoPadding":
-                plainTextBuilder = new StringBuilder(inputText);
-                for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
-                    plainTextBuilder.append(i);
+                for(int i=0; i<plainTextByte.length;i++){
+                    if(i<len) {
+                        plainTextByte[i]=inputTextByte[i];
+                        continue;
+                    }
+                    plainTextByte[i] = (byte)Integer.parseInt("00",16);
                 }
-                inputText = plainTextBuilder.toString();
+                inputTextByte = plainTextByte;
             case "AES/ECB/PKCS5Padding":
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
                 break;
             case "AES/CBC/NoPadding":
-                plainTextBuilder = new StringBuilder(inputText);
-                for(String i:Collections.nCopies(16- plainTextBuilder.length()%16,"\000")){
-                    plainTextBuilder.append(i);
+                for(int i=0; i<plainTextByte.length;i++){
+                    if(i<len) {
+                        plainTextByte[i]=inputTextByte[i];
+                        continue;
+                    }
+                    plainTextByte[i] = (byte)Integer.parseInt("00",16);
                 }
-                inputText = plainTextBuilder.toString();
+                inputTextByte = plainTextByte;
             case "AES/CBC/PKCS5Padding":
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
 
-        return b64encoder.encodeToString(cipher.doFinal(inputText.getBytes(StandardCharsets.UTF_8)));
+        return b64encoder.encodeToString(cipher.doFinal(inputTextByte));
 
     }
 
@@ -73,15 +77,8 @@ public class Aes {
                 cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
-        StringBuilder outBuilder = new StringBuilder();
-        for(byte b: cipher.doFinal(b64decoder.decode(b64decoder.decode(inputText)))){
-            if(b==(byte)Integer.parseInt("00",16)){
-                continue;
-            }
-            outBuilder.append(new String(new byte[]{b},StandardCharsets.UTF_8));
-        }
-        return new String(b64decoder.decode(outBuilder.toString()),StandardCharsets.UTF_8);
 
+        return new String(cipher.doFinal(b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
     }
 
     private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) throws UnsupportedEncodingException {
@@ -96,7 +93,8 @@ public class Aes {
             returned = "请选择模式";
         }
         //对InputText处理
-        inputText = b64encoder.encodeToString(InputText.getBytes(StandardCharsets.UTF_8));
+        inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
+        len = inputTextByte.length;
         //设置key和iv
         String[] s = new String[]{Key, Iv}, t = new String[]{KeyType, IvType};
         for (int i = 0; i < 2; i++) {

@@ -2,6 +2,7 @@ package jrcet.diycomponents;
 
 import burp.Services;
 import burp.lib.Helper;
+import jrcet.Main;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
@@ -19,6 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.*;
+import java.util.Arrays;
+
+import static burp.BurpExtender.stdout;
 
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
@@ -36,7 +41,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
     public DiyJButton(String text,boolean flag) {
 
-        setMargin(new Insets(0,0,0,0));
         StringBuilder buildText= new StringBuilder();
         for(int x = 0; x<text.length()-1;x++){
             String ch = Character.toString(text.charAt(x));
@@ -44,13 +48,13 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         }
         buildText.append(text.charAt(text.length()-1));
         buildText = new StringBuilder("<html>"+buildText+"</html>");
-        setText(String.valueOf(buildText));
-        setOpaque(false);
-        setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(144,144,160)));
         setFocusPainted(false);
-        addMouseListener(this);
         setBackground(Color.WHITE);
+        setText(String.valueOf(buildText));
+        setMargin(new Insets(0,0,0,0));
         setPreferredSize(new Dimension(20,50));
+        setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(144,144,160)));
+        addMouseListener(this);
         addActionListener(this);
         setVerticalTextPosition( SwingConstants.CENTER );
     }
@@ -123,23 +127,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(targetJTextArea.getText()), this);
     }
 
-    private void conTestJSEncrypt(DiyJButton targetButton) throws InterruptedException {
-        Thread phantomjsThread = new JSEncrypt.StreamGobble(JSEncryptComponent.JSEncryptPhantomjsLocation,JSEncryptComponent.JSEncryptScriptLocation);
-        phantomjsThread.start();
-        Thread.sleep(1000);
-        JSEncrypt.phantomjsProcess = JSEncrypt.StreamGobble.p;
-        Services.setService("phantomjs", JSEncrypt.phantomjsProcess);
-        JPanel parentPanel = (JPanel) targetButton.getParent();
-        JLabel targetLabel = (JLabel) parentPanel.getComponent(12);
-        if(JSEncrypt.sendTestConnect()){
-            targetLabel.setText("True");
-            targetLabel.setForeground(Color.GREEN);
-        }else{
-            targetLabel.setText("False");
-            targetLabel.setForeground(Color.RED);
-        }
-    }
-
     private void jSTestJSEncrypt(DiyJButton targetButton){
         JPanel parentPanel = (JPanel) targetButton.getParent().getParent().getComponent(1);
         JScrollPane payloadScrollPane = (JScrollPane) parentPanel.getComponent(1);
@@ -152,21 +139,21 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
         SwingUtilities.invokeLater(() -> {
             String[] payloads = testPayload.split("\r|\n");
-            String tmp = "";
+            StringBuilder tmp = new StringBuilder();
             for (String payload : payloads) {
                 if(payload == null ||payload.equals("")){
                     continue;
                 }
                 String newPayload = JSEncrypt.sendPayload(payload);
                 newPayload += System.lineSeparator();
-                tmp += newPayload;
+                tmp.append(newPayload);
             }
 
             // 如果是Windows，先UTF-8编码在显示，解决Windows上乱码问题
             if(System.getProperty("os.name").toLowerCase().contains("win")){
-                tmp = JSEncrypt.transformCharset(tmp,"UTF-8");
+                tmp = new StringBuilder(JSEncrypt.transformCharset(tmp.toString(), "UTF-8"));
             }
-            targetJTextArea.setText(tmp);
+            targetJTextArea.setText(tmp.toString());
         });
     }
 
@@ -203,79 +190,61 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
     @Override
     public void actionPerformed(ActionEvent e){
-        DiyJButton targetButton = (DiyJButton) e.getSource();
-        String caseString = targetButton.getText().replaceAll("<[a-z/]{1,6}>","");
-        switch (caseString) {
+        DiyJButton eButton = (DiyJButton) e.getSource();
+        String eButtonName = eButton.getText().replaceAll("<[a-z/]{1,6}>","");
+        switch (eButtonName) {
             case "Copy":
-                writeRScript(targetButton);
+                writeRScript(eButton);
                 break;
-            case "Connection":
-                try {
-                    conTestJSEncrypt(targetButton);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                break;
-            case "JSTest": jSTestJSEncrypt(targetButton);
-                break;
-            case "SetPath":
-                try {
-                    SetPath(targetButton);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                break;
-            case "DisConnect":
-                try {
-                    jsDisConnect(targetButton);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+            case "JSTest": jSTestJSEncrypt(eButton);
                 break;
             case "Search":
-                Search(targetButton);
+                Search(eButton);
                 break;
             case "SetDatabase":
-                SetDatabase(targetButton);
-                break;
-            case "Pause":
-                Pause(targetButton);
-                break;
-            case "Continue":
-                Continue(targetButton);
+                SetDatabase(eButton);
                 break;
             case "B16":
-                Base(targetButton,caseString);
-                break;
-            case "B32":
-                Base(targetButton,caseString);
-                break;
-            case "B58":
-                Base(targetButton,caseString);
-                break;
-            case "B64":
-                Base(targetButton,caseString);
-                break;
-            case "B85":
-                Base(targetButton,caseString);
-                break;
             case "B91":
-                Base(targetButton,caseString);
-                break;
+            case "B85":
+            case "B64":
+            case "B32":
+            case "B58":
             case "B92":
-                Base(targetButton,caseString);
-            }
+                Base(eButton,eButtonName);
+                break;
+            case "Load RSA Script":
+                try {
+                    LoadAScript(eButtonName);
+                } catch (IOException ex) {
+                    stdout.println(Arrays.toString(ex.getStackTrace()));
+
+                }
+                break;
         }
+    }
+
+    private void LoadAScript(String eButtonName) throws IOException {
+
+        InputStream in= this.getClass().getResourceAsStream("/JSEncrypt/des/des.js");
+        assert in != null;
+        BufferedReader br=new BufferedReader(new InputStreamReader(in));
+        StringBuilder s= new StringBuilder();
+
+        while(br.readLine()!=null){
+            s.append(br.readLine());
+        }
+        RTextArea cc = (RTextArea) Helper.getComponent(Main.JrcetPanel,"JSEncryptMainScriptArea");
+        stdout.println(cc);
+        assert cc != null;
+        stdout.println(s.toString());
+        cc.setText(s.toString());
+    }
+
+
 
     private void Base(JButton targetButton, String caseString) {
 
     }
 
-    private void Continue(DiyJButton targetButton) {
-
-    }
-
-    private void Pause(DiyJButton targetButton) {
-
-    }
 }

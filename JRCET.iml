@@ -10,7 +10,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javacv-platform-1.5" level="project" />
     <orderEntry type="library" name="Maven: net.portswigger.burp.extender:burp-extender-api:2.3" level="project" />
     <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-guice:4.2.0" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
@@ -18,9 +17,5 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:23.0.0" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
-    <orderEntry type="library" name="Maven: com.microsoft.onnxruntime:onnxruntime:1.11.0" level="project" />
-    <orderEntry type="library" name="Maven: org.tensorflow:tensorflow:1.15.0" level="project" />
-    <orderEntry type="library" name="Maven: org.tensorflow:libtensorflow:1.15.0" level="project" />
-    <orderEntry type="library" name="Maven: org.tensorflow:libtensorflow_jni:1.15.0" level="project" />
   </component>
 </module>

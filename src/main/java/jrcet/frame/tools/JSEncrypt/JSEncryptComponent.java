@@ -137,7 +137,7 @@ public class JSEncryptComponent extends DiyJComponent {
     private JComponent JSEncryptMainScriptAreaScrollPanel(){
 
         RSyntaxTextArea JSEncryptMainScriptArea = new RSyntaxTextArea();
-        JSEncryptMainScriptArea.setName("JSEncryptMainScriptEditor");
+        JSEncryptMainScriptArea.setName("JSEncryptMainScriptArea");
         JSEncryptMainScriptArea.setCodeFoldingEnabled(true);
         JSEncryptMainScriptArea.setLineWrap(true);
         JSEncryptMainScriptArea.setText((Helper.isFile(JSEncryptScriptLocation)?Helper.readFile(JSEncryptScriptLocation):"File Not Found"));
@@ -145,13 +145,13 @@ public class JSEncryptComponent extends DiyJComponent {
         JSEncryptMainScriptArea.setText(new String(Base.b64decoder.decode(Setting.PhantomScript), StandardCharsets.UTF_8));
         JSEncryptMainScriptArea.addKeyListener(new JSEncryptMainScriptAreaKeyListener());
 
-        RTextScrollPane JSEncryptMainScriptEditorScrollPanel = new RTextScrollPane(JSEncryptMainScriptArea);
-        JSEncryptMainScriptEditorScrollPanel.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JSEncryptMainScriptEditorScrollPanel.setName("JSEncryptMainScriptEditorScrollPanel");
-        JSEncryptMainScriptEditorScrollPanel.setPreferredSize(new Dimension(0,0));
-        JSEncryptMainScriptEditorScrollPanel.setBorder(null);
+        RTextScrollPane JSEncryptMainScriptAreaScrollPanel = new RTextScrollPane(JSEncryptMainScriptArea);
+        JSEncryptMainScriptAreaScrollPanel.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JSEncryptMainScriptAreaScrollPanel.setName("JSEncryptMainScriptEditorScrollPanel");
+        JSEncryptMainScriptAreaScrollPanel.setPreferredSize(new Dimension(0,0));
+        JSEncryptMainScriptAreaScrollPanel.setBorder(null);
 
-        return  JSEncryptMainScriptEditorScrollPanel;
+        return  JSEncryptMainScriptAreaScrollPanel;
     }
 
     private JComponent JSEncryptMainControlPanel(){
@@ -233,18 +233,18 @@ public class JSEncryptComponent extends DiyJComponent {
         JComponent JSEncryptMainControlModePanel = new JPanel(new GridBagLayout());
         JSEncryptMainControlModePanel.setName("JSEncryptMainControlModePanel");
 
-        DiyJButton JSEncryptMainControlAesButton = new DiyJButton("Load Aes Script");
+        DiyJButton JSEncryptMainControlAesButton = new DiyJButton("Load AES Script");
         JSEncryptMainControlAesButton.setName("JSEncryptMainControlAesButton");
         JSEncryptMainControlAesButton.setPreferredSize(new Dimension(0,30));
-        DiyJButton JSEncryptMainControlRsaButton = new DiyJButton("Load Rsa Script");
+        DiyJButton JSEncryptMainControlRsaButton = new DiyJButton("Load RSA Script");
         JSEncryptMainControlRsaButton.setPreferredSize(new Dimension(0,30));
         JSEncryptMainControlRsaButton.setName("JSEncryptMainControlRsaButton");
-        DiyJButton JSEncryptMainControlMd5Button = new DiyJButton("Load md5 Script");
+        DiyJButton JSEncryptMainControlMd5Button = new DiyJButton("Load MD5 Script");
         JSEncryptMainControlMd5Button.setPreferredSize(new Dimension(0,30));
-        JSEncryptMainControlMd5Button.setName("JSEncryptMainControlMd5Button");
-        DiyJButton JSEncryptMainControlSm3Button = new DiyJButton("Load Sm3 Script");
+        JSEncryptMainControlMd5Button.setName("JSEncryptMainControlMD5Button");
+        DiyJButton JSEncryptMainControlSm3Button = new DiyJButton("Load SM3 Script");
         JSEncryptMainControlSm3Button.setPreferredSize(new Dimension(0,30));
-        JSEncryptMainControlSm3Button.setName("JSEncryptMainControlSm3Button");
+        JSEncryptMainControlSm3Button.setName("JSEncryptMainControlSM3Button");
 
         JSEncryptMainControlModePanel.add(JSEncryptMainControlAesButton,new GridBagConstraints(
                 0,0,

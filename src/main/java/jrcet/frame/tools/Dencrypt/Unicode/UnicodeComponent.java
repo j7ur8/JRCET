@@ -1,7 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Unicode;
 
 import burp.lib.Helper;
-import jdk.internal.util.xml.impl.Input;
 import jrcet.Main;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;

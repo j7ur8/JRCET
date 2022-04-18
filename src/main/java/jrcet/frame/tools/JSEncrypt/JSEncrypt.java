@@ -34,10 +34,9 @@ public class JSEncrypt {
         hc.setConnTimeout(5000);
         hc.setReadTimeout(5000);
         hc.sendGet();
-        byte[] aa = hc.getRspData().getBytes();
+
         return hc.getStatusCode() == 200;
     }
-
 
     public static class StreamGobble extends Thread  {
 
@@ -52,7 +51,6 @@ public class JSEncrypt {
         @Override
         public void run() {
             try {
-//                System.out.println("start");
                 StreamGobble.p = Runtime.getRuntime().exec(this.code);
             } catch (IOException ioe) {
                 ioe.printStackTrace();
