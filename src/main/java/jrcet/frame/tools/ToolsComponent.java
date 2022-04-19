@@ -1,9 +1,11 @@
 package jrcet.frame.tools;
 
 import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
+import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
@@ -17,7 +19,7 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent JSEncryptComponentPanel = JSEncryptComponentPanel();
     private final JComponent SoLibraryComponentPanel = SoLibraryComponentPanel();
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
-
+    private final JComponent IntruderComponentPanel = IntruderComponentPanel();
     /*
         toolsMenuPanel和toolsMenuBorderPanel会先被调用。
         必须其调用的Rscript、..、Dencrypt的后面。
@@ -50,7 +52,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(JSEncryptComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(IntruderComponentPanel,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -77,6 +79,11 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuTabPanel.setOpaque(false);
         ToolsMenuTabPanel.setBackground(Color.WHITE);
 
+        DiyJTabLabel ToolsMenuIntruderLabel = new DiyJTabLabel("Intruder",true);
+        ToolsMenuIntruderLabel.setName("ToolsMenuIntruderLabel");
+        ToolsMenuIntruderLabel.setPanel(IntruderComponentPanel);
+        ToolsMenuTabPanel.add(ToolsMenuIntruderLabel);
+
         DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt");
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
         ToolsMenuDencryptLabel.setPanel(DencryptComponentPanel);
@@ -87,10 +94,10 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuRScriptLabel.setPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);
 
-        DiyJTabLabel ToolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt", true);
-        ToolsMenuJSEncryptLabel.setName("ToolsMenuJSEncryptLabel");
-        ToolsMenuJSEncryptLabel.setPanel(JSEncryptComponentPanel);
-        ToolsMenuTabPanel.add(ToolsMenuJSEncryptLabel);
+//        DiyJTabLabel ToolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt", true);
+//        ToolsMenuJSEncryptLabel.setName("ToolsMenuJSEncryptLabel");
+//        ToolsMenuJSEncryptLabel.setPanel(JSEncryptComponentPanel);
+//        ToolsMenuTabPanel.add(ToolsMenuJSEncryptLabel);
 
         DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary");
         ToolsMenuSOLibraryLabel.setName("ToolsMenuSOLibraryLabel");
@@ -135,6 +142,12 @@ public class ToolsComponent extends DiyJComponent {
         DiyJComponent SoLibraryComponentInstance = new SoLibraryComponent();
         JComponent SoLibraryComponentPanel = SoLibraryComponentInstance.main();
         return SoLibraryComponentPanel;
+    }
+
+    private JComponent IntruderComponentPanel(){
+        DiyJComponent IntruderComponentInstance = new IntruderComponent();
+        JComponent IntruderComponentPanel = IntruderComponentInstance.main();
+        return IntruderComponentPanel;
     }
 
 }

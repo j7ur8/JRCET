@@ -1,22 +1,13 @@
 package jrcet.diycomponents;
 
-import burp.lib.Helper;
-import jrcet.Main;
-import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
-import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
-import sun.awt.AWTAccessor;
-import sun.rmi.runtime.NewThreadAction;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import static jrcet.frame.setting.Setting.class2ClickedDiyJTabBorderColor;

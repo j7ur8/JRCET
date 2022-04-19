@@ -2,6 +2,7 @@ package burp;
 
 
 import jrcet.frame.Jrcet;
+import jrcet.frame.tools.Dencrypt.Dencrypt;
 import jrcet.frame.tools.JSEncrypt.JSEncrypt;
 import jrcet.frame.tools.RScript.RScript;
 
@@ -31,7 +32,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         stdout = new PrintWriter(callbacks.getStdout(), true);
         BurpExtender.callbacks = callbacks;
         helpers = callbacks.getHelpers();
-        callbacks.setExtensionName("J7ur8's RCE Tool");
+        callbacks.setExtensionName("JRCET");
         callbacks.registerContextMenuFactory(this);
         callbacks.addSuiteTab(this);
         callbacks.registerIntruderPayloadProcessor(this);
@@ -67,13 +68,13 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
 
     @Override
     public String getProcessorName() {
-        return "JRCET's JSEncrypt";
+        return "JEncrypt";
     }
 
     @Override
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
-        String payload = new String(currentPayload);
-        String newPayload = JSEncrypt.sendPayload(payload);
+
+        String newPayload = Dencrypt.createIntruder(currentPayload);
         stdout.println(newPayload);
         return helpers.stringToBytes(newPayload);
     }
