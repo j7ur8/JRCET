@@ -33,8 +33,9 @@ public class Helper {
             }
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
                 case "JPanel":
-                case "DiyJComboBox":
                 case "JList":
+                case "DiyJComboBox":
+                case "RSyntaxTextArea":
                     JComponent cj = getComponent((JComponent) i,tComponentName);
                     if(cj!=null) return cj;
                     break;

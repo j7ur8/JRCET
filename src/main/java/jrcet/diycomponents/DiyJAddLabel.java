@@ -1,19 +1,21 @@
 package jrcet.diycomponents;
 
+import burp.lib.Helper;
+import jrcet.Main;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
+import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.Objects;
 
 import static jrcet.frame.setting.Setting.class2ClickedDiyJTabBorderColor;
 import static jrcet.frame.setting.Setting.class2DefaultDiyJTabBorderColor;
-import static jrcet.frame.tools.Dencrypt.DencryptComponent.changeMainPanelBySticker;
-import static jrcet.frame.tools.Dencrypt.DencryptComponent.getNewStickerLabel;
 
 public class DiyJAddLabel extends JLabel implements MouseListener {
 
@@ -107,8 +109,51 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                             0,0
                     ));
                     break;
+                case "Rsa":
+                    changeMainPanelBySticker("Rsa", RsaComponent.MainPanelHashMap, eIndex, new GridBagConstraints(
+                            0,1,
+                            2,1,
+                            1,0.7,
+                            GridBagConstraints.CENTER,
+                            GridBagConstraints.BOTH,
+                            new Insets(5,5,5,5),
+                            0,0
+                    ));
+                    break;
             }
         }
+    }
+
+    public static DiyJAddLabel getNewStickerLabel(JPanel eTagTabPanel){
+        JComponent nPanel = null;
+        String nName = String.valueOf(eTagTabPanel.getComponents().length);
+        String nComponentName = eTagTabPanel.getComponent(0).getName().replace("1", nName);
+        switch (eTagTabPanel.getName().split("(?=[A-Z])")[0]){
+            case "Base":
+                BaseComponent.MainPanelHashMap.put(nName,BaseComponent.getNewMainPanel());
+                break;
+            case "Unicode":
+                UnicodeComponent.MainPanelHashMap.put(nName,UnicodeComponent.getNewMainPanel());
+                break;
+            case "Aes":
+                AesComponent.MainPanelHashMap.put(nName,AesComponent.getNewMainPanel());
+                break;
+            case "Rsa":
+                RsaComponent.MainPanelHashMap.put(nName,RsaComponent.getNewMainPanel());
+        }
+
+        DiyJAddLabel nStickerLabel = new DiyJAddLabel(nName);
+        nStickerLabel.setName(nComponentName);
+        nStickerLabel.setPanel(nPanel);
+
+        return nStickerLabel;
+    }
+
+    public static void changeMainPanelBySticker(String tComponentName, HashMap<String,JComponent> map, String eIndex, GridBagConstraints gbc){
+        JComponent rootPanel = Helper.getComponent(Main.JrcetPanel,tComponentName+"ComponentPanel");
+        rootPanel.remove(rootPanel.getComponents().length-1);
+        rootPanel.add(map.get(eIndex),gbc);
+        rootPanel.updateUI();
     }
 
     @Override

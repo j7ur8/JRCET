@@ -26,13 +26,12 @@ public class DencryptComponent extends DiyJComponent {
     public JPanel main(){
         JPanel DencryptComponentPanel = new JPanel(new GridBagLayout());
         DencryptComponentPanel.setName("DencryptComponentPanel");
-        DencryptComponentPanel.setOpaque(true);
         DencryptComponentPanel.setBackground(Color.WHITE);
 
         /*
             DencryptMenuBorderPanel()左右复用更好。
          */
-        DencryptComponentPanel.add(DencryptMenuBorderPanel(),new GridBagConstraints(
+        DencryptComponentPanel.add(DencryptMenuBorderPanel1(),new GridBagConstraints(
                 0,0,
                 1,1,
                 0.5,0,
@@ -42,9 +41,6 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        /*
-            DencryptMenuPanel是AES、Base这一栏目
-        */
         DencryptComponentPanel.add(DencryptMenuTabPanel(),new GridBagConstraints(
                 1,0,
                 1,1,
@@ -55,7 +51,7 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptComponentPanel.add(DencryptMenuBorderPanel(),new GridBagConstraints(
+        DencryptComponentPanel.add(DencryptMenuBorderPanel2(),new GridBagConstraints(
                 2,0,
                 1,1,
                 0.5,0,
@@ -69,7 +65,7 @@ public class DencryptComponent extends DiyJComponent {
             是分页(0,1,2,3...)栏
         */
         DencryptComponentPanel.add(RsaComponentPanel,new GridBagConstraints(
-                0,2,
+                0,1,
                 3,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -87,7 +83,6 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuPanel.setName("DencryptMenuPanel");
         DencryptMenuPanel.setBackground(Color.WHITE);
 
-        //添加加密Tab
         //Base
         DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base");
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
@@ -122,10 +117,10 @@ public class DencryptComponent extends DiyJComponent {
     }
 
     //设置DencryptMenu组件下边框的格式
-    public JComponent DencryptMenuBorderPanel(){
+    public JComponent DencryptMenuBorderPanel1(){
 
         JPanel DencryptMenuBorderPanel = new JPanel();
-        DencryptMenuBorderPanel.setBackground(Color.WHITE);
+        DencryptMenuBorderPanel.setBackground(Color.BLACK);
         DencryptMenuBorderPanel.setName("DencryptMenuBorderPanel");
         DencryptMenuBorderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class1DefaultDiyJTabBorderColor)));
         DencryptMenuBorderPanel.setPreferredSize(new Dimension(0,0));
@@ -133,6 +128,16 @@ public class DencryptComponent extends DiyJComponent {
         return DencryptMenuBorderPanel;
     }
 
+    public JComponent DencryptMenuBorderPanel2(){
+
+        JPanel DencryptMenuBorderPanel = new JPanel();
+        DencryptMenuBorderPanel.setBackground(Color.BLUE);
+        DencryptMenuBorderPanel.setName("DencryptMenuBorderPanel");
+        DencryptMenuBorderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class1DefaultDiyJTabBorderColor)));
+        DencryptMenuBorderPanel.setPreferredSize(new Dimension(0,0));
+
+        return DencryptMenuBorderPanel;
+    }
 
     public static JComponent BaseComponentPanel(){
         return new BaseComponent().main();
@@ -150,33 +155,5 @@ public class DencryptComponent extends DiyJComponent {
         return new UnicodeComponent().main();
     }
 
-    public static DiyJAddLabel getNewStickerLabel(JPanel eTagTabPanel){
-        JComponent nPanel = null;
-        String nName = String.valueOf(eTagTabPanel.getComponents().length);
-        String nComponentName = eTagTabPanel.getComponent(0).getName().replace("1", nName);
-        switch (eTagTabPanel.getName().split("(?=[A-Z])")[0]){
-            case "Base":
-                BaseComponent.MainPanelHashMap.put(nName,BaseComponent.getNewMainPanel());
-                break;
-            case "Unicode":
-                UnicodeComponent.MainPanelHashMap.put(nName,UnicodeComponent.getNewMainPanel());
-                break;
-            case "Aes":
-                AesComponent.MainPanelHashMap.put(nName,AesComponent.getNewMainPanel());
-                break;
-        }
 
-        DiyJAddLabel nStickerLabel = new DiyJAddLabel(nName);
-        nStickerLabel.setName(nComponentName);
-        nStickerLabel.setPanel(nPanel);
-
-        return nStickerLabel;
-    }
-
-    public static void changeMainPanelBySticker(String tComponentName, HashMap<String,JComponent> map, String eIndex, GridBagConstraints gbc){
-        JComponent rootPanel = Helper.getComponent(Main.JrcetPanel,tComponentName+"ComponentPanel");
-        rootPanel.remove(rootPanel.getComponents().length-1);
-        rootPanel.add(map.get(eIndex),gbc);
-        rootPanel.updateUI();
-    }
 }

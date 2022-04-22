@@ -52,7 +52,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(IntruderComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(DencryptComponentPanel,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -79,12 +79,12 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuTabPanel.setOpaque(false);
         ToolsMenuTabPanel.setBackground(Color.WHITE);
 
-        DiyJTabLabel ToolsMenuIntruderLabel = new DiyJTabLabel("Intruder",true);
+        DiyJTabLabel ToolsMenuIntruderLabel = new DiyJTabLabel("Intruder");
         ToolsMenuIntruderLabel.setName("ToolsMenuIntruderLabel");
         ToolsMenuIntruderLabel.setPanel(IntruderComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuIntruderLabel);
 
-        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt");
+        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt",true);
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
         ToolsMenuDencryptLabel.setPanel(DencryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);

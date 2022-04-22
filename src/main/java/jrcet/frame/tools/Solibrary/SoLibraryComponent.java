@@ -9,8 +9,6 @@ import java.awt.*;
 public class SoLibraryComponent extends DiyJComponent {
 
     public static String databasePath="/Users/j7ur8/Documents/DocumentArchive/SoLibra.db";
-    public static JComponent SoLibraryMenuTabPanel = SoLibraryMenuTabPanel();
-    public static JComponent SoLibraryResultScrollPanel = SoLibraryResultScrollPanel();
 
     @Override
     public JComponent main() {
@@ -20,7 +18,7 @@ public class SoLibraryComponent extends DiyJComponent {
         SoLibraryComponentPanel.setOpaque(false);
         SoLibraryComponentPanel.setBackground(Color.YELLOW);
 
-        SoLibraryComponentPanel.add(SoLibraryMenuTabPanel,new GridBagConstraints(
+        SoLibraryComponentPanel.add(SoLibraryMenuTabPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -31,7 +29,7 @@ public class SoLibraryComponent extends DiyJComponent {
         ));
 
 
-        SoLibraryComponentPanel.add(SoLibraryResultScrollPanel,new GridBagConstraints(
+        SoLibraryComponentPanel.add(SoLibraryResultScrollPanel(),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -96,6 +94,7 @@ public class SoLibraryComponent extends DiyJComponent {
     private static JComponent SoLibraryResultScrollPanel(){
 
         JPanel SoLibraryResultPanel=new JPanel(new GridBagLayout());
+        SoLibraryResultPanel.setName("SoLibraryResultPanel");
         SoLibraryResultPanel.setOpaque(false);
         SoLibraryResultPanel.setBackground(Color.WHITE);
 

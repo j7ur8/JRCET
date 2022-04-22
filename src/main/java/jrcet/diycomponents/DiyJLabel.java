@@ -72,24 +72,23 @@ public class DiyJLabel extends JLabel implements MouseListener{
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     private void Rsa(String type)  {
-        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainPlaintextArea");
-        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainCiphertextArea");
-        RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainControlPublicArea");
-        RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainControlPrivateArea");
-
-        try{
-            if(Objects.equals(type,"Encrypt")){
-                CiphertextArea.setText(Rsa.Encrypt(PlaintextArea.getText(), Rsa.getPublicKey(PublicArea.getText())));
-            }else{
-                PlaintextArea.setText(Rsa.Decrypt(CiphertextArea.getText(), Rsa.getPrivateKey(PrivateArea.getText())));
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        JComponent PlaintextArea =  Helper.getComponent(Main.JrcetPanel,"AesMainControlIvBox");
+//        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainCiphertextArea");
+//        RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainControlPublicArea");
+//        RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainControlPrivateArea");
+//        PlaintextArea.setText(type);
+//        try{
+//            if(Objects.equals(type,"Encrypt")){
+//                CiphertextArea.setText(Rsa.Encrypt(PlaintextArea.getText(), Rsa.getPublicKey(PublicArea.getText())));
+//            }else{
+//                PlaintextArea.setText(Rsa.Decrypt(CiphertextArea.getText(), Rsa.getPrivateKey(PrivateArea.getText())));
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
 
     }
 

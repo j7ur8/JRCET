@@ -1,7 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Rsa;
 
 import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -10,11 +9,8 @@ import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 
@@ -24,7 +20,6 @@ public class RsaComponent extends DiyJComponent {
 
     public RsaComponent(){
         MainPanelHashMap.put("1", RsaMainPanel());
-
     }
 
     public JComponent main(){
@@ -137,7 +132,6 @@ public class RsaComponent extends DiyJComponent {
         RsaMainPlaintextArea.setLineWrap(true);
         RsaMainPlaintextArea.setText("#请输入...");
         RsaMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        RsaMainPlaintextArea.addKeyListener(new RsaMainKeyListener());
 
         RTextScrollPane RsaMainPlaintextScrollPane = new RTextScrollPane(RsaMainPlaintextArea);
         RsaMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -157,7 +151,6 @@ public class RsaComponent extends DiyJComponent {
         RsaMainCiphertextArea.setCodeFoldingEnabled(true);
         RsaMainCiphertextArea.setLineWrap(true);
         RsaMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        RsaMainCiphertextArea.addKeyListener(new RsaMainKeyListener());
 
         RTextScrollPane RsaMainCiphertextScrollPane = new RTextScrollPane(RsaMainCiphertextArea);
         RsaMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -224,7 +217,6 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPublicArea.setLineWrap(true);
         RsaMainControlPublicArea.setText("#Public Key");
         RsaMainControlPublicArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-        RsaMainControlPublicArea.addKeyListener(new RsaMainKeyListener());
 
         RTextScrollPane RsaMainControlPublicScrollPane = new RTextScrollPane(RsaMainControlPublicArea);
         RsaMainControlPublicScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -243,7 +235,6 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPrivateArea.setLineWrap(true);
         RsaMainControlPrivateArea.setText("#Private Key");
         RsaMainControlPrivateArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-        RsaMainControlPrivateArea.addKeyListener(new RsaMainKeyListener());
 
         RTextScrollPane RsaMainControlPrivateScrollPane = new RTextScrollPane(RsaMainControlPrivateArea);
         RsaMainControlPrivateScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -298,10 +289,6 @@ public class RsaComponent extends DiyJComponent {
     }
 
 
-    public JComponent getRsaMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):RsaBlackPanel()):RsaBlackPanel();
-    }
-
     public JComponent RsaBlackPanel(){
         JPanel RsaBlackPanel = new JPanel();
         RsaBlackPanel.setName("RsaBlackPanel");
@@ -311,24 +298,13 @@ public class RsaComponent extends DiyJComponent {
         return RsaBlackPanel;
     }
 
+    public JComponent getRsaMainPanel(String TagName){
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):RsaBlackPanel()):RsaBlackPanel();
+    }
+
+
     public static JComponent getNewMainPanel(){
         return RsaMainPanel();
     }
 
-
-    static class RsaMainKeyListener implements KeyListener{
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-    }
 }

@@ -76,7 +76,8 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JTextField nameField = (JTextField) parentPanel.getComponent(4);
         JTextField cardField = (JTextField) parentPanel.getComponent(6);
         JTextField phoneField = (JTextField) parentPanel.getComponent(8);
-        ((JPanel)((JScrollPane)SoLibraryComponent.SoLibraryResultScrollPanel).getViewport().getView()).removeAll();
+        JComponent ePanel = Helper.getComponent(Main.JrcetPanel,"SoLibraryResultPanel");
+        ePanel.removeAll();
         SoLibrary.Search(nameField.getText(),cardField.getText(),phoneField.getText());
 
     }

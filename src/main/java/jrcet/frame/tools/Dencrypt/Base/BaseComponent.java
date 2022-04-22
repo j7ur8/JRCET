@@ -1,9 +1,5 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
-/**
- * 实现Base页面组件的类
- */
-
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;

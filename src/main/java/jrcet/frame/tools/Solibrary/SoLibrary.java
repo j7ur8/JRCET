@@ -1,7 +1,10 @@
 package jrcet.frame.tools.Solibrary;
 
 import burp.BurpExtender;
+import burp.lib.Helper;
+import jrcet.Main;
 import jrcet.diycomponents.TableColumnAdjuster;
+import jrcet.frame.Jrcet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -117,9 +120,8 @@ public class SoLibrary {
     }
 
     private static void addJTable(JTable targetJTable){
-        JScrollPane targetScrollPanel = (JScrollPane) SoLibraryComponent.SoLibraryResultScrollPanel;
-        JPanel targetPanel = (JPanel) targetScrollPanel.getViewport().getView();
-        int elementCount = targetPanel.getComponentCount();
+        JComponent ePanel = Helper.getComponent(Main.JrcetPanel,"SoLibraryResultPanel");
+        int elementCount = ePanel.getComponentCount();
 
         JScrollPane tmpScrollPane=new JScrollPane(targetJTable);
         tmpScrollPane.setPreferredSize(new Dimension(0,200));
@@ -132,9 +134,9 @@ public class SoLibrary {
                 new Insets(0,0,0,0),
                 0,0
         );
-        targetPanel.add(tmpScrollPane,tmpScrollPaneProperty);
+        ePanel.add(tmpScrollPane,tmpScrollPaneProperty);
 
-        targetScrollPanel.validate();
-        targetScrollPanel.repaint();
+        ePanel.validate();
+        ePanel.repaint();
     }
 }
