@@ -5,6 +5,7 @@ import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
+import jrcet.frame.tools.HText.HTextComponent;
 import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
@@ -20,6 +21,7 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent SoLibraryComponentPanel = SoLibraryComponentPanel();
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
     private final JComponent IntruderComponentPanel = IntruderComponentPanel();
+    private final JComponent HTextComponentPanel = HTextComponentPanel();
     /*
         toolsMenuPanel和toolsMenuBorderPanel会先被调用。
         必须其调用的Rscript、..、Dencrypt的后面。
@@ -104,6 +106,11 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuSOLibraryLabel.setPanel(SoLibraryComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuSOLibraryLabel);
 
+        DiyJTabLabel ToolsMenuHTextLabel = new DiyJTabLabel("HText");
+        ToolsMenuHTextLabel.setName("ToolsMenuHTextLabel");
+        ToolsMenuHTextLabel.setPanel(HTextComponentPanel);
+        ToolsMenuTabPanel.add(ToolsMenuHTextLabel);
+
         return ToolsMenuTabPanel;
     }
 
@@ -150,4 +157,9 @@ public class ToolsComponent extends DiyJComponent {
         return IntruderComponentPanel;
     }
 
+    private JComponent HTextComponentPanel(){
+        DiyJComponent HTextComponentPanelInstance = new HTextComponent();
+        JComponent HTextComponentPanel = HTextComponentPanelInstance.main();
+        return HTextComponentPanel;
+    }
 }

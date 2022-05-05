@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -192,6 +193,18 @@ public class Helper {
 
         }
         return data;
+    }
+
+    public static String listToStringByN(List<String> list){
+        StringBuilder textContentBuilder = new StringBuilder();
+        for(int i=0;i<list.size();i++){
+            textContentBuilder.append(list.get(i));
+            if(i!=list.size()-1){
+                textContentBuilder.append("\n");
+            }
+        }
+
+        return textContentBuilder.toString();
     }
 
 //    public static

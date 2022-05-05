@@ -45,23 +45,23 @@ public class DiyJLabel extends JLabel implements MouseListener{
         switch (eLabel.getName()){
             case "AesMainControlEncryptLabel":
             case "AesMainControlDecryptLabel":
-                Aes(eLabel.getText());
+                Aes((JComponent) eLabel.getParent().getParent().getParent(), eLabel.getText());
                 break;
             case "RsaMainControlEncryptLabel":
             case "RsaMainControlDecryptLabel":
-                Rsa(eLabel.getText());
+                Rsa((JComponent) eLabel.getParent().getParent().getParent(),eLabel.getText());
                 break;
         }
     }
 
-    private void Aes(String type){
-        JList<String> ModeList = (JList) Helper.getComponent(Main.JrcetPanel,"AesMainControlModeList");
-        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"AesMainPlaintextArea");
-        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"AesMainCiphertextArea");
-        JTextField KeyField = (JTextField) Helper.getComponent(Main.JrcetPanel,"AesMainControlKeyField");
-        JTextField IvField = (JTextField) Helper.getComponent(Main.JrcetPanel,"AesMainControlIvField");
-        DiyJComboBox<String> KeyTypeBox = (DiyJComboBox) Helper.getComponent(Main.JrcetPanel,"AesMainControlKeyBox");
-        DiyJComboBox<String> IvTypeBox  = (DiyJComboBox) Helper.getComponent(Main.JrcetPanel,"AesMainControlIvBox");
+    private void Aes(JComponent rootComponent, String type){
+        JList<String> ModeList = (JList) Helper.getComponent(rootComponent,"AesMainControlModeList");
+        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainPlaintextArea");
+        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainCiphertextArea");
+        JTextField KeyField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlKeyField");
+        JTextField IvField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlIvField");
+        DiyJComboBox<String> KeyTypeBox = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlKeyBox");
+        DiyJComboBox<String> IvTypeBox  = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlIvBox");
 
         try{
             if(Objects.equals(type, "Encrypt")){
@@ -74,21 +74,20 @@ public class DiyJLabel extends JLabel implements MouseListener{
         }
     }
 
-    private void Rsa(String type)  {
-//        JComponent PlaintextArea =  Helper.getComponent(Main.JrcetPanel,"AesMainControlIvBox");
-//        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainCiphertextArea");
-//        RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainControlPublicArea");
-//        RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel,"RsaMainControlPrivateArea");
-//        PlaintextArea.setText(type);
-//        try{
-//            if(Objects.equals(type,"Encrypt")){
-//                CiphertextArea.setText(Rsa.Encrypt(PlaintextArea.getText(), Rsa.getPublicKey(PublicArea.getText())));
-//            }else{
-//                PlaintextArea.setText(Rsa.Decrypt(CiphertextArea.getText(), Rsa.getPrivateKey(PrivateArea.getText())));
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+    private void Rsa(JComponent rootComponent,String type)  {
+        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainControlIvBox");
+        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainCiphertextArea");
+        RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPublicArea");
+        RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPrivateArea");
+        try{
+            if(Objects.equals(type,"Encrypt")){
+                CiphertextArea.setText(Rsa.Encrypt(PlaintextArea.getText(), Rsa.getPublicKey(PublicArea.getText())));
+            }else{
+                PlaintextArea.setText(Rsa.Decrypt(CiphertextArea.getText(), Rsa.getPrivateKey(PrivateArea.getText())));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

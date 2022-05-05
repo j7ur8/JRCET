@@ -11,11 +11,11 @@ public class IntruderComponent extends DiyJComponent {
 
     @Override
     public JComponent main() {
-        JComponent IntruderComponent = new JPanel(new GridBagLayout());
-        IntruderComponent.setName("IntruderComponent");
-        IntruderComponent.setBackground(Color.WHITE);
+        JComponent IntruderComponentPanel = new JPanel(new GridBagLayout());
+        IntruderComponentPanel.setName("IntruderComponentPanel");
+        IntruderComponentPanel.setBackground(Color.WHITE);
 
-        IntruderComponent.add(IntruderMainPane(),new GridBagConstraints(
+        IntruderComponentPanel.add(IntruderMainPane(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,1,
@@ -25,7 +25,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        return IntruderComponent;
+        return IntruderComponentPanel;
     }
 
     public JComponent IntruderMainPane(){

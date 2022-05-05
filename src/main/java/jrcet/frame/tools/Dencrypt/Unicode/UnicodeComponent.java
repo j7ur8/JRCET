@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
+import static burp.BurpExtender.stdout;
+
 public class UnicodeComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
@@ -28,7 +30,6 @@ public class UnicodeComponent extends DiyJComponent {
         JComponent UnicodeComponentPanel = new JPanel(new GridBagLayout());
         UnicodeComponentPanel.setName("UnicodeComponentPanel");
         UnicodeComponentPanel.setBackground(Color.WHITE);
-        UnicodeComponentPanel.setPreferredSize(new Dimension(0,0));
 
         UnicodeComponentPanel.add(UnicodeTagBlackPanel(), new GridBagConstraints(
                 0,0,
@@ -186,15 +187,15 @@ public class UnicodeComponent extends DiyJComponent {
                 RSyntaxTextArea outputArea = null;
                 switch (eArea.getName()){
                     case "UnicodeMainCiphertextArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel, "UnicodeMainPlaintextArea" );
+                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainPlaintextArea" );
                         outputArea.setText(Unicode.unicodeToString(eArea.getText()));
                         break;
                     case "UnicodeMainPlaintextArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent(Main.JrcetPanel, "UnicodeMainCiphertextArea" );
+                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainCiphertextArea" );
+                        stdout.println(outputArea);
                         outputArea.setText(Unicode.stringToUnicode(eArea.getText()));
                         break;
                 }
-                assert outputArea != null;
                 outputArea.updateUI();
             }
         }

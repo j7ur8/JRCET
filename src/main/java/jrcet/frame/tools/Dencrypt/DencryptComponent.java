@@ -17,10 +17,10 @@ import java.util.HashMap;
 
 public class DencryptComponent extends DiyJComponent {
 
-    static final private JComponent BaseComponentPanel = BaseComponentPanel();
-    static final private JComponent AesComponentPanel = AesComponentPanel();
-    static final private JComponent UnicodeComponentPanel = UnicodeComponentPanel();
-    static final private JComponent RsaComponentPanel = RsaComponentPanel();
+    private final JComponent BaseComponentPanel = BaseComponentPanel();
+    private final JComponent AesComponentPanel = AesComponentPanel();
+    private final JComponent UnicodeComponentPanel = UnicodeComponentPanel();
+    private final JComponent RsaComponentPanel = RsaComponentPanel();
 
 
     public JPanel main(){
@@ -28,45 +28,19 @@ public class DencryptComponent extends DiyJComponent {
         DencryptComponentPanel.setName("DencryptComponentPanel");
         DencryptComponentPanel.setBackground(Color.WHITE);
 
-        /*
-            DencryptMenuBorderPanel()左右复用更好。
-         */
-        DencryptComponentPanel.add(DencryptMenuBorderPanel1(),new GridBagConstraints(
-                0,0,
-                1,1,
-                0.5,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
         DencryptComponentPanel.add(DencryptMenuTabPanel(),new GridBagConstraints(
-                1,0,
-                1,1,
                 0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        DencryptComponentPanel.add(DencryptMenuBorderPanel2(),new GridBagConstraints(
-                2,0,
                 1,1,
-                0.5,0,
+                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        /*
-            是分页(0,1,2,3...)栏
-        */
         DencryptComponentPanel.add(RsaComponentPanel,new GridBagConstraints(
                 0,1,
-                3,1,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -77,11 +51,10 @@ public class DencryptComponent extends DiyJComponent {
         return DencryptComponentPanel;
     }
 
-    public static JComponent DencryptMenuTabPanel(){
+    public JComponent DencryptMenuTabPanel(){
 
         JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         DencryptMenuPanel.setName("DencryptMenuPanel");
-        DencryptMenuPanel.setBackground(Color.WHITE);
 
         //Base
         DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base");
@@ -116,44 +89,20 @@ public class DencryptComponent extends DiyJComponent {
         return DencryptMenuPanel;
     }
 
-    //设置DencryptMenu组件下边框的格式
-    public JComponent DencryptMenuBorderPanel1(){
 
-        JPanel DencryptMenuBorderPanel = new JPanel();
-        DencryptMenuBorderPanel.setBackground(Color.BLACK);
-        DencryptMenuBorderPanel.setName("DencryptMenuBorderPanel");
-        DencryptMenuBorderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class1DefaultDiyJTabBorderColor)));
-        DencryptMenuBorderPanel.setPreferredSize(new Dimension(0,0));
-
-        return DencryptMenuBorderPanel;
-    }
-
-    public JComponent DencryptMenuBorderPanel2(){
-
-        JPanel DencryptMenuBorderPanel = new JPanel();
-        DencryptMenuBorderPanel.setBackground(Color.BLUE);
-        DencryptMenuBorderPanel.setName("DencryptMenuBorderPanel");
-        DencryptMenuBorderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class1DefaultDiyJTabBorderColor)));
-        DencryptMenuBorderPanel.setPreferredSize(new Dimension(0,0));
-
-        return DencryptMenuBorderPanel;
-    }
-
-    public static JComponent BaseComponentPanel(){
+    public JComponent BaseComponentPanel(){
         return new BaseComponent().main();
     }
 
-    public static JComponent AesComponentPanel(){
+    public JComponent AesComponentPanel(){
         return new AesComponent().main();
     }
 
-    public static JComponent RsaComponentPanel(){
+    public JComponent RsaComponentPanel(){
         return new RsaComponent().main();
     }
 
-    public static JComponent UnicodeComponentPanel(){
+    public JComponent UnicodeComponentPanel(){
         return new UnicodeComponent().main();
     }
-
-
 }

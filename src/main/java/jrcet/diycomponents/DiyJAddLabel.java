@@ -151,6 +151,7 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
     public static void changeMainPanelBySticker(String tComponentName, HashMap<String,JComponent> map, String eIndex, GridBagConstraints gbc){
         JComponent rootPanel = Helper.getComponent(Main.JrcetPanel,tComponentName+"ComponentPanel");
+        assert rootPanel != null;
         rootPanel.remove(rootPanel.getComponents().length-1);
         rootPanel.add(map.get(eIndex),gbc);
         rootPanel.updateUI();
