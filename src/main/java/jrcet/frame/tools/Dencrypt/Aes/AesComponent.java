@@ -21,14 +21,14 @@ import java.util.HashMap;
 public class AesComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
-
+    public static JComponent AesComponentPanel = null;
     public AesComponent(){
         MainPanelHashMap.put("1", AesMainPanel());
 
     }
 
     public JComponent main(){
-        JComponent AesComponentPanel = new JPanel(new GridBagLayout());
+        AesComponentPanel = new JPanel(new GridBagLayout());
         AesComponentPanel.setName("AesComponentPanel");
         AesComponentPanel.setBackground(Color.WHITE);
         AesComponentPanel.setPreferredSize(new Dimension(0,0));
@@ -90,7 +90,7 @@ public class AesComponent extends DiyJComponent {
         return AesTagTabPanel;
     }
 
-    public static JComponent AesMainPanel(){
+    public JComponent AesMainPanel(){
 
         JComponent AesMainPanel = new JPanel(new GridBagLayout());
         AesMainPanel.setName("AesMainPanel");
@@ -129,7 +129,7 @@ public class AesComponent extends DiyJComponent {
         return AesMainPanel;
     }
 
-    public static JComponent AesMainPlaintextScrollPane(){
+    public JComponent AesMainPlaintextScrollPane(){
 
         RSyntaxTextArea AesMainPlaintextArea = new RSyntaxTextArea();
         AesMainPlaintextArea.setName("AesMainPlaintextArea");
@@ -137,7 +137,6 @@ public class AesComponent extends DiyJComponent {
         AesMainPlaintextArea.setLineWrap(true);
         AesMainPlaintextArea.setText("#请输入...\n#iv和key支持Raw、Base64、Hex三种方式");
         AesMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AesMainPlaintextArea.addKeyListener(new AesMainKeyListener());
 
         RTextScrollPane AesMainPlaintextScrollPane = new RTextScrollPane(AesMainPlaintextArea);
         AesMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -149,7 +148,7 @@ public class AesComponent extends DiyJComponent {
 
     }
 
-    public static JComponent AesMainCiphertextScrollPane(){
+    public JComponent AesMainCiphertextScrollPane(){
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
         RSyntaxTextArea AesMainCiphertextArea = new RSyntaxTextArea();
@@ -157,7 +156,6 @@ public class AesComponent extends DiyJComponent {
         AesMainCiphertextArea.setCodeFoldingEnabled(true);
         AesMainCiphertextArea.setLineWrap(true);
         AesMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AesMainCiphertextArea.addKeyListener(new AesMainKeyListener());
 
         RTextScrollPane AesMainCiphertextScrollPane = new RTextScrollPane(AesMainCiphertextArea);
         AesMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -168,7 +166,7 @@ public class AesComponent extends DiyJComponent {
         return AesMainCiphertextScrollPane;
     }
 
-    public static JComponent AesMainControlPanel(){
+    public JComponent AesMainControlPanel(){
 
         JComponent AesMainControlPanel = new JPanel(new GridBagLayout());
         AesMainControlPanel.setName("AesMainControllerPanel");
@@ -229,7 +227,7 @@ public class AesComponent extends DiyJComponent {
         return AesMainControlPanel;
     }
 
-    public static JComponent AesMainControlModelPanel(){
+    public JComponent AesMainControlModelPanel(){
         JComponent AesMainControlModelPanel = new JPanel(new GridBagLayout());
         AesMainControlModelPanel.setName("AesMainControlModelPanel");
         AesMainControlModelPanel.setBackground(Color.WHITE);
@@ -243,7 +241,6 @@ public class AesComponent extends DiyJComponent {
         AesMainControlModeList.setName("AesMainControlModeList");
         AesMainControlModeList.setFont(new Font("微软雅黑",Font.PLAIN,14));
         AesMainControlModeList.setBorder(BorderFactory.createEmptyBorder(10,20, 10, 0));
-        AesMainControlModeList.addListSelectionListener(new AesMainControlModeSelectListener());
         AesMainControlModelPanel.add(AesMainControlModeList,new GridBagConstraints(
                 0,0,
                 1,1,
@@ -257,7 +254,7 @@ public class AesComponent extends DiyJComponent {
         return AesMainControlModelPanel;
     }
 
-    public static JComponent AesMainControlActionPanel(){
+    public JComponent AesMainControlActionPanel(){
         JComponent AesMainControlActionPanel = new JPanel(new GridBagLayout());
         AesMainControlActionPanel.setName("AesMainControlActionPanel");
         AesMainControlActionPanel.setBackground(Color.WHITE);
@@ -292,7 +289,7 @@ public class AesComponent extends DiyJComponent {
         return AesMainControlActionPanel;
     }
 
-    public static JComponent AesMainControlIvPanel(){
+    public JComponent AesMainControlIvPanel(){
 
         JComponent AesMainControlIvPanel = new JPanel(new GridBagLayout());
         AesMainControlIvPanel.setName("AesMainControlIvPanel");
@@ -342,7 +339,7 @@ public class AesComponent extends DiyJComponent {
         return AesMainControlIvPanel;
     }
 
-    public static JComponent AesMainControlKeyPanel(){
+    public JComponent AesMainControlKeyPanel(){
         JComponent AesMainControlKeyPanel = new JPanel(new GridBagLayout());
         AesMainControlKeyPanel.setName("AesMainControlKeyPanel");
         AesMainControlKeyPanel.setBackground(Color.WHITE);
@@ -392,7 +389,7 @@ public class AesComponent extends DiyJComponent {
     }
 
 
-    public static JComponent AseMainControlBlackPanel(){
+    public JComponent AseMainControlBlackPanel(){
         JComponent AseMainControlBlackPanel = new JPanel();
         AseMainControlBlackPanel.setBackground(Color.WHITE);
         AseMainControlBlackPanel.setName("AseMainControlBlackPanel");
@@ -414,31 +411,4 @@ public class AesComponent extends DiyJComponent {
         return AesBlackPanel;
     }
 
-    public static JComponent getNewMainPanel(){
-        return AesMainPanel();
-    }
-
-    static class AesMainControlModeSelectListener implements ListSelectionListener{
-
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-
-        }
-    }
-
-    static class AesMainKeyListener implements KeyListener{
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-    }
 }

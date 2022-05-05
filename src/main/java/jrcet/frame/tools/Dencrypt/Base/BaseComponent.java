@@ -15,8 +15,8 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
 public class BaseComponent extends DiyJComponent {
 
-
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
+    public static JPanel BaseComponentPanel = null;
 
     public BaseComponent(){
         MainPanelHashMap.put("1", BaseMainPanel());
@@ -24,7 +24,7 @@ public class BaseComponent extends DiyJComponent {
 
     public JComponent main(){
 
-        JPanel BaseComponentPanel = new JPanel(new GridBagLayout());
+        BaseComponentPanel = new JPanel(new GridBagLayout());
         BaseComponentPanel.setName("BaseComponentPanel");
         BaseComponentPanel.setBackground(Color.WHITE);
         BaseComponentPanel.setPreferredSize(new Dimension(0,0));
@@ -49,7 +49,7 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 //        BaseComponentPanel.
-        BaseComponentPanel.add(getBaseMainPanel("1"),new GridBagConstraints(
+        BaseComponentPanel.add(MainPanelHashMap.get("1"),new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -78,7 +78,7 @@ public class BaseComponent extends DiyJComponent {
 
         DiyJAddLabel BaseTagTabSticker1Label = new DiyJAddLabel("1",true);
         BaseTagTabSticker1Label.setName("BaseTagTabSticker1Label");
-        BaseTagTabSticker1Label.setPanel(getBaseMainPanel("1"));
+        BaseTagTabSticker1Label.setPanel(MainPanelHashMap.get("1"));
         BaseTagTabPanel.add(BaseTagTabSticker1Label);
 
         DiyJAddLabel BaseTabAddLabel = new DiyJAddLabel("···");
@@ -88,7 +88,7 @@ public class BaseComponent extends DiyJComponent {
         return BaseTagTabPanel;
     }
 
-    public static JComponent BaseMainPanel(){
+    public JComponent BaseMainPanel(){
         JComponent BaseMainPanel = new JPanel(new GridBagLayout());
         BaseMainPanel.setName("BaseMainPanel");
         BaseMainPanel.setOpaque(false);
@@ -122,7 +122,7 @@ public class BaseComponent extends DiyJComponent {
         return BaseMainScrollPane;
     }
 
-    public static JComponent BaseMainContentPanel(){
+    public JComponent BaseMainContentPanel(){
         JComponent BaseMainContentPanel = new JPanel(new GridBagLayout());
         BaseMainContentPanel.setName("BaseMainContentPanel");
         BaseMainContentPanel.setOpaque(true);
@@ -182,7 +182,7 @@ public class BaseComponent extends DiyJComponent {
         return BaseMainContentPanel;
     }
 
-    private static JComponent BaseMainContentTextareaPanel(){
+    private JComponent BaseMainContentTextareaPanel(){
         JTextArea BaseMainContentTextAreaPanel = new JTextArea();
         BaseMainContentTextAreaPanel.setName("BaseMainContentTextAreaPanel");
         BaseMainContentTextAreaPanel.setLineWrap(true);
@@ -198,7 +198,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
 
-    private static JComponent BaseMainContentMenuPanel(){
+    private JComponent BaseMainContentMenuPanel(){
 
         JPanel BaseMainContentMenuPanel = new JPanel(new GridBagLayout());
         BaseMainContentMenuPanel.setName("BaseMainContentMenuPanel");
@@ -240,7 +240,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //Pause、Continue按钮的设置
-    private static JComponent BaseMainContentStatusPanel(){
+    private JComponent BaseMainContentStatusPanel(){
 
         JPanel BaseMainContentStatusPanel = new JPanel(new GridBagLayout());
         BaseMainContentStatusPanel.setName("BaseMainContentStatusPanel");
@@ -255,7 +255,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //设置按钮的格式
-    private static void BaseMainContentMenuAddButton(JPanel buttonListPanel, String type) {
+    private void BaseMainContentMenuAddButton(JPanel buttonListPanel, String type) {
 
         DiyJButton[][] buttonArray=new DiyJButton[2][7];
         DiyJLabel label = new DiyJLabel(type);
@@ -274,7 +274,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //BaseMainContentPanel的BlackPanel
-    private static JComponent BaseMainContentBlackPanel(){
+    private JComponent BaseMainContentBlackPanel(){
         JPanel BaseMainContentBlackPanel = new JPanel();
         BaseMainContentBlackPanel.setName("BaseMainContentBlackPanel");
         BaseMainContentBlackPanel.setPreferredSize(new Dimension(0,0));
@@ -283,7 +283,7 @@ public class BaseComponent extends DiyJComponent {
     }
 
     //BasePanel的BlackPanel
-    private static JComponent BaseMainBlackPanel(){
+    private JComponent BaseMainBlackPanel(){
         JPanel BaseMainBlackPanel = new JPanel();
         BaseMainBlackPanel.setName("BaseMainBlackPanel");
         BaseMainBlackPanel.setOpaque(false);
@@ -292,23 +292,4 @@ public class BaseComponent extends DiyJComponent {
         return BaseMainBlackPanel;
     }
 
-    /*
-根据传入的值从DencryptPanelMap中获取默认的Panel，失败则返回一个空Panel
- */
-    private static JComponent getBaseMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):BaseBlackPanel()):BaseBlackPanel();
-    }
-
-    public static JComponent BaseBlackPanel(){
-        JPanel BaseBlackPanel = new JPanel();
-        BaseBlackPanel.setName("BaseBlackPanel");
-        BaseBlackPanel.setOpaque(true);
-        BaseBlackPanel.setBackground(Color.PINK);
-
-        return BaseBlackPanel;
-    }
-
-    public static JComponent getNewMainPanel(){
-        return BaseMainPanel();
-    }
 }

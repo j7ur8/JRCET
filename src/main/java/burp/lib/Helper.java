@@ -206,8 +206,7 @@ public class Helper {
 
         return textContentBuilder.toString();
     }
-
-//    public static
+    
     /*
     文件类函数
      */

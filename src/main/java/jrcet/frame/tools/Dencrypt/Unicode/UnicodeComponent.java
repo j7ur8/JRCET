@@ -21,13 +21,14 @@ import static burp.BurpExtender.stdout;
 public class UnicodeComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
+    public static JComponent UnicodeComponentPanel = null;
 
     public UnicodeComponent(){
         MainPanelHashMap.put("1", UnicodeMainPanel());
     }
 
     public JComponent main(){
-        JComponent UnicodeComponentPanel = new JPanel(new GridBagLayout());
+        UnicodeComponentPanel = new JPanel(new GridBagLayout());
         UnicodeComponentPanel.setName("UnicodeComponentPanel");
         UnicodeComponentPanel.setBackground(Color.WHITE);
 
@@ -89,7 +90,7 @@ public class UnicodeComponent extends DiyJComponent {
         return UnicodeTagTabPanel;
     }
 
-    public static JComponent UnicodeMainPanel(){
+    public JComponent UnicodeMainPanel(){
 
         JComponent UnicodeMainPanel = new JPanel(new GridBagLayout());
         UnicodeMainPanel.setName("UnicodeMainPanel");
@@ -118,7 +119,7 @@ public class UnicodeComponent extends DiyJComponent {
         return UnicodeMainPanel;
     }
 
-    public static JComponent UnicodeMainInputScrollPane(){
+    public JComponent UnicodeMainInputScrollPane(){
 
         RSyntaxTextArea UnicodeMainCiphertextArea = new RSyntaxTextArea();
         UnicodeMainCiphertextArea.setName("UnicodeMainCiphertextArea");
@@ -135,7 +136,7 @@ public class UnicodeComponent extends DiyJComponent {
 
     }
 
-    public static JComponent UnicodeMainOutputScrollPane(){
+    public JComponent UnicodeMainOutputScrollPane(){
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
         RSyntaxTextArea UnicodeMainPlaintextArea = new RSyntaxTextArea();
@@ -163,10 +164,6 @@ public class UnicodeComponent extends DiyJComponent {
         UnicodeBlackPanel.setBackground(Color.PINK);
 
         return UnicodeBlackPanel;
-    }
-
-    public static JComponent getNewMainPanel(){
-        return UnicodeMainPanel();
     }
 
     static class UnicodeMainKeyListener implements KeyListener {

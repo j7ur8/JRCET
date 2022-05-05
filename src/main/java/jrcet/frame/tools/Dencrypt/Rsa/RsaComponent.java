@@ -17,13 +17,13 @@ import java.util.HashMap;
 public class RsaComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
-
+    public static JComponent RsaComponentPanel = null;
     public RsaComponent(){
         MainPanelHashMap.put("1", RsaMainPanel());
     }
 
     public JComponent main(){
-        JComponent RsaComponentPanel = new JPanel(new GridBagLayout());
+        RsaComponentPanel = new JPanel(new GridBagLayout());
         RsaComponentPanel.setName("RsaComponentPanel");
         RsaComponentPanel.setBackground(Color.WHITE);
         RsaComponentPanel.setPreferredSize(new Dimension(0,0));
@@ -85,7 +85,7 @@ public class RsaComponent extends DiyJComponent {
         return RsaTagTabPanel;
     }
 
-    public static JComponent RsaMainPanel(){
+    public JComponent RsaMainPanel(){
 
         JComponent RsaMainPanel = new JPanel(new GridBagLayout());
         RsaMainPanel.setName("RsaMainPanel");
@@ -124,7 +124,7 @@ public class RsaComponent extends DiyJComponent {
         return RsaMainPanel;
     }
 
-    public static JComponent RsaMainPlaintextScrollPane(){
+    public JComponent RsaMainPlaintextScrollPane(){
 
         RSyntaxTextArea RsaMainPlaintextArea = new RSyntaxTextArea();
         RsaMainPlaintextArea.setName("RsaMainPlaintextArea");
@@ -143,7 +143,7 @@ public class RsaComponent extends DiyJComponent {
 
     }
 
-    public static JComponent RsaMainCiphertextScrollPane(){
+    public JComponent RsaMainCiphertextScrollPane(){
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
         RSyntaxTextArea RsaMainCiphertextArea = new RSyntaxTextArea();
@@ -161,7 +161,7 @@ public class RsaComponent extends DiyJComponent {
         return RsaMainCiphertextScrollPane;
     }
 
-    public static JComponent RsaMainControlPanel(){
+    public JComponent RsaMainControlPanel(){
 
         JComponent RsaMainControlPanel = new JPanel(new GridBagLayout());
         RsaMainControlPanel.setName("RsaMainControllerPanel");
@@ -210,7 +210,7 @@ public class RsaComponent extends DiyJComponent {
         return RsaMainControlPanel;
     }
 
-    public static JComponent RsaMainControlPublicScrollPane(){
+    public JComponent RsaMainControlPublicScrollPane(){
         RSyntaxTextArea RsaMainControlPublicArea = new RSyntaxTextArea();
         RsaMainControlPublicArea.setName("RsaMainControlPublicArea");
         RsaMainControlPublicArea.setCodeFoldingEnabled(true);
@@ -228,7 +228,7 @@ public class RsaComponent extends DiyJComponent {
         return RsaMainControlPublicScrollPane;
     }
 
-    public static JComponent RsaMainControlPrivateScrollPane(){
+    public JComponent RsaMainControlPrivateScrollPane(){
         RSyntaxTextArea RsaMainControlPrivateArea = new RSyntaxTextArea();
         RsaMainControlPrivateArea.setName("RsaMainControlPrivateArea");
         RsaMainControlPrivateArea.setCodeFoldingEnabled(true);
@@ -246,7 +246,7 @@ public class RsaComponent extends DiyJComponent {
         return RsaMainControlPrivateScrollPane;
     }
 
-    public static JComponent RsaMainControlActionPanel() {
+    public JComponent RsaMainControlActionPanel() {
         JComponent RsaMainControlActionPanel = new JPanel(new GridBagLayout());
         RsaMainControlActionPanel.setName("RsaMainControlActionPanel");
         RsaMainControlActionPanel.setBackground(Color.WHITE);
@@ -280,7 +280,7 @@ public class RsaComponent extends DiyJComponent {
         return  RsaMainControlActionPanel;
     }
 
-    public static JComponent RsaMainControlBlackPanel(){
+    public JComponent RsaMainControlBlackPanel(){
         JComponent AseMainControlBlackPanel = new JPanel();
         AseMainControlBlackPanel.setBackground(Color.WHITE);
         AseMainControlBlackPanel.setName("AseMainControlBlackPanel");
@@ -300,11 +300,6 @@ public class RsaComponent extends DiyJComponent {
 
     public JComponent getRsaMainPanel(String TagName){
         return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):RsaBlackPanel()):RsaBlackPanel();
-    }
-
-
-    public static JComponent getNewMainPanel(){
-        return RsaMainPanel();
     }
 
 }

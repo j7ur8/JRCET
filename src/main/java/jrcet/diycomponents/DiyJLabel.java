@@ -49,7 +49,7 @@ public class DiyJLabel extends JLabel implements MouseListener{
                 break;
             case "RsaMainControlEncryptLabel":
             case "RsaMainControlDecryptLabel":
-                Rsa((JComponent) eLabel.getParent().getParent().getParent(),eLabel.getText());
+                Rsa((JComponent) eLabel.getParent().getParent().getParent(), eLabel.getText());
                 break;
         }
     }
