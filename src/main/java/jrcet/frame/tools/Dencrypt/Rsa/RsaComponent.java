@@ -17,6 +17,8 @@ import java.util.HashMap;
 public class RsaComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
+    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
+
     public static JComponent RsaComponentPanel = null;
 
     public RsaComponent(){
@@ -50,7 +52,7 @@ public class RsaComponent extends DiyJComponent {
                 0,0
         ));
 
-        RsaComponentPanel.add(getRsaMainPanel("1"),new GridBagConstraints(
+        setConstraints(RsaComponentPanel, getRsaMainPanel("1"), new GridBagConstraints(
                 0,1,
                 2,1,
                 1,0.7,
@@ -59,6 +61,15 @@ public class RsaComponent extends DiyJComponent {
                 new Insets(5,5,5,5),
                 0,0
         ));
+//        RsaComponentPanel.add(getRsaMainPanel("1"),new GridBagConstraints(
+//                0,1,
+//                2,1,
+//                1,0.7,
+//                GridBagConstraints.CENTER,
+//                GridBagConstraints.BOTH,
+//                new Insets(5,5,5,5),
+//                0,0
+//        ));
 
         return RsaComponentPanel;
     }
@@ -302,6 +313,11 @@ public class RsaComponent extends DiyJComponent {
 
     public JComponent getRsaMainPanel(String TagName){
         return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):RsaBlackPanel()):RsaBlackPanel();
+    }
+
+    public void setConstraints(JComponent pComponent, JComponent tComponent, GridBagConstraints tGBC){
+        ComponentConstraintHashMap.put(tComponent.getName(),tGBC);
+        pComponent.add(tComponent, tGBC);
     }
 
 }

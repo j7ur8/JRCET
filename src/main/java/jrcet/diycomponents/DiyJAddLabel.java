@@ -151,33 +151,37 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
     public void changeMainPanelBySticker(String type, String eIndex, GridBagConstraints gbc){
         JComponent tPanel = null;
-        HashMap<String,JComponent> tMap = null;
+        HashMap<String,JComponent> tCMap = null;
+        HashMap<String,GridBagConstraints> tGMap = null;
         switch (type){
             case "Base":
                 tPanel = BaseComponent.BaseComponentPanel;
-                tMap = BaseComponent.MainPanelHashMap;
+                tCMap = BaseComponent.MainPanelHashMap;
                 break;
             case "Aes":
                 tPanel = AesComponent.AesComponentPanel;
-                tMap = AesComponent.MainPanelHashMap;
+                tCMap = AesComponent.MainPanelHashMap;
                 break;
             case "Rsa":
+                tGMap = RsaComponent.ComponentConstraintHashMap;
                 tPanel = RsaComponent.RsaComponentPanel;
-                tMap = RsaComponent.MainPanelHashMap;
+                tCMap = RsaComponent.MainPanelHashMap;
                 break;
             case "Unicode":
                 tPanel = UnicodeComponent.UnicodeComponentPanel;
-                tMap = UnicodeComponent.MainPanelHashMap;
+                tCMap = UnicodeComponent.MainPanelHashMap;
                 break;
             case "Ascii":
                 tPanel = AsciiComponent.AsciiComponentPanel;
-                tMap = AsciiComponent.MainPanelHashMap;
+                tCMap = AsciiComponent.MainPanelHashMap;
                 break;
         }
         assert tPanel != null;
-        GridBagConstraints tGridBagConstraints = ((GridBagLayout)tPanel.getLayout()).getConstraints(Helper.getComponent(tPanel,type+"MainPanel"));
+        assert tGMap != null;
+        assert tCMap != null;
+        GridBagConstraints tGridBagConstraints = tGMap.get(type+"MainPanel");
         tPanel.remove(tPanel.getComponents().length-1);
-        tPanel.add(tMap.get(eIndex),tGridBagConstraints);
+        tPanel.add(tCMap.get(eIndex),tGridBagConstraints);
         tPanel.updateUI();
     }
 
