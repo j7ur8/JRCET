@@ -13,22 +13,12 @@ import java.awt.*;
 public class RScriptComponent extends DiyJComponent {
 
     public static JPanel RScriptComponentPanel = new JPanel(new GridBagLayout());
-    public static RSyntaxTextArea RScriptMainEditor = new RSyntaxTextArea();
 
     @Override
     public JComponent main() {
 
         RScriptComponentPanel.setName("RScriptComponentPanel");
-        RScriptComponentPanel.setOpaque(false);
         RScriptComponentPanel.setBackground(Color.WHITE);
-
-        RScriptMainEditor.setName("RScriptMainEditor");
-        RScriptMainEditor.setPreferredSize(new Dimension(0,0));
-        RScriptMainEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        RScriptMainEditor.setCodeFoldingEnabled(true);
-
-        RTextScrollPane RScriptMainEditorScroll = new RTextScrollPane(RScriptMainEditor);
-        RScriptMainEditorScroll.setName("RScriptMainEditorScroll");
 
         RScriptComponentPanel.add(RScriptMenuTabPanel(),new GridBagConstraints(
                 0,0,
@@ -40,7 +30,7 @@ public class RScriptComponent extends DiyJComponent {
                 0,0
         ));
 
-        RScriptComponentPanel.add(RScriptMainEditorScroll,new GridBagConstraints(
+        RScriptComponentPanel.add(RScriptMainPanel(),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -53,7 +43,7 @@ public class RScriptComponent extends DiyJComponent {
         return RScriptComponentPanel;
     }
 
-    private JComponent RScriptMenuTabPanel(){
+    public JComponent RScriptMenuTabPanel(){
 
         JPanel RScriptMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
         RScriptMenuTabPanel.setOpaque(false);
@@ -61,17 +51,79 @@ public class RScriptComponent extends DiyJComponent {
         RScriptMenuTabPanel.setName("RScriptMenuTabPanel");
         RScriptMenuTabPanel.setPreferredSize(new Dimension(0,40));
         RScriptMenuTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        RScriptMenuTabPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        DiyJCheckBox RScriptMenuTabSessionButton = new DiyJCheckBox("Session");
-        RScriptMenuTabSessionButton.setName("RScriptMenuTabSessionButton");
-        RScriptMenuTabPanel.add(RScriptMenuTabSessionButton);
+        DiyJCheckBox RScriptMenuSessionButton = new DiyJCheckBox("Session");
+        RScriptMenuSessionButton.setName("RScriptMenuSessionButton");
+        RScriptMenuTabPanel.add(RScriptMenuSessionButton);
 
-        DiyJButton RScriptMenuTabCopyButton = new DiyJButton("Copy");
-        RScriptMenuTabCopyButton.setName("RScriptMenuTabCopyButton");
-        RScriptMenuTabPanel.add(RScriptMenuTabCopyButton);
+        DiyJButton RScriptMenuCopyButton = new DiyJButton("Copy");
+        RScriptMenuCopyButton.setName("RScriptMenuCopyButton");
+        RScriptMenuTabPanel.add(RScriptMenuCopyButton);
 
         return RScriptMenuTabPanel;
     }
+
+    public JComponent RScriptMainPanel(){
+        JComponent RScriptMainPanel = new JPanel(new GridBagLayout());
+        RScriptMainPanel.setName("RScriptMainPanel");
+        RScriptMainPanel.setBackground(Color.WHITE);
+
+        RScriptMainPanel.add(RScriptMainBorderPanel(),new GridBagConstraints(
+                0,0,
+                1,1,
+                0.2,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        RScriptMainPanel.add(RScriptMainEditorScrollPane(),new GridBagConstraints(
+                1,0,
+                1,1,
+                0.6,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        RScriptMainPanel.add(RScriptMainBorderPanel(),new GridBagConstraints(
+                2,0,
+                1,1,
+                0.2,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return RScriptMainPanel;
+    }
+
+    public JComponent RScriptMainEditorScrollPane(){
+
+        RSyntaxTextArea RScriptMainEditor = new RSyntaxTextArea();
+        RScriptMainEditor.setName("RScriptMainEditor");
+        RScriptMainEditor.setLineWrap(true);
+        RScriptMainEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        RScriptMainEditor.setCodeFoldingEnabled(true);
+
+        RTextScrollPane RScriptMainEditorScrollPane = new RTextScrollPane(RScriptMainEditor);
+        RScriptMainEditorScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        RScriptMainEditorScrollPane.setPreferredSize(new Dimension(0,0));
+        RScriptMainEditorScrollPane.setName("RScriptMainEditorScrollPane");
+        RScriptMainEditorScrollPane.setBorder(null);
+
+        return RScriptMainEditorScrollPane;
+    }
+
+    public JComponent RScriptMainBorderPanel(){
+        JComponent RScriptMainBorderPanel = new JPanel();
+        RScriptMainBorderPanel.setName("RScriptMainBorderPanel");
+
+        return RScriptMainBorderPanel;
+    }
+
 
 }

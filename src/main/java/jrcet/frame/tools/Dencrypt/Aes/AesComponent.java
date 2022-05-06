@@ -22,12 +22,13 @@ public class AesComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
     public static JComponent AesComponentPanel = null;
+
     public AesComponent(){
         MainPanelHashMap.put("1", AesMainPanel());
-
     }
 
     public JComponent main(){
+
         AesComponentPanel = new JPanel(new GridBagLayout());
         AesComponentPanel.setName("AesComponentPanel");
         AesComponentPanel.setBackground(Color.WHITE);

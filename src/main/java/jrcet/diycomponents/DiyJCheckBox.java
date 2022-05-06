@@ -1,33 +1,36 @@
 package jrcet.diycomponents;
 
-import burp.IExtensionHelpers;
-import burp.IHttpRequestResponse;
+import burp.lib.Helper;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.tools.RScript.RScript;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-import static jrcet.frame.tools.RScript.RScriptComponent.RScriptMainEditor;
 import static jrcet.frame.tools.RScript.RScriptComponent.RScriptComponentPanel;
-import static jrcet.frame.tools.ToolsComponent.ToolsMenuRScriptLabel;
 
-public class DiyJCheckBox extends JCheckBox {
+public class DiyJCheckBox extends JCheckBox implements ChangeListener {
 
     public DiyJCheckBox(String name){
         super(name);
-        addChangeListener(e -> {
-            DiyJCheckBox targetCheckBox = (DiyJCheckBox) e.getSource();
-            IHttpRequestResponse[] messages = (IHttpRequestResponse[]) ToolsMenuRScriptLabel.getMapStream("IHttpRequestResponse");
-            IExtensionHelpers helpers = (IExtensionHelpers) ToolsMenuRScriptLabel.getMapStream("IExtensionHelpers");
 
-            if(targetCheckBox.isSelected() && messages!=null && helpers!=null){
-                RScriptMainEditor.setText(new RScript().initSessionScript(messages,helpers));
-            }else if(!targetCheckBox.isSelected() && messages!=null && helpers!=null){
-                RScriptMainEditor.setText(new RScript().initScript(messages,helpers));
+        addChangeListener(this);
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+
+            DiyJCheckBox eCheckBox = (DiyJCheckBox) e.getSource();
+
+            RTextArea tTextArea = (RTextArea) Helper.getComponent(RScriptComponentPanel,"RScriptMainEditor");
+            assert tTextArea != null;
+            if(eCheckBox.isSelected() && RScript.messages!=null && RScript.helpers!=null){
+                tTextArea.setText(new RScript().initSessionScript(RScript.messages, RScript.helpers));
+            }else if(!eCheckBox.isSelected() && RScript.messages!=null && RScript.helpers!=null){
+                tTextArea.setText(new RScript().initScript(RScript.messages, RScript.helpers));
             }else{
-                targetCheckBox.setSelected(false);
+                eCheckBox.setSelected(false);
             }
-            RScriptComponentPanel.validate();
-            RScriptComponentPanel.repaint();
-        });
     }
 }

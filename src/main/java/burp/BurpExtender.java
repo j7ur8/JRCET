@@ -1,6 +1,8 @@
 package burp;
 
 
+import burp.lib.Helper;
+import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.Jrcet;
 import jrcet.frame.tools.Dencrypt.Dencrypt;
 import jrcet.frame.tools.JSEncrypt.JSEncrypt;
@@ -12,9 +14,7 @@ import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
-import static jrcet.frame.tools.RScript.RScriptComponent.RScriptMainEditor;
 import static jrcet.frame.tools.RScript.RScriptComponent.RScriptComponentPanel;
-import static jrcet.frame.tools.ToolsComponent.ToolsMenuRScriptLabel;
 
 public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, IIntruderPayloadProcessor{
     public static IBurpExtenderCallbacks callbacks;
@@ -40,11 +40,13 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
 
     @Override
     public Component getUiComponent() {
+
         return t;
     }
 
     @Override
     public String getTabCaption() {
+
         return "JRCET";
     }
 
@@ -52,14 +54,13 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public List<JMenuItem> createMenuItems(IContextMenuInvocation iContextMenuInvocation) {
 
         IHttpRequestResponse[] messages = iContextMenuInvocation.getSelectedMessages();
+
         JMenuItem RScriptItem = new JMenuItem("RScript");
 
         RScriptItem.addActionListener(e -> {
-            ToolsMenuRScriptLabel.setMapStream("IHttpRequestResponse",messages);
-            ToolsMenuRScriptLabel.setMapStream("IExtensionHelpers",helpers);
-            RScriptMainEditor.setText(new RScript().initScript((IHttpRequestResponse[]) ToolsMenuRScriptLabel.getMapStream("IHttpRequestResponse"),(IExtensionHelpers) ToolsMenuRScriptLabel.getMapStream("IExtensionHelpers")));
-            RScriptComponentPanel.validate();
-            RScriptComponentPanel.repaint();
+            RTextArea tTextArea = (RTextArea) Helper.getComponent(RScriptComponentPanel,"RScriptMainEditor");
+            assert tTextArea != null;
+            tTextArea.setText(new RScript().initScript(messages, helpers));
         });
 
         return Collections.singletonList(RScriptItem);
@@ -68,6 +69,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
 
     @Override
     public String getProcessorName() {
+
         return "JEncrypt";
     }
 

@@ -1,14 +1,10 @@
 package jrcet.frame.tools.HText.Alone;
 
 import burp.lib.Helper;
-import jrcet.Main;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.setting.Setting;
-import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
-import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +12,15 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static burp.BurpExtender.stdout;
 
 public class AloneComponent extends DiyJComponent {
 
+    public static JComponent AloneComponentPanel = null;
+
     @Override
     public JComponent main() {
-        JComponent AloneComponentPanel = new JPanel(new GridBagLayout());
+
+        AloneComponentPanel = new JPanel(new GridBagLayout());
         AloneComponentPanel.setName("AloneComponentPanel");
 
         AloneComponentPanel.add(AloneMainPanel(),new GridBagConstraints(
@@ -91,15 +89,13 @@ public class AloneComponent extends DiyJComponent {
         AloneMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AloneMainInputAreaScrollPane.setName("AloneMainInputAreaScrollPane");
         AloneMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        AloneMainInputAreaScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,1, Setting.class2DefaultDiyJTabBorderColor));
-
+        AloneMainInputAreaScrollPane.setBorder(null);
 
         return AloneMainInputAreaScrollPane;
     }
 
     public JComponent AloneMainBorderPanel(){
         JPanel AloneMainBorderPanel = new JPanel();
-        AloneMainBorderPanel.setBackground(Color.white);
         AloneMainBorderPanel.setName("AloneMainBorderPanel");
 
         return AloneMainBorderPanel;

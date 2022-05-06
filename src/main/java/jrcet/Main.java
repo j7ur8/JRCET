@@ -1,19 +1,14 @@
 package jrcet;
 
-import burp.lib.Helper;
 import jrcet.frame.Jrcet;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static burp.lib.Helper.getComponent;
-import static burp.lib.Helper.treeComponent;
-
-
 public class Main {
 
     public static ArrayList<String> JrcetComponentList =new ArrayList<>();
-    public static JComponent JrcetPanel=new Jrcet().main();
+    public static JComponent JrcetComponentPanel=Jrcet.JrcetComponentPanel;
 
     public static void main(String[] args) {
         
@@ -21,7 +16,7 @@ public class Main {
 
         //setContentPane需放在前面，不然需要更改界面尺寸才会显示。
 
-        JrcetFrame.setContentPane(JrcetPanel);
+        JrcetFrame.setContentPane(new Jrcet().main());
 
         JrcetFrame.setResizable(true);
         JrcetFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

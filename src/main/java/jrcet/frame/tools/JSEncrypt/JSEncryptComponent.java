@@ -24,10 +24,12 @@ public class JSEncryptComponent extends DiyJComponent {
     public static String JSEncryptPhantomjsLocation = "/Users/j7ur8/Documents/local/bin/phantomjs";
     public static String JSEncryptScriptLocation = "/Users/j7ur8/Documents/GitHub/jsEncrypter/script/jsEncrypter_base64.js";
 
+    public static JComponent JSEncryptComponentPanel = null;
+
     @Override
     public JComponent main() {
 
-        JComponent JSEncryptComponentPanel = new JPanel(new GridBagLayout());
+        JSEncryptComponentPanel = new JPanel(new GridBagLayout());
         JSEncryptComponentPanel.setName("JSEncryptComponentPanel");
         JSEncryptComponentPanel.setBackground(Color.WHITE);
 

@@ -1,7 +1,6 @@
 package jrcet.diycomponents;
 
 import burp.lib.Helper;
-import jrcet.Main;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
@@ -10,28 +9,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-import static jrcet.frame.tools.Dencrypt.Base.Base.b64encoder;
 
 public class DiyJLabel extends JLabel implements MouseListener{
 
     public DiyJLabel(String labelName){
-        setLabelProperty(labelName);
-        addMouseListener(this);
-    }
-
-    private void setLabelProperty(String labelName){
         setOpaque(true);
         setText(labelName);
         setBackground(Color.WHITE);
         setHorizontalAlignment(JLabel.CENTER);
         setFont(new Font("微软雅黑", Font.PLAIN,14));
         setPreferredSize(new Dimension(80,27));
+        addMouseListener(this);
     }
-
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -40,8 +31,8 @@ public class DiyJLabel extends JLabel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        DiyJLabel eLabel = (DiyJLabel) e.getSource();
 
+        DiyJLabel eLabel = (DiyJLabel) e.getSource();
         switch (eLabel.getName()){
             case "AesMainControlEncryptLabel":
             case "AesMainControlDecryptLabel":
@@ -62,7 +53,8 @@ public class DiyJLabel extends JLabel implements MouseListener{
         JTextField IvField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlIvField");
         DiyJComboBox<String> KeyTypeBox = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlKeyBox");
         DiyJComboBox<String> IvTypeBox  = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlIvBox");
-
+        assert PlaintextArea != null;
+        assert CiphertextArea != null;
         try{
             if(Objects.equals(type, "Encrypt")){
                 CiphertextArea.setText(Aes.Encrypt(PlaintextArea.getText(),ModeList.getSelectedValue(),KeyField.getText(), (String) KeyTypeBox.getSelectedItem(),IvField.getText(), (String) IvTypeBox.getSelectedItem()));
@@ -79,10 +71,13 @@ public class DiyJLabel extends JLabel implements MouseListener{
         RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainCiphertextArea");
         RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPublicArea");
         RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPrivateArea");
+        assert PlaintextArea != null;
+        assert CiphertextArea != null;
         try{
             if(Objects.equals(type,"Encrypt")){
                 CiphertextArea.setText(Rsa.Encrypt(PlaintextArea.getText(), Rsa.getPublicKey(PublicArea.getText())));
             }else{
+
                 PlaintextArea.setText(Rsa.Decrypt(CiphertextArea.getText(), Rsa.getPrivateKey(PrivateArea.getText())));
             }
         }catch (Exception e){

@@ -9,11 +9,12 @@ import java.awt.*;
 public class SoLibraryComponent extends DiyJComponent {
 
     public static String databasePath="/Users/j7ur8/Documents/DocumentArchive/SoLibra.db";
+    public static JPanel SoLibraryComponentPanel = null;
 
     @Override
     public JComponent main() {
 
-        JPanel SoLibraryComponentPanel = new JPanel(new GridBagLayout());
+        SoLibraryComponentPanel = new JPanel(new GridBagLayout());
         SoLibraryComponentPanel.setName("SoLibraryComponentPanel");
         SoLibraryComponentPanel.setOpaque(false);
         SoLibraryComponentPanel.setBackground(Color.YELLOW);
@@ -43,7 +44,7 @@ public class SoLibraryComponent extends DiyJComponent {
         return SoLibraryComponentPanel;
     }
 
-    private static JComponent SoLibraryMenuTabPanel(){
+    private JComponent SoLibraryMenuTabPanel(){
 
         JPanel SoLibraryMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,5));
         SoLibraryMenuTabPanel.setName("SoLibraryMenuTabPanel");
@@ -91,7 +92,7 @@ public class SoLibraryComponent extends DiyJComponent {
         return SoLibraryMenuTabPanel;
     }
 
-    private static JComponent SoLibraryResultScrollPanel(){
+    private JComponent SoLibraryResultScrollPanel(){
 
         JPanel SoLibraryResultPanel=new JPanel(new GridBagLayout());
         SoLibraryResultPanel.setName("SoLibraryResultPanel");

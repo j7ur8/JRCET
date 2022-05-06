@@ -18,11 +18,13 @@ public class RsaComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
     public static JComponent RsaComponentPanel = null;
+
     public RsaComponent(){
         MainPanelHashMap.put("1", RsaMainPanel());
     }
 
     public JComponent main(){
+
         RsaComponentPanel = new JPanel(new GridBagLayout());
         RsaComponentPanel.setName("RsaComponentPanel");
         RsaComponentPanel.setBackground(Color.WHITE);

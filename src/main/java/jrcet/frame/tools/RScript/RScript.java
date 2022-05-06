@@ -13,8 +13,8 @@ public class RScript {
     private final static String[] PYTHON_ESCAPE = new String[256];
     private final static String SESSION_VAR = "session";
     private enum BodyType {JSON, DATA}
-    private IExtensionHelpers helpers;
-    private IHttpRequestResponse[] messages;
+    public static IExtensionHelpers helpers;
+    public static IHttpRequestResponse[] messages;
 
     static {
         for (int i = 0x00; i <= 0xFF; i++) PYTHON_ESCAPE[i] = String.format("\\x%02x", i);
@@ -28,14 +28,14 @@ public class RScript {
 
 
     public String initScript(IHttpRequestResponse[] messages, IExtensionHelpers helpers){
-        this.helpers=helpers;
-        this.messages = messages;
+        RScript.helpers =helpers;
+        RScript.messages = messages;
         return String.valueOf(reqPacket(false));
     }
 
     public String initSessionScript(IHttpRequestResponse[] messages, IExtensionHelpers helpers){
-        this.helpers=helpers;
-        this.messages = messages;
+        RScript.helpers =helpers;
+        RScript.messages = messages;
         return String.valueOf(reqPacket(true));
     }
 

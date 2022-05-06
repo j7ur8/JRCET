@@ -13,8 +13,6 @@ import java.util.Set;
 public class DiyJTabLabel extends DiyJLabel implements MouseListener {
 
     private JComponent mapPanel=null;
-    private final Map<String,Object> mapStream = new HashMap<>();
-
 
     public DiyJTabLabel(String labelName){
         super(labelName);
@@ -29,22 +27,16 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
             setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0, Setting.class2ClickedDiyJTabBorderColor)));
         }
     }
-
     public void setPanel(JComponent targetPanel){
+
         mapPanel=targetPanel;
     }
 
     public JComponent getPanel(){
+
         return mapPanel==null?new JPanel():mapPanel;
     }
 
-    public void setMapStream(String k,Object v){
-        mapStream.put(k,v);
-    }
-
-    public Object getMapStream(String k){
-        return mapStream.get(k);
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {

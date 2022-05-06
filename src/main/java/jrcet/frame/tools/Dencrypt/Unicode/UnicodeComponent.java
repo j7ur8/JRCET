@@ -1,7 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Unicode;
 
 import burp.lib.Helper;
-import jrcet.Main;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -21,6 +20,7 @@ import static burp.BurpExtender.stdout;
 public class UnicodeComponent extends DiyJComponent {
 
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
+
     public static JComponent UnicodeComponentPanel = null;
 
     public UnicodeComponent(){
@@ -28,24 +28,16 @@ public class UnicodeComponent extends DiyJComponent {
     }
 
     public JComponent main(){
+
         UnicodeComponentPanel = new JPanel(new GridBagLayout());
         UnicodeComponentPanel.setName("UnicodeComponentPanel");
         UnicodeComponentPanel.setBackground(Color.WHITE);
 
-        UnicodeComponentPanel.add(UnicodeTagBlackPanel(), new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
 
         UnicodeComponentPanel.add(UnicodeTagTabPanel(),new GridBagConstraints(
-                1,0,
-                1,1,
                 0,0,
+                1,1,
+                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -54,7 +46,7 @@ public class UnicodeComponent extends DiyJComponent {
 
         UnicodeComponentPanel.add(getUnicodeMainPanel("1"),new GridBagConstraints(
                 0,1,
-                2,1,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -65,13 +57,6 @@ public class UnicodeComponent extends DiyJComponent {
         return UnicodeComponentPanel;
     }
 
-    public JComponent UnicodeTagBlackPanel(){
-        JComponent UnicodeTagBlackPanel = new JPanel();
-        UnicodeTagBlackPanel.setName("UnicodeTagBlackPanel");
-        UnicodeTagBlackPanel.setOpaque(false);
-        UnicodeTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.class4DefaultDiyJTabBorderColor));
-        return UnicodeTagBlackPanel;
-    }
 
     public JComponent UnicodeTagTabPanel(){
         JPanel UnicodeTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
@@ -96,10 +81,20 @@ public class UnicodeComponent extends DiyJComponent {
         UnicodeMainPanel.setName("UnicodeMainPanel");
         UnicodeMainPanel.setPreferredSize(new Dimension(0,0));
 
-        UnicodeMainPanel.add(UnicodeMainInputScrollPane(), new GridBagConstraints(
+        UnicodeMainPanel.add(UnicodeMainBorderPanel(),new GridBagConstraints(
                 0,0,
+                1,2,
+                0.2,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        UnicodeMainPanel.add(UnicodeMainInputScrollPane(), new GridBagConstraints(
+                1,0,
                 1,1,
-                1,1,
+                0.6,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -107,9 +102,19 @@ public class UnicodeComponent extends DiyJComponent {
         ));
 
         UnicodeMainPanel.add(UnicodeMainOutputScrollPane(), new GridBagConstraints(
-                0,1,
                 1,1,
                 1,1,
+                0.6,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        UnicodeMainPanel.add(UnicodeMainBorderPanel(),new GridBagConstraints(
+                2,0,
+                1,2,
+                0.2,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -117,6 +122,13 @@ public class UnicodeComponent extends DiyJComponent {
         ));
 
         return UnicodeMainPanel;
+    }
+
+    public JComponent UnicodeMainBorderPanel(){
+        JComponent UnicodeMainBorderPanel = new JPanel();
+        UnicodeMainBorderPanel.setName("UnicodeMainBorderPanel");
+
+        return  UnicodeMainBorderPanel;
     }
 
     public JComponent UnicodeMainInputScrollPane(){
@@ -141,12 +153,14 @@ public class UnicodeComponent extends DiyJComponent {
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
         RSyntaxTextArea UnicodeMainPlaintextArea = new RSyntaxTextArea();
         UnicodeMainPlaintextArea.setName("UnicodeMainPlaintextArea");
+        UnicodeMainPlaintextArea.setLineWrap(true);
         UnicodeMainPlaintextArea.setCodeFoldingEnabled(true);
         UnicodeMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         UnicodeMainPlaintextArea.addKeyListener(new UnicodeMainKeyListener());
 
         RTextScrollPane UnicodeMainPlaintextScrollPane = new RTextScrollPane(UnicodeMainPlaintextArea);
         UnicodeMainPlaintextScrollPane.setName("UnicodeMainPlaintextScrollPane");
+        UnicodeMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         UnicodeMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
         UnicodeMainPlaintextScrollPane.setBorder(null);
 

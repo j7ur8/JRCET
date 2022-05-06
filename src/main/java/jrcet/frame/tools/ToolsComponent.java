@@ -22,14 +22,12 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
     private final JComponent IntruderComponentPanel = IntruderComponentPanel();
     private final JComponent HTextComponentPanel = HTextComponentPanel();
-    /*
-        toolsMenuPanel和toolsMenuBorderPanel会先被调用。
-        必须其调用的Rscript、..、Dencrypt的后面。
-     */
+
+    public static JComponent ToolsComponentPanel = null;
 
     @Override
     public JComponent main(){
-        JPanel ToolsComponentPanel = new JPanel(new GridBagLayout());
+        ToolsComponentPanel = new JPanel(new GridBagLayout());
         ToolsComponentPanel.setName("ToolsComponentPanel");
         ToolsComponentPanel.setOpaque(true);
         ToolsComponentPanel.setBackground(Color.WHITE);
@@ -67,14 +65,6 @@ public class ToolsComponent extends DiyJComponent {
         return ToolsComponentPanel;
     }
 
-    /*
-        RScript需要接受burp传入的ihttp数据，需要设置为全局变量。
-
-        return toolsMenuPanel
-    */
-
-    public static DiyJTabLabel ToolsMenuRScriptLabel ;
-
     private JComponent ToolsMenuTabPanel(){
         JPanel ToolsMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
         ToolsMenuTabPanel.setName("ToolsMenuTabPanel");
@@ -91,7 +81,7 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuDencryptLabel.setPanel(DencryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);
 
-        ToolsMenuRScriptLabel = new DiyJTabLabel("RScript");
+        DiyJTabLabel ToolsMenuRScriptLabel = new DiyJTabLabel("RScript");
         ToolsMenuRScriptLabel.setName("ToolsMenuRScriptLabel");
         ToolsMenuRScriptLabel.setPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);

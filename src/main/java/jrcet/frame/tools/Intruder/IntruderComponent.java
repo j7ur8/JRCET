@@ -9,9 +9,12 @@ import java.awt.*;
 
 public class IntruderComponent extends DiyJComponent {
 
+    public static JComponent IntruderComponentPanel = null;
+
     @Override
     public JComponent main() {
-        JComponent IntruderComponentPanel = new JPanel(new GridBagLayout());
+
+        IntruderComponentPanel = new JPanel(new GridBagLayout());
         IntruderComponentPanel.setName("IntruderComponentPanel");
         IntruderComponentPanel.setBackground(Color.WHITE);
 

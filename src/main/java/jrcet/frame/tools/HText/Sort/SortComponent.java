@@ -16,9 +16,12 @@ import java.awt.event.KeyListener;
 
 public class SortComponent extends DiyJComponent {
 
+    public static JComponent SortComponentPanel = null;
+
     @Override
     public JComponent main() {
-        JComponent SortComponentPanel = new JPanel(new GridBagLayout());
+
+        SortComponentPanel = new JPanel(new GridBagLayout());
         SortComponentPanel.setBackground(Color.WHITE);
         SortComponentPanel.setName("SortComponentPanel");
 
@@ -87,13 +90,12 @@ public class SortComponent extends DiyJComponent {
         SortMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         SortMainInputAreaScrollPane.setName("SortMainInputAreaScrollPane");
         SortMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        SortMainInputAreaScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
+        SortMainInputAreaScrollPane.setBorder(null);
 
         return  SortMainInputAreaScrollPane;
     }
     public JComponent SortMainBorderPanel(){
         JPanel SortMainBorderPanel = new JPanel();
-        SortMainBorderPanel.setBackground(Color.white);
         SortMainBorderPanel.setName("SortMainBorderPanel");
 
         return SortMainBorderPanel;

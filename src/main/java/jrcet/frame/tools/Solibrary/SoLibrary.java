@@ -12,6 +12,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static jrcet.frame.tools.Solibrary.SoLibraryComponent.SoLibraryComponentPanel;
+
 public class SoLibrary {
 
     static {
@@ -22,9 +24,10 @@ public class SoLibrary {
             for (StackTraceElement stackTraceElement : a) {
                 BurpExtender.stdout.println(
                         stackTraceElement.getClassName()+" "+
-                                stackTraceElement.getFileName()+" "+
-                                stackTraceElement.getLineNumber()+" "+
-                                stackTraceElement.getMethodName());
+                        stackTraceElement.getFileName()+" "+
+                        stackTraceElement.getLineNumber()+" "+
+                        stackTraceElement.getMethodName()
+                );
             }
         }
     }
@@ -120,7 +123,8 @@ public class SoLibrary {
     }
 
     private static void addJTable(JTable targetJTable){
-        JComponent ePanel = Helper.getComponent(Main.JrcetPanel,"SoLibraryResultPanel");
+        JComponent ePanel = Helper.getComponent(SoLibraryComponentPanel,"SoLibraryResultPanel");
+        assert ePanel != null;
         int elementCount = ePanel.getComponentCount();
 
         JScrollPane tmpScrollPane=new JScrollPane(targetJTable);

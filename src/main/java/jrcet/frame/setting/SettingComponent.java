@@ -7,11 +7,12 @@ import java.awt.*;
 
 public class SettingComponent extends DiyJComponent {
 
+    public static JComponent SettingComponentPanel = null;
     public SettingComponent(){}
 
     public JComponent main() {
 
-        JPanel SettingComponentPanel = new JPanel(null);
+        SettingComponentPanel = new JPanel(null);
         SettingComponentPanel.setOpaque(false);
         SettingComponentPanel.setName("SettingComponentPanel");
         SettingComponentPanel.setBackground(Color.ORANGE);
