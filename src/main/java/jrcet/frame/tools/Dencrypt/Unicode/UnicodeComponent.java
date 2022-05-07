@@ -19,6 +19,7 @@ import static burp.BurpExtender.stdout;
 
 public class UnicodeComponent extends DiyJComponent {
 
+    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
 
     public static JComponent UnicodeComponentPanel = null;
@@ -44,7 +45,7 @@ public class UnicodeComponent extends DiyJComponent {
                 0,0
         ));
 
-        UnicodeComponentPanel.add(getUnicodeMainPanel("1"),new GridBagConstraints(
+        Helper.setConstraints(ComponentConstraintHashMap,UnicodeComponentPanel,getUnicodeMainPanel("1"),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,

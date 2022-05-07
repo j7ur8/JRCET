@@ -1,7 +1,6 @@
 package jrcet.diycomponents;
 
 import burp.lib.Helper;
-import jrcet.Main;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
@@ -17,10 +16,6 @@ import java.util.Objects;
 
 import static jrcet.frame.setting.Setting.class2ClickedDiyJTabBorderColor;
 import static jrcet.frame.setting.Setting.class2DefaultDiyJTabBorderColor;
-import static jrcet.frame.tools.Dencrypt.Aes.AesComponent.AesComponentPanel;
-import static jrcet.frame.tools.Dencrypt.Base.BaseComponent.BaseComponentPanel;
-import static jrcet.frame.tools.Dencrypt.Rsa.RsaComponent.RsaComponentPanel;
-import static jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent.UnicodeComponentPanel;
 
 public class DiyJAddLabel extends JLabel implements MouseListener {
 
@@ -75,62 +70,17 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         String[] eNameArray = eLabel.getName().split("(?=[A-Z])");
         String eName = eNameArray[eNameArray.length-2];
         String eIndex = eName.substring(eName.length()-1);
+
         if(Objects.equals(eName, "Add")){
             JPanel eTagTabPanel = (JPanel) eLabel.getParent();
-            DiyJAddLabel newStickerLabel = getNewStickerLabel(eTagTabPanel);
-            eTagTabPanel.add(newStickerLabel,eTagTabPanel.getComponents().length-1);
-            eTagTabPanel.updateUI();
-            newStickerLabel.mousePressed(new MouseEvent(newStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
+            DiyJAddLabel nStickerLabel = setNewStickerLabel(eTagTabPanel);
+            nStickerLabel.mousePressed(new MouseEvent(nStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
         }else{
-            eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
 
-            switch (eNameArray[0]){
-                case "Base":
-                    changeMainPanelBySticker(eNameArray[0], eIndex, new GridBagConstraints(
-                            0,1,
-                            2,1,
-                            1,1,
-                            GridBagConstraints.CENTER,
-                            GridBagConstraints.BOTH,
-                            new Insets(0,0,0,0),
-                            0,0
-                    ));
-                    break;
-                case "Unicode":
-                    changeMainPanelBySticker(eNameArray[0], eIndex, new GridBagConstraints(
-                            0,1,
-                            2,1,
-                            1,1,
-                            GridBagConstraints.CENTER,
-                            GridBagConstraints.BOTH,
-                            new Insets(5,5,5,5),
-                            0,0
-                    ));
-                    break;
-                case "Aes":
-                    changeMainPanelBySticker(eNameArray[0], eIndex, new GridBagConstraints(
-                            0,1,
-                            2,1,
-                            1,1,
-                            GridBagConstraints.CENTER,
-                            GridBagConstraints.BOTH,
-                            new Insets(5,5,5,5),
-                            0,0
-                    ));
-                    break;
-                case "Rsa":
-                    changeMainPanelBySticker(eNameArray[0], eIndex, new GridBagConstraints(
-                            0,1,
-                            2,1,
-                            1,0.7,
-                            GridBagConstraints.CENTER,
-                            GridBagConstraints.BOTH,
-                            new Insets(5,5,5,5),
-                            0,0
-                    ));
-                    break;
-            }
+            eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
+            changeMainPanelBySticker(eNameArray[0], eIndex);
         }
+
     }
 
     @Override
@@ -145,20 +95,20 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    public GridBagConstraints getCompConstraints(){
-        return new GridBagLayout().getConstraints(UnicodeComponentPanel);
-    }
+    public void changeMainPanelBySticker(String type, String eIndex){
 
-    public void changeMainPanelBySticker(String type, String eIndex, GridBagConstraints gbc){
         JComponent tPanel = null;
         HashMap<String,JComponent> tCMap = null;
         HashMap<String,GridBagConstraints> tGMap = null;
+
         switch (type){
             case "Base":
+                tGMap = BaseComponent.ComponentConstraintHashMap;
                 tPanel = BaseComponent.BaseComponentPanel;
                 tCMap = BaseComponent.MainPanelHashMap;
                 break;
             case "Aes":
+                tGMap = AesComponent.ComponentConstraintHashMap;
                 tPanel = AesComponent.AesComponentPanel;
                 tCMap = AesComponent.MainPanelHashMap;
                 break;
@@ -168,10 +118,12 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tCMap = RsaComponent.MainPanelHashMap;
                 break;
             case "Unicode":
+                tGMap = UnicodeComponent.ComponentConstraintHashMap;
                 tPanel = UnicodeComponent.UnicodeComponentPanel;
                 tCMap = UnicodeComponent.MainPanelHashMap;
                 break;
             case "Ascii":
+                tGMap = AsciiComponent.ComponentConstraintHashMap;
                 tPanel = AsciiComponent.AsciiComponentPanel;
                 tCMap = AsciiComponent.MainPanelHashMap;
                 break;
@@ -179,13 +131,18 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         assert tPanel != null;
         assert tGMap != null;
         assert tCMap != null;
-        GridBagConstraints tGridBagConstraints = tGMap.get(type+"MainPanel");
-        tPanel.remove(tPanel.getComponents().length-1);
-        tPanel.add(tCMap.get(eIndex),tGridBagConstraints);
+
+        String eComponentName = type+"MainPanel";
+        GridBagConstraints tGridBagConstraints = tGMap.get(eComponentName);
+        int tPos = Helper.getComponentPos(tPanel,eComponentName);
+        assert tPos != -1;
+
+        tPanel.remove(tPos);
+        tPanel.add(tCMap.get(eIndex), tGridBagConstraints);
         tPanel.updateUI();
     }
 
-    public DiyJAddLabel getNewStickerLabel(JPanel eTagTabPanel){
+    public DiyJAddLabel setNewStickerLabel(JPanel eTagTabPanel){
 
         JComponent nPanel = null;
         String nName = String.valueOf(eTagTabPanel.getComponents().length);
@@ -211,6 +168,9 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         DiyJAddLabel nStickerLabel = new DiyJAddLabel(nName);
         nStickerLabel.setName(nComponentName);
         nStickerLabel.setPanel(nPanel);
+
+        eTagTabPanel.add(nStickerLabel,eTagTabPanel.getComponents().length-1);
+        eTagTabPanel.updateUI();
 
         return nStickerLabel;
     }

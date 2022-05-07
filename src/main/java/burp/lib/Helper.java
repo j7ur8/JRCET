@@ -21,6 +21,17 @@ public class Helper {
      */
     private static int deep = 1;
 
+    public static int getComponentPos(JComponent rootComponent, String tComponentName){
+
+        Component[] components = rootComponent.getComponents();
+        for(int i = 0; i<components.length; i++){
+            if(Objects.equals(components[i].getName(), tComponentName)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //寻找指定名字的组件，并返回该组件的Panel
     public static JComponent getComponent(JComponent rootComponent, String tComponentName){
 
@@ -250,6 +261,9 @@ public class Helper {
         return file.isFile();
     }
 
-
+    public static void setConstraints(HashMap<String,GridBagConstraints> tHasMap, JComponent pComponent, JComponent tComponent, GridBagConstraints tGBC){
+        tHasMap.put(tComponent.getName(), tGBC);
+        pComponent.add(tComponent, tGBC);
+    }
 
 }

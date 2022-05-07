@@ -1,5 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Rsa;
 
+import burp.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
@@ -52,7 +53,7 @@ public class RsaComponent extends DiyJComponent {
                 0,0
         ));
 
-        setConstraints(RsaComponentPanel, getRsaMainPanel("1"), new GridBagConstraints(
+        Helper.setConstraints(ComponentConstraintHashMap, RsaComponentPanel, getRsaMainPanel("1"), new GridBagConstraints(
                 0,1,
                 2,1,
                 1,0.7,
@@ -61,15 +62,6 @@ public class RsaComponent extends DiyJComponent {
                 new Insets(5,5,5,5),
                 0,0
         ));
-//        RsaComponentPanel.add(getRsaMainPanel("1"),new GridBagConstraints(
-//                0,1,
-//                2,1,
-//                1,0.7,
-//                GridBagConstraints.CENTER,
-//                GridBagConstraints.BOTH,
-//                new Insets(5,5,5,5),
-//                0,0
-//        ));
 
         return RsaComponentPanel;
     }
@@ -313,11 +305,6 @@ public class RsaComponent extends DiyJComponent {
 
     public JComponent getRsaMainPanel(String TagName){
         return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):RsaBlackPanel()):RsaBlackPanel();
-    }
-
-    public void setConstraints(JComponent pComponent, JComponent tComponent, GridBagConstraints tGBC){
-        ComponentConstraintHashMap.put(tComponent.getName(),tGBC);
-        pComponent.add(tComponent, tGBC);
     }
 
 }

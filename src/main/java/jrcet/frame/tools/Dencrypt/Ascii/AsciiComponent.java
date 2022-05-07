@@ -1,5 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Ascii;
 
+import burp.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 public class AsciiComponent extends DiyJComponent {
 
+    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
 
     public static JComponent AsciiComponentPanel = null;
@@ -49,7 +51,7 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiComponentPanel.add(getAsciiMainPanel("1"),new GridBagConstraints(
+        Helper.setConstraints(ComponentConstraintHashMap, AsciiComponentPanel, getAsciiMainPanel("1"),new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,

@@ -1,5 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
+import burp.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.setting.Setting;
@@ -11,6 +12,7 @@ import java.util.*;
 
 public class BaseComponent extends DiyJComponent {
 
+    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
     public static JPanel BaseComponentPanel = null;
 
@@ -44,7 +46,7 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
-        BaseComponentPanel.add(MainPanelHashMap.get("1"),new GridBagConstraints(
+        Helper.setConstraints(ComponentConstraintHashMap, BaseComponentPanel, MainPanelHashMap.get("1"),new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,

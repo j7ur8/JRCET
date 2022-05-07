@@ -1,5 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
+import burp.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJComponent;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 
 public class AesComponent extends DiyJComponent {
 
+    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
     public static JComponent AesComponentPanel = null;
 
@@ -54,7 +56,7 @@ public class AesComponent extends DiyJComponent {
                 0,0
         ));
 
-        AesComponentPanel.add(getAesMainPanel("1"),new GridBagConstraints(
+        Helper.setConstraints(ComponentConstraintHashMap,AesComponentPanel,getAesMainPanel("1"),new GridBagConstraints(
                 0,1,
                 2,1,
                 1,0.7,
