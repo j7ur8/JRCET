@@ -9,20 +9,10 @@ import java.util.HashMap;
 public class DiyJComponent extends JComponent{
 
 
-    public HashMap<String,JComponent> MainPanelHashMap;
-
-    public DiyJComponent() {
-    }
-
-//    protected DiyJComponent(String componentName,)
-
     public JComponent main(){
+
         return null;
     };
 
-
-    public JComponent main(String panelName){
-        return null;
-    }
 
 }

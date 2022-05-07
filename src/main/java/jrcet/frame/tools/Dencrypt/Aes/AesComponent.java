@@ -25,9 +25,6 @@ public class AesComponent extends DiyJComponent {
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
     public static JComponent AesComponentPanel = null;
 
-    public AesComponent(){
-        MainPanelHashMap.put("1", AesMainPanel());
-    }
 
     public JComponent main(){
 
@@ -56,6 +53,7 @@ public class AesComponent extends DiyJComponent {
                 0,0
         ));
 
+        MainPanelHashMap.put("1", AesMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap,AesComponentPanel,getAesMainPanel("1"),new GridBagConstraints(
                 0,1,
                 2,1,

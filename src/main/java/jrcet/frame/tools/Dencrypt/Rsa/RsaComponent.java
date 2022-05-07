@@ -22,10 +22,6 @@ public class RsaComponent extends DiyJComponent {
 
     public static JComponent RsaComponentPanel = null;
 
-    public RsaComponent(){
-        MainPanelHashMap.put("1", RsaMainPanel());
-    }
-
     public JComponent main(){
 
         RsaComponentPanel = new JPanel(new GridBagLayout());
@@ -53,6 +49,7 @@ public class RsaComponent extends DiyJComponent {
                 0,0
         ));
 
+        MainPanelHashMap.put("1", RsaMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap, RsaComponentPanel, getRsaMainPanel("1"), new GridBagConstraints(
                 0,1,
                 2,1,

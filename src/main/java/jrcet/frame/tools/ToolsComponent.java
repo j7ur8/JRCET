@@ -66,6 +66,7 @@ public class ToolsComponent extends DiyJComponent {
     }
 
     private JComponent ToolsMenuTabPanel(){
+
         JPanel ToolsMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
         ToolsMenuTabPanel.setName("ToolsMenuTabPanel");
         ToolsMenuTabPanel.setOpaque(false);

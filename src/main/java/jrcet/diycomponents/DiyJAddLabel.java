@@ -163,6 +163,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Rsa":
                 nPanel = new RsaComponent().RsaMainPanel();
                 RsaComponent.MainPanelHashMap.put(nName, nPanel);
+            case "Ascii":
+                nPanel = new AsciiComponent().AsciiMainPanel();
+                AsciiComponent.MainPanelHashMap.put(nName, nPanel);
+                break;
         }
 
         DiyJAddLabel nStickerLabel = new DiyJAddLabel(nName);

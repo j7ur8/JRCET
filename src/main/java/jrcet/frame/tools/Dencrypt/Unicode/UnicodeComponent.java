@@ -24,10 +24,6 @@ public class UnicodeComponent extends DiyJComponent {
 
     public static JComponent UnicodeComponentPanel = null;
 
-    public UnicodeComponent(){
-        MainPanelHashMap.put("1", UnicodeMainPanel());
-    }
-
     public JComponent main(){
 
         UnicodeComponentPanel = new JPanel(new GridBagLayout());
@@ -45,6 +41,7 @@ public class UnicodeComponent extends DiyJComponent {
                 0,0
         ));
 
+        MainPanelHashMap.put("1", UnicodeMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap,UnicodeComponentPanel,getUnicodeMainPanel("1"),new GridBagConstraints(
                 0,1,
                 1,1,

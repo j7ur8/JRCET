@@ -6,10 +6,11 @@ import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.setting.Setting;
+import jrcet.frame.tools.HText.Sort.Sort;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -22,38 +23,26 @@ public class AsciiComponent extends DiyJComponent {
 
     public static JComponent AsciiComponentPanel = null;
 
-    public AsciiComponent(){
-        MainPanelHashMap.put("1", AsciiMainPanel());
-    }
-
     public JComponent main(){
+
         AsciiComponentPanel = new JPanel(new GridBagLayout());
         AsciiComponentPanel.setName("AsciiComponentPanel");
         AsciiComponentPanel.setBackground(Color.WHITE);
 
-        AsciiComponentPanel.add(AsciiTagBlackPanel(), new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
         AsciiComponentPanel.add(AsciiTagTabPanel(),new GridBagConstraints(
-                1,0,
-                1,1,
                 0,0,
+                1,1,
+                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
+        MainPanelHashMap.put("1", AsciiMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap, AsciiComponentPanel, getAsciiMainPanel("1"),new GridBagConstraints(
                 0,1,
-                2,1,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -64,17 +53,11 @@ public class AsciiComponent extends DiyJComponent {
         return AsciiComponentPanel;
     }
 
-    public JComponent AsciiTagBlackPanel(){
-        JComponent AsciiTagBlackPanel = new JPanel();
-        AsciiTagBlackPanel.setName("AsciiTagBlackPanel");
-        AsciiTagBlackPanel.setOpaque(false);
-        AsciiTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.class4DefaultDiyJTabBorderColor));
-        return AsciiTagBlackPanel;
-    }
-
     public JComponent AsciiTagTabPanel(){
+
         JPanel AsciiTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         AsciiTagTabPanel.setName("AsciiTagTabPanel");
+        AsciiTagTabPanel.setBackground(Color.BLUE);
         AsciiTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
 
         DiyJAddLabel AsciiTagTabSticker1Label = new DiyJAddLabel("1",true);
@@ -105,7 +88,7 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainPanel.add(AsciiMainInputScrollPane(), new GridBagConstraints(
+        AsciiMainPanel.add(AsciiMainStringScrollPane(), new GridBagConstraints(
                 1,0,
                 1,1,
                 0.6,0.5,
@@ -115,7 +98,7 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainPanel.add(AsciiMainOutputScrollPane(), new GridBagConstraints(
+        AsciiMainPanel.add(AsciiMainAsciiScrollPane(), new GridBagConstraints(
                 1,1,
                 1,1,
                 0.6,0.5,
@@ -145,44 +128,40 @@ public class AsciiComponent extends DiyJComponent {
         return  AsciiMainBorderPanel;
     }
 
-    public JComponent AsciiMainInputScrollPane(){
+    public JComponent AsciiMainStringScrollPane(){
 
-        RSyntaxTextArea AsciiMainCiphertextArea = new RSyntaxTextArea();
-        AsciiMainCiphertextArea.setName("AsciiMainCiphertextArea");
-        AsciiMainCiphertextArea.setCodeFoldingEnabled(true);
-        AsciiMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AsciiMainCiphertextArea.addKeyListener(new AsciiMainKeyListener());
+        RSyntaxTextArea AsciiMainStringArea = new RSyntaxTextArea();
+        AsciiMainStringArea.setName("AsciiMainStringArea");
+        AsciiMainStringArea.setCodeFoldingEnabled(true);
+        AsciiMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AsciiMainStringArea.addKeyListener(new AsciiMainKeyListener());
 
-        RTextScrollPane AsciiMainCiphertextScrollPane = new RTextScrollPane(AsciiMainCiphertextArea);
-        AsciiMainCiphertextScrollPane.setName("AsciiMainCiphertextScrollPane");
-        AsciiMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainCiphertextScrollPane.setBorder(null);
+        RTextScrollPane AsciiMainStringScrollPane = new RTextScrollPane(AsciiMainStringArea);
+        AsciiMainStringScrollPane.setName("AsciiMainStringScrollPane");
+        AsciiMainStringScrollPane.setPreferredSize(new Dimension(0,0));
+        AsciiMainStringScrollPane.setBorder(null);
 
-        return AsciiMainCiphertextScrollPane;
+        return AsciiMainStringScrollPane;
 
     }
 
-    public JComponent AsciiMainOutputScrollPane(){
+    public JComponent AsciiMainAsciiScrollPane(){
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea AsciiMainPlaintextArea = new RSyntaxTextArea();
-        AsciiMainPlaintextArea.setName("AsciiMainPlaintextArea");
-        AsciiMainPlaintextArea.setLineWrap(true);
-        AsciiMainPlaintextArea.setCodeFoldingEnabled(true);
-        AsciiMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AsciiMainPlaintextArea.addKeyListener(new AsciiMainKeyListener());
+        RSyntaxTextArea AsciiMainAsciiArea = new RSyntaxTextArea();
+        AsciiMainAsciiArea.setName("AsciiMainAsciiArea");
+        AsciiMainAsciiArea.setLineWrap(true);
+        AsciiMainAsciiArea.setCodeFoldingEnabled(true);
+        AsciiMainAsciiArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AsciiMainAsciiArea.addKeyListener(new AsciiMainKeyListener());
 
-        RTextScrollPane AsciiMainPlaintextScrollPane = new RTextScrollPane(AsciiMainPlaintextArea);
-        AsciiMainPlaintextScrollPane.setName("AsciiMainPlaintextScrollPane");
-        AsciiMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AsciiMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainPlaintextScrollPane.setBorder(null);
+        RTextScrollPane AsciiMainAsciiScrollPane = new RTextScrollPane(AsciiMainAsciiArea);
+        AsciiMainAsciiScrollPane.setName("AsciiMainAsciiScrollPane");
+        AsciiMainAsciiScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        AsciiMainAsciiScrollPane.setPreferredSize(new Dimension(0,0));
+        AsciiMainAsciiScrollPane.setBorder(null);
 
-        return AsciiMainPlaintextScrollPane;
-    }
-
-    public JComponent getAsciiMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):AsciiBlackPanel()):AsciiBlackPanel();
+        return AsciiMainAsciiScrollPane;
     }
 
     public JComponent AsciiBlackPanel(){
@@ -192,6 +171,10 @@ public class AsciiComponent extends DiyJComponent {
         AsciiBlackPanel.setBackground(Color.PINK);
 
         return AsciiBlackPanel;
+    }
+
+    public JComponent getAsciiMainPanel(String TagName){
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):AsciiBlackPanel()):AsciiBlackPanel();
     }
 
     static class AsciiMainKeyListener implements KeyListener {
@@ -206,7 +189,23 @@ public class AsciiComponent extends DiyJComponent {
 
         @Override
         public void keyReleased(KeyEvent e) {
+            if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
+                JTextArea eArea = (JTextArea) e.getSource();
+                RSyntaxTextArea outputArea = null;
+                if ("AsciiMainStringArea".equals(eArea.getName())) {
+                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AsciiMainAsciiArea");
+                    assert outputArea != null;
+                    outputArea.setText(Ascii.char2Ascii(eArea.getText(),""));
+                    outputArea.updateUI();
+                }
 
+                if ("AsciiMainAsciiArea".equals(eArea.getName())) {
+                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AsciiMainStringArea");
+                    assert outputArea != null;
+                    outputArea.setText(Ascii.ascii2Char(eArea.getText()," "));
+                    outputArea.updateUI();
+                }
+            }
         }
     }
 

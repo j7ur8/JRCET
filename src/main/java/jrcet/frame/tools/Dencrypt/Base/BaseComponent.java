@@ -16,10 +16,6 @@ public class BaseComponent extends DiyJComponent {
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
     public static JPanel BaseComponentPanel = null;
 
-    public BaseComponent(){
-        MainPanelHashMap.put("1", BaseMainPanel());
-    }
-
     public JComponent main(){
 
         BaseComponentPanel = new JPanel(new GridBagLayout());
@@ -46,6 +42,7 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
+        MainPanelHashMap.put("1", BaseMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap, BaseComponentPanel, MainPanelHashMap.get("1"),new GridBagConstraints(
                 0,1,
                 2,1,

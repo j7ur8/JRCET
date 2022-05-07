@@ -130,6 +130,10 @@ public class Helper {
         return c;
     }
 
+    public static String getContent(String text) {
+        return Helper.isFile(text)?Helper.readFile(text):text;
+    }
+
     //实现类似Tree命令效果的图形显示
     public static ArrayList<String> treeComponent(ArrayList<String> targetList){
 
