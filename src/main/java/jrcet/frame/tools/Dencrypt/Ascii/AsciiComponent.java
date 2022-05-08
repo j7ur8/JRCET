@@ -6,7 +6,7 @@ import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.tools.HText.Sort.Sort;
+import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
-
 
 public class AsciiComponent extends DiyJComponent {
 
@@ -57,7 +56,7 @@ public class AsciiComponent extends DiyJComponent {
 
         JPanel AsciiTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         AsciiTagTabPanel.setName("AsciiTagTabPanel");
-        AsciiTagTabPanel.setBackground(Color.BLUE);
+        AsciiTagTabPanel.setBackground(Color.WHITE);
         AsciiTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
 
         DiyJAddLabel AsciiTagTabSticker1Label = new DiyJAddLabel("1",true);
@@ -132,6 +131,7 @@ public class AsciiComponent extends DiyJComponent {
 
         RSyntaxTextArea AsciiMainStringArea = new RSyntaxTextArea();
         AsciiMainStringArea.setName("AsciiMainStringArea");
+        AsciiMainStringArea.setText("#单个字符直接得到结果，多个字符默认提取第一个字符作为Ascii结果的分割符。如` abc`的结果为`97 98 99`");
         AsciiMainStringArea.setCodeFoldingEnabled(true);
         AsciiMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         AsciiMainStringArea.addKeyListener(new AsciiMainKeyListener());
@@ -139,7 +139,7 @@ public class AsciiComponent extends DiyJComponent {
         RTextScrollPane AsciiMainStringScrollPane = new RTextScrollPane(AsciiMainStringArea);
         AsciiMainStringScrollPane.setName("AsciiMainStringScrollPane");
         AsciiMainStringScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainStringScrollPane.setBorder(null);
+        AsciiMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
 
         return AsciiMainStringScrollPane;
 
@@ -149,6 +149,7 @@ public class AsciiComponent extends DiyJComponent {
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
         RSyntaxTextArea AsciiMainAsciiArea = new RSyntaxTextArea();
+        AsciiMainAsciiArea.setText("#默认提取首次出现在相邻数字间的字符作为结果的分割符。如`103 103 103`,则结果为`g g g`");
         AsciiMainAsciiArea.setName("AsciiMainAsciiArea");
         AsciiMainAsciiArea.setLineWrap(true);
         AsciiMainAsciiArea.setCodeFoldingEnabled(true);
@@ -195,14 +196,14 @@ public class AsciiComponent extends DiyJComponent {
                 if ("AsciiMainStringArea".equals(eArea.getName())) {
                     outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AsciiMainAsciiArea");
                     assert outputArea != null;
-                    outputArea.setText(Ascii.char2Ascii(eArea.getText(),""));
+                    outputArea.setText(Ascii.char2Ascii(eArea.getText()));
                     outputArea.updateUI();
                 }
 
                 if ("AsciiMainAsciiArea".equals(eArea.getName())) {
                     outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AsciiMainStringArea");
                     assert outputArea != null;
-                    outputArea.setText(Ascii.ascii2Char(eArea.getText()," "));
+                    outputArea.setText(Ascii.ascii2Char(eArea.getText()));
                     outputArea.updateUI();
                 }
             }

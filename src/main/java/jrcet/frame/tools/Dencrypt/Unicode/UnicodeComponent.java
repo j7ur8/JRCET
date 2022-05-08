@@ -57,9 +57,10 @@ public class UnicodeComponent extends DiyJComponent {
 
 
     public JComponent UnicodeTagTabPanel(){
+
         JPanel UnicodeTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         UnicodeTagTabPanel.setName("UnicodeTagTabPanel");
-        UnicodeTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
+        UnicodeTagTabPanel.setBackground(Color.WHITE);
 
         DiyJAddLabel UnicodeTagTabSticker1Label = new DiyJAddLabel("1",true);
         UnicodeTagTabSticker1Label.setName("UnicodeTagTabSticker1Label");
@@ -89,7 +90,7 @@ public class UnicodeComponent extends DiyJComponent {
                 0,0
         ));
 
-        UnicodeMainPanel.add(UnicodeMainInputScrollPane(), new GridBagConstraints(
+        UnicodeMainPanel.add(UnicodeMainStringScrollPane(), new GridBagConstraints(
                 1,0,
                 1,1,
                 0.6,0.5,
@@ -99,7 +100,7 @@ public class UnicodeComponent extends DiyJComponent {
                 0,0
         ));
 
-        UnicodeMainPanel.add(UnicodeMainOutputScrollPane(), new GridBagConstraints(
+        UnicodeMainPanel.add(UnicodeMainUnicodeScrollPane(), new GridBagConstraints(
                 1,1,
                 1,1,
                 0.6,0.5,
@@ -129,40 +130,40 @@ public class UnicodeComponent extends DiyJComponent {
         return  UnicodeMainBorderPanel;
     }
 
-    public JComponent UnicodeMainInputScrollPane(){
+    public JComponent UnicodeMainStringScrollPane(){
 
-        RSyntaxTextArea UnicodeMainCiphertextArea = new RSyntaxTextArea();
-        UnicodeMainCiphertextArea.setName("UnicodeMainCiphertextArea");
-        UnicodeMainCiphertextArea.setCodeFoldingEnabled(true);
-        UnicodeMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        UnicodeMainCiphertextArea.addKeyListener(new UnicodeMainKeyListener());
+        RSyntaxTextArea UnicodeMainStringArea = new RSyntaxTextArea();
+        UnicodeMainStringArea.setName("UnicodeMainStringArea");
+        UnicodeMainStringArea.setCodeFoldingEnabled(true);
+        UnicodeMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        UnicodeMainStringArea.addKeyListener(new UnicodeMainKeyListener());
 
-        RTextScrollPane UnicodeMainCiphertextScrollPane = new RTextScrollPane(UnicodeMainCiphertextArea);
-        UnicodeMainCiphertextScrollPane.setName("UnicodeMainCiphertextScrollPane");
-        UnicodeMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
-        UnicodeMainCiphertextScrollPane.setBorder(null);
+        RTextScrollPane UnicodeMainStringScrollPane = new RTextScrollPane(UnicodeMainStringArea);
+        UnicodeMainStringScrollPane.setName("UnicodeMainStringScrollPane");
+        UnicodeMainStringScrollPane.setPreferredSize(new Dimension(0,0));
+        UnicodeMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
 
-        return UnicodeMainCiphertextScrollPane;
+        return UnicodeMainStringScrollPane;
 
     }
 
-    public JComponent UnicodeMainOutputScrollPane(){
+    public JComponent UnicodeMainUnicodeScrollPane(){
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea UnicodeMainPlaintextArea = new RSyntaxTextArea();
-        UnicodeMainPlaintextArea.setName("UnicodeMainPlaintextArea");
-        UnicodeMainPlaintextArea.setLineWrap(true);
-        UnicodeMainPlaintextArea.setCodeFoldingEnabled(true);
-        UnicodeMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        UnicodeMainPlaintextArea.addKeyListener(new UnicodeMainKeyListener());
+        RSyntaxTextArea UnicodeMainUnicodeArea = new RSyntaxTextArea();
+        UnicodeMainUnicodeArea.setName("UnicodeMainUnicodeArea");
+        UnicodeMainUnicodeArea.setLineWrap(true);
+        UnicodeMainUnicodeArea.setCodeFoldingEnabled(true);
+        UnicodeMainUnicodeArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        UnicodeMainUnicodeArea.addKeyListener(new UnicodeMainKeyListener());
 
-        RTextScrollPane UnicodeMainPlaintextScrollPane = new RTextScrollPane(UnicodeMainPlaintextArea);
-        UnicodeMainPlaintextScrollPane.setName("UnicodeMainPlaintextScrollPane");
-        UnicodeMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        UnicodeMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        UnicodeMainPlaintextScrollPane.setBorder(null);
+        RTextScrollPane UnicodeMainUnicodeScrollPane = new RTextScrollPane(UnicodeMainUnicodeArea);
+        UnicodeMainUnicodeScrollPane.setName("UnicodeMainPlaintextScrollPane");
+        UnicodeMainUnicodeScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        UnicodeMainUnicodeScrollPane.setPreferredSize(new Dimension(0,0));
+        UnicodeMainUnicodeScrollPane.setBorder(null);
 
-        return UnicodeMainPlaintextScrollPane;
+        return UnicodeMainUnicodeScrollPane;
     }
 
     public JComponent getUnicodeMainPanel(String TagName){
@@ -194,18 +195,19 @@ public class UnicodeComponent extends DiyJComponent {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
                 RSyntaxTextArea outputArea = null;
+                String tText = "未成功";
                 switch (eArea.getName()){
-                    case "UnicodeMainCiphertextArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainPlaintextArea" );
-                        outputArea.setText(Unicode.unicodeToString(eArea.getText()));
+                    case "UnicodeMainStringArea":
+                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainUnicodeArea" );
+                        tText = Unicode.stringToUnicode(eArea.getText());
                         break;
-                    case "UnicodeMainPlaintextArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainCiphertextArea" );
-                        stdout.println(outputArea);
-                        outputArea.setText(Unicode.stringToUnicode(eArea.getText()));
+                    case "UnicodeMainUnicodeArea":
+                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainStringArea" );
+                        tText=Unicode.unicodeToString(eArea.getText());
                         break;
                 }
-                outputArea.updateUI();
+                assert outputArea != null;
+                outputArea.setText(tText);
             }
         }
     }

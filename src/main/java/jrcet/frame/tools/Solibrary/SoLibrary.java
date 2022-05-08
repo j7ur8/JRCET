@@ -116,7 +116,9 @@ public class SoLibrary {
     private static JTable createJTable(ArrayList<Object> columnsArray, ArrayList<Object[]> valueArray){
         Object[] columnNames = columnsArray.toArray();
         Object[][] rowData = valueArray.toArray(new Object[0][]);
+
         JTable newJTable = new JTable(rowData,columnNames);
+
         newJTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         new TableColumnAdjuster(newJTable).adjustColumns();
         return newJTable;

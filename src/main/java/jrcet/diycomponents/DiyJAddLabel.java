@@ -6,6 +6,8 @@ import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
+import jrcet.frame.tools.Dominate.Domain.DomainComponent;
+import jrcet.frame.tools.Dominate.DominateComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,6 +129,11 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tPanel = AsciiComponent.AsciiComponentPanel;
                 tCMap = AsciiComponent.MainPanelHashMap;
                 break;
+            case "Domain":
+                tGMap = DomainComponent.ComponentConstraintHashMap;
+                tPanel = DomainComponent.DomainComponentPanel;
+                tCMap = DomainComponent.MainPanelHashMap;
+                break;
         }
         assert tPanel != null;
         assert tGMap != null;
@@ -166,6 +173,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Ascii":
                 nPanel = new AsciiComponent().AsciiMainPanel();
                 AsciiComponent.MainPanelHashMap.put(nName, nPanel);
+                break;
+            case "Domain":
+                nPanel = new DomainComponent().DomainMainPanel();
+                DomainComponent.MainPanelHashMap.put(nName, nPanel);
                 break;
         }
 

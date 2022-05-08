@@ -221,11 +221,45 @@ public class Helper {
 
         return textContentBuilder.toString();
     }
-    
+
+    /*
+    是否为合法域名
+     */
+    public static boolean isDomain(String str) {
+        String regex = "^((?!-)[A-Za-z0-9-]"
+                + "{1,63}(?<!-)\\.)"
+                + "+[A-Za-z]{2,6}";
+
+        Pattern p = Pattern.compile(regex);
+
+        if (str == null) {
+            return false;
+        }
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /*
+    是否合法IP
+     */
+    public static Boolean isIpAddress(String s){
+
+        String regex = "(((2[0-4]\\d)|(25[0-5]))|(1\\d{2})|([1-9]\\d)|(\\d))[.](((2[0-4]\\d)|(25[0-5]))|(1\\d{2})|([1-9]\\d)|(\\d))[.](((2[0-4]\\d)|(25[0-5]))|(1\\d{2})|([1-9]\\d)|(\\d))[.](((2[0-4]\\d)|(25[0-5]))|(1\\d{2})|([1-9]\\d)|(\\d))";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(s);
+        return m.matches();
+
+    }
+    /*
+    判断是否全为数字
+     */
+    public static boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
+    }
     /*
     文件类函数
      */
-
     public static int CharCount(String srcText, String findText) {
         int count = 0;
         Pattern p = Pattern.compile(findText);

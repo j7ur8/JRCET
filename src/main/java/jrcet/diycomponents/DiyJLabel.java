@@ -46,17 +46,18 @@ public class DiyJLabel extends JLabel implements MouseListener{
     }
 
     private void Aes(JComponent rootComponent, String type){
-        JList<String> ModeList = (JList) Helper.getComponent(rootComponent,"AesMainControlModeList");
-        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainPlaintextArea");
-        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainCiphertextArea");
-        JTextField KeyField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlKeyField");
-        JTextField IvField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlIvField");
-        DiyJComboBox<String> KeyTypeBox = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlKeyBox");
-        DiyJComboBox<String> IvTypeBox  = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlIvBox");
-        assert PlaintextArea != null;
-        assert CiphertextArea != null;
+        JList<String> ModeList = (JList) Helper.getComponent(rootComponent,"AesMainControlModeList");  assert ModeList != null;
+        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainPlaintextArea");assert PlaintextArea !=null;
+        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainCiphertextArea");assert CiphertextArea != null;
+        JTextField KeyField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlKeyField");assert KeyField != null;
+        JTextField IvField = (JTextField) Helper.getComponent(rootComponent,"AesMainControlIvField");assert IvField !=null;
+        DiyJComboBox<String> KeyTypeBox = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlKeyBox"); assert KeyTypeBox !=null;
+        DiyJComboBox<String> IvTypeBox  = (DiyJComboBox) Helper.getComponent(rootComponent,"AesMainControlIvBox");assert IvTypeBox !=null;
+
         try{
             if(Objects.equals(type, "Encrypt")){
+
+
                 CiphertextArea.setText(Aes.Encrypt(PlaintextArea.getText(),ModeList.getSelectedValue(),KeyField.getText(), (String) KeyTypeBox.getSelectedItem(),IvField.getText(), (String) IvTypeBox.getSelectedItem()));
             }else{
                 PlaintextArea.setText(Aes.Decrypt(CiphertextArea.getText(),ModeList.getSelectedValue(),KeyField.getText(), (String) KeyTypeBox.getSelectedItem(),IvField.getText(), (String) IvTypeBox.getSelectedItem()));
@@ -67,17 +68,15 @@ public class DiyJLabel extends JLabel implements MouseListener{
     }
 
     private void Rsa(JComponent rootComponent,String type)  {
-        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainControlIvBox");
-        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainCiphertextArea");
-        RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPublicArea");
-        RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPrivateArea");
-        assert PlaintextArea != null;
-        assert CiphertextArea != null;
+        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainControlIvBox");assert PlaintextArea != null;
+        RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainCiphertextArea"); assert CiphertextArea != null;
+        RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPublicArea");assert PublicArea != null;
+        RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPrivateArea");assert PrivateArea !=null;
+
         try{
             if(Objects.equals(type,"Encrypt")){
                 CiphertextArea.setText(Rsa.Encrypt(PlaintextArea.getText(), Rsa.getPublicKey(PublicArea.getText())));
             }else{
-
                 PlaintextArea.setText(Rsa.Decrypt(CiphertextArea.getText(), Rsa.getPrivateKey(PrivateArea.getText())));
             }
         }catch (Exception e){

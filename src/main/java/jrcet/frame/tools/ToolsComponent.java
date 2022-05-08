@@ -5,6 +5,7 @@ import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
+import jrcet.frame.tools.Dominate.DominateComponent;
 import jrcet.frame.tools.HText.HTextComponent;
 import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
@@ -22,6 +23,7 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
     private final JComponent IntruderComponentPanel = IntruderComponentPanel();
     private final JComponent HTextComponentPanel = HTextComponentPanel();
+    private final JComponent DominateComponentPanel = DominateComponentPanel();
 
     public static JComponent ToolsComponentPanel = null;
 
@@ -102,6 +104,11 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuHTextLabel.setPanel(HTextComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuHTextLabel);
 
+        DiyJTabLabel ToolsMenuDominateLabel = new DiyJTabLabel("Dominate");
+        ToolsMenuDominateLabel.setName("ToolsMenuDominateLabel");
+        ToolsMenuDominateLabel.setPanel(DominateComponentPanel);
+        ToolsMenuTabPanel.add(ToolsMenuDominateLabel);
+
         return ToolsMenuTabPanel;
     }
 
@@ -152,5 +159,10 @@ public class ToolsComponent extends DiyJComponent {
         DiyJComponent HTextComponentPanelInstance = new HTextComponent();
         JComponent HTextComponentPanel = HTextComponentPanelInstance.main();
         return HTextComponentPanel;
+    }
+
+    private JComponent DominateComponentPanel(){
+
+        return  new DominateComponent().main();
     }
 }

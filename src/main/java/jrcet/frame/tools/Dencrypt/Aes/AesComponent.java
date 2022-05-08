@@ -31,20 +31,9 @@ public class AesComponent extends DiyJComponent {
         AesComponentPanel = new JPanel(new GridBagLayout());
         AesComponentPanel.setName("AesComponentPanel");
         AesComponentPanel.setBackground(Color.WHITE);
-        AesComponentPanel.setPreferredSize(new Dimension(0,0));
-
-        AesComponentPanel.add(AesTagBlackPanel(), new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
 
         AesComponentPanel.add(AesTagTabPanel(),new GridBagConstraints(
-                1,0,
+                0,0,
                 1,1,
                 0,0,
                 GridBagConstraints.CENTER,
@@ -56,8 +45,8 @@ public class AesComponent extends DiyJComponent {
         MainPanelHashMap.put("1", AesMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap,AesComponentPanel,getAesMainPanel("1"),new GridBagConstraints(
                 0,1,
-                2,1,
-                1,0.7,
+                1,1,
+                1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(5,5,5,5),
@@ -67,18 +56,11 @@ public class AesComponent extends DiyJComponent {
         return AesComponentPanel;
     }
 
-    public JComponent AesTagBlackPanel(){
-        JComponent AesTagBlackPanel = new JPanel();
-        AesTagBlackPanel.setName("AesTagBlackPanel");
-        AesTagBlackPanel.setOpaque(false);
-        AesTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.class4DefaultDiyJTabBorderColor));
-        return AesTagBlackPanel;
-    }
-
     public JComponent AesTagTabPanel(){
+
         JPanel AesTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
+        AesTagTabPanel.setBackground(Color.WHITE);
         AesTagTabPanel.setName("AesTagTabPanel");
-        AesTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
 
         DiyJAddLabel AesTagTabSticker1Label = new DiyJAddLabel("1",true);
         AesTagTabSticker1Label.setName("AesTagTabSticker1Label");
