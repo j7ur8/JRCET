@@ -95,11 +95,12 @@ public class Domain {
                     break;
                 case "Domain":
                     titleArrayList = new ArrayList<>(Arrays.asList("日期","域名"));
-                    JTable nTable = new JTable( ((ArrayList<String[]>)tArrayList).toArray(new Object[0][]) , titleArrayList.toArray());
-                    nTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                    new TableColumnAdjuster(nTable).adjustColumns();
+
+                    JScrollPane nTableScrollPane = createTable(tArrayList, titleArrayList);
+
                     JComponent tComponentPanel = Helper.getComponent(DomainComponentPanel,"DomainMainIPDomainPanel");
-                    tComponentPanel.add(nTable, new GridBagConstraints(
+                    assert tComponentPanel != null;
+                    tComponentPanel.add(nTableScrollPane, new GridBagConstraints(
                             0,0,
                             1,1,
                             1,1,
@@ -112,6 +113,18 @@ public class Domain {
                     break;
             }
         }
+    }
+
+    public static JScrollPane createTable(Object tArrayList, ArrayList<String> titleArrayList){
+
+        JTable nTable = new JTable( ((ArrayList<String[]>)tArrayList).toArray(new Object[0][]) , titleArrayList.toArray());
+        nTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        new TableColumnAdjuster(nTable).adjustColumns();
+
+        JScrollPane nTableScrollPane = new JScrollPane(nTable);
+//        nTableScrollPane.setHorizontalScrollBarPolicy(JScrollPane.);
+
+        return nTableScrollPane;
     }
 
     public static String getResponse(String url){

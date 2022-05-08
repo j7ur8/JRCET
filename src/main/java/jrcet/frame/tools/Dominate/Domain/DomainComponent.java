@@ -92,7 +92,7 @@ public class DomainComponent extends DiyJComponent {
                 0,0
         ));
 
-        DomainMainPanel.add(DomainMainIPDomainScrollPane(),new GridBagConstraints(
+        DomainMainPanel.add(DomainMainIPDomainPanel(),new GridBagConstraints(
                 1,1,
                 1,1,
                 0.33,0.3,
@@ -133,6 +133,7 @@ public class DomainComponent extends DiyJComponent {
 
         JTextField DomainMainSearchUrlField = new JTextField("");
         DomainMainSearchUrlField.setHorizontalAlignment(JTextField.CENTER);
+        DomainMainSearchUrlField.setFont(new Font("微软雅黑", Font.PLAIN,18));
         DomainMainSearchUrlField.setPreferredSize(new Dimension(20,50));
         DomainMainSearchUrlField.addKeyListener(new DomainMainSearchKeyListener());
 
@@ -148,17 +149,13 @@ public class DomainComponent extends DiyJComponent {
         return DomainMainSearchPanel;
     }
 
-    public JComponent DomainMainIPDomainScrollPane(){
+    public JComponent DomainMainIPDomainPanel(){
         JComponent DomainMainIPDomainPanel = new JPanel(new GridBagLayout());
         DomainMainIPDomainPanel.setName("DomainMainIPDomainPanel");
         DomainMainIPDomainPanel.setBackground(Color.GRAY);
         DomainMainIPDomainPanel.setPreferredSize(new Dimension(20,100));
 
-        JScrollPane DomainMainIPDomainScrollPane = new JScrollPane(DomainMainIPDomainPanel);
-        DomainMainIPDomainScrollPane.setPreferredSize(new Dimension(0,0));
-//        DomainMainIPDomainScrollPane.setH
-
-        return DomainMainIPDomainScrollPane;
+        return DomainMainIPDomainPanel;
     }
 
     public JComponent DomainMainSubdomainPanel(){
