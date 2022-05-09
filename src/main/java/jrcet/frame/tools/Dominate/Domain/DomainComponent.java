@@ -74,8 +74,8 @@ public class DomainComponent extends DiyJComponent {
 
         DomainMainPanel.add(DomainMainSubdomainPanel(),new GridBagConstraints(
                 0,0,
-                1,3,
-                0.33,2,
+                1,2,
+                0.3,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -85,7 +85,7 @@ public class DomainComponent extends DiyJComponent {
         DomainMainPanel.add(DomainMainSearchPanel(),new GridBagConstraints(
                 1,0,
                 1,1,
-                0.33,0,
+                0.4,0.05,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -95,17 +95,7 @@ public class DomainComponent extends DiyJComponent {
         DomainMainPanel.add(DomainMainIPDomainPanel(),new GridBagConstraints(
                 1,1,
                 1,1,
-                0.33,0.3,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        DomainMainPanel.add(DomainMainBeianPanel(),new GridBagConstraints(
-                1,2,
-                1,1,
-                0.33,0.7,
+                0.4,0.45,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -114,35 +104,44 @@ public class DomainComponent extends DiyJComponent {
 
         DomainMainPanel.add(DomainMainWhoisPanel(),new GridBagConstraints(
                 2,0,
-                1,3,
-                0.33,1,
+                1,2,
+                0.3,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
+        DomainMainPanel.add(DomainMainBeianPanel(),new GridBagConstraints(
+                0,2,
+                3,1,
+                1,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
         return DomainMainPanel;
     }
 
     public JComponent DomainMainSearchPanel(){
         JComponent DomainMainSearchPanel = new JPanel(new GridBagLayout());
         DomainMainSearchPanel.setName("DomainMainSearchPanel");
+        DomainMainSearchPanel.setPreferredSize(new Dimension(0,0));
         DomainMainSearchPanel.setBackground(Color.WHITE);
-        DomainMainSearchPanel.setPreferredSize(new Dimension(20,50));
 
         JTextField DomainMainSearchUrlField = new JTextField("");
         DomainMainSearchUrlField.setHorizontalAlignment(JTextField.CENTER);
-        DomainMainSearchUrlField.setFont(new Font("微软雅黑", Font.PLAIN,18));
-        DomainMainSearchUrlField.setPreferredSize(new Dimension(20,50));
+        DomainMainSearchUrlField.setFont(new Font("微软雅黑", Font.PLAIN,20));
         DomainMainSearchUrlField.addKeyListener(new DomainMainSearchKeyListener());
+        DomainMainSearchUrlField.setPreferredSize(new Dimension(0,0));
 
         DomainMainSearchPanel.add(DomainMainSearchUrlField, new GridBagConstraints(
                 0,0,
                 1,1,
                 1,1,
-                GridBagConstraints.WEST,
-                GridBagConstraints.HORIZONTAL,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
@@ -152,8 +151,6 @@ public class DomainComponent extends DiyJComponent {
     public JComponent DomainMainIPDomainPanel(){
         JComponent DomainMainIPDomainPanel = new JPanel(new GridBagLayout());
         DomainMainIPDomainPanel.setName("DomainMainIPDomainPanel");
-        DomainMainIPDomainPanel.setBackground(Color.GRAY);
-        DomainMainIPDomainPanel.setPreferredSize(new Dimension(20,100));
 
         return DomainMainIPDomainPanel;
     }
@@ -161,23 +158,20 @@ public class DomainComponent extends DiyJComponent {
     public JComponent DomainMainSubdomainPanel(){
         JComponent DomainMainSubdomainPanel = new JPanel(new GridBagLayout());
         DomainMainSubdomainPanel.setName("DomainMainSubdomainPanel");
-        DomainMainSubdomainPanel.setBackground(Color.MAGENTA);
 
         return DomainMainSubdomainPanel;
     }
 
     public JComponent DomainMainBeianPanel(){
-        JComponent DomainMainBeianPanel = new JPanel();
+        JComponent DomainMainBeianPanel = new JPanel(new GridBagLayout());
         DomainMainBeianPanel.setName("DomainMainBeianPanel");
-        DomainMainBeianPanel.setBackground(Color.PINK);
 
         return DomainMainBeianPanel;
     }
 
     public JComponent DomainMainWhoisPanel(){
-        JComponent DomainMainWhoisPanel = new JPanel();
+        JComponent DomainMainWhoisPanel = new JPanel(new GridBagLayout());
         DomainMainWhoisPanel.setName("DomainMainWhoisPanel");
-        DomainMainWhoisPanel.setBackground(Color.ORANGE);
 
         return DomainMainWhoisPanel;
     }
@@ -190,7 +184,6 @@ public class DomainComponent extends DiyJComponent {
         JPanel DomainBlackPanel = new JPanel();
         DomainBlackPanel.setName("DomainBlackPanel");
         DomainBlackPanel.setOpaque(true);
-        DomainBlackPanel.setBackground(Color.PINK);
 
         return DomainBlackPanel;
     }
@@ -210,9 +203,10 @@ public class DomainComponent extends DiyJComponent {
         @Override
         public void keyReleased(KeyEvent e) {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71) {
+                JComponent rootPanel = (JComponent) ((JTextField)e.getSource()).getParent().getParent();
                 JTextField eField = (JTextField) e.getSource();
                 HashMap<String, Object> radiateDataMap = Domain.radiate(eField.getText());
-                Domain.fillComponent(radiateDataMap);
+                Domain.updatePanel(rootPanel, radiateDataMap);
             }
         }
     }

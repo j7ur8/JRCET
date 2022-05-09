@@ -132,12 +132,14 @@ public class AsciiComponent extends DiyJComponent {
         RSyntaxTextArea AsciiMainStringArea = new RSyntaxTextArea();
         AsciiMainStringArea.setName("AsciiMainStringArea");
         AsciiMainStringArea.setText("#单个字符直接得到结果，多个字符默认提取第一个字符作为Ascii结果的分割符。如` abc`的结果为`97 98 99`");
+        AsciiMainStringArea.setLineWrap(true);
         AsciiMainStringArea.setCodeFoldingEnabled(true);
         AsciiMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         AsciiMainStringArea.addKeyListener(new AsciiMainKeyListener());
 
         RTextScrollPane AsciiMainStringScrollPane = new RTextScrollPane(AsciiMainStringArea);
         AsciiMainStringScrollPane.setName("AsciiMainStringScrollPane");
+        AsciiMainStringScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AsciiMainStringScrollPane.setPreferredSize(new Dimension(0,0));
         AsciiMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
 
