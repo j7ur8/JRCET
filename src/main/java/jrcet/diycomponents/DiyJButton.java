@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.frame.tools.Solibrary.SoLibrary;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 

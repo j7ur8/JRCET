@@ -18,7 +18,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderComponentPanel.setName("IntruderComponentPanel");
         IntruderComponentPanel.setBackground(Color.WHITE);
 
-        IntruderComponentPanel.add(IntruderMainPane(),new GridBagConstraints(
+        IntruderComponentPanel.add(IntruderMainPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,1,
@@ -31,81 +31,76 @@ public class IntruderComponent extends DiyJComponent {
         return IntruderComponentPanel;
     }
 
-    public JComponent IntruderMainPane(){
+    public JComponent IntruderMainPanel(){
 
         JComponent IntruderMainPanel = new JPanel(new GridBagLayout());
         IntruderMainPanel.setName("IntruderMainPanel");
         IntruderMainPanel.setBackground(Color.WHITE);
 
-        IntruderMainPanel.add(IntruderMainAesPanel(),new GridBagConstraints(
+        IntruderMainPanel.add(IntruderMainAesPanel(), new GridBagConstraints(
                 0,0,
                 1,1,
-                1,1,
+                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
+                new Insets(0,100,0,100),
                 0,0
         ));
 
 
-        JScrollPane IntruderMainPane = new JScrollPane(IntruderMainPanel);
-        IntruderMainPane.setName("IntruderMainPane");
-
-        return IntruderMainPane;
+        return IntruderMainPanel;
     }
 
     public JComponent IntruderMainAesPanel(){
+
         JComponent IntruderMainAesPanel = new JPanel(new GridBagLayout());
         IntruderMainAesPanel.setName("IntruderMainAesPanel");
-
         IntruderMainAesPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"Aes"));
+        IntruderMainAesPanel.setPreferredSize(new Dimension(0,200));
 
-//        DiyJLabel AesMainControlIvLabel = new DiyJLabel(" Iv:");
-//        AesMainControlIvLabel.setName("AesMainControlIvLabel");
-//        AesMainControlIvLabel.setPreferredSize(new Dimension(50,30));
-//        JTextField AesMainControlIvField = new JTextField();
-//        AesMainControlIvField.setName("AesMainControlIvField");
-//        AesMainControlIvField.setPreferredSize(new Dimension(50,30));
-//        DiyJComboBox<String> AesMainControlIvBox = new DiyJComboBox<>(new String[]{"Raw", "Base64", "Hex"});
-//        AesMainControlIvBox.setName("AesMainControlIvBox");
-//        AesMainControlIvBox.setPreferredSize(new Dimension(50,30));
-//
-//        DiyJLabel AesMainControlKeyLabel = new DiyJLabel("Key: ");
-//        AesMainControlKeyLabel.setName("AesMainControlKeyLabel");
-//        AesMainControlKeyLabel.setPreferredSize(new Dimension(50,30));
-//        JTextField AesMainControlKeyField = new JTextField();
-//        AesMainControlKeyField.setName("AesMainControlKeyField");
-//        AesMainControlKeyField.setPreferredSize(new Dimension(50,30));
-//        DiyJComboBox<String> AesMainControlKeyBox = new DiyJComboBox<>(new String[]{"Raw", "Base64", "Hex"});
-//        AesMainControlKeyBox.setName("AesMainControlKeyBox");
-//        AesMainControlKeyBox.setPreferredSize(new Dimension(50,30));
+        DiyJLabel IntruderMainAesIvLabel = new DiyJLabel(" Iv:");
+        IntruderMainAesIvLabel.setName("IntruderMainAesIvLabel");
+        IntruderMainAesIvLabel.setPreferredSize(new Dimension(50,30));
+        JTextField IntruderMainAesIvField = new JTextField();
+        IntruderMainAesIvField.setName("IntruderMainAesIvField");
+        IntruderMainAesIvField.setPreferredSize(new Dimension(200,30));
+        DiyJComboBox<String>IntruderMainAesIvBox = new DiyJComboBox<>(new String[]{"Raw", "Base64", "Hex"});
+        IntruderMainAesIvBox.setName("IntruderMainAesIvBox");
+        IntruderMainAesIvBox.setPreferredSize(new Dimension(100,30));
+
+        DiyJLabel IntruderMainAesKeyLabel = new DiyJLabel("Key: ");
+        IntruderMainAesKeyLabel.setName("IntruderMainAesKeyLabel");
+        IntruderMainAesKeyLabel.setPreferredSize(new Dimension(50,30));
+        JTextField IntruderMainAesKeyField = new JTextField();
+        IntruderMainAesKeyField.setName("IntruderMainAesKeyField");
+        IntruderMainAesKeyField.setPreferredSize(new Dimension(200,30));
+        DiyJComboBox<String> IntruderMainAesKeyBox = new DiyJComboBox<>(new String[]{"Raw", "Base64", "Hex"});
+        IntruderMainAesKeyBox.setName("IntruderMainAesKeyBox");
+        IntruderMainAesKeyBox.setPreferredSize(new Dimension(100,30));
+
+        DiyJLabel IntruderMainAesModeLabel = new DiyJLabel(("Mode: "));
+        IntruderMainAesModeLabel.setName("IntruderMainAesModeLabel");
+        IntruderMainAesModeLabel.setPreferredSize(new Dimension(50,30));
+        DiyJComboBox<String> IntruderMainAesModeBox = new DiyJComboBox<>(new String[]{"AES/ECB/NoPadding", "AES/ECB/PKCS5Padding", "AES/CBC/NoPadding", "AES/CBC/PKCS5Padding"});
+        IntruderMainAesModeBox.setName("IntruderMainAesModeBox");
+        IntruderMainAesModeBox.setPreferredSize(new Dimension(0,30));
+        DiyJComboBox<String> IntruderMainAesTypeBox = new DiyJComboBox<>(new String[]{"Decrypt","Encrypt"});
+        IntruderMainAesTypeBox.setName("IntruderMainAesTypeBox");
+        IntruderMainAesTypeBox.setPreferredSize(new Dimension(0,30));
 
 
-        return  IntruderMainAesPanel;
-    }
 
-
-    public JComponent IntruderMainHeadPanel(String separatorName){
-
-        JComponent IntruderMainHeadPanel = new JPanel(new GridBagLayout());
-        IntruderMainHeadPanel.setName("IntruderMainHeadPanel");
-        IntruderMainHeadPanel.setBackground(Color.WHITE);
-
-        DiyJLabel IntruderMainHeadLabel = new DiyJLabel(separatorName);
-        IntruderMainHeadLabel.setName("IntruderMainHead"+separatorName+"Label");
-        IntruderMainHeadLabel.setPreferredSize(new Dimension(40,10));
-
-        IntruderMainHeadPanel.add(IntruderMainHeadSeparatorLine(),new GridBagConstraints(
+        IntruderMainAesPanel.add(IntruderMainAesIvLabel, new GridBagConstraints(
                 0,0,
                 1,1,
-                0.1,0,
+                0,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        IntruderMainHeadPanel.add(IntruderMainHeadLabel,new GridBagConstraints(
+        IntruderMainAesPanel.add(IntruderMainAesIvField, new GridBagConstraints(
                 1,0,
                 1,1,
                 0,0,
@@ -115,31 +110,76 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainHeadPanel.add(IntruderMainHeadSeparatorLine(),new GridBagConstraints(
+        IntruderMainAesPanel.add(IntruderMainAesIvBox, new GridBagConstraints(
                 2,0,
                 1,1,
-                0.9,0,
+                0,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        return IntruderMainHeadPanel;
-    }
+        IntruderMainAesPanel.add(IntruderMainAesKeyLabel, new GridBagConstraints(
+                0,1,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-    public JComponent IntruderMainHeadSeparatorLine(){
-        JSeparator IntruderMainHeadSeparator = new JSeparator();
-        IntruderMainHeadSeparator.setBackground(Color.MAGENTA);
-        IntruderMainHeadSeparator.setName("IntruderMainHeadSeparator");
-        return  IntruderMainHeadSeparator;
-    }
+        IntruderMainAesPanel.add(IntruderMainAesKeyField, new GridBagConstraints(
+                1,1,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-    public JComponent IntruderMainBorderPanel(){
-        JComponent IntruderMainBorderPanel = new JPanel();
-        IntruderMainBorderPanel.setName("IntruderMainBorderPanel");
+        IntruderMainAesPanel.add(IntruderMainAesKeyBox, new GridBagConstraints(
+                2,1,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
-        return IntruderMainBorderPanel;
+        IntruderMainAesPanel.add(IntruderMainAesModeLabel, new GridBagConstraints(
+                0,3,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        IntruderMainAesPanel.add(IntruderMainAesModeBox, new GridBagConstraints(
+                1,3,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        IntruderMainAesPanel.add(IntruderMainAesTypeBox, new GridBagConstraints(
+                2,3,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return  IntruderMainAesPanel;
     }
 
 }

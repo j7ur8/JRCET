@@ -1,12 +1,10 @@
 package jrcet.frame.tools.Dominate.Domain;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.diycomponents.TableColumnAdjuster;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 import javax.swing.*;
@@ -22,7 +20,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static jrcet.frame.tools.Dominate.Domain.DomainComponent.DomainComponentPanel;
 
 public class Domain {
 
@@ -64,37 +61,37 @@ public class Domain {
         String ipDomainRegex = "<li><span class=\\\"date\\\">([0-9\\-]{25})</span><a href=\\\"/(.*)/\\\"";
         String ipDomainUrl = "https://site.ip138.com/"+ip+"/";
 
-        putIpDomain(ipDomainUrl, ipDomainRegex, radiateDataMap);
+        putIpDomain(matchResponse(ipDomainUrl, ipDomainRegex), radiateDataMap);
     }
 
     public static void domainRadiate(String domain, HashMap<String, Object> radiateDataMap){
 
         radiateDataMap.put("IP/Domain", new ArrayList<>(Collections.singletonList(domain)));
 
-        String ipDomainRegex = "<span class=\\\"date\\\">([0-9\\-]{25})</span>\r\n<a href=\\\"/(.*)/\\\"";
-        String ipDomainUrl = "https://site.ip138.com/"+domain+"/";
-        putIpDomain(ipDomainUrl, ipDomainRegex, radiateDataMap);
+//        String ipDomainRegex = "<span class=\\\"date\\\">([0-9\\-]{25})</span>\r\n<a href=\\\"/(.*)/\\\"";
+////        String ipDomainUrl = "https://site.ip138.com/"+domain+"/";
+//        String ipDomainUrl = "http://42.192.228.137:8999/"+domain+"/";
+//        putIpDomain(matchResponse(ipDomainUrl, ipDomainRegex), radiateDataMap);
 
-        String beiAnRegex = "<td><span>(.*?)</span></td>|<td><a href=\\\".*?target=\\\"_blank\\\">(.*?)</a>|<span>(.*?)</span>";
-        String beiAnUrl = "https://icplishi.com/"+domain+"/";
-        putBeiAn(beiAnUrl, beiAnRegex, radiateDataMap);
+//        String beiAnRegex = "<td><span>(.*?)</span></td>|<td><a href=\\\".*?target=\\\"_blank\\\">(.*?)</a>|<span>(.*?)</span>";
+//        String beiAnUrl = "https://icplishi.com/"+domain+"/";
+//
+//        putBeiAn(matchResponse(beiAnUrl, beiAnRegex), radiateDataMap);
 
-        String whoisRegex = "<p>   (.*?)</p>";
-        String whoisUrl = "https://site.ip138.com/"+domain+"/whois.htm";
-        putWhois(whoisUrl, whoisRegex, radiateDataMap);
+//        String whoisRegex = "<p>   (.*?)</p>";
+//        String whoisUrl = "https://site.ip138.com/"+domain+"/whois.htm";
+//        putWhois(matchResponse(whoisUrl, whoisRegex), radiateDataMap);
 
-        String subdomainRegex = "rel=\\\"nofollow\\\">(.*?)</a></td>";
-        String subdomainUrl = "https://chaziyu.com/"+domain;
-        putSubdomain(subdomainUrl, subdomainRegex, radiateDataMap);
+//        String subdomainRegex = "rel=\\\"nofollow\\\">(.*?)</a></td>";
+//        String subdomainUrl = "https://chaziyu.com/"+domain;
+//        putSubdomain(matchResponse(subdomainUrl, subdomainRegex), radiateDataMap);
+//        addSubdomain(domain, radiateDataMap);
 
     }
 
-    public static void putIpDomain(String url, String regex, HashMap<String, Object> radiateDataMap){
+    public static void putIpDomain(Matcher matcher, HashMap<String, Object> radiateDataMap){
 
-        String tResponse = getResponse(url);
         ArrayList<String[]> ipList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(tResponse);
 
         while (matcher.find()) {
             String[] tmpArray = new String[matcher.groupCount()];
@@ -107,12 +104,9 @@ public class Domain {
         radiateDataMap.put("Domain/IPList-Title", new ArrayList<>(Arrays.asList("日期","IP、域名")));
     }
 
-    public static void putBeiAn(String url, String regex, HashMap<String, Object> radiateDataMap){
-        //DomainMainBeianPanel
-        String tResponse = getResponse(url);
+    public static void putBeiAn(Matcher matcher, HashMap<String, Object> radiateDataMap){
+
         ArrayList<String[]> ipList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(tResponse);
 
         String[] tmpArray = new String[5];
         for(int i=0; matcher.find() && i<=tmpArray.length; i++){
@@ -131,12 +125,10 @@ public class Domain {
         radiateDataMap.put("BeianList-Title", new ArrayList<>(Arrays.asList("网站首页","备案类型","备案主体","备案号","备案时间")));
     }
 
-    public static void putWhois(String url, String regex, HashMap<String, Object> radiateDataMap){
+    public static void putWhois(Matcher matcher, HashMap<String, Object> radiateDataMap){
 
-        String tResponse = getResponse(url);
+
         ArrayList<String[]> ipList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(tResponse);
 
         String[] tmpArray = new String[]{""};
         while (matcher.find()){
@@ -147,11 +139,9 @@ public class Domain {
         radiateDataMap.put("WhoisList-Title", new ArrayList<>(Collections.singletonList("Whois")));
     }
 
-    public static void putSubdomain(String url, String regex, HashMap<String, Object> radiateDataMap){
-        String tResponse = getResponse(url);
+    public static void putSubdomain(Matcher matcher, HashMap<String, Object> radiateDataMap){
+
         ArrayList<String[]> ipList = new ArrayList<>();
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(tResponse);
 
         String[] tmpArray = new String[]{""};
         while (matcher.find()) {
@@ -159,31 +149,34 @@ public class Domain {
         }
 
         ipList.add(tmpArray);
-        addSubdomain(url, ipList);
 
         radiateDataMap.put("SubdomainList", ipList);
         radiateDataMap.put("SubdomainList-Title", new ArrayList<>(Collections.singletonList("域名")));
     }
 
-    public static void addSubdomain(String url, ArrayList<String[]> ipList){
+    public static void addSubdomain(String domain, HashMap<String, Object> radiateDataMap){
 
-        String tUrl = "https://chaziyu.com/ipchaxun.do?domain="+url.split("/")[url.split("/").length-1]+"&page=";
+        String tUrl = "https://chaziyu.com/ipchaxun.do?domain="+domain+"&page=";
+        ArrayList<String []> ipList = (ArrayList<String[]>) radiateDataMap.get("SubdomainList");
 
         for(int i=2;;i++){
-            String tResponse = getResponse(tUrl+i);
-            if(tResponse.contains("error domain")){
-                ipList.remove(0);
-                ipList.add(new String[]{"请输入根域名"});
-                break;
+
+            Matcher matcher = matchResponse(tUrl+i,"\\[(.*?)]");
+            if(matcher.find()){
+                String tResponse = matcher.group(0);
+                if(tResponse.contains("error domain")){
+                    ipList.remove(0);
+                    ipList.add(new String[]{"仅支持查询根域名"});
+                    break;
+                }else{
+                    String[] subdomainString = (matcher.find()?(matcher.group(1)==null?"":matcher.group(1)):"出错").replace("\"","").split(",");
+                    System.out.printf(String.valueOf(subdomainString));
+                }
             }
-            JSONObject tResponseJSON = new JSONObject(tResponse);
-            JSONArray tResponseArray = (JSONArray)((JSONObject) tResponseJSON.get("data")).get("result");
-            if(tResponseArray.length()==0){
-                break;
-            }
-            for(Object o: tResponseArray){
-                ipList.get(0)[0] += o +"\n";
-            }
+
+//            for(Object o: tResponseArray){
+//                ipList.get(0)[0] += o +"\n";
+//            }
         }
     }
 
@@ -344,6 +337,14 @@ public class Domain {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static Matcher matchResponse(String url, String regex){
+
+        String tResponse = getResponse(url);
+        ArrayList<String[]> ipList = new ArrayList<>();
+        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        return pattern.matcher(tResponse);
     }
 }
 

@@ -2,7 +2,7 @@ package jrcet.frame.tools.Dencrypt.Ascii;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 
 public class Ascii {
 

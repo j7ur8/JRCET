@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Ascii;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;

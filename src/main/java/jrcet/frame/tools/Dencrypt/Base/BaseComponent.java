@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.setting.Setting;

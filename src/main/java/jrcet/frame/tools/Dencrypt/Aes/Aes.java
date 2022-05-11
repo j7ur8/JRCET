@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

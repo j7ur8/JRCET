@@ -1,13 +1,12 @@
 package jrcet.diycomponents;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 import jrcet.frame.tools.Dominate.Domain.DomainComponent;
-import jrcet.frame.tools.Dominate.DominateComponent;
 
 import javax.swing.*;
 import java.awt.*;

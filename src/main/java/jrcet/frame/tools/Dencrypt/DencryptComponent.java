@@ -1,11 +1,7 @@
 package jrcet.frame.tools.Dencrypt;
 
-import burp.lib.Helper;
-import jrcet.Main;
-import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
@@ -14,7 +10,6 @@ import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 public class DencryptComponent extends DiyJComponent {
 

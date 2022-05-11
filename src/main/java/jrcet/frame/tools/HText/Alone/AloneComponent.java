@@ -1,6 +1,6 @@
 package jrcet.frame.tools.HText.Alone;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;

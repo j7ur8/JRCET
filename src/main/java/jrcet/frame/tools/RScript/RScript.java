@@ -3,7 +3,7 @@ package jrcet.frame.tools.RScript;
 import burp.IExtensionHelpers;
 import burp.IHttpRequestResponse;
 import burp.IRequestInfo;
-import burp.lib.Json;
+import burp.Json;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;

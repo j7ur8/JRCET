@@ -1,10 +1,8 @@
 package jrcet.frame.tools.Solibrary;
 
 import burp.BurpExtender;
-import burp.lib.Helper;
-import jrcet.Main;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.TableColumnAdjuster;
-import jrcet.frame.Jrcet;
 
 import javax.swing.*;
 import java.awt.*;

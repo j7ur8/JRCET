@@ -1,7 +1,5 @@
 package jrcet.frame.tools.Dencrypt.Rsa;
 
-import org.apache.commons.codec.binary.Base64;
-
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;

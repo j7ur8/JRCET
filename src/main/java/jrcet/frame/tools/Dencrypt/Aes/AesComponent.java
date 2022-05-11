@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJComponent;
@@ -11,11 +11,7 @@ import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 

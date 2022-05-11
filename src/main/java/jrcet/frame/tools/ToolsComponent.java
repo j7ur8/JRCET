@@ -8,7 +8,6 @@ import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.Dominate.DominateComponent;
 import jrcet.frame.tools.HText.HTextComponent;
 import jrcet.frame.tools.Intruder.IntruderComponent;
-import jrcet.frame.tools.JSEncrypt.JSEncryptComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
@@ -18,7 +17,7 @@ import java.awt.*;
 public class ToolsComponent extends DiyJComponent {
 
     private final JComponent RScriptComponentPanel = RScriptComponentPanel();
-    private final JComponent JSEncryptComponentPanel = JSEncryptComponentPanel();
+//    private final JComponent JSEncryptComponentPanel = JSEncryptComponentPanel();
     private final JComponent SoLibraryComponentPanel = SoLibraryComponentPanel();
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
     private final JComponent IntruderComponentPanel = IntruderComponentPanel();
@@ -137,11 +136,11 @@ public class ToolsComponent extends DiyJComponent {
         return RScriptComponentPanel;
     }
 
-    private JComponent JSEncryptComponentPanel(){
-        DiyJComponent JSEncryptComponentInstance = new JSEncryptComponent();
-        JComponent JSEncryptComponentPanel = JSEncryptComponentInstance.main();
-        return JSEncryptComponentPanel;
-    }
+//    private JComponent JSEncryptComponentPanel(){
+//        DiyJComponent JSEncryptComponentInstance = new JSEncryptComponent();
+//        JComponent JSEncryptComponentPanel = JSEncryptComponentInstance.main();
+//        return JSEncryptComponentPanel;
+//    }
 
     private JComponent SoLibraryComponentPanel(){
         DiyJComponent SoLibraryComponentInstance = new SoLibraryComponent();

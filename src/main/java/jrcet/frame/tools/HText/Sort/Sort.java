@@ -1,6 +1,6 @@
 package jrcet.frame.tools.HText.Sort;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 
 import java.text.Collator;
 import java.util.*;

@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Unicode;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -14,8 +14,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
-
-import static burp.BurpExtender.stdout;
 
 public class UnicodeComponent extends DiyJComponent {
 

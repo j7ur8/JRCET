@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.tools.RScript.RScript;
 

@@ -1,12 +1,10 @@
 package jrcet.frame.tools.HText.Sort;
 
-import burp.lib.Helper;
-import jrcet.Main;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,13 +1,10 @@
 package jrcet.frame.tools.HText.Alone;
 
-import burp.lib.Helper;
+import jrcet.lib.Helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.Objects;
-
-import static jdk.nashorn.internal.objects.NativeString.trim;
 
 public class Alone {
 

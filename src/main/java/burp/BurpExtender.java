@@ -1,12 +1,13 @@
 package burp;
 
 
-import burp.lib.Helper;
+import jrcet.frame.tools.Intruder.Intruder;
+import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.Jrcet;
 import jrcet.frame.tools.Dencrypt.Dencrypt;
-import jrcet.frame.tools.JSEncrypt.JSEncrypt;
 import jrcet.frame.tools.RScript.RScript;
+import jrcet.lib.ShutdownThread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +77,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     @Override
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
 
-        String newPayload = Dencrypt.createIntruder(currentPayload);
+        String newPayload = Intruder.createIntruder(currentPayload);
         stdout.println(newPayload);
         return helpers.stringToBytes(newPayload);
     }
