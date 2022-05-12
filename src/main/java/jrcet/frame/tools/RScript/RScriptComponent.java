@@ -52,9 +52,9 @@ public class RScriptComponent extends DiyJComponent {
         RScriptMenuTabPanel.setPreferredSize(new Dimension(0,40));
         RScriptMenuTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
 
-        DiyJCheckBox RScriptMenuSessionButton = new DiyJCheckBox("Session");
-        RScriptMenuSessionButton.setName("RScriptMenuSessionButton");
-        RScriptMenuTabPanel.add(RScriptMenuSessionButton);
+        DiyJCheckBox RScriptMenuSessionBox = new DiyJCheckBox("Session");
+        RScriptMenuSessionBox.setName("RScriptMenuSessionBox");
+        RScriptMenuTabPanel.add(RScriptMenuSessionBox);
 
         DiyJButton RScriptMenuCopyButton = new DiyJButton("Copy");
         RScriptMenuCopyButton.setName("RScriptMenuCopyButton");

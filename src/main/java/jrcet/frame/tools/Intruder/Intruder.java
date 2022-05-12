@@ -1,18 +1,24 @@
 package jrcet.frame.tools.Intruder;
 
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
+import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
+import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
 import jrcet.lib.Helper;
 
 import javax.swing.*;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 
 public class Intruder {
 
-    private static String processor;
+    private static String tmpPayload;
+    private static String returnedPayload;
+
     private static String aesIv;
     private static String aesIvType;
     private static String aesKey;
@@ -20,27 +26,46 @@ public class Intruder {
     private static String aesMode;
     private static String aesType;
 
-    private static String sPayload;
+    private static String rsaPublicKey;
+    private static String rsaPrivateKey;
+    private static String rsaMode;
 
-    static public String createIntruder(byte[] currentPayload) {
+    private static String asciiMode;
 
-        setProcessor();
+    private static String unicodeMode;
 
-        sPayload = new String(currentPayload, StandardCharsets.UTF_8);
+    private static ArrayList<String> processors = new ArrayList<>();
 
-        switch (processor){
-             case "Aes":
-                 return aseProcessor();
-         }
+    public static String createIntruder(byte[] currentPayload) {
 
-        return "aa";
+        tmpPayload = new String(currentPayload, StandardCharsets.UTF_8);
+
+        for(String processor: processors){
+            switch (processor){
+                case "Aes":
+                    aseProcessor();
+                    break;
+                case "Rsa":
+                    rsaProcessor();
+                    break;
+                case "Base":
+                    baseProcessor();
+                    break;
+                case "Ascii":
+                    asciiProcessor();
+                    break;
+                case "Unicode":
+                    unicodeProcessor();
+                    break;
+            }
+        }
+
+        returnedPayload = tmpPayload;
+        return returnedPayload;
     }
 
-    public static void setProcessor(){
-        processor =  "Aes";
-    }
 
-    public static String aseProcessor() {
+    public static void aseProcessor() {
         JTextField ivField = (JTextField) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesIvField"); assert ivField!=null;
         JComboBox<String> ivBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesIvBox"); assert ivBox!=null;
         JTextField keyField = (JTextField) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesKeyField");assert keyField!=null;
@@ -58,13 +83,69 @@ public class Intruder {
         try {
             switch (Objects.requireNonNull(aesType)){
                 case "Decrypt":
-                    return Aes.Decrypt(sPayload,aesMode, aesKey, aesKeyType, aesIv, aesIvType);
+                    tmpPayload = Aes.Decrypt(tmpPayload, aesMode, aesKey, aesKeyType, aesIv, aesIvType);
+                    break;
                 case "Encrypt":
-                    return Aes.Encrypt(sPayload,aesMode, aesKey, aesKeyType, aesIv, aesIvType);
+                    tmpPayload = Aes.Encrypt(tmpPayload, aesMode, aesKey, aesKeyType, aesIv, aesIvType);
+                    break;
+            }
+        }catch (Exception ignore){
+
+        }
+
+    }
+
+    public static void rsaProcessor(){
+        RSyntaxTextArea publicArea = (RSyntaxTextArea) Helper.getComponent(IntruderComponentPanel, "IntruderMainRsaPublicArea"); assert publicArea!=null;
+        RSyntaxTextArea privateArea = (RSyntaxTextArea) Helper.getComponent(IntruderComponentPanel, "IntruderMainRsaPrivateArea"); assert privateArea!=null;
+        JComboBox<String> modeBox = (JComboBox) Helper.getComponent(IntruderComponentPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
+
+        rsaPublicKey = publicArea.getText();
+        rsaPrivateKey = privateArea.getText();
+        rsaMode = (String) modeBox.getSelectedItem();
+
+        try{
+            switch (Objects.requireNonNull(rsaMode)){
+                case "Decrypt":
+                    tmpPayload = Rsa.Decrypt(tmpPayload, Rsa.getPrivateKey(rsaPrivateKey));
+                    break;
+                case "Encrypt":
+                    tmpPayload = Rsa.Encrypt(tmpPayload, Rsa.getPublicKey(rsaPublicKey));
+                    break;
             }
         }catch (Exception ignore){}
+    }
 
-        return "Error";
+    public static void baseProcessor(){
+        tmpPayload = tmpPayload+"-base";
+    }
+
+    public static void asciiProcessor(){
+        tmpPayload = tmpPayload+"-ascii";
+    }
+
+    public static void unicodeProcessor(){
+        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainUnicodeTypeBox"); assert modeBox!=null;
+
+        asciiMode = (String) modeBox.getSelectedItem();
+
+        switch (Objects.requireNonNull(asciiMode)){
+            case "Decrypt":
+                tmpPayload = Unicode.unicodeToString(tmpPayload);
+                break;
+            case "Encrypt":
+                tmpPayload = Unicode.stringToUnicode(tmpPayload);
+                break;
+        }
+
+    }
+
+    public static void registerProcessor(String processorName){
+        processors.add(processorName);
+    }
+
+    public static void unregisterProcessor(String processorName){
+        processors.remove(processorName);
     }
 
 }

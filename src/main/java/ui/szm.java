@@ -2,7 +2,7 @@ package ui;
 
 import java.io.UnsupportedEncodingException;
 
-public class test2 {
+public class szm {
     private final static int[] li_SecPosValue = { 1601, 1637, 1833, 2078, 2274,
             2302, 2433, 2594, 2787, 3106, 3212, 3472, 3635, 3722, 3730, 3858,
             4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
@@ -89,7 +89,7 @@ public class test2 {
     }
 
     public static void main(String[] args) {
-        test2 cte = new test2();
+        szm cte = new szm();
         System.out.println("获取拼音首字母：" + cte.getAllFirstLetter("北京联席办"));
     }
 }
