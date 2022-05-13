@@ -10,13 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ui/szm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJCheckBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJCheckBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Intruder/Intruder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Intruder/Intruder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Intruder/IntruderComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Intruder/IntruderComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/test2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -284,6 +278,7 @@
       <workItem from="1652184761118" duration="6525000" />
       <workItem from="1652260962392" duration="4074000" />
       <workItem from="1652325106224" duration="15454000" />
+      <workItem from="1652351726201" duration="912000" />
     </task>
     <servers />
   </component>
@@ -322,6 +317,11 @@
           <line>2579</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ui/test2.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -331,11 +331,6 @@
         <PinnedItemInfo parentTag="javax.swing.JList" memberName="appContext" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="Intruder.processors" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
