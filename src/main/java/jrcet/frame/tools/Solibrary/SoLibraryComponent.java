@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class SoLibraryComponent extends DiyJComponent {
 
-    public static String databasePath="/Users/j7ur8/Documents/DocumentArchive/SoLibra.db";
+    public static String databasePath="";
     public static JPanel SoLibraryComponentPanel = null;
 
     @Override

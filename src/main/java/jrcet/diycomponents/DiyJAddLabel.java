@@ -1,5 +1,6 @@
 package jrcet.diycomponents;
 
+import jrcet.frame.tools.Password.Generate.GenerateComponent;
 import jrcet.lib.Helper;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
@@ -133,6 +134,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tPanel = DomainComponent.DomainComponentPanel;
                 tCMap = DomainComponent.MainPanelHashMap;
                 break;
+            case "Generate":
+                tGMap = GenerateComponent.ComponentConstraintHashMap;
+                tPanel = GenerateComponent.GenerateComponentPanel;
+                tCMap = GenerateComponent.MainPanelHashMap;
         }
         assert tPanel != null;
         assert tGMap != null;
@@ -176,6 +181,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Domain":
                 nPanel = new DomainComponent().DomainMainPanel();
                 DomainComponent.MainPanelHashMap.put(nName, nPanel);
+                break;
+            case "Generate":
+                nPanel = new GenerateComponent().GenerateMainPanel();
+                GenerateComponent.MainPanelHashMap.put(nName, nPanel);
                 break;
         }
 

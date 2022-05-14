@@ -8,6 +8,7 @@ import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.Dominate.DominateComponent;
 import jrcet.frame.tools.HText.HTextComponent;
 import jrcet.frame.tools.Intruder.IntruderComponent;
+import jrcet.frame.tools.Password.PasswordComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
 import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
@@ -23,6 +24,7 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent IntruderComponentPanel = IntruderComponentPanel();
     private final JComponent HTextComponentPanel = HTextComponentPanel();
     private final JComponent DominateComponentPanel = DominateComponentPanel();
+    private final JComponent PasswordComponentPanel = PasswordComponentPanel();
 
     public static JComponent ToolsComponentPanel = null;
 
@@ -53,7 +55,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(DencryptComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(PasswordComponentPanel,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -78,7 +80,7 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuIntruderLabel.setPanel(IntruderComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuIntruderLabel);
 
-        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt",true);
+        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt");
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
         ToolsMenuDencryptLabel.setPanel(DencryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);
@@ -87,11 +89,6 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuRScriptLabel.setName("ToolsMenuRScriptLabel");
         ToolsMenuRScriptLabel.setPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);
-
-//        DiyJTabLabel ToolsMenuJSEncryptLabel = new DiyJTabLabel("JSEncrypt", true);
-//        ToolsMenuJSEncryptLabel.setName("ToolsMenuJSEncryptLabel");
-//        ToolsMenuJSEncryptLabel.setPanel(JSEncryptComponentPanel);
-//        ToolsMenuTabPanel.add(ToolsMenuJSEncryptLabel);
 
         DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary");
         ToolsMenuSOLibraryLabel.setName("ToolsMenuSOLibraryLabel");
@@ -107,6 +104,11 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuDominateLabel.setName("ToolsMenuDominateLabel");
         ToolsMenuDominateLabel.setPanel(DominateComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDominateLabel);
+
+        DiyJTabLabel ToolsMenuPasswordLabel = new DiyJTabLabel("Password",true);
+        ToolsMenuPasswordLabel.setName("ToolsMenuPasswordLabel");
+        ToolsMenuPasswordLabel.setPanel(PasswordComponentPanel);
+        ToolsMenuTabPanel.add(ToolsMenuPasswordLabel);
 
         return ToolsMenuTabPanel;
     }
@@ -163,5 +165,9 @@ public class ToolsComponent extends DiyJComponent {
     private JComponent DominateComponentPanel(){
 
         return  new DominateComponent().main();
+    }
+
+    private JComponent PasswordComponentPanel(){
+        return new PasswordComponent().main();
     }
 }

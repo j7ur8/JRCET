@@ -5,7 +5,6 @@ import jrcet.frame.tools.Intruder.Intruder;
 import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.Jrcet;
-import jrcet.frame.tools.Dencrypt.Dencrypt;
 import jrcet.frame.tools.RScript.RScript;
 import jrcet.lib.ShutdownThread;
 
