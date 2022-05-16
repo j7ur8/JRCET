@@ -31,6 +31,15 @@ public class Parsepy {
         return resultBuilder.toString();
     }
 
+    public static String abbreviationName(ArrayList<String> nameList){
+
+        StringBuilder abbreviationNameBuilder = new StringBuilder();
+        for(int i=0 ; i<nameList.size(); i++){
+            abbreviationNameBuilder.append(nameList.get(i).charAt(0));
+        }
+        return abbreviationNameBuilder.toString();
+    }
+
     public static ArrayList<String> parsePinYin(String name){
 
         int i = 0;
@@ -60,7 +69,7 @@ public class Parsepy {
                 if(i+4<nameArray.length && tmpList.contains(nameArray[i]+nameArray[i+1]+nameArray[i+2]+nameArray[i+3]+nameArray[i+4])){
                     tmpPartPY = nameArray[i]+nameArray[i+1]+nameArray[i+2]+nameArray[i+3]+nameArray[i+4];
                 }
-                if(i+5<nameArray.length && tmpList.contains(nameArray[i]+nameArray[i+1]+nameArray[i+2]+nameArray[i+3]+nameArray[i+4])){
+                if(i+5<nameArray.length && tmpList.contains(nameArray[i]+nameArray[i+1]+nameArray[i+2]+nameArray[i+3]+nameArray[i+4]+nameArray[i+5])){
                     tmpPartPY = nameArray[i]+nameArray[i+1]+nameArray[i+2]+nameArray[i+3]+nameArray[i+4]+nameArray[i+5];
                 }
                 if(tmpPartPY.equals("")){

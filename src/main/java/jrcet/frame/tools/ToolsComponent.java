@@ -55,7 +55,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(PasswordComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(HTextComponentPanel,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -163,7 +163,6 @@ public class ToolsComponent extends DiyJComponent {
     }
 
     private JComponent DominateComponentPanel(){
-
         return  new DominateComponent().main();
     }
 

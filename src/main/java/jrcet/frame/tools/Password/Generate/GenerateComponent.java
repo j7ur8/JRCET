@@ -1,15 +1,11 @@
 package jrcet.frame.tools.Password.Generate;
 
 import jrcet.diycomponents.DiyJAddLabel;
+import jrcet.diycomponents.DiyJCheckBox;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.setting.Setting;
-import jrcet.frame.tools.Dominate.Domain.Domain;
-import jrcet.frame.tools.Dominate.Domain.DomainComponent;
-import jrcet.frame.tools.HText.Parsepy.ParsepyComponent;
 import jrcet.lib.Helper;
 
 import javax.swing.*;
@@ -28,6 +24,7 @@ public class GenerateComponent extends DiyJComponent {
 
     @Override
     public JComponent main() {
+        new Generate();//不然JCheckBox会报错
         GenerateComponentPanel = new JPanel(new GridBagLayout());
         GenerateComponentPanel.setName("GenerateComponentPanel");
         GenerateComponentPanel.setBackground(Color.WHITE);
@@ -78,7 +75,7 @@ public class GenerateComponent extends DiyJComponent {
         GenerateMainPanel.setName("GenerateMainPanel");
         GenerateMainPanel.setBackground(Color.WHITE);
 
-        GenerateMainPanel.add(GenerateMainBorderPanel(),new GridBagConstraints(
+        GenerateMainPanel.add(GenerateBlackPanel(),new GridBagConstraints(
                 0,0,
                 1,2,
                 0.2,1,
@@ -88,7 +85,7 @@ public class GenerateComponent extends DiyJComponent {
                 0,0
         ));
 
-        GenerateMainPanel.add(GenerateMainMenuPanel(),new GridBagConstraints(
+        GenerateMainPanel.add(GenerateMainInputPanel(),new GridBagConstraints(
                 1, 0,
                 1, 1,
                 0.6, 0.05,
@@ -108,7 +105,7 @@ public class GenerateComponent extends DiyJComponent {
                 0, 0
         ));
 
-        GenerateMainPanel.add(GenerateMainRightPanel(),new GridBagConstraints(
+        GenerateMainPanel.add(GenerateMainMenuPanel(),new GridBagConstraints(
                 2,0,
                 1,2,
                 0.2,1,
@@ -154,7 +151,7 @@ public class GenerateComponent extends DiyJComponent {
     }
 
 
-    public JComponent GenerateMainMenuPanel(){
+    public JComponent GenerateMainInputPanel(){
         JComponent GenerateMainMenuPanel = new JPanel(new GridBagLayout());
         GenerateMainMenuPanel.setName("GenerateMainMenuPanel");
         GenerateMainMenuPanel.setBackground(Color.WHITE);
@@ -179,13 +176,19 @@ public class GenerateComponent extends DiyJComponent {
         return GenerateMainMenuPanel;
     }
 
-    public JComponent GenerateMainRightPanel(){
-        JPanel GenerateMainRightPanel = new JPanel(new GridBagLayout());
-        GenerateMainRightPanel.setName("GenerateMainRightPanel");
-        GenerateMainRightPanel.setPreferredSize(new Dimension(0,0));
-        GenerateMainRightPanel.setBorder(null);
 
-        GenerateMainRightPanel.add(GenerateMainBorderPanel(),new GridBagConstraints(
+
+    public JComponent GenerateMainMenuPanel(){
+        JPanel GenerateMainMenuPanel = new JPanel(new GridBagLayout());
+        GenerateMainMenuPanel.setName("GenerateMainBorderPanel");
+
+        JLabel GenerateMainMenuTitleLabel = new JLabel("模式选择");
+        GenerateMainMenuTitleLabel.setHorizontalAlignment(JLabel.CENTER);
+        GenerateMainMenuTitleLabel.setFont(new Font("微软雅黑",Font.PLAIN, 16));
+        GenerateMainMenuTitleLabel.setBorder(null);
+        GenerateMainMenuTitleLabel.setPreferredSize(new Dimension(0,0));
+
+        GenerateMainMenuPanel.add(GenerateMainMenuTitleLabel, new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0.05,
@@ -194,7 +197,8 @@ public class GenerateComponent extends DiyJComponent {
                 new Insets(0,0,0,0),
                 0,0
         ));
-        GenerateMainRightPanel.add(GenerateMainRightTabPanel(),new GridBagConstraints(
+
+        GenerateMainMenuPanel.add(GenerateMainMenuModePanel(), new GridBagConstraints(
                 0,1,
                 1,1,
                 1,0.95,
@@ -204,108 +208,18 @@ public class GenerateComponent extends DiyJComponent {
                 0,0
         ));
 
-        return GenerateMainRightPanel;
+
+        return GenerateMainMenuPanel;
     }
 
-    public JComponent GenerateMainRightTabPanel(){
-        JPanel GenerateMainRightTabPanel = new JPanel(new GridBagLayout());
-        GenerateMainRightTabPanel.setName("GenerateMainRightTabPanel");
-        GenerateMainRightTabPanel.setBorder(null);
+    public JComponent GenerateMainMenuModePanel(){
+        JComponent GenerateMainMenuModePanel = new JPanel(new GridBagLayout());
+        GenerateMainMenuModePanel.setName("GenerateMainMenuModePanel");
+        GenerateMainMenuModePanel.setBackground(Color.PINK);
 
-        DiyJLabel GenerateMainRightTabAllLabel = new DiyJLabel("All");
-        GenerateMainRightTabAllLabel.setName("GenerateMainRightTabAllLabel");
-
-        DiyJLabel GenerateMainRightTabDigital4Label = new DiyJLabel("Digital4");
-        GenerateMainRightTabDigital4Label.setName("GenerateMainRightTabDigital4Label");
-
-        DiyJLabel GenerateMainRightTabDigital6Label = new DiyJLabel("Digital6");
-        GenerateMainRightTabDigital6Label.setName("GenerateMainRightTabDigital4Label");
-
-        DiyJLabel GenerateMainRightTabDigital8Label = new DiyJLabel("Digital8");
-        GenerateMainRightTabDigital8Label.setName("GenerateMainRightTabDigital4Label");
-
-        DiyJLabel GenerateMainRightTabSDigital4Label = new DiyJLabel("SDigital4");
-        GenerateMainRightTabSDigital4Label.setName("GenerateMainRightTabDigital4Label");
-
-        DiyJLabel GenerateMainRightTabSDigital6Label = new DiyJLabel("SDigital6");
-        GenerateMainRightTabSDigital6Label.setName("GenerateMainRightTabDigital4Label");
-
-        DiyJLabel GenerateMainRightTabSDigital8Label = new DiyJLabel("SDigital6");
-        GenerateMainRightTabSDigital8Label.setName("GenerateMainRightTabDigital4Label");
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabAllLabel, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
-                1,1,
+        GenerateMainMenuModePanel.add(GenerateMainMenuModeSpecialcharPanel(),new GridBagConstraints(
                 0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabDigital4Label, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
                 1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabDigital6Label, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabDigital8Label, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabSDigital4Label, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabSDigital6Label, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainRightTabSDigital8Label, new GridBagConstraints(
-                0,GenerateMainRightTabPanel.getComponentCount(),
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        GenerateMainRightTabPanel.add(GenerateMainBorderPanel(), new GridBagConstraints(
-                1,0,
-                1,GenerateMainRightTabPanel.getComponentCount(),
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -313,9 +227,20 @@ public class GenerateComponent extends DiyJComponent {
                 0,0
         ));
 
-        GenerateMainRightTabPanel.add(GenerateMainBorderPanel(), new GridBagConstraints(
-                0,8,
-                2,1,
+        GenerateMainMenuModePanel.add(GenerateMainMenuModeSuffixPanel(),new GridBagConstraints(
+                0,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+
+        GenerateMainMenuModePanel.add(Helper.blackPanel(), new GridBagConstraints(
+                0,2,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -323,29 +248,123 @@ public class GenerateComponent extends DiyJComponent {
                 0,0
         ));
 
-        for(Component i : GenerateMainRightTabPanel.getComponents()){
-            if(i.getClass().toString().contains("DiyJLabel")){
-                i.setPreferredSize(new Dimension(70,25));
-                ((DiyJLabel)i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,0,0,0,new Color(237,237,237)), BorderFactory.createEmptyBorder(0,2,0,0)));
-            }
-        }
-        GenerateMainRightTabAllLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,0,0,0,new Color(237,237,237)), BorderFactory.createMatteBorder(0,2,0,0, Setting.class2ClickedDiyJTabBorderColor)));
-
-        return GenerateMainRightTabPanel;
+        return GenerateMainMenuModePanel;
     }
 
-    public JComponent GenerateMainBorderPanel(){
-        JPanel GenerateMainBorderPanel = new JPanel();
-        GenerateMainBorderPanel.setName("GenerateMainBorderPanel");
+    public JComponent GenerateMainMenuModeSpecialcharPanel(){
+        JComponent GenerateMainMenuModeSpecialcharPanel = new JPanel(new GridBagLayout());
+        GenerateMainMenuModeSpecialcharPanel.setName("GenerateMainMenuModeSpecialcharPanel");
+        GenerateMainMenuModeSpecialcharPanel.setPreferredSize(new Dimension(0,200));
+        GenerateMainMenuModeSpecialcharPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "SpecialChar"));
 
-        return GenerateMainBorderPanel;
+        DiyJCheckBox GenerateMainMenuModeSpecialcharBox = new DiyJCheckBox("SpecialChar");
+        GenerateMainMenuModeSpecialcharBox.setName("GenerateMainMenuModeSpecialcharBox");
+        GenerateMainMenuModeSpecialcharBox.setPreferredSize(new Dimension(0,30));
+
+        RSyntaxTextArea GenerateMainMenuModeSpecialcharArea = new RSyntaxTextArea("");
+        GenerateMainMenuModeSpecialcharArea.setCodeFoldingEnabled(true);
+        GenerateMainMenuModeSpecialcharArea.setLineWrap(true);
+        GenerateMainMenuModeSpecialcharArea.setText("");
+        GenerateMainMenuModeSpecialcharArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+        GenerateMainMenuModeSpecialcharArea.setName("GenerateMainMenuModeSpecialcharArea");
+
+        RTextScrollPane GenerateMainMenuModeSpecialcharPane = new RTextScrollPane(GenerateMainMenuModeSpecialcharArea);
+        GenerateMainMenuModeSpecialcharPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        GenerateMainMenuModeSpecialcharPane.setName("GenerateMainMenuModeSpecialcharPane");
+        GenerateMainMenuModeSpecialcharPane.setPreferredSize(new Dimension(0,0));
+        GenerateMainMenuModeSpecialcharPane.setBorder(null);
+
+        GenerateMainMenuModeSpecialcharPanel.add(GenerateMainMenuModeSpecialcharBox, new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        GenerateMainMenuModeSpecialcharPanel.add(GenerateMainMenuModeSpecialcharPane, new GridBagConstraints(
+                0,1,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return GenerateMainMenuModeSpecialcharPanel;
     }
+
+    public JComponent GenerateMainMenuModeSuffixPanel(){
+        JComponent GenerateMainMenuModeSuffixPanel = new JPanel(new GridBagLayout());
+        GenerateMainMenuModeSuffixPanel.setName("GenerateMainMenuModeSuffixPanel");
+        GenerateMainMenuModeSuffixPanel.setPreferredSize(new Dimension(0,100));
+        GenerateMainMenuModeSuffixPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Suffix"));
+
+        DiyJCheckBox GenerateMainMenuModeDigital4Box = new DiyJCheckBox("digital4");
+        GenerateMainMenuModeDigital4Box.setName("GenerateMainMenuModeDigital4Box");
+
+        DiyJCheckBox GenerateMainMenuModeDigital6Box = new DiyJCheckBox("digital6");
+        GenerateMainMenuModeDigital6Box.setName("GenerateMainMenuModeDigital6Box");
+
+        DiyJCheckBox GenerateMainMenuModeDigital8Box = new DiyJCheckBox("digital8");
+        GenerateMainMenuModeDigital8Box.setName("GenerateMainMenuModeDigital8Box");
+
+        JTextField GenerateMainMenuModeDateField = new JTextField("1950-2022");
+        GenerateMainMenuModeDateField.setHorizontalAlignment(JTextField.CENTER);
+        GenerateMainMenuModeDateField.setName("GenerateMainMenuModeDateField");
+
+        GenerateMainMenuModeSuffixPanel.add(GenerateMainMenuModeDigital4Box,new GridBagConstraints(
+                0,0,
+                1,1,
+                0.5,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        GenerateMainMenuModeSuffixPanel.add(GenerateMainMenuModeDigital6Box,new GridBagConstraints(
+                1,0,
+                1,1,
+                0.5,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        GenerateMainMenuModeSuffixPanel.add(GenerateMainMenuModeDigital8Box,new GridBagConstraints(
+                2,0,
+                1,1,
+                0.5,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        GenerateMainMenuModeSuffixPanel.add(GenerateMainMenuModeDateField,new GridBagConstraints(
+                0,1,
+                3,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        GenerateMainMenuModeDigital4Box.setSelected(true);
+        return GenerateMainMenuModeSuffixPanel;
+    }
+
+
 
     public JComponent GenerateBlackPanel(){
         JPanel GenerateBlackPanel = new JPanel();
         GenerateBlackPanel.setName("GenerateBlackPanel");
-        GenerateBlackPanel.setOpaque(true);
-        GenerateBlackPanel.setBackground(Color.PINK);
 
         return GenerateBlackPanel;
     }
@@ -377,7 +396,7 @@ public class GenerateComponent extends DiyJComponent {
                 JTextArea eTextArea = (JTextArea) Helper.getComponent(rootPanel,"GenerateMainOutputArea");
                 Generate.genPassword(eField.getText());
                 assert eTextArea != null;
-                eTextArea.setText(Generate.allPassword);
+                eTextArea.setText(Generate.result);
             }
         }
     }

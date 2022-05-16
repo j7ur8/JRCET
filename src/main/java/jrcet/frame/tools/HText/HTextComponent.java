@@ -1,9 +1,9 @@
 package jrcet.frame.tools.HText;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.tools.HText.Alone.AloneComponent;
+import jrcet.frame.tools.HText.Format.FormatComponent;
 import jrcet.frame.tools.HText.Parsepy.ParsepyComponent;
 import jrcet.frame.tools.HText.Sort.SortComponent;
 
@@ -15,6 +15,7 @@ public class HTextComponent extends DiyJComponent {
     private final JComponent AloneComponentPanel = AloneComponentPanel();
     private final JComponent SortComponentPanel = SortComponentPanel();
     private final JComponent ParsepyComponentPanel = ParsepyComponentPanel();
+    private final JComponent FormattingComponentPanel = FormattingComponentPanel();
 
     @Override
     public JComponent main() {
@@ -63,6 +64,11 @@ public class HTextComponent extends DiyJComponent {
         HTextMenuParsepyLabel.setPanel(ParsepyComponentPanel);
         HTextMenuTabPanel.add(HTextMenuParsepyLabel);
 
+        DiyJTabLabel HTextMenuFormattingLabel = new DiyJTabLabel("Format");
+        HTextMenuFormattingLabel.setName("HTextMenuFormattingLabel");
+        HTextMenuFormattingLabel.setPanel(FormattingComponentPanel);
+        HTextMenuTabPanel.add(HTextMenuFormattingLabel);
+
         for(Component label : HTextMenuTabPanel.getComponents()){
             label.setFont(new Font("微软雅黑", Font.PLAIN,12));
             label.setPreferredSize(new Dimension(50,20));
@@ -82,5 +88,9 @@ public class HTextComponent extends DiyJComponent {
 
     public JComponent ParsepyComponentPanel() {
         return new ParsepyComponent().main();
+    }
+
+    public JComponent FormattingComponentPanel() {
+        return new FormatComponent().main();
     }
 }

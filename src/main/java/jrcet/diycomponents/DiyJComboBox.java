@@ -2,6 +2,7 @@ package jrcet.diycomponents;
 
 import jrcet.frame.exploit.php.PbootCMS.PbootCMSComponent;
 import jrcet.frame.exploit.php.ThinkPHP.ThinkPHPComponent;
+import jrcet.frame.tools.HText.Format.Format;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,18 @@ public class DiyJComboBox<E> extends JComboBox<E> implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
 
+        DiyJComboBox<String> eComboBox = (DiyJComboBox<String>) e.getSource();
+        String eName = eComboBox.getName();
+
+        if(e.getStateChange() == ItemEvent.SELECTED){
+            String eItem;
+            switch (eName){
+                case "FormatMainControlModeBox":
+                    eItem = (String) eComboBox.getSelectedItem();
+                    Format.FormatMode = eItem;
+                    break;
+            }
+        }
 //        DiyJComboBox tmpComboBox = (DiyJComboBox)e.getSource();
 //
 //        if(e.getStateChange()!= ItemEvent.SELECTED){

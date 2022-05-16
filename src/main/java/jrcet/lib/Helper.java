@@ -298,6 +298,12 @@ public class Helper {
         out.close();
     }
 
+    public static String topUpper(String word){
+        char[] charArray = word.toCharArray();
+        charArray[0]-=32;
+        return String.valueOf(charArray);
+    }
+
     public static String readStream(InputStream in) {
         try {
             //<1>创建字节数组输出流，用来输出读取到的内容
@@ -332,6 +338,13 @@ public class Helper {
     public static void setConstraints(HashMap<String,GridBagConstraints> tHasMap, JComponent pComponent, JComponent tComponent, GridBagConstraints tGBC){
         tHasMap.put(tComponent.getName(), tGBC);
         pComponent.add(tComponent, tGBC);
+    }
+
+    public static JComponent blackPanel(){
+        JPanel blackPanel = new JPanel();
+        blackPanel.setName("HelperBlackPanel");
+
+        return blackPanel;
     }
 
 }
