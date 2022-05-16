@@ -1,20 +1,22 @@
 package jrcet.frame.tools.Intruder;
 
-import jrcet.diycomponents.DiyJCheckBox;
-import jrcet.diycomponents.DiyJComboBox;
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
+import jrcet.diycomponents.*;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+import jrcet.lib.Helper;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class IntruderComponent extends DiyJComponent {
 
     public static JComponent IntruderComponentPanel = null;
+    public static ArrayList<JComponent> IntruderModuleComponentList = new ArrayList<>();
+
 
     @Override
     public JComponent main() {
@@ -52,53 +54,62 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainPanel.add(IntruderMainAesPanel(), new GridBagConstraints(
-                0, IntruderMainPanel.getComponentCount(),
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,100,0,100),
-                0,0
-        ));
-
-        IntruderMainPanel.add(IntruderMainRsaPanel(), new GridBagConstraints(
+//        IntruderMainPanel.add(IntruderMainAesPanel(), new GridBagConstraints(
+//                0, IntruderMainPanel.getComponentCount(),
+//                1,1,
+//                1,0,
+//                GridBagConstraints.CENTER,
+//                GridBagConstraints.BOTH,
+//                new Insets(0,100,0,100),
+//                0,0
+//        ));
+//
+//        IntruderMainPanel.add(IntruderMainRsaPanel(), new GridBagConstraints(
+//                0,IntruderMainPanel.getComponentCount(),
+//                1,1,
+//                1,0,
+//                GridBagConstraints.CENTER,
+//                GridBagConstraints.BOTH,
+//                new Insets(0,100,0,100),
+//                0,0
+//        ));
+//
+//        IntruderMainPanel.add(IntruderMainBasePanel(), new GridBagConstraints(
+//                0,IntruderMainPanel.getComponentCount(),
+//                1,1,
+//                1,0,
+//                GridBagConstraints.CENTER,
+//                GridBagConstraints.BOTH,
+//                new Insets(0,100,0,100),
+//                0,0
+//        ));
+//
+//        IntruderMainPanel.add(IntruderMainAsciiPanel(), new GridBagConstraints(
+//                0,IntruderMainPanel.getComponentCount(),
+//                1,1,
+//                1,0,
+//                GridBagConstraints.CENTER,
+//                GridBagConstraints.BOTH,
+//                new Insets(0,100,0,100),
+//                0,0
+//        ));
+//
+//        IntruderMainPanel.add(IntruderMainUnicodePanel(), new GridBagConstraints(
+//                0,IntruderMainPanel.getComponentCount(),
+//                1,1,
+//                1,0,
+//                GridBagConstraints.CENTER,
+//                GridBagConstraints.BOTH,
+//                new Insets(0,100,0,100),
+//                0,0
+//        ));
+        IntruderMainPanel.add(Helper.blackPanel(), new GridBagConstraints(
                 0,IntruderMainPanel.getComponentCount(),
                 1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,100,0,100),
-                0,0
-        ));
-
-        IntruderMainPanel.add(IntruderMainBasePanel(), new GridBagConstraints(
-                0,IntruderMainPanel.getComponentCount(),
                 1,1,
-                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,100,0,100),
-                0,0
-        ));
-
-        IntruderMainPanel.add(IntruderMainAsciiPanel(), new GridBagConstraints(
-                0,IntruderMainPanel.getComponentCount(),
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,100,0,100),
-                0,0
-        ));
-
-        IntruderMainPanel.add(IntruderMainUnicodePanel(), new GridBagConstraints(
-                0,IntruderMainPanel.getComponentCount(),
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,100,0,100),
+                new Insets(0,0,0,0),
                 0,0
         ));
 
@@ -116,25 +127,27 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainControlPanel.setName("IntruderMainControlPanel");
         IntruderMainControlPanel.setBackground(Color.WHITE);
         IntruderMainControlPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"Control Center",TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        IntruderMainControlPanel.setPreferredSize(new Dimension(0,200));
+        IntruderMainControlPanel.setPreferredSize(new Dimension(0,150));
 
-        DiyJLabel IntruderMainControlShowPanel = new DiyJLabel("");
-        IntruderMainControlShowPanel.setName("IntruderMainControlShowPanel");
+        DiyJLabel IntruderMainControlShowLabel = new DiyJLabel("");
+        IntruderMainControlShowLabel.setName("IntruderMainControlShowPanel");
 
-        DiyJCheckBox IntruderMainControlAesBox = new DiyJCheckBox("Aes");
-        IntruderMainControlAesBox.setName("IntruderMainControlAesBox");
-        DiyJCheckBox IntruderMainControlRsaBox = new DiyJCheckBox("Rsa");
-        IntruderMainControlRsaBox.setName("IntruderMainControlRsaBox");
-        DiyJCheckBox IntruderMainControlBaseBox = new DiyJCheckBox("Base");
-        IntruderMainControlBaseBox.setName("IntruderMainControlBaseBox");
-        DiyJCheckBox IntruderMainControlAsciiBox = new DiyJCheckBox("Ascii");
-        IntruderMainControlAsciiBox.setName("IntruderMainControlAsciiBox");
-        DiyJCheckBox IntruderMainControlUnicodeBox = new DiyJCheckBox("Unicode");
-        IntruderMainControlUnicodeBox.setName("IntruderMainControlUnicodeBox");
+        DiyJButton IntruderMainControlAesButton = new DiyJButton(("Aes"));
+        IntruderMainControlAesButton.setName("IntruderMainControlAesButton");
+        DiyJButton IntruderMainControlRsaButton = new DiyJButton(("Rsa"));
+        IntruderMainControlRsaButton.setName("IntruderMainControlRsaButton");
+        DiyJButton IntruderMainControlBaseButton = new DiyJButton(("Base"));
+        IntruderMainControlBaseButton.setName("IntruderMainControlBaseButton");
+        DiyJButton IntruderMainControlAsciiButton = new DiyJButton(("Ascii"));
+        IntruderMainControlAsciiButton.setName("IntruderMainControlAsciiButton");
+        DiyJButton IntruderMainControlUnicodeButton = new DiyJButton(("Unicode"));
+        IntruderMainControlUnicodeButton.setName("IntruderMainControlUnicodeButton");
+        DiyJButton IntruderMainControlClearButton = new DiyJButton(("Clear All"));
+        IntruderMainControlClearButton.setName("IntruderMainControlClearButton");
 
-        IntruderMainControlPanel.add(IntruderMainControlShowPanel, new GridBagConstraints(
-                0,IntruderMainControlPanel.getComponentCount(),
-                2,1,
+        IntruderMainControlPanel.add(IntruderMainControlShowLabel, new GridBagConstraints(
+                0,0,
+                5,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -142,49 +155,59 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainControlPanel.add(IntruderMainControlAesBox, new GridBagConstraints(
-                0,IntruderMainControlPanel.getComponentCount(),
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,50,0,0),
-                0,0
-        ));
-        IntruderMainControlPanel.add(IntruderMainControlRsaBox, new GridBagConstraints(
-                0,IntruderMainControlPanel.getComponentCount(),
+        IntruderMainControlPanel.add(IntruderMainControlAesButton, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,50,0,0),
+                new Insets(0,0,0,0),
                 0,0
         ));
-        IntruderMainControlPanel.add(IntruderMainControlBaseBox, new GridBagConstraints(
-                0,IntruderMainControlPanel.getComponentCount(),
+        IntruderMainControlPanel.add(IntruderMainControlRsaButton, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,50,0,0),
+                new Insets(0,0,0,0),
                 0,0
         ));
-        IntruderMainControlPanel.add(IntruderMainControlAsciiBox, new GridBagConstraints(
-                0,IntruderMainControlPanel.getComponentCount(),
+        IntruderMainControlPanel.add(IntruderMainControlBaseButton, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,50,0,0),
+                new Insets(0,0,0,0),
                 0,0
         ));
-        IntruderMainControlPanel.add(IntruderMainControlUnicodeBox, new GridBagConstraints(
-                0,IntruderMainControlPanel.getComponentCount(),
+        IntruderMainControlPanel.add(IntruderMainControlAsciiButton, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,50,0,0),
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        IntruderMainControlPanel.add(IntruderMainControlUnicodeButton, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        IntruderMainControlPanel.add(IntruderMainControlClearButton, new GridBagConstraints(
+                0,2,
+                5,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
                 0,0
         ));
 
@@ -230,7 +253,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainAesTypeBox.setName("IntruderMainAesTypeBox");
         IntruderMainAesTypeBox.setPreferredSize(new Dimension(120,30));
 
-        IntruderMainAesPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainAesPanel.add(Helper.blackPanel() ,new GridBagConstraints(
                 0,0,
                 3,1,
                 0,1,
@@ -329,7 +352,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainAesPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainAesPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,4,
                 3,1,
                 0,1,
@@ -339,7 +362,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainAesPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainAesPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 3,0,
                 1,5,
                 1,1,
@@ -412,7 +435,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainRsaPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainRsaPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 2,0,
                 1,1,
                 0,0.5,
@@ -432,7 +455,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainRsaPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainRsaPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 2,2,
                 1,1,
                 0,0.5,
@@ -461,7 +484,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainBaseTypeBox.setName("IntruderMainBaseTypeBox");
         IntruderMainBaseTypeBox.setPreferredSize(new Dimension(120,30));
 
-        IntruderMainBasePanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainBasePanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,0,
                 2,1,
                 0,0.5,
@@ -491,7 +514,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainBasePanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainBasePanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,2,
                 2,1,
                 0,0.5,
@@ -501,7 +524,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainBasePanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainBasePanel.add(Helper.blackPanel(),new GridBagConstraints(
                 2,0,
                 1,3,
                 1,1,
@@ -526,7 +549,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainAsciiTypeBox.setName("IntruderMainAsciiTypeBox");
         IntruderMainAsciiTypeBox.setPreferredSize(new Dimension(120,30));
 
-        IntruderMainAsciiPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainAsciiPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 0,0.5,
@@ -546,7 +569,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainAsciiPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainAsciiPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,2,
                 1,1,
                 0,0.5,
@@ -556,7 +579,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainAsciiPanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainAsciiPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 1,0,
                 1,1,
                 1,1,
@@ -581,7 +604,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainUnicodeTypeBox.setName("IntruderMainUnicodeTypeBox");
         IntruderMainUnicodeTypeBox.setPreferredSize(new Dimension(120,30));
 
-        IntruderMainUnicodePanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainUnicodePanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 0,0.5,
@@ -601,7 +624,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainUnicodePanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainUnicodePanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,2,
                 1,1,
                 0,0.5,
@@ -611,7 +634,7 @@ public class IntruderComponent extends DiyJComponent {
                 0,0
         ));
 
-        IntruderMainUnicodePanel.add(IntruderMainBorderPanel(),new GridBagConstraints(
+        IntruderMainUnicodePanel.add(Helper.blackPanel(),new GridBagConstraints(
                 1,0,
                 1,3,
                 1,1,
@@ -624,11 +647,5 @@ public class IntruderComponent extends DiyJComponent {
         return IntruderMainUnicodePanel;
     }
 
-    public JComponent IntruderMainBorderPanel(){
-        JComponent IntruderMainBorderPanel = new JPanel();
-        IntruderMainBorderPanel.setName("IntruderMainBorderPanel");
-        IntruderMainBorderPanel.setBackground(Color.WHITE);
-        return IntruderMainBorderPanel;
-    }
 
 }

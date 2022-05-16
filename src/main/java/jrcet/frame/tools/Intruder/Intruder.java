@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
+import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
 
 public class Intruder {
 
@@ -32,7 +33,9 @@ public class Intruder {
 
     private static String asciiMode;
 
+    private static JComponent RootPanel;
     private static String unicodeMode;
+
 
     private static ArrayList<String> processors = new ArrayList<>();
 
@@ -40,23 +43,25 @@ public class Intruder {
 
         tmpPayload = new String(currentPayload, StandardCharsets.UTF_8);
 
-        for(String processor: processors){
-            switch (processor){
-                case "Aes":
+        for(JComponent jComponent : IntruderModuleComponentList){
+            RootPanel = jComponent;
+            switch (jComponent.getName()){
+                case "IntruderMainAesPanel":
                     aseProcessor();
                     break;
-                case "Rsa":
+                case "IntruderMainRsaPanel":
                     rsaProcessor();
                     break;
-                case "Base":
+                case "IntruderMainBasePanel":
                     baseProcessor();
                     break;
-                case "Ascii":
+                case "IntruderMainAsciiPanel":
                     asciiProcessor();
                     break;
-                case "Unicode":
+                case "IntruderMainUnicodePanel":
                     unicodeProcessor();
                     break;
+
             }
         }
 
@@ -66,12 +71,12 @@ public class Intruder {
 
 
     public static void aseProcessor() {
-        JTextField ivField = (JTextField) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesIvField"); assert ivField!=null;
-        JComboBox<String> ivBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesIvBox"); assert ivBox!=null;
-        JTextField keyField = (JTextField) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesKeyField");assert keyField!=null;
-        JComboBox<String> keyBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesKeyBox");assert keyBox!=null;
-        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesModeBox");assert modeBox!=null;
-        JComboBox<String> typeBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainAesTypeBox");assert typeBox!=null;
+        JTextField ivField = (JTextField) Helper.getComponent(RootPanel, "IntruderMainAesIvField"); assert ivField!=null;
+        JComboBox<String> ivBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAesIvBox"); assert ivBox!=null;
+        JTextField keyField = (JTextField) Helper.getComponent(RootPanel, "IntruderMainAesKeyField");assert keyField!=null;
+        JComboBox<String> keyBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAesKeyBox");assert keyBox!=null;
+        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAesModeBox");assert modeBox!=null;
+        JComboBox<String> typeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAesTypeBox");assert typeBox!=null;
 
         aesIv = ivField.getText();
         aesIvType = (String) ivBox.getSelectedItem();
@@ -96,9 +101,9 @@ public class Intruder {
     }
 
     public static void rsaProcessor(){
-        RSyntaxTextArea publicArea = (RSyntaxTextArea) Helper.getComponent(IntruderComponentPanel, "IntruderMainRsaPublicArea"); assert publicArea!=null;
-        RSyntaxTextArea privateArea = (RSyntaxTextArea) Helper.getComponent(IntruderComponentPanel, "IntruderMainRsaPrivateArea"); assert privateArea!=null;
-        JComboBox<String> modeBox = (JComboBox) Helper.getComponent(IntruderComponentPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
+        RSyntaxTextArea publicArea = (RSyntaxTextArea) Helper.getComponent(RootPanel, "IntruderMainRsaPublicArea"); assert publicArea!=null;
+        RSyntaxTextArea privateArea = (RSyntaxTextArea) Helper.getComponent(RootPanel, "IntruderMainRsaPrivateArea"); assert privateArea!=null;
+        JComboBox<String> modeBox = (JComboBox) Helper.getComponent(RootPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
 
         rsaPublicKey = publicArea.getText();
         rsaPrivateKey = privateArea.getText();
@@ -125,7 +130,7 @@ public class Intruder {
     }
 
     public static void unicodeProcessor(){
-        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(IntruderComponentPanel, "IntruderMainUnicodeTypeBox"); assert modeBox!=null;
+        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainUnicodeTypeBox"); assert modeBox!=null;
 
         asciiMode = (String) modeBox.getSelectedItem();
 

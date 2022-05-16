@@ -43,32 +43,6 @@ public class DiyJCheckBox extends JCheckBox implements ItemListener {
                     eCheckBox.setSelected(false);
                 }
                 break;
-            case "IntruderMainControlAesBox":
-            case "IntruderMainControlRsaBox":
-            case "IntruderMainControlBaseBox":
-            case "IntruderMainControlAsciiBox":
-            case "IntruderMainControlUnicodeBox":
-                JLabel eLabel = (JLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel"); assert eLabel != null;
-                String boxText = eCheckBox.getText();
-                String labelText = eLabel.getText();
-                if(eCheckBox.isSelected()){
-                    Intruder.registerProcessor(boxText);
-                    if(Objects.equals(labelText, "")){
-                        eLabel.setText(labelText+boxText);
-                    }else{
-                        eLabel.setText(labelText+"->"+boxText);
-                    }
-                }else{
-                    Intruder.unregisterProcessor(boxText);
-                    if(labelText.contains("->")){
-                        labelText=labelText.replace(boxText+"->", "").replace("->"+boxText, "");
-                    }else{
-                        labelText=labelText.replace(boxText, "");
-                    }
-                    eLabel.setText(labelText);
-                }
-                IntruderComponentPanel.updateUI();
-                break;
             case "GenerateMainMenuModeSpecialcharBox":
                 rootPanel = (JComponent) eCheckBox.getParent();
                 if(eCheckBox.isSelected()){
