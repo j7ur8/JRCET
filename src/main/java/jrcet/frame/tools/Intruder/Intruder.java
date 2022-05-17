@@ -2,6 +2,7 @@ package jrcet.frame.tools.Intruder;
 
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
+import jrcet.frame.tools.Dencrypt.Base.Base;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
 import jrcet.lib.Helper;
@@ -18,24 +19,8 @@ import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleCompone
 public class Intruder {
 
     private static String tmpPayload;
-    private static String returnedPayload;
-
-    private static String aesIv;
-    private static String aesIvType;
-    private static String aesKey;
-    private static String aesKeyType;
-    private static String aesMode;
-    private static String aesType;
-
-    private static String rsaPublicKey;
-    private static String rsaPrivateKey;
-    private static String rsaMode;
-
-    private static String asciiMode;
 
     private static JComponent RootPanel;
-    private static String unicodeMode;
-
 
     private static ArrayList<String> processors = new ArrayList<>();
 
@@ -65,7 +50,7 @@ public class Intruder {
             }
         }
 
-        returnedPayload = tmpPayload;
+        String returnedPayload = tmpPayload;
         return returnedPayload;
     }
 
@@ -78,12 +63,12 @@ public class Intruder {
         JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAesModeBox");assert modeBox!=null;
         JComboBox<String> typeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAesTypeBox");assert typeBox!=null;
 
-        aesIv = ivField.getText();
-        aesIvType = (String) ivBox.getSelectedItem();
-        aesKey = keyField.getText();
-        aesKeyType = (String) keyBox.getSelectedItem();
-        aesMode = (String) modeBox.getSelectedItem();
-        aesType = (String) typeBox.getSelectedItem();
+        String aesIv = ivField.getText();
+        String aesIvType = (String) ivBox.getSelectedItem();
+        String aesKey = keyField.getText();
+        String aesKeyType = (String) keyBox.getSelectedItem();
+        String aesMode = (String) modeBox.getSelectedItem();
+        String aesType = (String) typeBox.getSelectedItem();
 
         try {
             switch (Objects.requireNonNull(aesType)){
@@ -105,9 +90,9 @@ public class Intruder {
         RSyntaxTextArea privateArea = (RSyntaxTextArea) Helper.getComponent(RootPanel, "IntruderMainRsaPrivateArea"); assert privateArea!=null;
         JComboBox<String> modeBox = (JComboBox) Helper.getComponent(RootPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
 
-        rsaPublicKey = publicArea.getText();
-        rsaPrivateKey = privateArea.getText();
-        rsaMode = (String) modeBox.getSelectedItem();
+        String rsaPublicKey = publicArea.getText();
+        String rsaPrivateKey = privateArea.getText();
+        String rsaMode = (String) modeBox.getSelectedItem();
 
         try{
             switch (Objects.requireNonNull(rsaMode)){
@@ -122,7 +107,22 @@ public class Intruder {
     }
 
     public static void baseProcessor(){
-        tmpPayload = tmpPayload+"-base";
+        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainBaseModeBox"); assert modeBox!=null;
+        JComboBox<String> typeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainBaseTypeBox"); assert typeBox!=null;
+
+        String baseMode = (String) modeBox.getSelectedItem(); assert baseMode != null;
+        String baseType = (String) typeBox.getSelectedItem(); assert baseType != null;
+
+        try{
+            switch (Objects.requireNonNull(baseType)){
+                case "Decrypt":
+                    tmpPayload = Base.decrypt(tmpPayload, baseMode);
+                    break;
+                case "Encrypt":
+                    tmpPayload = Base.encrypt(tmpPayload, baseMode);
+                    break;
+            }
+        }catch (Exception ignore){}
     }
 
     public static void asciiProcessor(){
@@ -132,7 +132,7 @@ public class Intruder {
     public static void unicodeProcessor(){
         JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainUnicodeTypeBox"); assert modeBox!=null;
 
-        asciiMode = (String) modeBox.getSelectedItem();
+        String asciiMode = (String) modeBox.getSelectedItem();
 
         switch (Objects.requireNonNull(asciiMode)){
             case "Decrypt":

@@ -13,7 +13,15 @@ public class Base {
     public static void initBase(){};
 
     public static String encrypt(String text){
-        switch (BaseMode){
+        return encrypt(text, BaseMode);
+    }
+
+    public static String decrypt(String text){
+        return decrypt(text, BaseMode);
+    }
+
+    public static String encrypt(String text, String mode){
+        switch (mode){
             case "Base64":
                 ReturnedString = new String(b64encoder.encode(text.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
                 break;
@@ -22,8 +30,9 @@ public class Base {
         return ReturnedString;
     }
 
-    public static String decrypt(String text){
-        switch (BaseMode){
+    public static String decrypt(String text, String mode){
+
+        switch (mode){
             case "Base64":
                 ReturnedString = new String(b64decoder.decode(text.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
                 break;
@@ -31,5 +40,7 @@ public class Base {
 
         return ReturnedString;
     }
+
+
 
 }
