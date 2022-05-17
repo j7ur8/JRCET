@@ -55,7 +55,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(HTextComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(DencryptComponentPanel,new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -137,12 +137,6 @@ public class ToolsComponent extends DiyJComponent {
         JComponent RScriptComponentPanel = RScriptComponentInstance.main();
         return RScriptComponentPanel;
     }
-
-//    private JComponent JSEncryptComponentPanel(){
-//        DiyJComponent JSEncryptComponentInstance = new JSEncryptComponent();
-//        JComponent JSEncryptComponentPanel = JSEncryptComponentInstance.main();
-//        return JSEncryptComponentPanel;
-//    }
 
     private JComponent SoLibraryComponentPanel(){
         DiyJComponent SoLibraryComponentInstance = new SoLibraryComponent();

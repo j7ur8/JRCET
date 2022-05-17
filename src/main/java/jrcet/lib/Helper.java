@@ -347,4 +347,11 @@ public class Helper {
         return blackPanel;
     }
 
+    public static JComponent blackPanel(Color color){
+        JPanel blackPanel = new JPanel();
+        blackPanel.setName("HelperBlackPanel");
+        blackPanel.setBackground(color);
+        return blackPanel;
+    }
+
 }

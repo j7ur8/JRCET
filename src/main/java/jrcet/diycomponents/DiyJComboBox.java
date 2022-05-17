@@ -2,6 +2,7 @@ package jrcet.diycomponents;
 
 import jrcet.frame.exploit.php.PbootCMS.PbootCMSComponent;
 import jrcet.frame.exploit.php.ThinkPHP.ThinkPHPComponent;
+import jrcet.frame.tools.Dencrypt.Base.Base;
 import jrcet.frame.tools.HText.Format.Format;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class DiyJComboBox<E> extends JComboBox<E> implements ItemListener {
     public DiyJComboBox(E[] targetList){
         super(targetList);
         addItemListener(this);
-
+        setPreferredSize(new Dimension(70,30));
     }
 
 
@@ -29,82 +30,15 @@ public class DiyJComboBox<E> extends JComboBox<E> implements ItemListener {
         String eName = eComboBox.getName();
 
         if(e.getStateChange() == ItemEvent.SELECTED){
-            String eItem;
+            String eItem = (String) eComboBox.getSelectedItem();;
             switch (eName){
                 case "FormatMainControlModeBox":
-                    eItem = (String) eComboBox.getSelectedItem();
                     Format.FormatMode = eItem;
+                    break;
+                case "BaseMainControlModeBox":
+                    Base.BaseMode = eItem;
                     break;
             }
         }
-//        DiyJComboBox tmpComboBox = (DiyJComboBox)e.getSource();
-//
-//        if(e.getStateChange()!= ItemEvent.SELECTED){
-//            return;
-//        }
-//        if(tmpComboBox.getParent()!=null){
-//            if(!Arrays.asList(types).contains((String) e.getItem())){
-//                String nowSelectItem= (String) e.getItem();
-//                System.out.println(tmpComboBox.getParent());
-//                JLabel nowSelectLabel=(JLabel) tmpComboBox.getParent().getComponent(4);
-//                nowSelectLabel.setText("               当前选择："+nowSelectItem);
-//                DiyJComponent targetPanel=null;
-//                switch (Objects.requireNonNull(nowSelectItem)){
-//                    case "ThinkPHP":
-//                        targetPanel=new ThinkPHPComponent();
-//                        break;
-//                    case "PbootCMS":
-//                        targetPanel=new PbootCMSComponent();
-//                        break;
-//                    case "Shiro":
-////                    targetPanel=new Shiro();
-//                        break;
-//                    case "FastJson":
-////                    FastJson();
-//                        break;
-//                }
-//                if(targetPanel!=null) {
-//                    JPanel parentPanel= (JPanel) tmpComboBox.getParent().getParent();
-//                    parentPanel.remove(1);
-//                    GridBagConstraints targetPanelProperty = new GridBagConstraints(
-//                            0,1,
-//                            1,1,
-//                            1,1,
-//                            GridBagConstraints.CENTER,
-//                            GridBagConstraints.BOTH,
-//                            new Insets(0,0,0,0),
-//                            0,0
-//                    );
-//                    parentPanel.add(targetPanel.main(),targetPanelProperty);
-//                    parentPanel.validate();
-//                    parentPanel.repaint();
-//                }
-//
-//                return;
-//            }
-//
-//            DiyJComboBox targetComboBox = (DiyJComboBox) tmpComboBox.getParent().getComponent(3);
-//
-//            String selectedItem =  (String) tmpComboBox.getSelectedItem();
-//            String[] tmpTargetList = new String[]{"选择其他"};
-//            switch (Objects.requireNonNull(selectedItem)){
-//                case  "PHP":
-//                    tmpTargetList = new String[]{"ThinkPHP", "PbootCMS"};
-//                    break;
-//                case "Java":
-//                    tmpTargetList = new String[]{"Shiro", "FastJson"};
-//                    break;
-//                case "Python":
-//                case "Nodejs":
-//                case "Other":
-//                    break;
-//            }
-//
-//            targetComboBox.removeAllItems();
-//            for (String s : tmpTargetList) {
-//                targetComboBox.addItem(s);
-//            }
-//        }
-
     }
 }

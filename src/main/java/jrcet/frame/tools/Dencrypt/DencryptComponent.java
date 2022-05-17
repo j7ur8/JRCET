@@ -37,7 +37,7 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptComponentPanel.add(RsaComponentPanel,new GridBagConstraints(
+        DencryptComponentPanel.add(BaseComponentPanel,new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -56,7 +56,7 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuPanel.setName("DencryptMenuPanel");
 
         //Base
-        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base");
+        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base", true);
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
         DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
         DencryptMenuPanel.add(DencryptMenuBaseLabel);
@@ -68,7 +68,7 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuPanel.add(DencryptMenuAESLabel);
 
         //Rsa
-        DiyJTabLabel DencryptMenuRsaLabel = new DiyJTabLabel("Rsa",true);
+        DiyJTabLabel DencryptMenuRsaLabel = new DiyJTabLabel("Rsa");
         DencryptMenuRsaLabel.setPanel(RsaComponentPanel);
         DencryptMenuRsaLabel.setName("DencryptMenuRsaLabel");
         DencryptMenuPanel.add(DencryptMenuRsaLabel);
