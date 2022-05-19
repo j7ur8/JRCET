@@ -6,7 +6,8 @@ mvn+jdk8+idea 开发
 
 # 集成内容
 
-分为Setting、Exploit、和Tools模块
+分为Setting、Exploit、和Tools模块。
+
 Setting和Exploit尚未完善。
 
 Tools包含以下几个工具
