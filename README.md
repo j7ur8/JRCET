@@ -3,4 +3,10 @@
 但是都是打算终身学习的项目。
 
 # 集成内容
-RScript： 参考项目[]()
+
+分为Setting、Exploit、和Tools模块
+Setting和Exploit尚未完善。
+
+Tools包含以下几个工具
+- Intruder模块：有aes、rsa、base、unicode加密
+- Dencrypt模块：
