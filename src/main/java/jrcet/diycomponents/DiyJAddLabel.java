@@ -139,10 +139,12 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tGMap = GenerateComponent.ComponentConstraintHashMap;
                 tPanel = GenerateComponent.GenerateComponentPanel;
                 tCMap = GenerateComponent.MainPanelHashMap;
+                break;
             case "Format":
                 tGMap = FormatComponent.ComponentConstraintHashMap;
                 tPanel = FormatComponent.FormatComponentPanel;
                 tCMap = FormatComponent.MainPanelHashMap;
+                break;
         }
         assert tPanel != null;
         assert tGMap != null;

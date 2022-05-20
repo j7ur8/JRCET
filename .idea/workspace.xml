@@ -10,7 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/ToolsComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/ToolsComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +290,7 @@
       <workItem from="1652779068296" duration="945000" />
       <workItem from="1652800786845" duration="793000" />
       <workItem from="1652878237697" duration="862000" />
-      <workItem from="1652975252395" duration="1488000" />
+      <workItem from="1652975252395" duration="2499000" />
     </task>
     <servers />
   </component>
@@ -340,6 +343,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java</url>
           <line>154</line>
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -80,7 +80,7 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuIntruderLabel.setPanel(IntruderComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuIntruderLabel);
 
-        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt");
+        DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt",true);
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
         ToolsMenuDencryptLabel.setPanel(DencryptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDencryptLabel);
@@ -105,7 +105,7 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuDominateLabel.setPanel(DominateComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuDominateLabel);
 
-        DiyJTabLabel ToolsMenuPasswordLabel = new DiyJTabLabel("Password",true);
+        DiyJTabLabel ToolsMenuPasswordLabel = new DiyJTabLabel("Password");
         ToolsMenuPasswordLabel.setName("ToolsMenuPasswordLabel");
         ToolsMenuPasswordLabel.setPanel(PasswordComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuPasswordLabel);
