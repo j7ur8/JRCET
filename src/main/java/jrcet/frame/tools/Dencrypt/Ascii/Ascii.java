@@ -18,7 +18,7 @@ public class Ascii {
     };
 
 
-    public static String encrypt(String text, String separator){
+    public static String encrypt(String text, String separator, String separator2){
 
         boolean isSingle = text.length()==1;
         
@@ -28,14 +28,14 @@ public class Ascii {
         for(int i=0; i<eCharArray.length; i++){
             eStringBuilder.append((int)eCharArray[i]);
             if(i!=eCharArray.length-1){
-                eStringBuilder.append("\n");
+                eStringBuilder.append(parseSeparator(separator2));
             }
         }
 
         return eStringBuilder.toString();
     }
 
-    public static String decrypt(String text, String separator){
+    public static String decrypt(String text, String separator, String separator2){
 
         boolean isSingle = Helper.isNumeric(text);
 
@@ -46,7 +46,7 @@ public class Ascii {
             int eInt = Integer.parseInt(eStringArray[i]);
             eStringBuilder.append((char)eInt);
             if(i!=eStringArray.length-1){
-                eStringBuilder.append("\n");
+                eStringBuilder.append(parseSeparator(separator2));
             }
         }
 

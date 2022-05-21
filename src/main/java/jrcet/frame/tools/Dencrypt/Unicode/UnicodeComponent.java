@@ -124,6 +124,7 @@ public class UnicodeComponent extends DiyJComponent {
     public JComponent UnicodeMainBorderPanel(){
         JComponent UnicodeMainBorderPanel = new JPanel();
         UnicodeMainBorderPanel.setName("UnicodeMainBorderPanel");
+        UnicodeMainBorderPanel.setPreferredSize(new Dimension(0,0));
 
         return  UnicodeMainBorderPanel;
     }

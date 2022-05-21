@@ -2,6 +2,7 @@ package jrcet.frame.tools.Intruder;
 
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
+import jrcet.frame.tools.Dencrypt.Ascii.Ascii;
 import jrcet.frame.tools.Dencrypt.Base.Base;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
@@ -126,15 +127,31 @@ public class Intruder {
     }
 
     public static void asciiProcessor(){
-        tmpPayload = tmpPayload+"-ascii";
+        JTextField separator1Field = (JTextField) Helper.getComponent(RootPanel, "IntruderMainAsciiSeparator1Field"); assert separator1Field!=null;
+        JTextField separator2Field = (JTextField) Helper.getComponent(RootPanel, "IntruderMainAsciiSeparator2Field"); assert separator2Field!=null;
+        JComboBox<String> typeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainAsciiTypeBox"); assert typeBox!=null;
+
+        String inputSeparator = separator1Field.getText();
+        String outputSeparator = separator2Field.getText();
+        String asciiMode = (String) typeBox.getSelectedItem();
+
+        switch (Objects.requireNonNull(asciiMode)){
+            case "Decrypt":
+                tmpPayload = Ascii.decrypt(tmpPayload, inputSeparator, outputSeparator);
+                break;
+            case "Encrypt":
+                tmpPayload = Ascii.encrypt(tmpPayload, inputSeparator, outputSeparator);
+                break;
+        }
+
     }
 
     public static void unicodeProcessor(){
         JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainUnicodeTypeBox"); assert modeBox!=null;
 
-        String asciiMode = (String) modeBox.getSelectedItem();
+        String unicodeMode = (String) modeBox.getSelectedItem();
 
-        switch (Objects.requireNonNull(asciiMode)){
+        switch (Objects.requireNonNull(unicodeMode)){
             case "Decrypt":
                 tmpPayload = Unicode.unicodeToString(tmpPayload);
                 break;

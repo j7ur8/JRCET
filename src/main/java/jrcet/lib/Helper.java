@@ -343,6 +343,7 @@ public class Helper {
     public static JComponent blackPanel(){
         JPanel blackPanel = new JPanel();
         blackPanel.setName("HelperBlackPanel");
+        blackPanel.setPreferredSize(new Dimension(0,0));
 
         return blackPanel;
     }
@@ -351,6 +352,7 @@ public class Helper {
         JPanel blackPanel = new JPanel();
         blackPanel.setName("HelperBlackPanel");
         blackPanel.setBackground(color);
+        blackPanel.setPreferredSize(new Dimension(0,0));
         return blackPanel;
     }
 

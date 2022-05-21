@@ -494,16 +494,73 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainAsciiPanel.setName("IntruderMainAsciiPanel");
         IntruderMainAsciiPanel.setBackground(Color.WHITE);
         IntruderMainAsciiPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.gray), "Ascii"));
-        IntruderMainAsciiPanel.setPreferredSize(new Dimension(0, 100));
+        IntruderMainAsciiPanel.setPreferredSize(new Dimension(0, 150));
+
+        JLabel IntruderMainAsciiSeparator1Label = new JLabel("输入分割符: ");
+        IntruderMainAsciiSeparator1Label.setPreferredSize(new Dimension(75,30));
+        IntruderMainAsciiSeparator1Label.setName("IntruderMainAsciiSeparator1Label");
+
+        JTextField IntruderMainAsciiSeparator1Field = new JTextField("");
+        IntruderMainAsciiSeparator1Field.setName("IntruderMainAsciiSeparator1Field");
+        IntruderMainAsciiSeparator1Field.setPreferredSize(new Dimension(200,30));
+
+        JLabel IntruderMainAsciiSeparator2Label = new JLabel("输出分割符: ");
+        IntruderMainAsciiSeparator2Label.setPreferredSize(new Dimension(75,30));
+        IntruderMainAsciiSeparator2Label.setName("IntruderMainAsciiSeparator2Label");
+
+        JTextField IntruderMainAsciiSeparator2Field = new JTextField("");
+        IntruderMainAsciiSeparator2Field.setName("IntruderMainAsciiSeparator2Field");
+        IntruderMainAsciiSeparator2Field.setPreferredSize(new Dimension(200,30));
 
         DiyJComboBox<String> IntruderMainAsciiTypeBox = new DiyJComboBox<>(new String[]{"Encrypt","Decrypt"});
         IntruderMainAsciiTypeBox.setName("IntruderMainAsciiTypeBox");
         IntruderMainAsciiTypeBox.setPreferredSize(new Dimension(120,30));
 
-        IntruderMainAsciiPanel.add(Helper.blackPanel(Color.WHITE),new GridBagConstraints(
+
+        IntruderMainAsciiPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 0,0,
+                3,1,
                 1,1,
-                0,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        IntruderMainAsciiPanel.add(IntruderMainAsciiSeparator1Label, new GridBagConstraints(
+                0,1,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,25,0,0),
+                0,0
+        ));
+
+        IntruderMainAsciiPanel.add(IntruderMainAsciiSeparator1Field, new GridBagConstraints(
+                1,1,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        IntruderMainAsciiPanel.add(IntruderMainAsciiSeparator2Label, new GridBagConstraints(
+                0,2,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,25,0,0),
+                0,0
+        ));
+
+        IntruderMainAsciiPanel.add(IntruderMainAsciiSeparator2Field, new GridBagConstraints(
+                1,2,
+                1,1,
+                0,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -511,28 +568,28 @@ public class IntruderComponent extends DiyJComponent {
         ));
 
         IntruderMainAsciiPanel.add(IntruderMainAsciiTypeBox,new GridBagConstraints(
-                0,1,
+                1,3,
                 1,1,
                 0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,50,0,0),
-                0,0
-        ));
-
-        IntruderMainAsciiPanel.add(Helper.blackPanel(Color.WHITE),new GridBagConstraints(
-                0,2,
-                1,1,
-                0,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        IntruderMainAsciiPanel.add(Helper.blackPanel(Color.WHITE),new GridBagConstraints(
-                1,0,
+        IntruderMainAsciiPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
+                2,1,
+                1,3,
                 1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        IntruderMainAsciiPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
+                0,4,
+                3,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
