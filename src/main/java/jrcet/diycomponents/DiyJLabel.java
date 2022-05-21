@@ -33,6 +33,8 @@ public class DiyJLabel extends JLabel implements MouseListener{
     public void mousePressed(MouseEvent e) {
 
         DiyJLabel eLabel = (DiyJLabel) e.getSource();
+        JTextField tField = null;
+        JComponent rootPanel = null;
         switch (eLabel.getName()){
             case "AesMainControlEncryptLabel":
             case "AesMainControlDecryptLabel":
@@ -41,6 +43,17 @@ public class DiyJLabel extends JLabel implements MouseListener{
             case "RsaMainControlEncryptLabel":
             case "RsaMainControlDecryptLabel":
                 Rsa((JComponent) eLabel.getParent().getParent().getParent(), eLabel.getText());
+                break;
+            case "AsciiMainControlNewlineLabel":
+            case "AsciiMainControlCommaLabel":
+            case "AsciiMainControlTabLabel":
+            case "AsciiMainControlSpaceLabel":
+                rootPanel = (JComponent) eLabel.getParent().getParent();
+                tField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField");
+                if(tField==null){
+                    tField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert tField!=null;
+                }
+                tField.setText(eLabel.getText());
                 break;
         }
     }

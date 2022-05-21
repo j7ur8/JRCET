@@ -10,7 +10,13 @@ public class Format {
     public static String FormatSourceSeparator;
     public static String FormatDestinationSeparator;
 
-    public static HashMap<String, String > SeparatorMap = new HashMap<>();
+    public static HashMap<String, String > SeparatorMap = new HashMap<String, String>() {
+        {
+            put("\\n","\n");
+            put("\\t","\t");
+            put("\\0","\0");
+        }
+    };
 
     public static String ReturnedString;
 
@@ -18,7 +24,7 @@ public class Format {
 
     public static String formatting(String text){
 
-        initSeparatorMap();
+//        initSeparatorMap();
         parseInput();
 
         switch (FormatMode){
@@ -47,11 +53,11 @@ public class Format {
         return ReturnedString;
     }
 
-    public static void initSeparatorMap(){
-        SeparatorMap.put("\\n","\n");
-        SeparatorMap.put("\\t","\t");
-        SeparatorMap.put("\\0","\0");
-    }
+//    public static void initSeparatorMap(){
+//        SeparatorMap.put("\\n","\n");
+//        SeparatorMap.put("\\t","\t");
+//        SeparatorMap.put("\\0","\0");
+//    }
 
     public static void parseInput(){
         for(String key : SeparatorMap.keySet()){

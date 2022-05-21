@@ -1,5 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Ascii;
 
+import jrcet.diycomponents.DiyJLabel;
 import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
@@ -77,7 +78,7 @@ public class AsciiComponent extends DiyJComponent {
         AsciiMainPanel.setName("AsciiMainPanel");
         AsciiMainPanel.setPreferredSize(new Dimension(0,0));
 
-        AsciiMainPanel.add(AsciiMainBorderPanel(),new GridBagConstraints(
+        AsciiMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,0,
                 1,2,
                 0.2,1,
@@ -87,7 +88,7 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainPanel.add(AsciiMainStringScrollPane(), new GridBagConstraints(
+        AsciiMainPanel.add(AsciiMainPlainScrollPane(), new GridBagConstraints(
                 1,0,
                 1,1,
                 0.6,0.5,
@@ -97,7 +98,7 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainPanel.add(AsciiMainAsciiScrollPane(), new GridBagConstraints(
+        AsciiMainPanel.add(AsciiMainCipherScrollPane(), new GridBagConstraints(
                 1,1,
                 1,1,
                 0.6,0.5,
@@ -107,7 +108,7 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainPanel.add(AsciiMainBorderPanel(),new GridBagConstraints(
+        AsciiMainPanel.add(AsciiMainControlPanel(), new GridBagConstraints(
                 2,0,
                 1,2,
                 0.2,1,
@@ -120,64 +121,253 @@ public class AsciiComponent extends DiyJComponent {
         return AsciiMainPanel;
     }
 
-    public JComponent AsciiMainBorderPanel(){
-        JComponent AsciiMainBorderPanel = new JPanel();
-        AsciiMainBorderPanel.setName("AsciiMainBorderPanel");
 
-        return  AsciiMainBorderPanel;
-    }
+    public JComponent AsciiMainPlainScrollPane(){
 
-    public JComponent AsciiMainStringScrollPane(){
+        RSyntaxTextArea AsciiMainPlainArea = new RSyntaxTextArea();
+        AsciiMainPlainArea.setName("AsciiMainPlainArea");
+        AsciiMainPlainArea.setText("#输入文件地址或者字符串");
+        AsciiMainPlainArea.setLineWrap(true);
+        AsciiMainPlainArea.setCodeFoldingEnabled(true);
+        AsciiMainPlainArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AsciiMainPlainArea.addKeyListener(new AsciiMainKeyListener());
 
-        RSyntaxTextArea AsciiMainStringArea = new RSyntaxTextArea();
-        AsciiMainStringArea.setName("AsciiMainStringArea");
-        AsciiMainStringArea.setText("#单个字符直接得到结果，多个字符默认提取第一个字符作为Ascii结果的分割符。如` abc`的结果为`97 98 99`");
-        AsciiMainStringArea.setLineWrap(true);
-        AsciiMainStringArea.setCodeFoldingEnabled(true);
-        AsciiMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AsciiMainStringArea.addKeyListener(new AsciiMainKeyListener());
+        RTextScrollPane AsciiMainPlainScrollPane = new RTextScrollPane(AsciiMainPlainArea);
+        AsciiMainPlainScrollPane.setName("AsciiMainPlainScrollPane");
+        AsciiMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        AsciiMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
+        AsciiMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
 
-        RTextScrollPane AsciiMainStringScrollPane = new RTextScrollPane(AsciiMainStringArea);
-        AsciiMainStringScrollPane.setName("AsciiMainStringScrollPane");
-        AsciiMainStringScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AsciiMainStringScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
-
-        return AsciiMainStringScrollPane;
+        return AsciiMainPlainScrollPane;
 
     }
 
-    public JComponent AsciiMainAsciiScrollPane(){
+    public JComponent AsciiMainCipherScrollPane(){
 
         //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea AsciiMainAsciiArea = new RSyntaxTextArea();
-        AsciiMainAsciiArea.setText("#默认提取首次出现在相邻数字间的字符作为结果的分割符。如`103 103 103`,则结果为`g g g`");
-        AsciiMainAsciiArea.setName("AsciiMainAsciiArea");
-        AsciiMainAsciiArea.setLineWrap(true);
-        AsciiMainAsciiArea.setCodeFoldingEnabled(true);
-        AsciiMainAsciiArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AsciiMainAsciiArea.addKeyListener(new AsciiMainKeyListener());
+        RSyntaxTextArea AsciiMainCipherArea = new RSyntaxTextArea();
+        AsciiMainCipherArea.setText("#输入文件地址或者字符串");
+        AsciiMainCipherArea.setName("AsciiMainCipherArea");
+        AsciiMainCipherArea.setLineWrap(true);
+        AsciiMainCipherArea.setCodeFoldingEnabled(true);
+        AsciiMainCipherArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        AsciiMainCipherArea.addKeyListener(new AsciiMainKeyListener());
 
-        RTextScrollPane AsciiMainAsciiScrollPane = new RTextScrollPane(AsciiMainAsciiArea);
-        AsciiMainAsciiScrollPane.setName("AsciiMainAsciiScrollPane");
-        AsciiMainAsciiScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AsciiMainAsciiScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainAsciiScrollPane.setBorder(null);
+        RTextScrollPane AsciiMainCipherScrollPane = new RTextScrollPane(AsciiMainCipherArea);
+        AsciiMainCipherScrollPane.setName("AsciiMainCipherScrollPane");
+        AsciiMainCipherScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        AsciiMainCipherScrollPane.setPreferredSize(new Dimension(0,0));
+        AsciiMainCipherScrollPane.setBorder(null);
 
-        return AsciiMainAsciiScrollPane;
+        return AsciiMainCipherScrollPane;
     }
 
-    public JComponent AsciiBlackPanel(){
-        JPanel AsciiBlackPanel = new JPanel();
-        AsciiBlackPanel.setName("AsciiBlackPanel");
-        AsciiBlackPanel.setOpaque(true);
-        AsciiBlackPanel.setBackground(Color.PINK);
+    public JComponent AsciiMainControlPanel(){
+        JComponent AsciiMainControlPanel = new JPanel(new GridBagLayout());
+        AsciiMainControlPanel.setName("AsciiMainControlPanel");
 
-        return AsciiBlackPanel;
+        AsciiMainControlPanel.add(AsciiMainControlPlainPanel(), new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlPanel.add(AsciiMainControlCipherPanel(), new GridBagConstraints(
+                0,1,
+                1,1,
+                1,0.5,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AsciiMainControlPanel;
     }
+
+    public JComponent AsciiMainControlPlainPanel(){
+        JComponent AsciiMainControlPlainPanel = new JPanel(new GridBagLayout());
+        AsciiMainControlPlainPanel.setName("AsciiMainControlPlainPanel");
+
+        JLabel AsciiMainControlPlainSeparatorLabel = new JLabel("分割符:");
+        AsciiMainControlPlainSeparatorLabel.setName("AsciiMainControlPlainSeparatorLabel");
+        AsciiMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(45,30));
+
+        JTextField AsciiMainControlPlainSeparatorField = new JTextField("换行");
+        AsciiMainControlPlainSeparatorField.setName("AsciiMainControlPlainSeparatorField");
+        AsciiMainControlPlainSeparatorField.setPreferredSize(new Dimension(0,30));
+
+        AsciiMainControlPlainPanel.add(AsciiMainControlPlainSeparatorLabel, new GridBagConstraints(
+                0,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,5,0,0),
+                0,0
+        ));
+
+        AsciiMainControlPlainPanel.add(AsciiMainControlPlainSeparatorField, new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlPlainPanel.add(AsciiMainControlSeparatorPanel(), new GridBagConstraints(
+                0,1,
+                2,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlPlainPanel.add(Helper.blackPanel(), new GridBagConstraints(
+                0,2,
+                2,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AsciiMainControlPlainPanel;
+    }
+
+    public JComponent AsciiMainControlSeparatorPanel(){
+
+        JComponent AsciiMainControlSeparatorPanel = new JPanel(new GridBagLayout());
+        AsciiMainControlSeparatorPanel.setName("AsciiMainControlSeparatorPanel");
+        AsciiMainControlSeparatorPanel.setPreferredSize(new Dimension(0,30));
+
+        DiyJLabel AsciiMainControlNewlineLabel = new DiyJLabel("换行");
+        AsciiMainControlNewlineLabel.setName("AsciiMainControlNewlineLabel");
+
+        DiyJLabel AsciiMainControlCommaLabel = new DiyJLabel("逗号");
+        AsciiMainControlCommaLabel.setName("AsciiMainControlCommaLabel");
+
+        DiyJLabel AsciiMainControlSpaceLabel = new DiyJLabel("空格");
+        AsciiMainControlSpaceLabel.setName("AsciiMainControlSpaceLabel");
+
+        DiyJLabel AsciiMainControlTabLabel = new DiyJLabel("制表");
+        AsciiMainControlTabLabel.setName("AsciiMainControlTabLabel");
+
+        AsciiMainControlSeparatorPanel.add(AsciiMainControlNewlineLabel, new GridBagConstraints(
+                0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlSeparatorPanel.add(AsciiMainControlCommaLabel, new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlSeparatorPanel.add(AsciiMainControlSpaceLabel, new GridBagConstraints(
+                2,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlSeparatorPanel.add(AsciiMainControlTabLabel, new GridBagConstraints(
+                3,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        for(Component component : AsciiMainControlSeparatorPanel.getComponents()){
+            component.setPreferredSize(new Dimension(0,25));
+        }
+
+        return AsciiMainControlSeparatorPanel;
+    }
+
+    public JComponent AsciiMainControlCipherPanel(){
+        JComponent AsciiMainControlCipherPanel = new JPanel(new GridBagLayout());
+        AsciiMainControlCipherPanel.setName("AsciiMainControlCipherPanel");
+
+        JLabel AsciiMainControlCipherSeparatorLabel = new JLabel("分割符:");
+        AsciiMainControlCipherSeparatorLabel.setName("AsciiMainControlCipherSeparatorLabel");
+        AsciiMainControlCipherSeparatorLabel.setPreferredSize(new Dimension(45,30));
+
+        JTextField AsciiMainControlCipherSeparatorField = new JTextField("换行");
+        AsciiMainControlCipherSeparatorField.setName("AsciiMainControlCipherSeparatorField");
+        AsciiMainControlCipherSeparatorField.setPreferredSize(new Dimension(0,30));
+
+        AsciiMainControlCipherPanel.add(AsciiMainControlCipherSeparatorLabel, new GridBagConstraints(
+                0,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,5,0,0),
+                0,0
+        ));
+
+        AsciiMainControlCipherPanel.add(AsciiMainControlCipherSeparatorField, new GridBagConstraints(
+                1,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlCipherPanel.add(AsciiMainControlSeparatorPanel(), new GridBagConstraints(
+                0,1,
+                2,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        AsciiMainControlCipherPanel.add(Helper.blackPanel(), new GridBagConstraints(
+                0,2,
+                2,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return AsciiMainControlCipherPanel;
+    }
+
+    
 
     public JComponent getAsciiMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):AsciiBlackPanel()):AsciiBlackPanel();
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):Helper.blackPanel()):Helper.blackPanel();
     }
 
     static class AsciiMainKeyListener implements KeyListener {
@@ -195,17 +385,19 @@ public class AsciiComponent extends DiyJComponent {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
                 RSyntaxTextArea outputArea = null;
-                if ("AsciiMainStringArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AsciiMainAsciiArea");
-                    assert outputArea != null;
-                    outputArea.setText(Ascii.char2Ascii(eArea.getText()));
+                JTextField separatorField = null;
+                JComponent rootPanel = (JComponent) eArea.getParent().getParent().getParent();
+                if ("AsciiMainPlainArea".equals(eArea.getName())) {
+                    outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainCipherArea"); assert outputArea != null;
+                    separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert separatorField!=null;
+                    outputArea.setText(Ascii.encrypt(eArea.getText(), separatorField.getText()));
                     outputArea.updateUI();
                 }
 
-                if ("AsciiMainAsciiArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AsciiMainStringArea");
-                    assert outputArea != null;
-                    outputArea.setText(Ascii.ascii2Char(eArea.getText()));
+                if ("AsciiMainCipherArea".equals(eArea.getName())) {
+                    outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainPlainArea"); assert outputArea != null;
+                    separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField"); assert separatorField!=null;
+                    outputArea.setText(Ascii.decrypt(eArea.getText(), separatorField.getText()));
                     outputArea.updateUI();
                 }
             }
