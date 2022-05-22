@@ -55,6 +55,17 @@ public class DiyJLabel extends JLabel implements MouseListener{
                 }
                 tField.setText(eLabel.getText());
                 break;
+            case "HexMainControlNewlineLabel":
+            case "HexMainControlCommaLabel":
+            case "HexMainControlTabLabel":
+            case "HexMainControlSpaceLabel":
+                rootPanel = (JComponent) eLabel.getParent().getParent();
+                tField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField");
+                if(tField==null){
+                    tField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert tField!=null;
+                }
+                tField.setText(eLabel.getText());
+                break;
         }
     }
 

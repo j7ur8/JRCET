@@ -10,12 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Hex/Hex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Hex/HexComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/DencryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/DencryptComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/test2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -301,7 +298,7 @@
       <workItem from="1653111417615" duration="467000" />
       <workItem from="1653129041591" duration="8767000" />
       <workItem from="1653179662043" duration="55000" />
-      <workItem from="1653184515861" duration="4470000" />
+      <workItem from="1653184515861" duration="4793000" />
     </task>
     <servers />
   </component>
@@ -334,11 +331,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Parsepy/Parsepy.java</url>
           <line>25</line>
           <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java</url>
