@@ -11,8 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/Format.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/Format.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/FormatComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/FormatComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +298,7 @@
       <workItem from="1653111417615" duration="467000" />
       <workItem from="1653129041591" duration="8767000" />
       <workItem from="1653179662043" duration="55000" />
-      <workItem from="1653184515861" duration="4793000" />
+      <workItem from="1653184515861" duration="5145000" />
     </task>
     <servers />
   </component>
@@ -341,6 +341,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/ui/test2.java</url>
           <line>20</line>
           <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/Format.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

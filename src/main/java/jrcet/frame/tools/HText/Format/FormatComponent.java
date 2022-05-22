@@ -245,7 +245,7 @@ public class FormatComponent extends DiyJComponent {
         JComponent FormatMainControlFixPanel = new JPanel(new GridBagLayout());
         FormatMainControlFixPanel.setName("FormatMainControlFixPanel");
         FormatMainControlFixPanel.setPreferredSize(new Dimension(0, 70));
-        FormatMainControlFixPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY), "Add Prefix Or Suffix"));
+        FormatMainControlFixPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY), "Prefix Or Suffix"));
 
         JTextField FormatMainControlFixValueField = new JTextField();
         FormatMainControlFixValueField.getDocument().putProperty("owner", FormatMainControlFixValueField);

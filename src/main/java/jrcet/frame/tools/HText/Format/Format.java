@@ -7,8 +7,8 @@ public class Format {
 
     public static String FormatMode="Change Separator";
     public static String FormatFixValue;
-    public static String FormatSourceSeparator;
-    public static String FormatDestinationSeparator;
+    public static String FormatSourceSeparator="";
+    public static String FormatDestinationSeparator="";
 
     public static HashMap<String, String > SeparatorMap = new HashMap<String, String>() {
         {
@@ -24,7 +24,6 @@ public class Format {
 
     public static String formatting(String text){
 
-//        initSeparatorMap();
         parseInput();
 
         switch (FormatMode){
@@ -53,11 +52,6 @@ public class Format {
         return ReturnedString;
     }
 
-//    public static void initSeparatorMap(){
-//        SeparatorMap.put("\\n","\n");
-//        SeparatorMap.put("\\t","\t");
-//        SeparatorMap.put("\\0","\0");
-//    }
 
     public static void parseInput(){
         for(String key : SeparatorMap.keySet()){
