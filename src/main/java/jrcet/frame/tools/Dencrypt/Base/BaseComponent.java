@@ -60,7 +60,7 @@ public class BaseComponent extends DiyJComponent {
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
+                new Insets(5,5,5,5),
                 0,0
         ));
 
@@ -78,7 +78,6 @@ public class BaseComponent extends DiyJComponent {
     public JComponent BaseTagTabPanel(){
         JPanel BaseTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         BaseTagTabPanel.setName("BaseTagTabPanel");
-        BaseTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
 
         DiyJAddLabel BaseTagTabSticker1Label = new DiyJAddLabel("1",true);
         BaseTagTabSticker1Label.setName("BaseTagTabSticker1Label");

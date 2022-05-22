@@ -5,6 +5,7 @@ import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
+import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
 import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
@@ -18,6 +19,7 @@ public class DencryptComponent extends DiyJComponent {
     private final JComponent UnicodeComponentPanel = UnicodeComponentPanel();
     private final JComponent RsaComponentPanel = RsaComponentPanel();
     private final JComponent AsciiComponentPanel = AsciiComponentPanel();
+    private final JComponent HexComponentPanel = HexComponentPanel();
 
     public static JComponent DencryptComponentPanel = null;
 
@@ -55,12 +57,6 @@ public class DencryptComponent extends DiyJComponent {
         JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         DencryptMenuPanel.setName("DencryptMenuPanel");
 
-        //Base
-        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base", true);
-        DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
-        DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
-        DencryptMenuPanel.add(DencryptMenuBaseLabel);
-
         //AES
         DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("Aes");
         DencryptMenuAESLabel.setPanel(AesComponentPanel);
@@ -73,17 +69,31 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuRsaLabel.setName("DencryptMenuRsaLabel");
         DencryptMenuPanel.add(DencryptMenuRsaLabel);
 
-        //Unicode
-        DiyJTabLabel DencryptMenuUnicodeLabel = new DiyJTabLabel("Unicode");
-        DencryptMenuUnicodeLabel.setPanel(UnicodeComponentPanel);
-        DencryptMenuUnicodeLabel.setName("DencryptMenuUnicodeLabel");
-        DencryptMenuPanel.add(DencryptMenuUnicodeLabel);
+        //Hex
+        DiyJTabLabel DencryptMenuHexLabel = new DiyJTabLabel("Hex");
+        DencryptMenuHexLabel.setPanel(HexComponentPanel);
+        DencryptMenuHexLabel.setName("DencryptMenuRsaLabel");
+        DencryptMenuPanel.add(DencryptMenuHexLabel);
+
+        //Base
+        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base", true);
+        DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
+        DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
+        DencryptMenuPanel.add(DencryptMenuBaseLabel);
 
         //Ascii
         DiyJTabLabel DencryptMenuAsciiLabel = new DiyJTabLabel("Ascii");
         DencryptMenuAsciiLabel.setPanel(AsciiComponentPanel);
         DencryptMenuAsciiLabel.setName("DencryptMenuUnicodeLabel");
         DencryptMenuPanel.add(DencryptMenuAsciiLabel);
+
+        //Unicode
+        DiyJTabLabel DencryptMenuUnicodeLabel = new DiyJTabLabel("Unicode");
+        DencryptMenuUnicodeLabel.setPanel(UnicodeComponentPanel);
+        DencryptMenuUnicodeLabel.setName("DencryptMenuUnicodeLabel");
+        DencryptMenuPanel.add(DencryptMenuUnicodeLabel);
+
+
 
         //设置 Tab 的按钮属性（高宽等）
         for(Component label : DencryptMenuPanel.getComponents()){
@@ -101,6 +111,10 @@ public class DencryptComponent extends DiyJComponent {
 
     public JComponent AesComponentPanel(){
         return new AesComponent().main();
+    }
+
+    public JComponent HexComponentPanel(){
+        return new HexComponent().main();
     }
 
     public JComponent RsaComponentPanel(){
