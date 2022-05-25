@@ -90,7 +90,7 @@ public class DiyJLabel extends JLabel implements MouseListener{
     }
 
     private void Rsa(JComponent rootComponent,String type)  {
-        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"AesMainControlIvBox");assert PlaintextArea != null;
+        RSyntaxTextArea PlaintextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainPlaintextArea");assert PlaintextArea != null;
         RSyntaxTextArea CiphertextArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainCiphertextArea"); assert CiphertextArea != null;
         RSyntaxTextArea PublicArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPublicArea");assert PublicArea != null;
         RSyntaxTextArea PrivateArea = (RSyntaxTextArea) Helper.getComponent(rootComponent,"RsaMainControlPrivateArea");assert PrivateArea !=null;

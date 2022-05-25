@@ -5,6 +5,7 @@ import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.tools.HText.Alone.AloneComponent;
 import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
+import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
 import jrcet.frame.tools.HText.Parsepy.ParsepyComponent;
 import jrcet.frame.tools.HText.Sort.SortComponent;
 
@@ -18,6 +19,7 @@ public class HTextComponent extends DiyJComponent {
     private final JComponent ParsepyComponentPanel = ParsepyComponentPanel();
     private final JComponent FormattingComponentPanel = FormattingComponentPanel();
     private final JComponent CaseComponentPanel = CaseComponentPanel();
+    private final JComponent IPUnitComponentPanel = IPUnitComponentPanel();
 
     @Override
     public JComponent main() {
@@ -34,7 +36,7 @@ public class HTextComponent extends DiyJComponent {
                 0,0
         ));
 
-        HTextComponentPanel.add(AloneComponentPanel,new GridBagConstraints(
+        HTextComponentPanel.add(IPUnitComponentPanel,new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -51,7 +53,7 @@ public class HTextComponent extends DiyJComponent {
         JPanel HTextMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
         HTextMenuTabPanel.setName("HTextMenuTabPanel");
 
-        DiyJTabLabel HTextMenuAloneLabel = new DiyJTabLabel("Alone",true);
+        DiyJTabLabel HTextMenuAloneLabel = new DiyJTabLabel("Alone");
         HTextMenuAloneLabel.setName("HTextMenuAloneLabel");
         HTextMenuAloneLabel.setPanel(AloneComponentPanel);
         HTextMenuTabPanel.add(HTextMenuAloneLabel);
@@ -61,20 +63,26 @@ public class HTextComponent extends DiyJComponent {
         HTextMenuSortLabel.setPanel(SortComponentPanel);
         HTextMenuTabPanel.add(HTextMenuSortLabel);
 
-        DiyJTabLabel CaseMenuSortLabel = new DiyJTabLabel("Case");
-        CaseMenuSortLabel.setName("HTextMenuSortLabel");
-        CaseMenuSortLabel.setPanel(CaseComponentPanel);
-        HTextMenuTabPanel.add(CaseMenuSortLabel);
-
         DiyJTabLabel HTextMenuParsepyLabel = new DiyJTabLabel("Parsepy");
         HTextMenuParsepyLabel.setName("HTextMenuParsepyLabel");
         HTextMenuParsepyLabel.setPanel(ParsepyComponentPanel);
         HTextMenuTabPanel.add(HTextMenuParsepyLabel);
 
+        DiyJTabLabel CaseMenuSortLabel = new DiyJTabLabel("Case");
+        CaseMenuSortLabel.setName("HTextMenuSortLabel");
+        CaseMenuSortLabel.setPanel(CaseComponentPanel);
+        HTextMenuTabPanel.add(CaseMenuSortLabel);
+
         DiyJTabLabel HTextMenuFormattingLabel = new DiyJTabLabel("Format");
         HTextMenuFormattingLabel.setName("HTextMenuFormattingLabel");
         HTextMenuFormattingLabel.setPanel(FormattingComponentPanel);
         HTextMenuTabPanel.add(HTextMenuFormattingLabel);
+
+        DiyJTabLabel IPUnitMenuFormattingLabel = new DiyJTabLabel("IPUnit", true);
+        IPUnitMenuFormattingLabel.setName("IPUnitMenuFormattingLabel");
+        IPUnitMenuFormattingLabel.setPanel(IPUnitComponentPanel);
+        HTextMenuTabPanel.add(IPUnitMenuFormattingLabel);
+
 
         for(Component label : HTextMenuTabPanel.getComponents()){
             label.setFont(new Font("微软雅黑", Font.PLAIN,12));
@@ -102,4 +110,6 @@ public class HTextComponent extends DiyJComponent {
     }
 
     public JComponent CaseComponentPanel() { return new CaseComponent().main(); }
+
+    public JComponent IPUnitComponentPanel() { return new IPUnitComponent().main(); }
 }

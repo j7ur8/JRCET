@@ -10,10 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Case/Case.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Case/CaseComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnitComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/HTextComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/HTextComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/test2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +88,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="库" />
+    <property name="project.structure.last.edited" value="项目" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.46781608" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -90,6 +96,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="jrcet.frame.tools.HText.IPUnit" />
       <recent name="jrcet.frame.tools.Dencrypt.Hex" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -198,8 +205,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.Main" />
-        <item itemvalue="应用程序.test2" />
         <item itemvalue="应用程序.test" />
+        <item itemvalue="应用程序.test2" />
         <item itemvalue="应用程序.Rsa" />
       </list>
     </recent_temporary>
@@ -299,7 +306,15 @@
       <workItem from="1653111417615" duration="467000" />
       <workItem from="1653129041591" duration="8767000" />
       <workItem from="1653179662043" duration="55000" />
-      <workItem from="1653184515861" duration="6950000" />
+      <workItem from="1653184515861" duration="7709000" />
+      <workItem from="1653220435826" duration="970000" />
+      <workItem from="1653232597129" duration="360000" />
+      <workItem from="1653234090572" duration="4107000" />
+      <workItem from="1653270537143" duration="570000" />
+      <workItem from="1653309531918" duration="1181000" />
+      <workItem from="1653355871218" duration="248000" />
+      <workItem from="1653482279453" duration="469000" />
+      <workItem from="1653483746699" duration="6588000" />
     </task>
     <servers />
   </component>
@@ -339,9 +354,9 @@
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/test2.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="69" />
+          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

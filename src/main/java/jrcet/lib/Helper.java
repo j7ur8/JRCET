@@ -356,4 +356,14 @@ public class Helper {
         return blackPanel;
     }
 
+    public static String list2String(List<String> list, String separator){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0; i<list.size()-1; i++){
+            stringBuilder.append(list.get(i)).append(separator);
+        }
+        stringBuilder.append(list.get(list.size()-1));
+
+        return stringBuilder.toString();
+    }
+
 }
