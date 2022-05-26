@@ -14,6 +14,7 @@ public class IPUnit {
     public static String IPUnitMode = "打印IP段内的全部IP";
 
     public static String handle(String input){
+        input = Helper.getContent(input);
         switch (IPUnitMode) {
             case "打印IP段内的全部IP":
                 return Helper.list2String(parseIpMaskRange(input),"\n");

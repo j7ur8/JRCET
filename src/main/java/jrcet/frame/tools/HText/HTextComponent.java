@@ -6,6 +6,7 @@ import jrcet.frame.tools.HText.Alone.AloneComponent;
 import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
 import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
+import jrcet.frame.tools.HText.Len.LenComponent;
 import jrcet.frame.tools.HText.Parsepy.ParsepyComponent;
 import jrcet.frame.tools.HText.Regex.RegexComponent;
 import jrcet.frame.tools.HText.Sort.SortComponent;
@@ -22,7 +23,7 @@ public class HTextComponent extends DiyJComponent {
     private final JComponent CaseComponentPanel = CaseComponentPanel();
     private final JComponent IPUnitComponentPanel = IPUnitComponentPanel();
     private final JComponent RegexComponentPanel = RegexComponentPanel();
-
+    private final JComponent LenComponentPanel = LenComponentPanel();
     @Override
     public JComponent main() {
         JComponent HTextComponentPanel = new JPanel(new GridBagLayout());
@@ -38,7 +39,7 @@ public class HTextComponent extends DiyJComponent {
                 0,0
         ));
 
-        HTextComponentPanel.add(RegexComponentPanel,new GridBagConstraints(
+        HTextComponentPanel.add(LenComponentPanel,new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -70,25 +71,30 @@ public class HTextComponent extends DiyJComponent {
         HTextMenuParsepyLabel.setPanel(ParsepyComponentPanel);
         HTextMenuTabPanel.add(HTextMenuParsepyLabel);
 
-        DiyJTabLabel CaseMenuSortLabel = new DiyJTabLabel("Case");
-        CaseMenuSortLabel.setName("HTextMenuSortLabel");
-        CaseMenuSortLabel.setPanel(CaseComponentPanel);
-        HTextMenuTabPanel.add(CaseMenuSortLabel);
+        DiyJTabLabel HTextMenuCaseLabel = new DiyJTabLabel("Case");
+        HTextMenuCaseLabel.setName("HTextMenuSortLabel");
+        HTextMenuCaseLabel.setPanel(CaseComponentPanel);
+        HTextMenuTabPanel.add(HTextMenuCaseLabel);
 
         DiyJTabLabel HTextMenuFormattingLabel = new DiyJTabLabel("Format");
         HTextMenuFormattingLabel.setName("HTextMenuFormattingLabel");
         HTextMenuFormattingLabel.setPanel(FormattingComponentPanel);
         HTextMenuTabPanel.add(HTextMenuFormattingLabel);
 
-        DiyJTabLabel IPUnitMenuFormattingLabel = new DiyJTabLabel("IPUnit");
-        IPUnitMenuFormattingLabel.setName("IPUnitMenuFormattingLabel");
-        IPUnitMenuFormattingLabel.setPanel(IPUnitComponentPanel);
-        HTextMenuTabPanel.add(IPUnitMenuFormattingLabel);
+        DiyJTabLabel HTextMenuIPUnitLabel = new DiyJTabLabel("IPUnit");
+        HTextMenuIPUnitLabel.setName("HTextMenuIPUnitLabel");
+        HTextMenuIPUnitLabel.setPanel(IPUnitComponentPanel);
+        HTextMenuTabPanel.add(HTextMenuIPUnitLabel);
 
-        DiyJTabLabel RegexMenuRegexLabel = new DiyJTabLabel("Regex", true);
-        RegexMenuRegexLabel.setName("IPUnitMenuRegexLabel");
-        RegexMenuRegexLabel.setPanel(RegexComponentPanel);
-        HTextMenuTabPanel.add(RegexMenuRegexLabel);
+        DiyJTabLabel HTextMenuRegexLabel = new DiyJTabLabel("Regex");
+        HTextMenuRegexLabel.setName("HTextMenuRegexLabel");
+        HTextMenuRegexLabel.setPanel(RegexComponentPanel);
+        HTextMenuTabPanel.add(HTextMenuRegexLabel);
+
+        DiyJTabLabel HTextMenuLenLabel = new DiyJTabLabel("Len", true);
+        HTextMenuLenLabel.setName("IPUnitMenuRegexLabel");
+        HTextMenuLenLabel.setPanel(LenComponentPanel);
+        HTextMenuTabPanel.add(HTextMenuLenLabel);
 
         for(Component label : HTextMenuTabPanel.getComponents()){
             label.setFont(new Font("微软雅黑", Font.PLAIN,12));
@@ -120,4 +126,6 @@ public class HTextComponent extends DiyJComponent {
     public JComponent IPUnitComponentPanel() { return new IPUnitComponent().main(); }
 
     public JComponent RegexComponentPanel() { return new RegexComponent().main(); }
+
+    public JComponent LenComponentPanel() { return new LenComponent().main(); }
 }

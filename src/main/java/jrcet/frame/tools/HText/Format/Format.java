@@ -24,7 +24,7 @@ public class Format {
 
     public static String formatting(String text){
 
-        parseInput();
+        parseSeparator();
 
         switch (FormatMode){
             case "Change Separator":
@@ -53,13 +53,12 @@ public class Format {
     }
 
 
-    public static void parseInput(){
+    public static void parseSeparator(){
         for(String key : SeparatorMap.keySet()){
             FormatFixValue = Objects.equals(FormatFixValue, key)?SeparatorMap.get(key):FormatFixValue;
             FormatSourceSeparator = Objects.equals(FormatSourceSeparator, key)?SeparatorMap.get(key):FormatSourceSeparator;
             FormatDestinationSeparator = Objects.equals(FormatDestinationSeparator, key)?SeparatorMap.get(key):FormatDestinationSeparator;
         }
-
     }
 
 

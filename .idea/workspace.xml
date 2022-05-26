@@ -10,14 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Regex/Regex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Regex/RegexComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Len/Len.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Len/LenComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/Format.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/Format.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/HTextComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/HTextComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnitComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnitComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Regex/Regex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Regex/Regex.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,6 +314,7 @@
       <workItem from="1653482279453" duration="469000" />
       <workItem from="1653483746699" duration="6588000" />
       <workItem from="1653538169480" duration="7372000" />
+      <workItem from="1653555636941" duration="2185000" />
     </task>
     <servers />
   </component>

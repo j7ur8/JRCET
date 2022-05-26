@@ -4,6 +4,7 @@ import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
 import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
 import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
+import jrcet.frame.tools.HText.Len.LenComponent;
 import jrcet.frame.tools.HText.Regex.RegexComponent;
 import jrcet.frame.tools.Password.Generate.GenerateComponent;
 import jrcet.lib.Helper;
@@ -174,6 +175,11 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tGMap = RegexComponent.ComponentConstraintHashMap;
                 tPanel = RegexComponent.RegexComponentPanel;
                 tCMap = RegexComponent.MainPanelHashMap;
+                break;
+            case "Len":
+                tGMap = LenComponent.ComponentConstraintHashMap;
+                tPanel = LenComponent.LenComponentPanel;
+                tCMap = LenComponent.MainPanelHashMap;
 
         }
         assert tPanel != null;
@@ -242,6 +248,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Regex":
                 nPanel = new RegexComponent().RegexMainPanel();
                 RegexComponent.MainPanelHashMap.put(nIndex, nPanel);
+                break;
+            case "Len":
+                nPanel = new LenComponent().LenMainPanel();
+                LenComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
         }
 
