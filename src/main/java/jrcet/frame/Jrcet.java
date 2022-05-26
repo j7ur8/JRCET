@@ -5,6 +5,7 @@ import java.awt.*;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.asset.AssetComponent;
 import jrcet.frame.exploit.ExploitComponent;
 import jrcet.frame.setting.Setting;
 import jrcet.frame.setting.SettingComponent;
@@ -15,7 +16,8 @@ public class Jrcet extends DiyJComponent {
     public final JComponent SettingComponentPanel = SettingComponentPanel();
     public final JComponent ExploitComponentPanel = ExploitComponentPanel();
     public final JComponent ToolsComponentPanel = ToolsComponentPanel();
-    public final JComponent DefaultComponentPanel = ToolsComponentPanel;
+    public final JComponent AssetComponentPanel = AssetComponentPanel();
+
     public static JComponent JrcetComponentPanel = null;
 
     public JComponent main(){
@@ -45,7 +47,7 @@ public class Jrcet extends DiyJComponent {
                 0,0
         ));
 
-        JrcetComponentPanel.add(DefaultComponentPanel, new GridBagConstraints(0,1,
+        JrcetComponentPanel.add(AssetComponentPanel, new GridBagConstraints(0,1,
                 2,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -72,10 +74,15 @@ public class Jrcet extends DiyJComponent {
         JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
         JrcetMenuPanel.add(JrcetMenuExploitLabel);
 
-        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools",true);
+        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools");
         JrcetMenuToolsLabel.setName("JrcetMenuToolsLabel");
         JrcetMenuToolsLabel.setPanel(ToolsComponentPanel);
         JrcetMenuPanel.add(JrcetMenuToolsLabel);
+
+        DiyJTabLabel JrcetMenuAssetLabel = new DiyJTabLabel("Asset",true);
+        JrcetMenuAssetLabel.setName("JrcetMenuToolsLabel");
+        JrcetMenuAssetLabel.setPanel(AssetComponentPanel);
+        JrcetMenuPanel.add(JrcetMenuAssetLabel);
 
         return  JrcetMenuPanel;
     }
@@ -90,19 +97,23 @@ public class Jrcet extends DiyJComponent {
     }
 
 
-    private static JComponent ExploitComponentPanel(){
+    private JComponent ExploitComponentPanel(){
         DiyJComponent ExploitComponentInstance=new ExploitComponent();
         return ExploitComponentInstance.main();
     }
 
-    private static JComponent ToolsComponentPanel(){
+    private JComponent ToolsComponentPanel(){
         DiyJComponent ToolsComponentInstance=new ToolsComponent();
         return ToolsComponentInstance.main();
     }
 
-    private static JComponent SettingComponentPanel(){
+    private JComponent SettingComponentPanel(){
         DiyJComponent SettingComponentInstance=new SettingComponent();
         return SettingComponentInstance.main();
+    }
+
+    private JComponent AssetComponentPanel(){
+        return new AssetComponent().main();
     }
 
 

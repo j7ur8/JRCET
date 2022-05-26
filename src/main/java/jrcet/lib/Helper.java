@@ -322,6 +322,12 @@ public class Helper {
         return file.isFile();
     }
 
+    public static boolean isDict(String filename){
+        File file = new File(filename);
+
+        return file.isDirectory();
+    }
+
     public static void setConstraints(HashMap<String,GridBagConstraints> tHasMap, JComponent pComponent, JComponent tComponent, GridBagConstraints tGBC){
         tHasMap.put(tComponent.getName(), tGBC);
         pComponent.add(tComponent, tGBC);

@@ -239,6 +239,7 @@ public class LenComponent extends DiyJComponent {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
+            if(!e.getValueIsAdjusting()) return;
             JList<String> eJList = (JList<String>) e.getSource();
             JTextField tTextField = (JTextField) Helper.getComponent((JComponent) eJList.getParent(),"LenMainControlLenField");assert tTextField != null;
             tTextField.setText(eJList.getSelectedValue());

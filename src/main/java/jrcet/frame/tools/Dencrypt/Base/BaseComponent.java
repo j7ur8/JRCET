@@ -1,12 +1,9 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
-import javafx.scene.shape.HLineTo;
 import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.tools.Dencrypt.Base.Base;
-import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
@@ -18,7 +15,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
-
+    
 
 public class BaseComponent extends DiyJComponent {
 

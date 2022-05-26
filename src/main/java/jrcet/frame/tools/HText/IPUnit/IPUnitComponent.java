@@ -201,6 +201,7 @@ public class IPUnitComponent extends DiyJComponent {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
+            if(!e.getValueIsAdjusting()) return;
             JList<String> eJList = (JList<String>) e.getSource();
             IPUnit.IPUnitMode = eJList.getSelectedValue();
         }
