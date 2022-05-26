@@ -7,6 +7,7 @@ import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
 import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
 import jrcet.frame.tools.HText.Parsepy.ParsepyComponent;
+import jrcet.frame.tools.HText.Regex.RegexComponent;
 import jrcet.frame.tools.HText.Sort.SortComponent;
 
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class HTextComponent extends DiyJComponent {
     private final JComponent FormattingComponentPanel = FormattingComponentPanel();
     private final JComponent CaseComponentPanel = CaseComponentPanel();
     private final JComponent IPUnitComponentPanel = IPUnitComponentPanel();
+    private final JComponent RegexComponentPanel = RegexComponentPanel();
 
     @Override
     public JComponent main() {
@@ -36,7 +38,7 @@ public class HTextComponent extends DiyJComponent {
                 0,0
         ));
 
-        HTextComponentPanel.add(IPUnitComponentPanel,new GridBagConstraints(
+        HTextComponentPanel.add(RegexComponentPanel,new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -78,11 +80,15 @@ public class HTextComponent extends DiyJComponent {
         HTextMenuFormattingLabel.setPanel(FormattingComponentPanel);
         HTextMenuTabPanel.add(HTextMenuFormattingLabel);
 
-        DiyJTabLabel IPUnitMenuFormattingLabel = new DiyJTabLabel("IPUnit", true);
+        DiyJTabLabel IPUnitMenuFormattingLabel = new DiyJTabLabel("IPUnit");
         IPUnitMenuFormattingLabel.setName("IPUnitMenuFormattingLabel");
         IPUnitMenuFormattingLabel.setPanel(IPUnitComponentPanel);
         HTextMenuTabPanel.add(IPUnitMenuFormattingLabel);
 
+        DiyJTabLabel RegexMenuRegexLabel = new DiyJTabLabel("Regex", true);
+        RegexMenuRegexLabel.setName("IPUnitMenuRegexLabel");
+        RegexMenuRegexLabel.setPanel(RegexComponentPanel);
+        HTextMenuTabPanel.add(RegexMenuRegexLabel);
 
         for(Component label : HTextMenuTabPanel.getComponents()){
             label.setFont(new Font("微软雅黑", Font.PLAIN,12));
@@ -112,4 +118,6 @@ public class HTextComponent extends DiyJComponent {
     public JComponent CaseComponentPanel() { return new CaseComponent().main(); }
 
     public JComponent IPUnitComponentPanel() { return new IPUnitComponent().main(); }
+
+    public JComponent RegexComponentPanel() { return new RegexComponent().main(); }
 }

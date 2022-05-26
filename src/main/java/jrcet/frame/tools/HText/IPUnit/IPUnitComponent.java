@@ -138,11 +138,12 @@ public class IPUnitComponent extends DiyJComponent {
         IPUnitMainControlPanel.setName("IPUnitMainControlPanel");
 
         JList<String> IPUnitMainControlModeList = new JList<>(new String[]{"打印IP段内的全部IP","判断IP是否属于IP段"});
-
+        IPUnitMainControlModeList.setName("IPUnitMainControlModeList");
         IPUnitMainControlModeList.setName("IPUnitMainControlModeList");
         IPUnitMainControlModeList.setPreferredSize(new Dimension(0,50));
         IPUnitMainControlModeList.setFont(new Font("微软雅黑", Font.PLAIN,16));
         IPUnitMainControlModeList.setSelectedIndex(0);
+        IPUnitMainControlModeList.setCellRenderer(new IPUnitMainControlModeListCellRenderer());
         IPUnitMainControlModeList.addListSelectionListener(new IPUnitMainControlModeListListener());
 
         IPUnitMainControlPanel.add(IPUnitMainControlModeList, new GridBagConstraints(
@@ -202,6 +203,18 @@ public class IPUnitComponent extends DiyJComponent {
         public void valueChanged(ListSelectionEvent e) {
             JList<String> eJList = (JList<String>) e.getSource();
             IPUnit.IPUnitMode = eJList.getSelectedValue();
+        }
+    }
+
+    static class IPUnitMainControlModeListCellRenderer extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel tLabel = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (isSelected) {
+                tLabel.setBackground(new Color(254,152,165));
+                tLabel.setBorder(null);
+            }
+            return tLabel;
         }
     }
 

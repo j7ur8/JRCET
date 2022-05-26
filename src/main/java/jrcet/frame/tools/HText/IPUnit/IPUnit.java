@@ -5,6 +5,7 @@ import jrcet.lib.Helper;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,7 @@ public class IPUnit {
 
     public static String isInRange(String input) {
         String[] ipAndcidr = input.split(" ");
+        if(ipAndcidr.length>2) return "输入不符合规范";
         String ip = ipAndcidr[0];
         String cidr = ipAndcidr[1];
         String[] ips = ip.split("\\.");
@@ -47,12 +49,18 @@ public class IPUnit {
         }else{
             return ip+" 不属于 "+cidr;
         }
+    }
 
+    public static boolean isIP(String str) {
+        String regex = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(str).matches();
     }
 
     public static List<String> parseIpMaskRange(String ipSegema){
         String[] ipAndmask = ipSegema.split("/");
         String ip=ipAndmask[0];
+        if(!isIP(ip) || ipAndmask.length!=2) return Collections.singletonList("输入错误");
         String mask=ipAndmask[1];
         List<String> list=new ArrayList<>();
         if ("32".equals(mask)) {

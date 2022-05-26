@@ -53,14 +53,7 @@ public class Helper {
                     break;
                 case "DiyJAddLabel":
                 case "DiyJTabLabel":
-                    String[] cn = i.getName().split("(?=[A-Z])");
-                    StringBuilder k= new StringBuilder();
-                    for(int l=1; l<cn.length;l++){
-                        k.append(cn[l].length()==1?cn[l]:(cn[l-1].length()==1?cn[l]:""));
-                    }
-                    if(k.toString().equals("")) k.append(cn[cn.length-2]);
-
-                    JComponent cd = getComponent(getRenderedComponent(i, cn, k),tComponentName);
+                    JComponent cd = getComponent(getRenderedComponent(i),tComponentName);
                     if(cd!=null) return cd;
                     break;
                 case "RTextScrollPane":
@@ -92,13 +85,7 @@ public class Helper {
                 case "DiyJAddLabel":
                 case "DiyJTabLabel" :
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
-                    String[] cn = i.getName().split("(?=[A-Z])");
-                    StringBuilder k= new StringBuilder();
-                    for(int l=1; l<cn.length;l++){
-                        k.append(cn[l].length()==1?cn[l]:(cn[l-1].length()==1?cn[l]:""));
-                    }
-
-                    JComponent c = getRenderedComponent(i, cn, k);
+                    JComponent c = getRenderedComponent(i);
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+c.getName());
                     deep+=2;
                     travelComponent(c);
@@ -120,7 +107,7 @@ public class Helper {
         }
     }
 
-    private static JComponent getRenderedComponent(Component i, String[] cn, StringBuilder k) {
+    private static JComponent getRenderedComponent(Component i) {
         JComponent c;
         try{
             c = ((DiyJTabLabel) i).getPanel();

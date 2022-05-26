@@ -3,6 +3,8 @@ package jrcet.diycomponents;
 import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
 import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
+import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
+import jrcet.frame.tools.HText.Regex.RegexComponent;
 import jrcet.frame.tools.Password.Generate.GenerateComponent;
 import jrcet.lib.Helper;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
@@ -72,18 +74,24 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         }
 
         DiyJAddLabel eLabel = (DiyJAddLabel)e.getSource();
-        String[] eNameArray = eLabel.getName().split("(?=[A-Z])");
+        String[] eNameArray = (" "+eLabel.getName()).split("(?=[A-Z])");
+        StringBuilder k= new StringBuilder();
+        for(int l=1; l<eNameArray.length;l++){
+            k.append(eNameArray[l].length()==1?eNameArray[l]:(eNameArray[l-1].length()==1?eNameArray[l]:""));
+        }
+        String repairedName = k.toString();
+
         String eName = eNameArray[eNameArray.length-2];
         String eIndex = eName.substring(eName.length()-1);
 
         if(Objects.equals(eName, "Add")){
             JPanel eTagTabPanel = (JPanel) eLabel.getParent();
-            DiyJAddLabel nStickerLabel = setNewStickerLabel(eTagTabPanel);
+            DiyJAddLabel nStickerLabel = setNewStickerLabel(repairedName, eTagTabPanel);
             nStickerLabel.mousePressed(new MouseEvent(nStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
         }else{
 
             eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
-            changeMainPanelBySticker(eNameArray[0], eIndex);
+            changeMainPanelBySticker(repairedName, eIndex);
         }
 
     }
@@ -157,6 +165,15 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tPanel = CaseComponent.CaseComponentPanel;
                 tCMap = CaseComponent.MainPanelHashMap;
                 break;
+            case "IPUnit":
+                tGMap = IPUnitComponent.ComponentConstraintHashMap;
+                tPanel = IPUnitComponent.IPUnitComponentPanel;
+                tCMap = IPUnitComponent.MainPanelHashMap;
+                break;
+            case "Regex":
+                tGMap = RegexComponent.ComponentConstraintHashMap;
+                tPanel = RegexComponent.RegexComponentPanel;
+                tCMap = RegexComponent.MainPanelHashMap;
 
         }
         assert tPanel != null;
@@ -173,54 +190,62 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         tPanel.updateUI();
     }
 
-    public DiyJAddLabel setNewStickerLabel(JPanel eTagTabPanel){
+    public DiyJAddLabel setNewStickerLabel(String eName, JPanel eTagTabPanel){
 
         JComponent nPanel = null;
-        String nName = String.valueOf(eTagTabPanel.getComponents().length);
-        String nComponentName = eTagTabPanel.getComponent(0).getName().replace("1", nName);
-        switch (eTagTabPanel.getName().split("(?=[A-Z])")[0]){
+        String nIndex = String.valueOf(eTagTabPanel.getComponents().length);
+        String nComponentName = eTagTabPanel.getComponent(0).getName().replace("1", nIndex);
+        switch (eName){
             case "Base":
                 nPanel = new BaseComponent().BaseMainPanel();
-                BaseComponent.MainPanelHashMap.put(nName, nPanel);
+                BaseComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Unicode":
                 nPanel = new UnicodeComponent().UnicodeMainPanel();
-                UnicodeComponent.MainPanelHashMap.put(nName, nPanel);
+                UnicodeComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Aes":
                 nPanel = new AesComponent().AesMainPanel();
-                AesComponent.MainPanelHashMap.put(nName, nPanel);
+                AesComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Rsa":
                 nPanel = new RsaComponent().RsaMainPanel();
-                RsaComponent.MainPanelHashMap.put(nName, nPanel);
+                RsaComponent.MainPanelHashMap.put(nIndex, nPanel);
             case "Ascii":
                 nPanel = new AsciiComponent().AsciiMainPanel();
-                AsciiComponent.MainPanelHashMap.put(nName, nPanel);
+                AsciiComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Domain":
                 nPanel = new DomainComponent().DomainMainPanel();
-                DomainComponent.MainPanelHashMap.put(nName, nPanel);
+                DomainComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Generate":
                 nPanel = new GenerateComponent().GenerateMainPanel();
-                GenerateComponent.MainPanelHashMap.put(nName, nPanel);
+                GenerateComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Format":
                 nPanel = new FormatComponent().FormatMainPanel();
-                FormatComponent.MainPanelHashMap.put(nName, nPanel);
+                FormatComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Hex":
                 nPanel = new HexComponent().HexMainPanel();
-                HexComponent.MainPanelHashMap.put(nName, nPanel);
+                HexComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Case":
                 nPanel = new CaseComponent().CaseMainPanel();
-                CaseComponent.MainPanelHashMap.put(nName, nPanel);
+                CaseComponent.MainPanelHashMap.put(nIndex, nPanel);
+                break;
+            case "IPUnit":
+                nPanel = new IPUnitComponent().IPUnitMainPanel();
+                IPUnitComponent.MainPanelHashMap.put(nIndex, nPanel);
+                break;
+            case "Regex":
+                nPanel = new RegexComponent().RegexMainPanel();
+                RegexComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
         }
 
-        DiyJAddLabel nStickerLabel = new DiyJAddLabel(nName);
+        DiyJAddLabel nStickerLabel = new DiyJAddLabel(nIndex);
         nStickerLabel.setName(nComponentName);
         nStickerLabel.setPanel(nPanel);
 
