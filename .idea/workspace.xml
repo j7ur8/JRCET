@@ -10,14 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/filename" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filename" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +316,7 @@
       <workItem from="1653626742623" duration="103000" />
       <workItem from="1653631997467" duration="2384000" />
       <workItem from="1653721743582" duration="2895000" />
-      <workItem from="1653746187963" duration="7939000" />
+      <workItem from="1653746187963" duration="8154000" />
     </task>
     <servers />
   </component>

@@ -6,7 +6,7 @@ mvn+jdk8+idea 开发
 
 # 集成内容
 
-分为Setting、Exploit、和Tools模块。
+分为Setting、Exploit、Tools和Asset模块。
 
 Setting和Exploit尚未完善。
 
@@ -22,3 +22,13 @@ Tools包含以下几个工具
 ## Tools模块
 
 暂时不详细介绍（没有按钮执行的一律在文本框中`按住command(ctrl)后按g键并释放即可允许`。
+
+## Asset模块
+快速分类资产
+
+# 下一步计划
+1. 完善使用说明（需要时间，因为gif更直观）
+2. 考虑提供API接口
+3. jwt解析
+4. 进一步完善各个模块
+   - Asset模块是否提供多选
