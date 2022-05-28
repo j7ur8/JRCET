@@ -121,6 +121,8 @@ public class Helper {
         return Helper.isFile(text)?Helper.readFile(text):text;
     }
 
+
+
     //实现类似Tree命令效果的图形显示
     public static ArrayList<String> treeComponent(ArrayList<String> targetList){
 
@@ -279,11 +281,34 @@ public class Helper {
         return content.toString();
     }
 
-    public static void writeFile(String Content,String filename) throws IOException {
-        BufferedWriter out = new BufferedWriter(new FileWriter(filename));
-        out.write(Content);
-        out.close();
+    public static void appendWriteFile(String filename, String fileContent){
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(filename,true));
+            out.write(fileContent);
+            out.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    public static String readFile(String filename, int maxLength){
+        StringBuilder content = new StringBuilder();
+        try {
+            FileInputStream fis = new FileInputStream(filename);
+            if(fis.available()>maxLength) return "文件太大";
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis, StandardCharsets.UTF_8));
+            String line = "";
+            while ((line = in.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content.toString();
+    }
+
 
     public static String topUpper(String word){
         char[] charArray = word.toCharArray();

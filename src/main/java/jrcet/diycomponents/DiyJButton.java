@@ -1,5 +1,6 @@
 package jrcet.diycomponents;
 
+import jrcet.frame.asset.Asset;
 import jrcet.frame.tools.Intruder.Intruder;
 import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.lib.Helper;
@@ -170,6 +171,10 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 ));
                 tPanel.updateUI();
                 break;
+            case "Save":
+                rootPanel = (JComponent) eButton.getParent().getParent();
+                JTextField tTextField = (JTextField) Helper.getComponent(rootPanel, "AssetMainControlUrlField");assert tTextField!=null;
+                Asset.saveAsset(tTextField.getText());
         }
     }
 

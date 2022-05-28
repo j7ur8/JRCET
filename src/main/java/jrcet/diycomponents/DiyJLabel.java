@@ -1,5 +1,6 @@
 package jrcet.diycomponents;
 
+import jrcet.frame.asset.Asset;
 import jrcet.lib.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
@@ -33,9 +34,13 @@ public class DiyJLabel extends JLabel implements MouseListener{
     public void mousePressed(MouseEvent e) {
 
         DiyJLabel eLabel = (DiyJLabel) e.getSource();
+        String eLabelName = eLabel.getName();
         JTextField tField = null;
         JComponent rootPanel = null;
-        switch (eLabel.getName()){
+        String tText = eLabel.getText();
+        eLabelName = eLabelName.startsWith("AssetMainControlPinter")?"AssetMainControlPinter":eLabelName;
+        eLabelName = eLabelName.startsWith("AssetMainControlBelong")?"AssetMainControlBelong":eLabelName;
+        switch (eLabelName){
             case "AesMainControlEncryptLabel":
             case "AesMainControlDecryptLabel":
                 Aes((JComponent) eLabel.getParent().getParent().getParent(), eLabel.getText());
@@ -65,6 +70,37 @@ public class DiyJLabel extends JLabel implements MouseListener{
                     tField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert tField!=null;
                 }
                 tField.setText(eLabel.getText());
+                break;
+            case "AssetMainControlPinter":
+                rootPanel = (JComponent) eLabel.getParent();
+                for(Component component: rootPanel.getComponents()){
+                    if(component instanceof DiyJLabel) {
+                        component.setBackground(Color.WHITE);
+                    }
+                }
+                if(Objects.equals(tText, Asset.AssetPinter)){
+                    Asset.AssetPinter = "";
+                    eLabel.setBackground(Color.WHITE);
+                }else{
+                    Asset.AssetPinter = eLabel.getText();
+                    eLabel.setBackground(Color.PINK);
+                }
+                break;
+            case "AssetMainControlBelong":
+                rootPanel = (JComponent) eLabel.getParent();
+                for(Component component: rootPanel.getComponents()){
+                    if(component instanceof DiyJLabel) {
+                        component.setBackground(Color.WHITE);
+                    }
+                }
+
+                if(Objects.equals(tText, Asset.AssetBelong)){
+                    Asset.AssetBelong = "";
+                    eLabel.setBackground(Color.WHITE);
+                }else{
+                    Asset.AssetBelong = eLabel.getText();
+                    eLabel.setBackground(Color.PINK);
+                }
                 break;
         }
     }

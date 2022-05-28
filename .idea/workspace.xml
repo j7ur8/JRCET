@@ -10,17 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="328acd1c-ebf4-401f-8c80-9b57766439dc" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jjwt_0_9_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jjwt_1_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filename" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JRCET.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JRCET.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnitComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnitComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Len/LenComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Len/LenComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/lib/Helper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/test.java" afterDir="false" />
     </list>
@@ -322,7 +317,11 @@
       <workItem from="1653555636941" duration="2185000" />
       <workItem from="1653557901824" duration="18000" />
       <workItem from="1653567329430" duration="747000" />
-      <workItem from="1653573618871" duration="4869000" />
+      <workItem from="1653573618871" duration="4969000" />
+      <workItem from="1653626742623" duration="103000" />
+      <workItem from="1653631997467" duration="2384000" />
+      <workItem from="1653721743582" duration="2895000" />
+      <workItem from="1653746187963" duration="7939000" />
     </task>
     <servers />
   </component>
@@ -356,16 +355,6 @@
           <line>25</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java</url>
-          <line>154</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -375,6 +364,15 @@
         <PinnedItemInfo parentTag="javax.swing.JList" memberName="appContext" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="i-((i/4)*4)" />
+        <watch expression="i/4" />
+        <watch expression="tStrings.length%4" />
+        <watch expression="(tStrings.length-1)/4" />
+        <watch expression="4-tStrings.length%4" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
