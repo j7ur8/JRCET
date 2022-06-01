@@ -30,7 +30,7 @@ public class BaseComponent extends DiyJComponent {
         BaseComponentPanel.setName("BaseComponentPanel");
         BaseComponentPanel.setBackground(Color.WHITE);
 
-        BaseComponentPanel.add(BaseTagBlackPanel(), new GridBagConstraints(
+        BaseComponentPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -64,13 +64,6 @@ public class BaseComponent extends DiyJComponent {
         return BaseComponentPanel;
     }
 
-    public JComponent BaseTagBlackPanel(){
-        JComponent BaseTagBlackPanel = new JPanel();
-        BaseTagBlackPanel.setName("BaseTagBlackPanel");
-        BaseTagBlackPanel.setOpaque(false);
-        BaseTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class4DefaultDiyJTabBorderColor));
-        return BaseTagBlackPanel;
-    }
 
     public JComponent BaseTagTabPanel(){
         JPanel BaseTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));

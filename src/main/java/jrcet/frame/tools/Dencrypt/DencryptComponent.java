@@ -6,6 +6,8 @@ import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
+import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
+import jrcet.frame.tools.Dencrypt.Jwt.JwtComponent;
 import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
@@ -20,6 +22,7 @@ public class DencryptComponent extends DiyJComponent {
     private final JComponent RsaComponentPanel = RsaComponentPanel();
     private final JComponent AsciiComponentPanel = AsciiComponentPanel();
     private final JComponent HexComponentPanel = HexComponentPanel();
+    private final JComponent JwtComponentPanel = JwtComponentPanel();
 
     public static JComponent DencryptComponentPanel = null;
 
@@ -39,7 +42,7 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptComponentPanel.add(BaseComponentPanel,new GridBagConstraints(
+        DencryptComponentPanel.add(JwtComponentPanel,new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -75,8 +78,14 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuHexLabel.setName("DencryptMenuRsaLabel");
         DencryptMenuPanel.add(DencryptMenuHexLabel);
 
+        //Hex
+        DiyJTabLabel DencryptMenuJwtLabel = new DiyJTabLabel("Jwt", true);
+        DencryptMenuJwtLabel.setPanel(JwtComponentPanel);
+        DencryptMenuJwtLabel.setName("DencryptMenuJwtLabel");
+        DencryptMenuPanel.add(DencryptMenuJwtLabel);
+
         //Base
-        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base", true);
+        DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base");
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
         DencryptMenuBaseLabel.setPanel(BaseComponentPanel);
         DencryptMenuPanel.add(DencryptMenuBaseLabel);
@@ -128,4 +137,7 @@ public class DencryptComponent extends DiyJComponent {
     public JComponent AsciiComponentPanel() {
         return  new AsciiComponent().main();
     }
+
+    public JComponent JwtComponentPanel() { return new JwtComponent().main(); }
+
 }

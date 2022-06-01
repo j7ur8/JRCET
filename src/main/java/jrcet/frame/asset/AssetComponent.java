@@ -2,7 +2,6 @@ package jrcet.frame.asset;
 
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
@@ -283,19 +282,20 @@ public class AssetComponent extends DiyJComponent {
         AssetMainControlPinterPanel.setPreferredSize(new Dimension(0,(((labelNames.length-1)/4)+2)*40));
         AssetMainControlPinterPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0, Color.BLACK),"资产指纹"));
 
-        setAssetButton(AssetMainControlPinterPanel, labelNames);
+        Helper.set4DiyLabel(AssetMainControlPinterPanel, labelNames);
 
         return AssetMainControlPinterPanel;
     }
 
     public JComponent AssetMainControlBelongPanel(){
         String[] labelNames = new String[]{"中国电信","中国移动","中国联通","中国政府","中国通服"};
+
         JComponent AssetMainControlBelongPanel = new JPanel(new GridBagLayout());
         AssetMainControlBelongPanel.setName("AssetMainControlBelongPanel");
         AssetMainControlBelongPanel.setPreferredSize(new Dimension(0,(((labelNames.length-1)/4)+2)*45));
         AssetMainControlBelongPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0, Color.BLACK),"资产归属"));
 
-        setAssetButton(AssetMainControlBelongPanel, labelNames);
+        Helper.set4DiyLabel(AssetMainControlBelongPanel, labelNames);
 
         return AssetMainControlBelongPanel;
     }
@@ -325,34 +325,7 @@ public class AssetComponent extends DiyJComponent {
         return AssetMainControlUrlPanel;
     }
 
-    void setAssetButton(JComponent tPanel, String[] tStrings){
-        for(int i=0;i<tStrings.length;i++){
-            String s = tStrings[i];
-            DiyJLabel tmpLabel = new DiyJLabel(s);
-            tmpLabel.setPreferredSize(new Dimension(0,30));
-            tmpLabel.setName(tPanel.getName().replace("Panel","Laben"+String.valueOf(i)+"Panel"));
 
-            tPanel.add(tmpLabel, new GridBagConstraints(
-                    i-((i/4)*4), i/4,
-                    1,1,
-                    0.25,0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,1,2,1),
-                    0,0
-            ));
-        }
-
-        tPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                tStrings.length%4, (tStrings.length-1)/4,
-                4-tStrings.length%4,1,
-                0.25*(4-tStrings.length%4),0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-    }
 
     static class AssetMainShowListSelectionListener implements ListSelectionListener{
 

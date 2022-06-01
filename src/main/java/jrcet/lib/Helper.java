@@ -1,7 +1,10 @@
 package jrcet.lib;
 
 import jrcet.diycomponents.DiyJAddLabel;
+import jrcet.diycomponents.DiyJChangeLabel;
+import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +61,7 @@ public class Helper {
                     break;
                 case "RTextScrollPane":
                 case "JScrollPane":
-                    JComponent cs = getComponent(((JScrollPane)i).getViewport(),tComponentName);
+                    JComponent cs = getComponent((JComponent) ((JScrollPane)i).getViewport().getView(),tComponentName);
                     if(cs!=null) return cs;
                     break;
             }
@@ -262,6 +265,70 @@ public class Helper {
             count++;
         }
         return count;
+    }
+
+    public static void set4DiyLabel(JComponent tPanel, String @NotNull [] tStrings){
+        for(int i=0;i<tStrings.length;i++){
+            String s = tStrings[i];
+            DiyJLabel tmpLabel = new DiyJLabel(s);
+            tmpLabel.setPreferredSize(new Dimension(0,30));
+            tmpLabel.setName(tPanel.getName().replace("Panel","Label"+ i +"Panel"));
+
+            tPanel.add(tmpLabel, new GridBagConstraints(
+                    i-((i/4)*4), i/4,
+                    1,1,
+                    0.25,0,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(0,1,2,1),
+                    0,0
+            ));
+        }
+        if(tStrings.length%4!=0){
+            tPanel.add(Helper.blackPanel(),new GridBagConstraints(
+                    tStrings.length%4, (tStrings.length-1)/4,
+                    4-tStrings.length%4,1,
+                    0.25*(4-tStrings.length%4),0,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(0,0,0,0),
+                    0,0
+            ));
+        }
+    }
+
+    public static void set4DiyJChangeLabel(JComponent tPanel, String @NotNull [] tStrings, HashMap<String, JComponent> stringJComponentHashMap){
+        for(int i=0;i<tStrings.length;i++){
+            String s = tStrings[i];
+            DiyJChangeLabel tmpLabel = new DiyJChangeLabel(s);
+            if(stringJComponentHashMap.containsKey(s)){
+                tmpLabel.setPanel(stringJComponentHashMap.get(s));
+            }
+            tmpLabel.setPreferredSize(new Dimension(0,30));
+            tmpLabel.setBorder(null);
+            tmpLabel.setName(tPanel.getName().replace("Panel","Label"+ i +"Panel"));
+
+            tPanel.add(tmpLabel, new GridBagConstraints(
+                    i-((i/4)*4), i/4,
+                    1,1,
+                    0.25,0,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(0,1,2,1),
+                    0,0
+            ));
+        }
+        if(tStrings.length%4!=0){
+            tPanel.add(Helper.blackPanel(),new GridBagConstraints(
+                    tStrings.length%4, (tStrings.length-1)/4,
+                    4-tStrings.length%4,1,
+                    0.25*(4-tStrings.length%4),0,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(0,0,0,0),
+                    0,0
+            ));
+        }
     }
 
     //读取文件并返回字符串

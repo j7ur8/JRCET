@@ -1,6 +1,7 @@
 package jrcet.diycomponents;
 
 import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
+import jrcet.frame.tools.Dencrypt.Jwt.JwtComponent;
 import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
 import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
@@ -156,6 +157,11 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tPanel = FormatComponent.FormatComponentPanel;
                 tCMap = FormatComponent.MainPanelHashMap;
                 break;
+            case "Jwt":
+                tGMap = JwtComponent.ComponentConstraintHashMap;
+                tPanel = JwtComponent.JwtComponentPanel;
+                tCMap = JwtComponent.MainPanelHashMap;
+                break;
             case "Hex":
                 tGMap = HexComponent.ComponentConstraintHashMap;
                 tPanel = HexComponent.HexComponentPanel;
@@ -236,6 +242,10 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Hex":
                 nPanel = new HexComponent().HexMainPanel();
                 HexComponent.MainPanelHashMap.put(nIndex, nPanel);
+                break;
+            case "Jwt":
+                nPanel = new JwtComponent().JwtMainPanel();
+                JwtComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Case":
                 nPanel = new CaseComponent().CaseMainPanel();
