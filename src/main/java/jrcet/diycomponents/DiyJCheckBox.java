@@ -1,9 +1,8 @@
 package jrcet.diycomponents;
 
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.frame.tools.Intruder.Intruder;
 import jrcet.frame.tools.Password.Generate.Generate;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.tools.RScript.RScript;
 
@@ -11,9 +10,7 @@ import javax.swing.*;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Objects;
 
-import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.tools.RScript.RScriptComponent.RScriptComponentPanel;
 
 public class DiyJCheckBox extends JCheckBox implements ItemListener {

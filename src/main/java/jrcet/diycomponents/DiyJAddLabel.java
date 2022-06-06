@@ -8,7 +8,7 @@ import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
 import jrcet.frame.tools.HText.Len.LenComponent;
 import jrcet.frame.tools.HText.Regex.RegexComponent;
 import jrcet.frame.tools.Password.Generate.GenerateComponent;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
@@ -23,15 +23,14 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static jrcet.frame.setting.Setting.class2ClickedDiyJTabBorderColor;
-import static jrcet.frame.setting.Setting.class2DefaultDiyJTabBorderColor;
+import static jrcet.frame.setting.Setting.orange;
+import static jrcet.frame.setting.Setting.gray;
 
 public class DiyJAddLabel extends JLabel implements MouseListener {
 
     private JComponent mapPanel = null;
 
     public DiyJAddLabel(String labelName) {
-        setOpaque(true);
         setText(labelName);
         setBackground(Color.WHITE);
         setHorizontalAlignment(JLabel.CENTER);
@@ -39,17 +38,17 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
         setFont(new Font("微软雅黑", Font.PLAIN,12));
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(1,0,0,0),
-                BorderFactory.createMatteBorder(0,0,1,0,class2DefaultDiyJTabBorderColor)
+                BorderFactory.createMatteBorder(0,0,1,0, gray)
         ));
 
         addMouseListener(this);
     }
 
-    public DiyJAddLabel(String labelName,boolean flag){
+    public DiyJAddLabel(String labelName, boolean flag){
         this(labelName);
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(2,0,0,0),
-                BorderFactory.createMatteBorder(0,0,2,0, class2ClickedDiyJTabBorderColor)
+                BorderFactory.createMatteBorder(0,0,2,0, orange)
         ));
     }
 
@@ -71,7 +70,7 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
 
         for(Component i:this.getParent().getComponents()){
             if(i instanceof DiyJAddLabel){
-                ((DiyJAddLabel)i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,class2DefaultDiyJTabBorderColor)));
+                ((DiyJAddLabel)i).setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0, gray)));
             }
         }
 
@@ -92,7 +91,7 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             nStickerLabel.mousePressed(new MouseEvent(nStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
         }else{
 
-            eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,class2ClickedDiyJTabBorderColor)));
+            eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0, orange)));
             changeMainPanelBySticker(repairedName, eIndex);
         }
 

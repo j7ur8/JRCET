@@ -2,11 +2,11 @@ package burp;
 
 
 import jrcet.frame.tools.Intruder.Intruder;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.Jrcet;
 import jrcet.frame.tools.RScript.RScript;
-import jrcet.lib.ShutdownThread;
+import jrcet.help.ShutdownThread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,6 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public static IBurpExtenderCallbacks callbacks;
     public static IExtensionHelpers helpers;
     public static PrintWriter stdout;
-    private final JComponent t=new Jrcet().main();
 
     public BurpExtender(){
         Runtime.getRuntime().addShutdownHook(new ShutdownThread());
@@ -29,33 +28,31 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     @Override
     public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks) {
 
-        stdout = new PrintWriter(callbacks.getStdout(), true);
         BurpExtender.callbacks = callbacks;
+        stdout = new PrintWriter(callbacks.getStdout(), true);
         helpers = callbacks.getHelpers();
+
+        callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
         callbacks.registerContextMenuFactory(this);
-        callbacks.addSuiteTab(this);
         callbacks.registerIntruderPayloadProcessor(this);
     }
 
     @Override
     public Component getUiComponent() {
-
-        return t;
+        return new Jrcet().main();
     }
 
     @Override
     public String getTabCaption() {
-
         return "JRCET";
     }
 
     @Override
     public List<JMenuItem> createMenuItems(IContextMenuInvocation iContextMenuInvocation) {
 
-        IHttpRequestResponse[] messages = iContextMenuInvocation.getSelectedMessages();
-
         JMenuItem RScriptItem = new JMenuItem("RScript");
+        IHttpRequestResponse[] messages = iContextMenuInvocation.getSelectedMessages();
 
         RScriptItem.addActionListener(e -> {
             RTextArea tTextArea = (RTextArea) Helper.getComponent(RScriptComponentPanel,"RScriptMainEditor");
@@ -69,15 +66,14 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
 
     @Override
     public String getProcessorName() {
-
-        return "JEncrypt";
+        return "JIntruder";
     }
 
     @Override
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
 
-        String newPayload = Intruder.createIntruder(currentPayload);
-        stdout.println(newPayload);
+        String newPayload = Intruder.involeIntruder(currentPayload);
+//        stdout.println(newPayload);
         return helpers.stringToBytes(newPayload);
     }
 }

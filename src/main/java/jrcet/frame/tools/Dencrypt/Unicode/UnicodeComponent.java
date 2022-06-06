@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Unicode;
 
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -140,7 +140,7 @@ public class UnicodeComponent extends DiyJComponent {
         RTextScrollPane UnicodeMainStringScrollPane = new RTextScrollPane(UnicodeMainStringArea);
         UnicodeMainStringScrollPane.setName("UnicodeMainStringScrollPane");
         UnicodeMainStringScrollPane.setPreferredSize(new Dimension(0,0));
-        UnicodeMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
+        UnicodeMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
 
         return UnicodeMainStringScrollPane;
 

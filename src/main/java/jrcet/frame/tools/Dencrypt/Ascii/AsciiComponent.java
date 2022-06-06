@@ -1,7 +1,7 @@
 package jrcet.frame.tools.Dencrypt.Ascii;
 
 import jrcet.diycomponents.DiyJLabel;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -136,7 +136,7 @@ public class AsciiComponent extends DiyJComponent {
         AsciiMainPlainScrollPane.setName("AsciiMainPlainScrollPane");
         AsciiMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AsciiMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
+        AsciiMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
 
         return AsciiMainPlainScrollPane;
 

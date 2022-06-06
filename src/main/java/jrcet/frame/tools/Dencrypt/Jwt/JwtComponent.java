@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Jwt;
 
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -11,7 +11,6 @@ import jrcet.frame.setting.Setting;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -147,7 +146,7 @@ public class JwtComponent extends DiyJComponent {
         JwtMainTokenScrollPane.setName("JwtMainTokenScrollPane");
         JwtMainTokenScrollPane.setPreferredSize(new Dimension(0,0));
         JwtMainTokenScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JwtMainTokenScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
+        JwtMainTokenScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
 
         return JwtMainTokenScrollPane;
     }

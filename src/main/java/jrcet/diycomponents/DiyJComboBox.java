@@ -1,7 +1,5 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.exploit.php.PbootCMS.PbootCMSComponent;
-import jrcet.frame.exploit.php.ThinkPHP.ThinkPHPComponent;
 import jrcet.frame.tools.Dencrypt.Base.Base;
 import jrcet.frame.tools.HText.Format.Format;
 
@@ -9,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class DiyJComboBox<E> extends JComboBox<E> implements ItemListener {
 

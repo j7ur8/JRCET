@@ -4,7 +4,7 @@ import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.setting.Setting;
@@ -141,7 +141,7 @@ public class BaseComponent extends DiyJComponent {
         RTextScrollPane BaseMainPlainScrollPane = new RTextScrollPane(BaseMainPlainArea);
         BaseMainPlainScrollPane.setName("BaseMainPlainScrollPane");
         BaseMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
-        BaseMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
+        BaseMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
 
         return BaseMainPlainScrollPane;
 

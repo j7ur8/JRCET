@@ -1,11 +1,9 @@
 package jrcet.diycomponents;
 
 import jrcet.frame.asset.Asset;
-import jrcet.frame.tools.Intruder.Intruder;
 import jrcet.frame.tools.Intruder.IntruderComponent;
-import jrcet.lib.Helper;
-import jrcet.frame.tools.Solibrary.SoLibrary;
-import jrcet.frame.tools.Solibrary.SoLibraryComponent;
+import jrcet.help.Helper;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +20,6 @@ import java.util.Objects;
 
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
-import static jrcet.frame.tools.Solibrary.SoLibraryComponent.SoLibraryComponentPanel;
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
 
@@ -38,27 +35,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     }
 
 
-    private void SetDatabase(DiyJButton targetButton) {
-        JPanel parentPanel = (JPanel) targetButton.getParent();
-        JTextField DatabaseTextField = (JTextField) parentPanel.getComponent(1);
-        if(Helper.isFile(DatabaseTextField.getText())){
-            SoLibraryComponent.databasePath=DatabaseTextField.getText();
-        }else{
-            DatabaseTextField.setText("文件路径错误");
-            SoLibraryComponent.databasePath="";
-        }
-    }
 
-    private void Search(DiyJButton targetButton){
-        JPanel parentPanel = (JPanel) targetButton.getParent();
-        JTextField nameField = (JTextField) parentPanel.getComponent(4);
-        JTextField cardField = (JTextField) parentPanel.getComponent(6);
-        JTextField phoneField = (JTextField) parentPanel.getComponent(8);
-        JComponent ePanel = Helper.getComponent(SoLibraryComponentPanel,"SoLibraryResultPanel");
-        assert ePanel != null;
-        ePanel.removeAll();
-        SoLibrary.Search(nameField.getText(),cardField.getText(),phoneField.getText());
-    }
 
     private void writeRScript(DiyJButton targetButton){
         JPanel targetPanel = (JPanel) targetButton.getParent().getParent();
@@ -109,12 +86,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         switch (eButtonName) {
             case "Copy":
                 writeRScript(eButton);
-                break;
-            case "Search":
-                Search(eButton);
-                break;
-            case "SetDatabase":
-                SetDatabase(eButton);
                 break;
             case "Aes":
             case "Rsa":

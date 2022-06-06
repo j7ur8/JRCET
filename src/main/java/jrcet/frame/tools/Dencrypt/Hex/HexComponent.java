@@ -1,7 +1,7 @@
 package jrcet.frame.tools.Dencrypt.Hex;
 
 import jrcet.diycomponents.DiyJLabel;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -136,7 +136,7 @@ public class HexComponent extends DiyJComponent {
         HexMainPlainScrollPane.setName("HexMainPlainScrollPane");
         HexMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         HexMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
-        HexMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.class2DefaultDiyJTabBorderColor));
+        HexMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
 
         return HexMainPlainScrollPane;
 

@@ -1,7 +1,7 @@
 package jrcet.frame.tools.Password.Generate;
 
 import jrcet.frame.tools.HText.Parsepy.Parsepy;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 
 import java.util.*;
 

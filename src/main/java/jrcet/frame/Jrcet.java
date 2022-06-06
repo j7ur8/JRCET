@@ -6,15 +6,12 @@ import java.awt.*;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
 import jrcet.frame.asset.AssetComponent;
-import jrcet.frame.exploit.ExploitComponent;
-import jrcet.frame.setting.Setting;
 import jrcet.frame.setting.SettingComponent;
 import jrcet.frame.tools.ToolsComponent;
 
 public class Jrcet extends DiyJComponent {
 
     public final JComponent SettingComponentPanel = SettingComponentPanel();
-    public final JComponent ExploitComponentPanel = ExploitComponentPanel();
     public final JComponent ToolsComponentPanel = ToolsComponentPanel();
     public final JComponent AssetComponentPanel = AssetComponentPanel();
 
@@ -71,7 +68,7 @@ public class Jrcet extends DiyJComponent {
 
         DiyJTabLabel JrcetMenuExploitLabel = new DiyJTabLabel("Exploit");
         JrcetMenuExploitLabel.setName("JrcetMenuExploitLabel");
-        JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
+//        JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
         JrcetMenuPanel.add(JrcetMenuExploitLabel);
 
         DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools");
@@ -96,11 +93,6 @@ public class Jrcet extends DiyJComponent {
         return JrcetMenuBorderPanel;
     }
 
-
-    private JComponent ExploitComponentPanel(){
-        DiyJComponent ExploitComponentInstance=new ExploitComponent();
-        return ExploitComponentInstance.main();
-    }
 
     private JComponent ToolsComponentPanel(){
         DiyJComponent ToolsComponentInstance=new ToolsComponent();

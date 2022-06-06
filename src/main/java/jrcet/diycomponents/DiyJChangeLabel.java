@@ -2,12 +2,11 @@ package jrcet.diycomponents;
 
 import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class DiyJChangeLabel extends DiyJTabLabel  {
 
@@ -76,7 +75,7 @@ public class DiyJChangeLabel extends DiyJTabLabel  {
                         ii.setBorder(null);
                     }
                 }
-                eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.class2ClickedDiyJTabBorderColor)));
+                eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.orange)));
                 switch (eLabelName){
                     case "JwtMainControlMode":
                         Jwt.JwtModeType = eLabelText;

@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dominate.Domain;
 
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 

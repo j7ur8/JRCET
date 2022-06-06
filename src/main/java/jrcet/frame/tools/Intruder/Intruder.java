@@ -6,7 +6,7 @@ import jrcet.frame.tools.Dencrypt.Ascii.Ascii;
 import jrcet.frame.tools.Dencrypt.Base.Base;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 
 import javax.swing.*;
 
@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
 
 public class Intruder {
@@ -25,7 +24,7 @@ public class Intruder {
 
     private static ArrayList<String> processors = new ArrayList<>();
 
-    public static String createIntruder(byte[] currentPayload) {
+    public static String involeIntruder(byte[] currentPayload) {
 
         tmpPayload = new String(currentPayload, StandardCharsets.UTF_8);
 

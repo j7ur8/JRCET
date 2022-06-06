@@ -4,7 +4,7 @@ import jrcet.diycomponents.*;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

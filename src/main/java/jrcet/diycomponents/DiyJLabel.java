@@ -1,7 +1,7 @@
 package jrcet.diycomponents;
 
 import jrcet.frame.asset.Asset;
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;

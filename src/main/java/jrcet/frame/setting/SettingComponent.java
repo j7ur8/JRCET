@@ -13,10 +13,10 @@ public class SettingComponent extends DiyJComponent {
     public JComponent main() {
 
         SettingComponentPanel = new JPanel(null);
-        SettingComponentPanel.setOpaque(false);
         SettingComponentPanel.setName("SettingComponentPanel");
         SettingComponentPanel.setBackground(Color.ORANGE);
         SettingComponentPanel.setBounds(0,25,800,60);
+
 
         return SettingComponentPanel;
     }

@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Aes;
 
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComboBox;
 import jrcet.diycomponents.DiyJComponent;
@@ -121,7 +121,7 @@ public class AesComponent extends DiyJComponent {
         AesMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         AesMainPlaintextScrollPane.setName("AesMainPlaintextScrollPane");
         AesMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        AesMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor));
+        AesMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.gray));
 
         return AesMainPlaintextScrollPane;
 

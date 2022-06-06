@@ -1,6 +1,6 @@
 package jrcet.frame.tools.Dencrypt.Rsa;
 
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
@@ -67,7 +67,7 @@ public class RsaComponent extends DiyJComponent {
         JComponent RsaTagBlackPanel = new JPanel();
         RsaTagBlackPanel.setName("RsaTagBlackPanel");
         RsaTagBlackPanel.setOpaque(false);
-        RsaTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.class4DefaultDiyJTabBorderColor));
+        RsaTagBlackPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.gray));
         return RsaTagBlackPanel;
     }
 
@@ -139,7 +139,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         RsaMainPlaintextScrollPane.setName("RsaMainPlaintextScrollPane");
         RsaMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor));
+        RsaMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.gray));
 
         return RsaMainPlaintextScrollPane;
 
@@ -225,7 +225,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPublicScrollPane.setName("RsaMainControlPublicScrollPane");
         RsaMainControlPublicScrollPane.setLineNumbersEnabled(false);
         RsaMainControlPublicScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainControlPublicScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor));
+        RsaMainControlPublicScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.gray));
 
         return RsaMainControlPublicScrollPane;
     }

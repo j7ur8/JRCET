@@ -6,9 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class DiyJTabLabel extends DiyJLabel implements MouseListener {
 
@@ -17,14 +14,14 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
     public DiyJTabLabel(String labelName){
         super(labelName);
         addMouseListener(this);
-        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.class2DefaultDiyJTabBorderColor)));
+        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0,Setting.gray)));
     }
 
     public DiyJTabLabel(String labelName, boolean flag){
         super(labelName);
         addMouseListener(this);
         if(flag){
-            setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0, Setting.class2ClickedDiyJTabBorderColor)));
+            setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0, Setting.orange)));
         }
     }
 
@@ -49,13 +46,13 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
         for(Component i:this.getParent().getComponents()){
             if(i instanceof DiyJLabel){
                 DiyJLabel ii=(DiyJLabel)i;
-                ii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0, Setting.class2DefaultDiyJTabBorderColor)));
+                ii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1,0,0,0),BorderFactory.createMatteBorder(0,0,1,0, Setting.gray)));
             }
         }
 
         if(mapPanel!=null){
             DiyJLabel hitButtonLabel = (DiyJLabel)e.getSource();
-            hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.class2ClickedDiyJTabBorderColor)));
+            hitButtonLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.orange)));
             JComponent parentPanel=(JPanel)hitButtonLabel.getParent().getParent();
             int parentComponentsNums = parentPanel.getComponents().length;
             parentPanel.remove(parentComponentsNums-1);

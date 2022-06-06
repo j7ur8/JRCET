@@ -1,16 +1,13 @@
 package jrcet.frame.tools;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.Dominate.DominateComponent;
 import jrcet.frame.tools.HText.HTextComponent;
 import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.frame.tools.Password.PasswordComponent;
 import jrcet.frame.tools.RScript.RScriptComponent;
-import jrcet.frame.tools.Solibrary.SoLibraryComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +15,6 @@ import java.awt.*;
 public class ToolsComponent extends DiyJComponent {
 
     private final JComponent RScriptComponentPanel = RScriptComponentPanel();
-//    private final JComponent JSEncryptComponentPanel = JSEncryptComponentPanel();
-    private final JComponent SoLibraryComponentPanel = SoLibraryComponentPanel();
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
     private final JComponent IntruderComponentPanel = IntruderComponentPanel();
     private final JComponent HTextComponentPanel = HTextComponentPanel();
@@ -90,11 +85,6 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuRScriptLabel.setPanel(RScriptComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuRScriptLabel);
 
-        DiyJTabLabel ToolsMenuSOLibraryLabel = new DiyJTabLabel("SOLibrary");
-        ToolsMenuSOLibraryLabel.setName("ToolsMenuSOLibraryLabel");
-        ToolsMenuSOLibraryLabel.setPanel(SoLibraryComponentPanel);
-        ToolsMenuTabPanel.add(ToolsMenuSOLibraryLabel);
-
         DiyJTabLabel ToolsMenuHTextLabel = new DiyJTabLabel("HText");
         ToolsMenuHTextLabel.setName("ToolsMenuHTextLabel");
         ToolsMenuHTextLabel.setPanel(HTextComponentPanel);
@@ -138,11 +128,6 @@ public class ToolsComponent extends DiyJComponent {
         return RScriptComponentPanel;
     }
 
-    private JComponent SoLibraryComponentPanel(){
-        DiyJComponent SoLibraryComponentInstance = new SoLibraryComponent();
-        JComponent SoLibraryComponentPanel = SoLibraryComponentInstance.main();
-        return SoLibraryComponentPanel;
-    }
 
     private JComponent IntruderComponentPanel(){
         DiyJComponent IntruderComponentInstance = new IntruderComponent();

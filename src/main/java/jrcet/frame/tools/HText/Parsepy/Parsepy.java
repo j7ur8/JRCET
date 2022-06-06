@@ -1,8 +1,7 @@
 package jrcet.frame.tools.HText.Parsepy;
 
-import jrcet.lib.Helper;
+import jrcet.help.Helper;
 
-import java.text.Collator;
 import java.util.*;
 
 public class Parsepy {
