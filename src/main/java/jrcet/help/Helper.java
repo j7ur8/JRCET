@@ -49,6 +49,7 @@ public class Helper {
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
                 case "JPanel":
                 case "JList":
+                case "JTable":
                 case "DiyJComboBox":
                 case "RSyntaxTextArea":
                     JComponent cj = getComponent((JComponent) i,tComponentName);
@@ -192,8 +193,8 @@ public class Helper {
         try {
             for (int i = 0; i < len; i += 2) {
                 data[i/2] = (byte) (
-                         (Character.digit(s.charAt(i), 16) << 4)
-                        + Character.digit(s.charAt(i+1), 16)
+                        (Character.digit(s.charAt(i), 16) << 4)
+                                + Character.digit(s.charAt(i+1), 16)
                 );
             }
         } catch (Exception ignored) {
@@ -451,4 +452,31 @@ public class Helper {
         return stringBuilder.toString();
     }
 
+    /*
+        创建随机字符串（小写）
+     */
+    public static String createRandomString(int length){
+
+        String str = "abcdefghijklmnopqrstuvwxyz";
+        Random random = new Random();
+        StringBuilder stringBuffer = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(26);
+            stringBuffer.append(str.charAt(number));
+        }
+
+        return stringBuffer.toString();
+    }
+
+    /*
+        睡眠
+     */
+    public static void sleep(int millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -1,95 +1,79 @@
 package jrcet;
 
-import java.io.UnsupportedEncodingException;
+import java.security.spec.AlgorithmParameterSpec;
+import java.util.Base64;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+
+/**
+ * Des加解密工具类
+ *
+ * @author Lee
+ */
 public class szm {
-    private final static int[] li_SecPosValue = { 1601, 1637, 1833, 2078, 2274,
-            2302, 2433, 2594, 2787, 3106, 3212, 3472, 3635, 3722, 3730, 3858,
-            4027, 4086, 4390, 4558, 4684, 4925, 5249, 5590 };
-    private final static String[] lc_FirstLetter = { "a", "b", "c", "d", "e",
-            "f", "g", "h", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
-            "t", "w", "x", "y", "z" };
 
-    /**
-     * 调用方法
-     *
-     * @param str 中文串
-     *
-     * @return 声母串
-     */
-    public String getAllFirstLetter(String str) {
-        if (str == null || str.trim().length() == 0) {
-            return "";
-        }
+//aaaaaa：**
 
-        String _str = "";
-        for (int i = 0; i < str.length(); i++) {
-            _str = _str + this.getFirstLetter(str.substring(i, i + 1));
-        }
+//private  final byte[] DESkey = lmkProperties.getDesKey().getBytes();// 设置**，略去
+//private  final byte[] DESkey = "abcdefgh".getBytes();// 设置**，略去  至少8位
 
-        return _str;
+//bbbb：偏移量
+//private  final byte[] DESIV = lmkProperties.getDesIv().getBytes();// 设置向量，略去
+//private  final byte[] DESIV = "12345678".getBytes();// 设置向量，略去  至少8位
+
+    static AlgorithmParameterSpec iv = null;// 加密算法的参数接口，IvParameterSpec是它的一个实现
+    private static SecretKey key = null;
+
+
+    public szm(byte[] desKey) throws Exception {
+        DESKeySpec keySpec = new DESKeySpec(desKey);// 设置**参数
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");// 获得**工厂
+        key = keyFactory.generateSecret(keySpec);// 得到**对象
     }
 
     /**
-     * 每个字的首字母
-     *
-     * @param chinese 汉字
-     * @return 返回声母
+     * 加密
+     * @param data 待加密的数据
+     * @return 加密后的数据
+     * @throws Exception
      */
-    public String getFirstLetter(String chinese) {
-        if (chinese == null || chinese.trim().length() == 0) {
-            return "";
-        }
-        chinese = this.conversionStr(chinese, "GB2312", "ISO8859-1");
-
-        if (chinese.length() > 1) // 判断是不是汉字
-        {
-            int li_SectorCode = (int) chinese.charAt(0); // 汉字区码
-            int li_PositionCode = (int) chinese.charAt(1); // 汉字位码
-            li_SectorCode = li_SectorCode - 160;
-            li_PositionCode = li_PositionCode - 160;
-            int li_SecPosCode = li_SectorCode * 100 + li_PositionCode; // 汉字区位码
-            if (li_SecPosCode > 1600 && li_SecPosCode < 5590) {
-                for (int i = 0; i < 23; i++) {
-                    if (li_SecPosCode >= li_SecPosValue[i]
-                            && li_SecPosCode < li_SecPosValue[i + 1]) {
-                        chinese = lc_FirstLetter[i];
-                        break;
-                    }
-                }
-            } else // 非汉字字符,如图形符号或ASCII码
-            {
-                chinese = this.conversionStr(chinese, "ISO8859-1", "GB2312");
-                chinese = chinese.substring(0, 1);
-            }
-        }
-
-        return chinese;
+    public String encode(String data) throws Exception {
+        Cipher enCipher = Cipher.getInstance("DES/ECB/PKCS5Padding");// 得到加密对象Cipher
+        enCipher.init(Cipher.ENCRYPT_MODE, key);// 设置工作模式为加密模式，给出**和向量
+        byte[] pasByte = enCipher.doFinal(data.getBytes("utf-8"));
+        //BASE64Encoder base64Encoder = new BASE64Encoder();
+        return Base64.getEncoder().encodeToString(pasByte);
+        //return base64Encoder.encode(pasByte);
     }
 
     /**
-     * 字符串编码转换
-     *
-     * @param str
-     *            要转换编码的字符串
-     * @param charsetName
-     *            原来的编码
-     * @param toCharsetName
-     *            转换后的编码
-     * @return 经过编码转换后的字符串
+     * 解密
+     * @param data  解密前的数据
+     * @return 解密后的数据
+     * @throws Exception
      */
-    private String conversionStr(String str, String charsetName,
-                                 String toCharsetName) {
-        try {
-            str = new String(str.getBytes(charsetName), toCharsetName);
-        } catch (UnsupportedEncodingException ex) {
-            System.out.println("字符串编码转换异常：" + ex.getMessage());
-        }
-        return str;
+    public String decode(String data) throws Exception {
+        Cipher deCipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+        deCipher.init(Cipher.DECRYPT_MODE, key, iv);
+        //BASE64Decoder base64Decoder = new BASE64Decoder();
+        //byte[] pasByte = deCipher.doFinal(base64Decoder.decodeBuffer(data));
+        byte[] pasByte = deCipher.doFinal(Base64.getDecoder().decode(data));
+        return new String(pasByte, "UTF-8");
     }
 
-    public static void main(String[] args) {
-        szm cte = new szm();
-        System.out.println("获取拼音首字母：" + cte.getAllFirstLetter("北京联席办"));
+    public static void main(String[] args) throws Exception {
+        szm tools = new szm(Base64.getDecoder().decode("Z12/y2Lfzlc="));
+        String data = "11111";
+        System.out.println("加密:" + tools.encode(data));
+
+        String data1 = tools.encode(data);
+
+        System.out.println("解密:" + tools.decode(data1));
     }
+
+
 }

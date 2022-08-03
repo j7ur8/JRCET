@@ -84,6 +84,10 @@ public class IntruderComponent extends DiyJComponent {
 
         DiyJButton IntruderMainControlAesButton = new DiyJButton(("Aes"));
         IntruderMainControlAesButton.setName("IntruderMainControlAesButton");
+        DiyJButton IntruderMainControlDesButton = new DiyJButton(("Des"));
+        IntruderMainControlDesButton.setName("IntruderMainControlDesButton");
+        DiyJButton IntruderMainControlMd5Button = new DiyJButton(("Md5"));
+        IntruderMainControlMd5Button.setName("IntruderMainControlMd5Button");
         DiyJButton IntruderMainControlRsaButton = new DiyJButton(("Rsa"));
         IntruderMainControlRsaButton.setName("IntruderMainControlRsaButton");
         DiyJButton IntruderMainControlBaseButton = new DiyJButton(("Base"));
@@ -97,7 +101,7 @@ public class IntruderComponent extends DiyJComponent {
 
         IntruderMainControlPanel.add(IntruderMainControlShowLabel, new GridBagConstraints(
                 0,0,
-                5,1,
+                7,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -114,6 +118,27 @@ public class IntruderComponent extends DiyJComponent {
                 new Insets(0,0,0,0),
                 0,0
         ));
+
+        IntruderMainControlPanel.add(IntruderMainControlDesButton, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        IntruderMainControlPanel.add(IntruderMainControlMd5Button, new GridBagConstraints(
+                IntruderMainControlPanel.getComponentCount()-1,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
         IntruderMainControlPanel.add(IntruderMainControlRsaButton, new GridBagConstraints(
                 IntruderMainControlPanel.getComponentCount()-1,1,
                 1,1,
@@ -153,7 +178,7 @@ public class IntruderComponent extends DiyJComponent {
 
         IntruderMainControlPanel.add(IntruderMainControlClearButton, new GridBagConstraints(
                 0,2,
-                5,1,
+                7,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,

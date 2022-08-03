@@ -4,7 +4,7 @@ import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Password.Generate.Generate;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
-import jrcet.frame.tools.RScript.RScript;
+//import jrcet.frame.tools.RScript.RScript;
 
 import javax.swing.*;
 
@@ -32,13 +32,13 @@ public class DiyJCheckBox extends JCheckBox implements ItemListener {
             case "RScriptMenuSessionBox":
                 RTextArea tTextArea = (RTextArea) Helper.getComponent(RScriptComponentPanel,"RScriptMainEditor");
                 assert tTextArea != null;
-                if(eCheckBox.isSelected() && RScript.messages!=null && RScript.helpers!=null){
-                    tTextArea.setText(new RScript().initSessionScript(RScript.messages, RScript.helpers));
-                }else if(!eCheckBox.isSelected() && RScript.messages!=null && RScript.helpers!=null){
-                    tTextArea.setText(new RScript().initScript(RScript.messages, RScript.helpers));
-                }else{
-                    eCheckBox.setSelected(false);
-                }
+//                if(eCheckBox.isSelected() && RScript.messages!=null && RScript.helpers!=null){
+//                    tTextArea.setText(new RScript().initSessionScript(RScript.messages, RScript.helpers));
+//                }else if(!eCheckBox.isSelected() && RScript.messages!=null && RScript.helpers!=null){
+//                    tTextArea.setText(new RScript().initScript(RScript.messages, RScript.helpers));
+//                }else{
+//                    eCheckBox.setSelected(false);
+//                }
                 break;
             case "GenerateMainMenuModeSpecialcharBox":
                 rootPanel = (JComponent) eCheckBox.getParent();

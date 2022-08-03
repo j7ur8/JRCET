@@ -6,8 +6,9 @@ import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
 import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
-import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
+//import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
 import jrcet.frame.tools.Dencrypt.Jwt.JwtComponent;
+import jrcet.frame.tools.Dencrypt.Md5.Md5Component;
 import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
 
@@ -18,6 +19,8 @@ public class DencryptComponent extends DiyJComponent {
 
     private final JComponent BaseComponentPanel = BaseComponentPanel();
     private final JComponent AesComponentPanel = AesComponentPanel();
+
+    private final JComponent Md5ComponentPanel = Md5ComponentPanel();
     private final JComponent UnicodeComponentPanel = UnicodeComponentPanel();
     private final JComponent RsaComponentPanel = RsaComponentPanel();
     private final JComponent AsciiComponentPanel = AsciiComponentPanel();
@@ -65,6 +68,12 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuAESLabel.setPanel(AesComponentPanel);
         DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
         DencryptMenuPanel.add(DencryptMenuAESLabel);
+
+        //Md5
+        DiyJTabLabel DencryptMenuMd5Label = new DiyJTabLabel("Md5");
+        DencryptMenuMd5Label.setPanel(Md5ComponentPanel);
+        DencryptMenuMd5Label.setName("DencryptMenuMd5Label");
+        DencryptMenuPanel.add(DencryptMenuMd5Label);
 
         //Rsa
         DiyJTabLabel DencryptMenuRsaLabel = new DiyJTabLabel("Rsa");
@@ -140,4 +149,5 @@ public class DencryptComponent extends DiyJComponent {
 
     public JComponent JwtComponentPanel() { return new JwtComponent().main(); }
 
+    public JComponent Md5ComponentPanel() { return new Md5Component().main(); }
 }

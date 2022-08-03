@@ -1,7 +1,7 @@
 package jrcet.diycomponents;
 
 import jrcet.frame.setting.Setting;
-import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
+//import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -43,7 +43,7 @@ public class DiyJChangeLabel extends DiyJTabLabel  {
                 eLabel.setBorder(null);
                 switch (eLabelName) {
                     case "JwtMainControlMode":
-                        Jwt.JwtModeType = null;
+//                        Jwt.JwtModeType = null;
                         rootPanel = (JComponent) eLabel.getParent().getParent();
                         rootPanel.remove(rootPanel.getComponentCount()-1);
                         rootPanel.remove(rootPanel.getComponentCount()-1);
@@ -78,7 +78,7 @@ public class DiyJChangeLabel extends DiyJTabLabel  {
                 eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.orange)));
                 switch (eLabelName){
                     case "JwtMainControlMode":
-                        Jwt.JwtModeType = eLabelText;
+//                        Jwt.JwtModeType = eLabelText;
                         rootPanel = (JComponent) eLabel.getParent().getParent();
                         rootPanel.remove(rootPanel.getComponentCount()-1);
                         rootPanel.remove(rootPanel.getComponentCount()-1);

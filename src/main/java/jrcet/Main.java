@@ -1,7 +1,11 @@
 package jrcet;
 
 import jrcet.frame.Jrcet;
+import jrcet.frame.tools.Scanner.Fastjson.FastjsonComponent;
+import jrcet.help.Helper;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -23,7 +27,6 @@ public class Main {
         JrcetFrame.setSize(1200, 1000);
         centerInScreen(JrcetFrame);
         JrcetFrame.setVisible(true);
-
 //        Helper.travelComponent(Main.JrcetPanel);
 //
 //        for(String i :Helper.treeComponent(JrcetComponentList)){

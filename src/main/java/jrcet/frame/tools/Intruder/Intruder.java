@@ -4,14 +4,20 @@ import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.tools.Dencrypt.Aes.Aes;
 import jrcet.frame.tools.Dencrypt.Ascii.Ascii;
 import jrcet.frame.tools.Dencrypt.Base.Base;
+import jrcet.frame.tools.Dencrypt.Md5.Md5;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
 import jrcet.help.Helper;
+import jrcet.szm;
 
 import javax.swing.*;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Objects;
 
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
@@ -33,6 +39,12 @@ public class Intruder {
             switch (jComponent.getName()){
                 case "IntruderMainAesPanel":
                     aseProcessor();
+                    break;
+                case "IntruderMainDesPanel":
+                    desProcessor();
+                    break;
+                case "IntruderMainMd5Panel":
+                    md5Processor();
                     break;
                 case "IntruderMainRsaPanel":
                     rsaProcessor();
@@ -85,10 +97,26 @@ public class Intruder {
 
     }
 
+    public static void desProcessor(){
+        try{
+            szm tools = new szm(Base64.getDecoder().decode("Z12/y2Lfzlc="));
+            tmpPayload = tools.encode(tmpPayload);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void md5Processor(){
+
+        tmpPayload = Md5.stringToMd5(tmpPayload);
+
+    }
+
     public static void rsaProcessor(){
         RSyntaxTextArea publicArea = (RSyntaxTextArea) Helper.getComponent(RootPanel, "IntruderMainRsaPublicArea"); assert publicArea!=null;
         RSyntaxTextArea privateArea = (RSyntaxTextArea) Helper.getComponent(RootPanel, "IntruderMainRsaPrivateArea"); assert privateArea!=null;
-        JComboBox<String> modeBox = (JComboBox) Helper.getComponent(RootPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
+        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(RootPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
 
         String rsaPublicKey = publicArea.getText();
         String rsaPrivateKey = privateArea.getText();

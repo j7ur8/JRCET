@@ -303,40 +303,40 @@ public class JwtComponent extends DiyJComponent {
 
         @Override
         public void keyReleased(KeyEvent e) {
-
-            JTextComponent eTextComponent = (JTextComponent) e.getSource();
-            String eText = eTextComponent.getText();
-            String eTextComponentName = eTextComponent.getName();
-            JComponent rootPanel = (JComponent) eTextComponent.getParent().getParent().getParent();
-            switch (eTextComponentName){
-                case "JwtMainTokenArea":
-                    ArrayList<String> arrayList = Jwt.parseJwt(eText);
-                    if(arrayList!=null){
-                        JTextComponent headerTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainHeaderArea");assert headerTextArea !=null;
-                        JTextComponent dataTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainDataArea"); assert dataTextArea !=null;
-                        headerTextArea.setText(arrayList.get(0));
-                        dataTextArea.setText(arrayList.get(1));
-                    }
-                    break;
-                case "JwtMainControlSecretField":
-                case "JwtMainHeaderArea":
-                case "JwtMainDataArea":
-                    String mode = Jwt.JwtModeType;
-                    JTextComponent tokenTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainTokenArea");assert tokenTextArea !=null;
-                    if(mode ==null){
-                        tokenTextArea.setText("请选择模式");
-                        break;
-                    }
-                    JTextField secretTextField = (JTextField)  Helper.getComponent(rootPanel, "JwtMainControlSecretField"); assert secretTextField!=null;
-                    JTextComponent headerTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainHeaderArea");assert headerTextArea !=null;
-                    JTextComponent dataTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainDataArea"); assert dataTextArea !=null;
-                    String headerText = headerTextArea.getText();
-                    String dataText = dataTextArea.getText();
-                    String secret = secretTextField.getText();
-
-                    tokenTextArea.setText(Jwt.generateJwt(headerText,dataText,secret, mode));
-                    break;
-            }
+//
+//            JTextComponent eTextComponent = (JTextComponent) e.getSource();
+//            String eText = eTextComponent.getText();
+//            String eTextComponentName = eTextComponent.getName();
+//            JComponent rootPanel = (JComponent) eTextComponent.getParent().getParent().getParent();
+//            switch (eTextComponentName){
+//                case "JwtMainTokenArea":
+//                    ArrayList<String> arrayList = Jwt.parseJwt(eText);
+//                    if(arrayList!=null){
+//                        JTextComponent headerTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainHeaderArea");assert headerTextArea !=null;
+//                        JTextComponent dataTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainDataArea"); assert dataTextArea !=null;
+//                        headerTextArea.setText(arrayList.get(0));
+//                        dataTextArea.setText(arrayList.get(1));
+//                    }
+//                    break;
+//                case "JwtMainControlSecretField":
+//                case "JwtMainHeaderArea":
+//                case "JwtMainDataArea":
+//                    String mode = Jwt.JwtModeType;
+//                    JTextComponent tokenTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainTokenArea");assert tokenTextArea !=null;
+//                    if(mode ==null){
+//                        tokenTextArea.setText("请选择模式");
+//                        break;
+//                    }
+//                    JTextField secretTextField = (JTextField)  Helper.getComponent(rootPanel, "JwtMainControlSecretField"); assert secretTextField!=null;
+//                    JTextComponent headerTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainHeaderArea");assert headerTextArea !=null;
+//                    JTextComponent dataTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainDataArea"); assert dataTextArea !=null;
+//                    String headerText = headerTextArea.getText();
+//                    String dataText = dataTextArea.getText();
+//                    String secret = secretTextField.getText();
+//
+//                    tokenTextArea.setText(Jwt.generateJwt(headerText,dataText,secret, mode));
+//                    break;
+//            }
 
         }
     }

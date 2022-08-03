@@ -88,6 +88,8 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 writeRScript(eButton);
                 break;
             case "Aes":
+            case "Des":
+            case "Md5":
             case "Rsa":
             case "Base":
             case "Ascii":
@@ -161,6 +163,14 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 return new IntruderComponent().IntruderMainAsciiPanel();
             case "Unicode":
                 return new IntruderComponent().IntruderMainUnicodePanel();
+            case "Md5":
+                JComponent acc = new JPanel();
+                acc.setName("IntruderMainMd5Panel");
+                return acc;
+            case "Des":
+                JComponent acc1 = new JPanel();
+                acc1.setName("IntruderMainDesPanel");
+                return acc1;
         }
         return null;
     }
