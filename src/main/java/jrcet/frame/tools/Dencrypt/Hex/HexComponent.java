@@ -58,7 +58,10 @@ public class HexComponent extends DiyJComponent {
         JPanel HexTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         HexTagTabPanel.setName("HexTagTabPanel");
         HexTagTabPanel.setBackground(Color.WHITE);
-        HexTagTabPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0,new Color(203,208,209)));
+        HexTagTabPanel.setBorder(BorderFactory.createMatteBorder(
+                0,0,0,0,
+                new Color(203,208,209))
+        );
 
         DiyJAddLabel HexTagTabSticker1Label = new DiyJAddLabel("1",true);
         HexTagTabSticker1Label.setName("HexTagTabSticker1Label");
@@ -194,21 +197,13 @@ public class HexComponent extends DiyJComponent {
         HexMainControlPlainPanel.setName("HexMainControlPlainPanel");
         HexMainControlPlainPanel.setPreferredSize(new Dimension(0,0));
 
-        JLabel HexMainControlPlainSeparatorLabel = new JLabel("输入分割符:");
+        JLabel HexMainControlPlainSeparatorLabel = new JLabel("分割符:");
         HexMainControlPlainSeparatorLabel.setName("HexMainControlPlainSeparatorLabel");
-        HexMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(70,30));
+        HexMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(45,30));
 
-        JTextField HexMainControlPlainSeparatorField = new JTextField("换行");
+        JTextField HexMainControlPlainSeparatorField = new JTextField("空白");
         HexMainControlPlainSeparatorField.setName("HexMainControlPlainSeparatorField");
         HexMainControlPlainSeparatorField.setPreferredSize(new Dimension(0,30));
-
-        JLabel HexMainControlPlainSeparator2Label = new JLabel("输出分割符:");
-        HexMainControlPlainSeparatorLabel.setName("HexMainControlPlainSeparator2Label");
-        HexMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(75,30));
-
-        JTextField HexMainControlPlainSeparator2Field = new JTextField("换行");
-        HexMainControlPlainSeparator2Field.setName("HexMainControlPlainSeparator2Field");
-        HexMainControlPlainSeparator2Field.setPreferredSize(new Dimension(0,30));
 
         HexMainControlPlainPanel.add(HexMainControlPlainSeparatorLabel, new GridBagConstraints(
                 0,0,
@@ -240,26 +235,6 @@ public class HexComponent extends DiyJComponent {
                 0,0
         ));
 
-        HexMainControlPlainPanel.add(HexMainControlPlainSeparator2Label, new GridBagConstraints(
-                0,2,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
-
-        HexMainControlPlainPanel.add(HexMainControlPlainSeparator2Field, new GridBagConstraints(
-                1,2,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
 
         HexMainControlPlainPanel.add(Helper.blackPanel(), new GridBagConstraints(
                 0,3,
@@ -280,21 +255,13 @@ public class HexComponent extends DiyJComponent {
         HexMainControlCipherPanel.setName("HexMainControlCipherPanel");
         HexMainControlCipherPanel.setPreferredSize(new Dimension(0,0));
 
-        JLabel HexMainControlCipherSeparatorLabel = new JLabel("输入分割符:");
+        JLabel HexMainControlCipherSeparatorLabel = new JLabel("分割符:");
         HexMainControlCipherSeparatorLabel.setName("HexMainControlCipherSeparatorLabel");
-        HexMainControlCipherSeparatorLabel.setPreferredSize(new Dimension(75,30));
+        HexMainControlCipherSeparatorLabel.setPreferredSize(new Dimension(45,30));
 
-        JTextField HexMainControlCipherSeparatorField = new JTextField("换行");
+        JTextField HexMainControlCipherSeparatorField = new JTextField("空白");
         HexMainControlCipherSeparatorField.setName("HexMainControlCipherSeparatorField");
         HexMainControlCipherSeparatorField.setPreferredSize(new Dimension(0,30));
-
-        JLabel HexMainControlCipherSeparator2Label = new JLabel("输出分割符:");
-        HexMainControlCipherSeparator2Label.setName("HexMainControlCipherSeparator2Label");
-        HexMainControlCipherSeparator2Label.setPreferredSize(new Dimension(75,30));
-
-        JTextField HexMainControlCipherSeparator2Field = new JTextField("换行");
-        HexMainControlCipherSeparator2Field.setName("HexMainControlCipherSeparator2Field");
-        HexMainControlCipherSeparator2Field.setPreferredSize(new Dimension(0,30));
 
         HexMainControlCipherPanel.add(HexMainControlCipherSeparatorLabel, new GridBagConstraints(
                 0,0,
@@ -326,27 +293,6 @@ public class HexComponent extends DiyJComponent {
                 0,0
         ));
 
-        HexMainControlCipherPanel.add(HexMainControlCipherSeparator2Label, new GridBagConstraints(
-                0,2,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
-
-        HexMainControlCipherPanel.add(HexMainControlCipherSeparator2Field, new GridBagConstraints(
-                1,2,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-
         HexMainControlCipherPanel.add(Helper.blackPanel(), new GridBagConstraints(
                 0,3,
                 2,1,
@@ -377,6 +323,9 @@ public class HexComponent extends DiyJComponent {
 
         DiyJLabel HexMainControlTabLabel = new DiyJLabel("制表");
         HexMainControlTabLabel.setName("HexMainControlTabLabel");
+
+        DiyJLabel HexMainControlNullLabel = new DiyJLabel("空白");
+        HexMainControlTabLabel.setName("HexMainControlNullLabel");
 
         HexMainControlSeparatorPanel.add(HexMainControlNewlineLabel, new GridBagConstraints(
                 0,0,
@@ -418,6 +367,16 @@ public class HexComponent extends DiyJComponent {
                 0,0
         ));
 
+        HexMainControlSeparatorPanel.add(HexMainControlNullLabel, new GridBagConstraints(
+                4,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
         for(Component component : HexMainControlSeparatorPanel.getComponents()){
             component.setPreferredSize(new Dimension(0,25));
         }
@@ -451,17 +410,15 @@ public class HexComponent extends DiyJComponent {
                 if ("HexMainPlainArea".equals(eArea.getName())) {
                     outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "HexMainCipherArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert separatorField!=null;
-                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparator2Field"); assert separator2Field!=null;
+                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Hex.encrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
-                    outputArea.updateUI();
                 }
 
                 if ("HexMainCipherArea".equals(eArea.getName())) {
                     outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "HexMainPlainArea"); assert outputArea != null;
-                    separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separatorField!=null;
-                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparator2Field"); assert separator2Field!=null;
-                    outputArea.setText(Hex.decrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
-                    outputArea.updateUI();
+                    separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert separatorField!=null;
+                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separator2Field!=null;
+                    outputArea.setText(Hex.decrypt(eArea.getText(), separator2Field.getText(), separatorField.getText()));
                 }
             }
         }

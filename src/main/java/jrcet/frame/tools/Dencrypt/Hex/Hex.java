@@ -15,6 +15,7 @@ public class Hex {
             put("制表","\t");
             put("逗号",",");
             put("空格"," ");
+            put("空白", "");
         }
     };
 
@@ -34,14 +35,41 @@ public class Hex {
     public static String decrypt(String text, String inputSeparator, String outputSeparator) {
 
         inputSeparator = parseSeparator(inputSeparator);
-        String[] strArr = (inputSeparator+text).toUpperCase().split(inputSeparator);
+        outputSeparator = parseSeparator(outputSeparator);
+        String hexString =text.replace(inputSeparator,"");
+        String resString = new String(hexToByteArray(hexString), StandardCharsets.UTF_8);
 
-        byte[] byteArr = new byte[strArr.length - 1];
-        for (int i = 1; i < strArr.length; i++) {
-            Integer hexInt = Integer.decode("0X" + strArr[i]);
-            byteArr[i - 1] = hexInt.byteValue();
+        if(Objects.equals(outputSeparator, "")){
+            return resString.replace("",outputSeparator);
         }
-        return new String(byteArr, StandardCharsets.UTF_8);
+
+        return resString.replace("",outputSeparator).substring(1);
+//        byte[] byteArr = new byte[strArr.length - 1];
+//        for (int i = 1; i < strArr.length; i++) {
+//            Integer hexInt = Integer.decode("0X" + strArr[i]);
+//            byteArr[i - 1] = hexInt.byteValue();
+//        }
+
+//        return new String(byteArr, StandardCharsets.UTF_8);
+    }
+
+    public static byte[] hexToByteArray(String hexString){
+        int l = hexString.length();
+        byte[] result;
+        if (l % 2 ==1){
+            l++;
+            result = new byte[l/2];
+            hexString="0"+hexString;
+        }else{
+            result = new byte[l/2];
+        }
+
+        int j=0;
+        for (int i=0; i<l; i+=2){
+            result[j]=(byte)Integer.parseInt(hexString.substring(i,i+2) ,16);
+            j++;
+        }
+        return result;
     }
 
     public static String parseSeparator(String separator){
