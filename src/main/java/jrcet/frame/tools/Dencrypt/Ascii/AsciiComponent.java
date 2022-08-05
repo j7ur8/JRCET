@@ -194,21 +194,14 @@ public class AsciiComponent extends DiyJComponent {
         AsciiMainControlPlainPanel.setName("AsciiMainControlPlainPanel");
         AsciiMainControlPlainPanel.setPreferredSize(new Dimension(0,0));
 
-        JLabel AsciiMainControlPlainSeparatorLabel = new JLabel("输入分割符:");
+        JLabel AsciiMainControlPlainSeparatorLabel = new JLabel("分割符:");
         AsciiMainControlPlainSeparatorLabel.setName("AsciiMainControlPlainSeparatorLabel");
         AsciiMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(70,30));
 
-        JTextField AsciiMainControlPlainSeparatorField = new JTextField("换行");
+        JTextField AsciiMainControlPlainSeparatorField = new JTextField("空白");
         AsciiMainControlPlainSeparatorField.setName("AsciiMainControlPlainSeparatorField");
         AsciiMainControlPlainSeparatorField.setPreferredSize(new Dimension(0,30));
 
-        JLabel AsciiMainControlPlainSeparator2Label = new JLabel("输出分割符:");
-        AsciiMainControlPlainSeparatorLabel.setName("AsciiMainControlPlainSeparator2Label");
-        AsciiMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(75,30));
-
-        JTextField AsciiMainControlPlainSeparator2Field = new JTextField("换行");
-        AsciiMainControlPlainSeparator2Field.setName("AsciiMainControlPlainSeparator2Field");
-        AsciiMainControlPlainSeparator2Field.setPreferredSize(new Dimension(0,30));
 
         AsciiMainControlPlainPanel.add(AsciiMainControlPlainSeparatorLabel, new GridBagConstraints(
                 0,0,
@@ -240,27 +233,6 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainControlPlainPanel.add(AsciiMainControlPlainSeparator2Label, new GridBagConstraints(
-                0,2,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
-
-        AsciiMainControlPlainPanel.add(AsciiMainControlPlainSeparator2Field, new GridBagConstraints(
-                1,2,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-
         AsciiMainControlPlainPanel.add(Helper.blackPanel(), new GridBagConstraints(
                 0,3,
                 2,1,
@@ -280,21 +252,13 @@ public class AsciiComponent extends DiyJComponent {
         AsciiMainControlCipherPanel.setName("AsciiMainControlCipherPanel");
         AsciiMainControlCipherPanel.setPreferredSize(new Dimension(0,0));
 
-        JLabel AsciiMainControlCipherSeparatorLabel = new JLabel("输入分割符:");
+        JLabel AsciiMainControlCipherSeparatorLabel = new JLabel("分割符:");
         AsciiMainControlCipherSeparatorLabel.setName("AsciiMainControlCipherSeparatorLabel");
         AsciiMainControlCipherSeparatorLabel.setPreferredSize(new Dimension(75,30));
 
-        JTextField AsciiMainControlCipherSeparatorField = new JTextField("换行");
+        JTextField AsciiMainControlCipherSeparatorField = new JTextField("空格");
         AsciiMainControlCipherSeparatorField.setName("AsciiMainControlCipherSeparatorField");
         AsciiMainControlCipherSeparatorField.setPreferredSize(new Dimension(0,30));
-
-        JLabel AsciiMainControlCipherSeparator2Label = new JLabel("输出分割符:");
-        AsciiMainControlCipherSeparator2Label.setName("AsciiMainControlCipherSeparator2Label");
-        AsciiMainControlCipherSeparator2Label.setPreferredSize(new Dimension(75,30));
-
-        JTextField AsciiMainControlCipherSeparator2Field = new JTextField("换行");
-        AsciiMainControlCipherSeparator2Field.setName("AsciiMainControlCipherSeparator2Field");
-        AsciiMainControlCipherSeparator2Field.setPreferredSize(new Dimension(0,30));
 
         AsciiMainControlCipherPanel.add(AsciiMainControlCipherSeparatorLabel, new GridBagConstraints(
                 0,0,
@@ -326,27 +290,6 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
-        AsciiMainControlCipherPanel.add(AsciiMainControlCipherSeparator2Label, new GridBagConstraints(
-                0,2,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
-
-        AsciiMainControlCipherPanel.add(AsciiMainControlCipherSeparator2Field, new GridBagConstraints(
-                1,2,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-
         AsciiMainControlCipherPanel.add(Helper.blackPanel(), new GridBagConstraints(
                 0,3,
                 2,1,
@@ -377,6 +320,9 @@ public class AsciiComponent extends DiyJComponent {
 
         DiyJLabel AsciiMainControlTabLabel = new DiyJLabel("制表");
         AsciiMainControlTabLabel.setName("AsciiMainControlTabLabel");
+
+        DiyJLabel AsciiMainControlNullLabel = new DiyJLabel("空白");
+        AsciiMainControlNullLabel.setName("AsciiMainControlNullLabel");
 
         AsciiMainControlSeparatorPanel.add(AsciiMainControlNewlineLabel, new GridBagConstraints(
                 0,0,
@@ -418,6 +364,16 @@ public class AsciiComponent extends DiyJComponent {
                 0,0
         ));
 
+        AsciiMainControlSeparatorPanel.add(AsciiMainControlNullLabel, new GridBagConstraints(
+                4,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
         for(Component component : AsciiMainControlSeparatorPanel.getComponents()){
             component.setPreferredSize(new Dimension(0,25));
         }
@@ -451,7 +407,7 @@ public class AsciiComponent extends DiyJComponent {
                 if ("AsciiMainPlainArea".equals(eArea.getName())) {
                     outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainCipherArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert separatorField!=null;
-                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparator2Field"); assert separator2Field!=null;
+                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Ascii.encrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
                     outputArea.updateUI();
                 }
@@ -459,7 +415,7 @@ public class AsciiComponent extends DiyJComponent {
                 if ("AsciiMainCipherArea".equals(eArea.getName())) {
                     outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainPlainArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField"); assert separatorField!=null;
-                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparator2Field"); assert separator2Field!=null;
+                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Ascii.decrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
                     outputArea.updateUI();
                 }

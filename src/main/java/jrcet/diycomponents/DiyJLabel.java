@@ -52,6 +52,7 @@ public class DiyJLabel extends JLabel implements MouseListener{
             case "AsciiMainControlNewlineLabel":
             case "AsciiMainControlCommaLabel":
             case "AsciiMainControlTabLabel":
+            case "AsciiMainControlNullLabel":
             case "AsciiMainControlSpaceLabel":
                 rootPanel = (JComponent) eLabel.getParent().getParent();
                 tField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField");
@@ -63,6 +64,7 @@ public class DiyJLabel extends JLabel implements MouseListener{
             case "HexMainControlNewlineLabel":
             case "HexMainControlCommaLabel":
             case "HexMainControlTabLabel":
+            case "HexMainControlNullLabel":
             case "HexMainControlSpaceLabel":
                 rootPanel = (JComponent) eLabel.getParent().getParent();
                 tField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField");

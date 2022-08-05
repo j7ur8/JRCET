@@ -12,6 +12,7 @@ public class Ascii {
             put("制表","\t");
             put("逗号",",");
             put("空格"," ");
+            put("空白","");
         }
     };
 

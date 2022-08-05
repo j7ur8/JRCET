@@ -325,7 +325,7 @@ public class HexComponent extends DiyJComponent {
         HexMainControlTabLabel.setName("HexMainControlTabLabel");
 
         DiyJLabel HexMainControlNullLabel = new DiyJLabel("空白");
-        HexMainControlTabLabel.setName("HexMainControlNullLabel");
+        HexMainControlNullLabel.setName("HexMainControlNullLabel");
 
         HexMainControlSeparatorPanel.add(HexMainControlNewlineLabel, new GridBagConstraints(
                 0,0,
