@@ -137,13 +137,19 @@ public class LenComponent extends DiyJComponent {
         LenMainControlLenField.setPreferredSize(new Dimension(0,30));
         LenMainControlLenField.addFocusListener(new LenMainControlLenFieldFocusListener());
 
-        JList<String> LenMainControlModeList = new JList<>(new String[]{"换行","空格","制表","逗号","置空"});
+        JList<String> LenMainControlModeList = new JList<>(new String[]{"换行","空格","制表","逗号","空白"});
         LenMainControlModeList.setName("LenMainControlModeList");
         LenMainControlModeList.setName("LenMainControlModeList");
         LenMainControlModeList.setPreferredSize(new Dimension(0,110));
         LenMainControlModeList.setFont(new Font("微软雅黑", Font.PLAIN,16));
         LenMainControlModeList.setCellRenderer(new LenMainControlModeListCellRenderer());
         LenMainControlModeList.addListSelectionListener(new LenMainControlModeListListener());
+
+        DiyJLabel LenMainControlResultLabel = new DiyJLabel("");
+        LenMainControlResultLabel.setName("LenMainControlResultLabel");
+        LenMainControlResultLabel.setPreferredSize(new Dimension(0,30));
+        LenMainControlResultLabel.setBackground(null);
+//        LenMainControlResultLabel.setHorizontalAlignment(1);
 
         LenMainControlPanel.add(LenMainControlLenField, new GridBagConstraints(
                 0,LenMainControlPanel.getComponentCount(),
@@ -162,6 +168,16 @@ public class LenComponent extends DiyJComponent {
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(20,0,10,0),
+                0,0
+        ));
+
+        LenMainControlPanel.add(LenMainControlResultLabel, new GridBagConstraints(
+                0,LenMainControlPanel.getComponentCount(),
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
                 0,0
         ));
 
@@ -203,7 +219,9 @@ public class LenComponent extends DiyJComponent {
                 RSyntaxTextArea eTextArea = (RSyntaxTextArea) e.getSource();
                 JComponent rootPanel = (JComponent) eTextArea.getParent().getParent().getParent();
                 JTextField eTextField = (JTextField) Helper.getComponent(rootPanel, "LenMainControlLenField"); assert eTextField!=null;
-                eTextArea.setText(Len.handle(eTextArea.getText(), eTextField.getText()));
+                DiyJLabel tLabel = (DiyJLabel) Helper.getComponent(LenComponentPanel, "LenMainControlResultLabel");assert tLabel != null;
+
+                tLabel.setText("长度为: "+Len.handle(eTextArea.getText(), eTextField.getText()));
             }
         }
     }
