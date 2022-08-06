@@ -31,9 +31,6 @@ public class DiyJComboBox<E> extends JComboBox<E> implements ItemListener {
                 case "FormatMainControlModeBox":
                     Format.FormatMode = eItem;
                     break;
-                case "BaseMainControlModeBox":
-                    Base.BaseMode = eItem;
-                    break;
             }
         }
     }

@@ -1,12 +1,10 @@
 package jrcet.frame.tools.Dencrypt.Base;
 
-import jrcet.diycomponents.DiyJComboBox;
+import jrcet.diycomponents.*;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.setting.Setting;
 
 import javax.swing.*;
@@ -25,23 +23,12 @@ public class BaseComponent extends DiyJComponent {
 
     public JComponent main(){
 
-        Base.initBase();
         BaseComponentPanel = new JPanel(new GridBagLayout());
         BaseComponentPanel.setName("BaseComponentPanel");
         BaseComponentPanel.setBackground(Color.WHITE);
 
-        BaseComponentPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
         BaseComponentPanel.add(BaseTagTabPanel(),new GridBagConstraints(
-                1,0,
+                0,0,
                 1,1,
                 0,0,
                 GridBagConstraints.CENTER,
@@ -53,7 +40,7 @@ public class BaseComponent extends DiyJComponent {
         MainPanelHashMap.put("1", BaseMainPanel());
         Helper.setConstraints(ComponentConstraintHashMap, BaseComponentPanel, MainPanelHashMap.get("1"), new GridBagConstraints(
                 0,1,
-                2,1,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -68,6 +55,7 @@ public class BaseComponent extends DiyJComponent {
     public JComponent BaseTagTabPanel(){
         JPanel BaseTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         BaseTagTabPanel.setName("BaseTagTabPanel");
+        BaseTagTabPanel.setBackground(Color.WHITE);
 
         DiyJAddLabel BaseTagTabSticker1Label = new DiyJAddLabel("1",true);
         BaseTagTabSticker1Label.setName("BaseTagTabSticker1Label");
@@ -85,6 +73,7 @@ public class BaseComponent extends DiyJComponent {
         JComponent BaseMainPanel = new JPanel(new GridBagLayout());
         BaseMainPanel.setName("BaseMainPanel");
         BaseMainPanel.setBackground(Color.WHITE);
+        BaseMainPanel.setPreferredSize(new Dimension(0,0));
         
         BaseMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,0,
@@ -141,6 +130,7 @@ public class BaseComponent extends DiyJComponent {
         RTextScrollPane BaseMainPlainScrollPane = new RTextScrollPane(BaseMainPlainArea);
         BaseMainPlainScrollPane.setName("BaseMainPlainScrollPane");
         BaseMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
+        BaseMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         BaseMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
 
         return BaseMainPlainScrollPane;
@@ -170,13 +160,10 @@ public class BaseComponent extends DiyJComponent {
 
         JComponent BaseMainControlPanel = new JPanel(new GridBagLayout());
         BaseMainControlPanel.setName("BaseMainControlPanel");
+        BaseMainControlPanel.setPreferredSize(new Dimension(0,0));
 
-        DiyJComboBox<String> BaseMainControlModeBox = new DiyJComboBox<>(new String[]{"Base64","Base32","Base58"});
-        BaseMainControlModeBox.setName("BaseMainControlModeBox");
-        BaseMainControlModeBox.setPreferredSize(new Dimension(0,30));
-
-        BaseMainControlPanel.add(BaseMainControlModeBox, new GridBagConstraints(
-                0,0,
+        BaseMainControlPanel.add(BaseMainControlFieldPanel(),new GridBagConstraints(
+                0,BaseMainControlPanel.getComponentCount(),
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
@@ -185,8 +172,18 @@ public class BaseComponent extends DiyJComponent {
                 0,0
         ));
 
-        BaseMainControlPanel.add(Helper.blackPanel(), new GridBagConstraints(
-                0,1,
+        BaseMainControlPanel.add(BaseMainControlModePanel(),new GridBagConstraints(
+                0,BaseMainControlPanel.getComponentCount(),
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(5,0,0,0),
+                0,0
+        ));
+
+        BaseMainControlPanel.add(Helper.blackPanel(),new GridBagConstraints(
+                0,BaseMainControlPanel.getComponentCount(),
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -196,6 +193,47 @@ public class BaseComponent extends DiyJComponent {
         ));
 
         return BaseMainControlPanel;
+    }
+
+
+    public JComponent BaseMainControlFieldPanel(){
+        JComponent BaseMainControlFieldPanel = new JPanel(new GridBagLayout());
+        BaseMainControlFieldPanel.setName("BaseMainControlModePanel");
+        BaseMainControlFieldPanel.setPreferredSize(new Dimension(0,25));
+        BaseMainControlFieldPanel.setBackground(null);
+
+        DiyJLabel BaseMainControlFieldLabel = new DiyJLabel("请选择模式");
+        BaseMainControlFieldLabel.setName("BaseMainControlFieldLabel");
+        BaseMainControlFieldLabel.setBackground(null);
+
+        BaseMainControlFieldPanel.add(BaseMainControlFieldLabel,new GridBagConstraints(
+                0,BaseMainControlFieldPanel.getComponentCount(),
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return BaseMainControlFieldPanel;
+    }
+
+    public JComponent BaseMainControlModePanel(){
+        JComponent BaseMainControlModePanel = new JPanel(new GridBagLayout());
+        BaseMainControlModePanel.setName("BaseMainControlModePanel");
+
+        HashMap<String, JComponent> jComponentHashMap = new HashMap<String, JComponent>(){
+            {
+                put("Base64",Helper.blackPanel());
+            }
+        };
+
+        String[] labelNames = new String[]{"Base16","Base32","Base58","Base62","Base64","Base85","Base91","Base92","Base128"};
+
+        Helper.set4DiyJChangeLabel(BaseMainControlModePanel, labelNames, jComponentHashMap);
+
+        return BaseMainControlModePanel;
     }
 
     public JComponent getBaseMainPanel(String TagName){
@@ -220,14 +258,18 @@ public class BaseComponent extends DiyJComponent {
                 RSyntaxTextArea eTextArea = (RSyntaxTextArea) e.getSource();
                 JComponent rootPanel = (JComponent) eTextArea.getParent().getParent().getParent();
                 RSyntaxTextArea tTextArea;
+                DiyJLabel tLabel;
                 switch (eTextArea.getName()){
                     case "BaseMainPlainArea":
                         tTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "BaseMainCipherArea"); assert tTextArea!=null;
-                        tTextArea.setText(Base.encrypt(eTextArea.getText()));
+                        tLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel"); assert tLabel!=null;
+
+                        tTextArea.setText(Base.encrypt(eTextArea.getText(),tLabel.getText().split(": ")[1]));
                         break;
                     case "BaseMainCipherArea":
                         tTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "BaseMainPlainArea"); assert tTextArea!=null;
-                        tTextArea.setText(Base.decrypt(eTextArea.getText()));
+                        tLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel"); assert tLabel!=null;
+                        tTextArea.setText(Base.decrypt(eTextArea.getText(), tLabel.getText().split(": ")[1]));
                         break;
                 }
             }

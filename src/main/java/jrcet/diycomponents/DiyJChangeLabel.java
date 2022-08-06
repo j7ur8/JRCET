@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+import static jrcet.frame.tools.Dencrypt.Base.BaseComponent.BaseComponentPanel;
+
 public class DiyJChangeLabel extends DiyJTabLabel  {
 
     public boolean FirstClicked = false;
@@ -38,10 +40,17 @@ public class DiyJChangeLabel extends DiyJTabLabel  {
             String eLabelName = eLabel.getName();
             String eLabelText = eLabel.getText();
             eLabelName = eLabelName.startsWith("JwtMainControlMode")?"JwtMainControlMode":eLabelName;
+            eLabelName = eLabelName.startsWith("BaseMainControlMode")?"BaseMainControlMode":eLabelName;
             JComponent rootPanel = null;
+            DiyJLabel tFieldLabel = null;
             if(eLabel.getBorder()!=null ){
                 eLabel.setBorder(null);
                 switch (eLabelName) {
+                    case "BaseMainControlMode":
+                        tFieldLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel");
+                        assert tFieldLabel != null;
+                        tFieldLabel.setText("");
+                        break;
                     case "JwtMainControlMode":
 //                        Jwt.JwtModeType = null;
                         rootPanel = (JComponent) eLabel.getParent().getParent();
@@ -77,6 +86,11 @@ public class DiyJChangeLabel extends DiyJTabLabel  {
                 }
                 eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.orange)));
                 switch (eLabelName){
+                    case "BaseMainControlMode":
+                        tFieldLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel");
+                        assert tFieldLabel != null;
+                        tFieldLabel.setText("当前模式: "+eLabelText);
+                        break;
                     case "JwtMainControlMode":
 //                        Jwt.JwtModeType = eLabelText;
                         rootPanel = (JComponent) eLabel.getParent().getParent();
