@@ -10,12 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3f0f906-585f-408f-9218-74765a7d8eb9" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJChangeLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJChangeLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Ascii/AsciiComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Ascii/AsciiComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/Base.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +58,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="project.structure.last.edited" value="库" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.36666667" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -95,6 +101,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <module name="JRCET" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="jrcet.test" />
       <module name="JRCET" />
@@ -112,11 +125,13 @@
       <item itemvalue="应用程序.szm" />
       <item itemvalue="应用程序.Main" />
       <item itemvalue="应用程序.test" />
+      <item itemvalue="应用程序.test (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.test" />
+        <item itemvalue="应用程序.test (1)" />
         <item itemvalue="应用程序.szm" />
       </list>
     </recent_temporary>
@@ -138,7 +153,7 @@
       <workItem from="1657162401646" duration="721000" />
       <workItem from="1657168823920" duration="59000" />
       <workItem from="1658286587663" duration="1979000" />
-      <workItem from="1659541152364" duration="14526000" />
+      <workItem from="1659541152364" duration="33182000" />
     </task>
     <servers />
   </component>
@@ -166,6 +181,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Hex/HexComponent.java</url>
           <line>417</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Ascii/AsciiComponent.java</url>
+          <line>414</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

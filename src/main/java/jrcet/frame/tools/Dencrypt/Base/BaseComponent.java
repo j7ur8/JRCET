@@ -225,11 +225,20 @@ public class BaseComponent extends DiyJComponent {
 
         HashMap<String, JComponent> jComponentHashMap = new HashMap<String, JComponent>(){
             {
+                put("Base16",Helper.blackPanel());
+                put("Base32",Helper.blackPanel());
+                put("Base36",Helper.blackPanel());
+                put("Base58",Helper.blackPanel());
+                put("Base62",Helper.blackPanel());
                 put("Base64",Helper.blackPanel());
+                put("Base85",Helper.blackPanel());
+                put("Base91",Helper.blackPanel());
+                put("Base92",Helper.blackPanel());
+                put("Base128",Helper.blackPanel());
             }
         };
 
-        String[] labelNames = new String[]{"Base16","Base32","Base58","Base62","Base64","Base85","Base91","Base92","Base128"};
+        String[] labelNames = new String[]{"Base16","Base32","Base36","Base58","Base62","Base64","Base85","Base91","Base92","Base128"};
 
         Helper.set4DiyJChangeLabel(BaseMainControlModePanel, labelNames, jComponentHashMap);
 
