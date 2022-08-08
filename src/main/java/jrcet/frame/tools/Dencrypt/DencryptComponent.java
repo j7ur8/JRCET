@@ -11,6 +11,7 @@ import jrcet.frame.tools.Dencrypt.Jwt.JwtComponent;
 import jrcet.frame.tools.Dencrypt.Md5.Md5Component;
 import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
 import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
+import jrcet.frame.tools.Dencrypt.Url.UrlComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +20,13 @@ public class DencryptComponent extends DiyJComponent {
 
     private final JComponent BaseComponentPanel = BaseComponentPanel();
     private final JComponent AesComponentPanel = AesComponentPanel();
-
     private final JComponent Md5ComponentPanel = Md5ComponentPanel();
     private final JComponent UnicodeComponentPanel = UnicodeComponentPanel();
     private final JComponent RsaComponentPanel = RsaComponentPanel();
     private final JComponent AsciiComponentPanel = AsciiComponentPanel();
     private final JComponent HexComponentPanel = HexComponentPanel();
     private final JComponent JwtComponentPanel = JwtComponentPanel();
+    private final JComponent UrlComponentPanel = UrlComponentPanel();
 
     public static JComponent DencryptComponentPanel = null;
 
@@ -93,6 +94,11 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuJwtLabel.setName("DencryptMenuJwtLabel");
         DencryptMenuPanel.add(DencryptMenuJwtLabel);
 
+        DiyJTabLabel DencryptMenuUrlLabel = new DiyJTabLabel("Url");
+        DencryptMenuUrlLabel.setPanel(UrlComponentPanel);
+        DencryptMenuUrlLabel.setName("DencryptMenuUrlLabel");
+        DencryptMenuPanel.add(DencryptMenuUrlLabel);
+
         //Base
         DiyJTabLabel DencryptMenuBaseLabel = new DiyJTabLabel("Base");
         DencryptMenuBaseLabel.setName("DencryptMenuBaseLabel");
@@ -150,4 +156,6 @@ public class DencryptComponent extends DiyJComponent {
     public JComponent JwtComponentPanel() { return new JwtComponent().main(); }
 
     public JComponent Md5ComponentPanel() { return new Md5Component().main(); }
+
+    public JComponent UrlComponentPanel() { return new UrlComponent().main(); }
 }

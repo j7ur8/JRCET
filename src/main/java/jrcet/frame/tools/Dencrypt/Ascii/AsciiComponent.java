@@ -415,7 +415,6 @@ public class AsciiComponent extends DiyJComponent {
                     outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainPlainArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField"); assert separatorField!=null;
                     separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert separator2Field!=null;
-
                     outputArea.setText(Ascii.decrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
                 }
             }
