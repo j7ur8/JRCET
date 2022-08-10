@@ -38,8 +38,6 @@ public class DiyJLabel extends JLabel implements MouseListener{
         JTextField tField = null;
         JComponent rootPanel = null;
         String tText = eLabel.getText();
-        eLabelName = eLabelName.startsWith("AssetMainControlPinter")?"AssetMainControlPinter":eLabelName;
-        eLabelName = eLabelName.startsWith("AssetMainControlBelong")?"AssetMainControlBelong":eLabelName;
         switch (eLabelName){
             case "AesMainControlEncryptLabel":
             case "AesMainControlDecryptLabel":
@@ -73,37 +71,7 @@ public class DiyJLabel extends JLabel implements MouseListener{
                 }
                 tField.setText(eLabel.getText());
                 break;
-            case "AssetMainControlPinter":
-                rootPanel = (JComponent) eLabel.getParent();
-                for(Component component: rootPanel.getComponents()){
-                    if(component instanceof DiyJLabel) {
-                        component.setBackground(Color.WHITE);
-                    }
-                }
-                if(Objects.equals(tText, Asset.AssetPinter)){
-                    Asset.AssetPinter = "";
-                    eLabel.setBackground(Color.WHITE);
-                }else{
-                    Asset.AssetPinter = eLabel.getText();
-                    eLabel.setBackground(Color.PINK);
-                }
-                break;
-            case "AssetMainControlBelong":
-                rootPanel = (JComponent) eLabel.getParent();
-                for(Component component: rootPanel.getComponents()){
-                    if(component instanceof DiyJLabel) {
-                        component.setBackground(Color.WHITE);
-                    }
-                }
 
-                if(Objects.equals(tText, Asset.AssetBelong)){
-                    Asset.AssetBelong = "";
-                    eLabel.setBackground(Color.WHITE);
-                }else{
-                    Asset.AssetBelong = eLabel.getText();
-                    eLabel.setBackground(Color.PINK);
-                }
-                break;
         }
     }
 

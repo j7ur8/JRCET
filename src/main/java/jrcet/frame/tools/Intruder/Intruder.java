@@ -8,14 +8,10 @@ import jrcet.frame.tools.Dencrypt.Md5.Md5;
 import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.tools.Dencrypt.Unicode.Unicode;
 import jrcet.help.Helper;
-import jrcet.szm;
 
 import javax.swing.*;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
@@ -99,8 +95,8 @@ public class Intruder {
 
     public static void desProcessor(){
         try{
-            szm tools = new szm(Base64.getDecoder().decode("Z12/y2Lfzlc="));
-            tmpPayload = tools.encode(tmpPayload);
+//            szm tools = new szm(Base64.getDecoder().decode("Z12/y2Lfzlc="));
+//            tmpPayload = tools.encode(tmpPayload);
         }catch (Exception e){
             e.printStackTrace();
         }

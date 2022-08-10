@@ -105,7 +105,8 @@ public class Jrcet extends DiyJComponent {
     }
 
     private JComponent AssetComponentPanel(){
-        return new AssetComponent().main();
+        return new JPanel();
+//        return new AssetComponent().main();
     }
 
 

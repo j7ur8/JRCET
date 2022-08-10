@@ -1,6 +1,7 @@
 package jrcet;
 
 import jrcet.frame.Jrcet;
+import jrcet.frame.asset.Asset;
 import jrcet.frame.tools.Scanner.Fastjson.FastjsonComponent;
 import jrcet.help.Helper;
 
@@ -27,6 +28,8 @@ public class Main {
         JrcetFrame.setSize(1200, 1000);
         centerInScreen(JrcetFrame);
         JrcetFrame.setVisible(true);
+
+        Asset.registerHotKey();
 //        Helper.travelComponent(Main.JrcetPanel);
 //
 //        for(String i :Helper.treeComponent(JrcetComponentList)){

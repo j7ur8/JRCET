@@ -44,7 +44,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
 
         callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
-        callbacks.registerScannerCheck(this);
+//        callbacks.registerScannerCheck(this);
         callbacks.registerContextMenuFactory(this);
         callbacks.registerIntruderPayloadProcessor(this);
     }

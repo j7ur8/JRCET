@@ -4,12 +4,20 @@ import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJChangeLabel;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.tools.Dencrypt.Url.Url;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,6 +26,11 @@ import java.util.regex.Pattern;
 import static jrcet.Main.JrcetComponentList;
 
 public class Helper {
+
+    /*
+    维护的连接
+     */
+    public static Connection mysqlInstance = getJDBC();
 
     /*
     组件类函数
@@ -236,6 +249,20 @@ public class Helper {
     }
 
 
+    /*
+    是否合法url
+     */
+    public static Boolean isUrl(String s){
+        try{
+            URL url = new URL(s);
+            if(url.getProtocol().startsWith("http") && (isDomain(url.getHost()) || isIpAddress(url.getHost()) )){
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return false;
+    }
 
     /*
     是否合法IP
@@ -478,5 +505,53 @@ public class Helper {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /*
+    获取当前时间戳
+     */
+    public static String getTime(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        return df.format(new Date());
+    }
+
+    /*
+    获得粘贴板内容
+     */
+    public static String getSysClipboardText() {
+        String ret = "";
+        Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+        // 获取剪切板中的内容
+        Transferable clipTf = sysClip.getContents(null);
+
+        if (clipTf != null) {
+            // 检查内容是否是文本类型
+            if (clipTf.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                try {
+                    ret = (String) clipTf
+                            .getTransferData(DataFlavor.stringFlavor);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    /*
+    获取数据库连接
+     */
+    public static Connection getJDBC() {
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        String DB_URL = "jdbc:mysql://localhost:3306/jasset?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String user="root", pass="root";
+        try{
+            Class.forName(JDBC_DRIVER);
+            return DriverManager.getConnection(DB_URL,user,pass);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

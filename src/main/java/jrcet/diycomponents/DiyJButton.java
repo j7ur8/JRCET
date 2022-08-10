@@ -18,6 +18,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static jrcet.frame.asset.AAssetComponent.AAssetComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
 
@@ -78,12 +79,51 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
     @Override
     public void actionPerformed(ActionEvent e){
         DiyJButton eButton = (DiyJButton) e.getSource();
-        String eButtonName = eButton.getText();
+        String eButtonText = eButton.getText();
+        String eButtonName = eButton.getName();
         JComponent rootPanel;
         JComponent tPanel;
         JComponent nPanel;
-        DiyJLabel tLabel;
-        switch (eButtonName) {
+        JTextField tField;
+        JLabel tLabel;
+        switch (eButtonName){
+            case "NAssetMainHistoryPortButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddPortField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
+            case "NAssetMainHistoryServiceButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddServiceField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
+            case "NAssetMainHistoryProjectButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddProjectField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
+            case "NAssetMainHistorySourceButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddSourceField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
+        }
+
+        switch (eButtonText) {
+            case "Add Asset":
+                tLabel = (JLabel) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddResultLabel"); assert tLabel!=null;
+                tLabel.setText(Asset.addAsset());
+//                System.out.println(test.addAsset());
+                tPanel =  Helper.getComponent(AAssetComponentPanel, "AAssetComponentPanel"); assert tPanel !=null;
+                tPanel.remove(tPanel.getComponentCount()-1);
+                tPanel.add(Asset.NAssetMainHistoryPanel(), new GridBagConstraints(
+                        0,1,
+                        1,1,
+                        1,1,
+                        GridBagConstraints.CENTER,
+                        GridBagConstraints.BOTH,
+                        new Insets(0,30,30,30),
+                        0,0
+                ));
+                tPanel.updateUI();
+
+                break;
             case "Copy":
                 writeRScript(eButton);
                 break;
@@ -94,15 +134,15 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             case "Base":
             case "Ascii":
             case "Unicode":
-                nPanel = getNewIntruderModulePanel(eButtonName);
+                nPanel = getNewIntruderModulePanel(eButtonText);
                 tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");assert tPanel!=null;
                 IntruderModuleComponentList.add(nPanel);
                 tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel"); assert tLabel!=null;
                 String tLabelText = tLabel.getText();
                 if(Objects.equals(tLabelText, "")){
-                    tLabel.setText(tLabelText+eButtonName);
+                    tLabel.setText(tLabelText+eButtonText);
                 }else{
-                    tLabel.setText(tLabelText+"->"+eButtonName);
+                    tLabel.setText(tLabelText+"->"+eButtonText);
                 }
                 tPanel.remove(tPanel.getComponents().length-1);
                 tPanel.add(nPanel, new GridBagConstraints(
@@ -144,10 +184,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 ));
                 tPanel.updateUI();
                 break;
-            case "Save":
-                rootPanel = (JComponent) eButton.getParent().getParent();
-                JTextField tTextField = (JTextField) Helper.getComponent(rootPanel, "AssetMainControlUrlField");assert tTextField!=null;
-                Asset.saveAsset(tTextField.getText());
+
         }
     }
 
@@ -174,6 +211,5 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         }
         return null;
     }
-
 
 }
