@@ -98,14 +98,27 @@ public class AAssetComponent {
         NAssetMainAddButton.setName("NAssetMainAAddButton");
         NAssetMainAddButton.setPreferredSize(new Dimension(0,30));
 
+        DiyJButton NAssetMainAddweButton = new DiyJButton("Add Asset Without Exit");
+        NAssetMainAddweButton.setName("NAssetMainAddweButton");
+        NAssetMainAddweButton.setPreferredSize(new Dimension(0,30));
 
-        NAssetMainAddPanel.add(NAssetMainAddButton, new GridBagConstraints(
+        NAssetMainAddPanel.add(NAssetMainAddweButton, new GridBagConstraints(
                 0,5,
-                2,1,
+                1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(15,15,0,15),
+                new Insets(15,15,0,1),
+                0,0
+        ));
+
+        NAssetMainAddPanel.add(NAssetMainAddButton, new GridBagConstraints(
+                1,5,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(15,1,0,15),
                 0,0
         ));
 

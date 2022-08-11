@@ -21,6 +21,9 @@ import static jrcet.frame.asset.AAssetComponent.AAssetComponentPanel;
 public class Asset {
 
     public static String lastClipboardText = "lastClipboardText ";
+    public static String AssetMode = "Global";
+    public static int page = 0;
+    public static int dataNumber = 12;
 
     public static void registerHotKey(){
 
@@ -29,21 +32,101 @@ public class Asset {
             public void onHotKey(HotKey hotKey) {
                 String targetText = Helper.getSysClipboardText();
                 targetText=targetText==null?"clipboard is null":targetText;
-
                 analyseText(targetText);
             }
         };
 
         HotKeyListener listener1 = new HotKeyListener() {
             public void onHotKey(HotKey hotKey) {
-                JFrame AAssetFrame = (JFrame) AAssetComponentPanel.getParent();
-                AAssetFrame.setVisible(false);
+//                JFrame AAssetFrame = (JFrame) AAssetComponentPanel.getParent();
+//                AAssetFrame.setVisible(false);
             }
         };
         provider.register(KeyStroke.getKeyStroke("control 1"), listener);
         provider.register(KeyStroke.getKeyStroke("control 2"), listener1);
     }
 
+    public static void initResultUnitPanel(JComponent AssetMainResultUnitPanel, String[][] result){
+
+
+        for(int i=0; i<result.length; i++){
+            int row = i/3;
+            int column = i%3;
+
+            AssetMainResultUnitPanel.add(createUnitPanel(result[i]), new GridBagConstraints(
+                    column+0,row+0,
+                    1,1,
+                    0.3,0.25,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(1,1,1,1),
+                    0,0
+            ));
+        }
+    }
+
+    public static JComponent createUnitPanel(String[] result){
+        JComponent unitPanel = new JPanel(new GridBagLayout());
+        unitPanel.setPreferredSize(new Dimension(0,200));
+        unitPanel.setBackground(Color.WHITE);
+        unitPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(203,208,209)));
+
+        JComponent tmp;
+        String[] columns = new String[]{"Ip","Domain","Url","Port","Service","Vul","Project","Source"};
+        for(int i=0; i<columns.length; i++ ){
+            tmp = createUnitPropertyPanel(columns[i],result[i]);
+            unitPanel.add(tmp, new GridBagConstraints(
+                    i%2,i/2+1,
+                    1,1,
+                    1,0,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(10,0,0,0),
+                    0,0
+            ));
+        }
+
+        return unitPanel;
+    }
+
+    public static JComponent createUnitPropertyPanel(String name, String value){
+        JPanel createUnitPropertyPanel = new JPanel(new GridBagLayout());
+        createUnitPropertyPanel.setName("NAssetMainAdd"+name+"Panel");
+        createUnitPropertyPanel.setPreferredSize(new Dimension(0,30));
+        createUnitPropertyPanel.setBackground(Color.WHITE);
+
+        String labelName = "NAssetMainAdd"+name+"Label";
+        String fieldName = "NAssetMainAdd"+name+"Field";
+
+        JLabel jLabel = new JLabel(name+": ",SwingConstants.RIGHT);
+        jLabel.setName(labelName);
+        jLabel.setPreferredSize(new Dimension(60,0));
+
+        JTextField jTextField = new JTextField();
+        jTextField.setText(value);
+        jTextField.setName(fieldName);
+        jTextField.setPreferredSize(new Dimension(0,0));
+
+        createUnitPropertyPanel.add(jLabel, new GridBagConstraints(
+                0,0,
+                1,1,
+                0,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0)
+        );
+        createUnitPropertyPanel.add(jTextField, new GridBagConstraints(
+                1,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        return createUnitPropertyPanel;
+    }
 
     public static JFrame addFrame(){
         JFrame JrcetFrame = new JFrame("Add Asset");
@@ -93,6 +176,7 @@ public class Asset {
         AAssetFrame = AAssetFrame==null?(JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel):AAssetFrame;
 
         if(AAssetFrame.isVisible() && ((ip==null && domain==null && port==null && url==null) || Objects.equals(s, lastClipboardText))){
+            System.out.println("未命中");
             AAssetFrame.setVisible(false);
         }else {
             AAssetFrame.setVisible(true);
@@ -119,8 +203,6 @@ public class Asset {
             urlField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddUrlField"); assert urlField != null;
             urlField.setText(url);
         }
-
-        System.out.println("未命中");
     }
 
     public static String addAsset(){
@@ -240,38 +322,6 @@ public class Asset {
         return "查询成功";
     }
 
-    public static String searchAsset(){
-        JTextField searchField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainSearchMenuSearchField"); assert searchField!=null;
-        String searchText = searchField.getText();
-        if(Objects.equals(searchText, "")){
-            return "搜索内容不能为空";
-        }
-
-        String sql = "select uuid, ip ,domain from asset where ip like '" +
-                "%" + searchText + "%' or domain like '" +
-                "%" + searchText + "%' or url like '" +
-                "%" + searchText + "%' or port like '" +
-                "%" + searchText + "%' or service like '" +
-                "%" + searchText + "%' or port like '" +
-                "%" + searchText + "%' or project like '" +
-                "%" + searchText + "%'";
-
-//        System.out.println(sql);
-        PreparedStatement statement;
-        try{
-            statement=Helper.mysqlInstance.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rSet=statement.executeQuery();
-            while(rSet.next()){
-                System.out.println(rSet.getString("uuid")+","+rSet.getString("ip")+","+ rSet.getString("domain"));
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return "系统错误";
-        }
-        return "查询成功";
-    }
-
-
     public static JComponent NAssetMainHistoryPanel(){
         JPanel NAssetMainHistoryPanel = new JPanel(new GridBagLayout());
         NAssetMainHistoryPanel.setName("NAssetMainHistoryPanel");
@@ -319,7 +369,7 @@ public class Asset {
 
         String[] result = new String[0];
         String sql = "select name from "+name.toLowerCase(Locale.ROOT)+" where name!='' order by utime desc limit 5";
-//        System.out.println(sql);
+
         try{
             PreparedStatement statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet=statement.executeQuery();
@@ -353,6 +403,70 @@ public class Asset {
         }
 
         return historyPanel;
+    }
+
+    public static String[][] searchAsset(String searchText,int page, int dataNumber){
+
+        String[][] result = new String[dataNumber][8];
+        String startNumber = String.valueOf(page*dataNumber);
+        String sql = "select ip,domain,url,port,service,vul,project,source from asset where ip like '" +
+                "%" + searchText + "%' or domain like '" +
+                "%" + searchText + "%' or url like '" +
+                "%" + searchText + "%' or port like '" +
+                "%" + searchText + "%' or service like '" +
+                "%" + searchText + "%' or vul like '" +
+                "%" + searchText + "%' or project like '" +
+                "%" + searchText + "%' limit "+startNumber+", "+dataNumber
+                ;
+
+        try {
+            PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rSet = statement.executeQuery();
+            int n=0;
+            while (rSet.next()) {
+                result[n][0]=rSet.getString("ip");
+                result[n][1]=rSet.getString("domain");
+                result[n][2]=rSet.getString("url");
+                result[n][3]=rSet.getString("port");
+                result[n][4]=rSet.getString("service");
+                result[n][5]=rSet.getString("vul");
+                result[n][6]=rSet.getString("project");
+                result[n][7]=rSet.getString("source");
+                n++;
+//                System.out.println(rSet.getString("uuid") + "," + rSet.getString("ip") + "," + rSet.getString("domain"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new String[][]{};
+        }
+        return result;
+    }
+
+    public static String[][] searchFromAsset(int page, int dataNumber){
+        String[][] result = new String[dataNumber][8];
+        int startNumber = page*dataNumber;
+        String sql = "select ip,domain,url,port,service,vul,project,source from asset limit "+startNumber+", "+dataNumber;
+        try {
+            PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rSet = statement.executeQuery();
+            int n=0;
+            while (rSet.next()) {
+                result[n][0]=rSet.getString("ip");
+                result[n][1]=rSet.getString("domain");
+                result[n][2]=rSet.getString("url");
+                result[n][3]=rSet.getString("port");
+                result[n][4]=rSet.getString("service");
+                result[n][5]=rSet.getString("vul");
+                result[n][6]=rSet.getString("project");
+                result[n][7]=rSet.getString("source");
+                n++;
+//                System.out.println(rSet.getString("uuid") + "," + rSet.getString("ip") + "," + rSet.getString("domain"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new String[][]{};
+        }
+        return result;
     }
 
 }
