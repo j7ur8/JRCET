@@ -81,7 +81,7 @@ public class Asset {
                     1,0,
                     GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH,
-                    new Insets(10,0,0,0),
+                    new Insets(10,0,0,1),
                     0,0
             ));
         }
@@ -252,7 +252,7 @@ public class Asset {
 
         HashMap<String, String> selectSqlMap = new HashMap<String, String>(){
             {
-                put("asset",   "select uuid from asset where ip='"+ip+"'");
+                put("asset",   "select uuid from asset where ip='"+ip+"' and port='"+port+"'");
                 put("service", "select id from service where name='"+service+"'");
                 put("project", "select id from project where name='"+project+"'");
                 put("source",  "select id from source where name='"+source+"'");
@@ -282,7 +282,7 @@ public class Asset {
         int resultCount;
         PreparedStatement statement;
         for(String key : new String[]{"asset","service","project","source","port"}){
-            System.out.println(key);
+//            System.out.println(key);
             sql = selectSqlMap.get(key);
             try{
                 statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);

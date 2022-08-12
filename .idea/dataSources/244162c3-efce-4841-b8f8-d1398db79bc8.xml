@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="MySQL - @localhost">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.32">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.39">
     <root id="1">
       <DefaultCasing>mixed/mixed</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -865,10 +865,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
     </key>
     <column id="249" parent="233" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(12) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="250" parent="233" name="name">
       <Comment>漏洞名称</Comment>
@@ -896,10 +896,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
     </key>
     <column id="254" parent="234" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(12) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="255" parent="234" name="name">
       <Comment>项目名称</Comment>
@@ -927,10 +927,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
     </key>
     <column id="259" parent="235" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(12) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="260" parent="235" name="name">
       <Comment>资产名称</Comment>
@@ -958,10 +958,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Primary>1</Primary>
     </key>
     <column id="264" parent="236" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int(12) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="265" parent="236" name="name">
       <Comment>漏洞来源</Comment>

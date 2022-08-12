@@ -4,6 +4,7 @@ package burp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.ParserConfig;
+import jrcet.frame.asset.Asset;
 import jrcet.frame.tools.Dencrypt.Url.Url;
 import jrcet.frame.tools.Intruder.Intruder;
 import jrcet.frame.tools.Scanner.Fastjson.Fastjson;
@@ -41,7 +42,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         stdout = new PrintWriter(callbacks.getStdout(), true);
         helpers = callbacks.getHelpers();
 
-
+        Asset.registerHotKey();
         callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
 //        callbacks.registerScannerCheck(this);

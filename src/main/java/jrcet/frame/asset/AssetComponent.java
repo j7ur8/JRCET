@@ -120,15 +120,15 @@ public class AssetComponent extends DiyJComponent {
 
         DiyJButton AssetMainQueryMenuLastButton = new DiyJButton("Last");
         AssetMainQueryMenuLastButton.setName("AssetMainQueryMenuLastButton");
-        AssetMainQueryMenuLastButton.setPreferredSize(new Dimension(80,30));
+        AssetMainQueryMenuLastButton.setPreferredSize(new Dimension(90,30));
 
         DiyJButton AssetMainQueryMenuNextButton = new DiyJButton("Next");
         AssetMainQueryMenuNextButton.setName("AssetMainQueryMenuNextButton");
-        AssetMainQueryMenuNextButton.setPreferredSize(new Dimension(80,30));
+        AssetMainQueryMenuNextButton.setPreferredSize(new Dimension(90,30));
 
         DiyJButton AssetMainQueryMenuRefreshButton = new DiyJButton("Refresh");
         AssetMainQueryMenuRefreshButton.setName("AssetMainQueryMenuRefreshButton");
-        AssetMainQueryMenuRefreshButton.setPreferredSize(new Dimension(80,30));
+        AssetMainQueryMenuRefreshButton.setPreferredSize(new Dimension(90,30));
 //        AssetMainQueryMenuRefreshButton.setMargin();
         AssetMainQueryMenuPanel.add(AssetMainQueryMenuLastButton);
         AssetMainQueryMenuPanel.add(AssetMainQueryMenuNextButton);
