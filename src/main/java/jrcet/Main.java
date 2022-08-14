@@ -1,6 +1,7 @@
 package jrcet;
 
 import jrcet.frame.Jrcet;
+import jrcet.frame.asset.AAssetComponent;
 import jrcet.frame.asset.Asset;
 import jrcet.frame.asset.AssetComponent;
 import jrcet.frame.tools.Scanner.Fastjson.FastjsonComponent;
@@ -32,11 +33,12 @@ public class Main {
         centerInScreen(JrcetFrame);
         JrcetFrame.setVisible(true);
 
-        Asset.registerHotKey();
+
         Helper.mysqlInstance = Helper.getJDBC();
         JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
         Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
         AssetMainResultUnitPanel.updateUI();
+        Asset.registerHotKey();
 //        Helper.travelComponent(Main.JrcetPanel);
 //
 //        for(String i :Helper.treeComponent(JrcetComponentList)){

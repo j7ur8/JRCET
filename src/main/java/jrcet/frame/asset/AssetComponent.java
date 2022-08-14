@@ -17,6 +17,7 @@ public class AssetComponent extends DiyJComponent {
 
 
     public static JComponent AssetComponentPanel = null;
+    public static JComponent AAssetComponentPanel = null;
 
     public JComponent main(){
 

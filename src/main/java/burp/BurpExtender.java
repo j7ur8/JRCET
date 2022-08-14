@@ -25,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
+import static jrcet.frame.asset.AssetComponent.AssetComponentPanel;
+
 
 public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, IIntruderPayloadProcessor, IScannerCheck {
     public static IBurpExtenderCallbacks callbacks;
@@ -42,7 +44,12 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         stdout = new PrintWriter(callbacks.getStdout(), true);
         helpers = callbacks.getHelpers();
 
+        Helper.mysqlInstance = Helper.getJDBC();
+        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
+        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
+        AssetMainResultUnitPanel.updateUI();
         Asset.registerHotKey();
+        
         callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
 //        callbacks.registerScannerCheck(this);

@@ -15,7 +15,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
-import static jrcet.frame.asset.AAssetComponent.AAssetComponentPanel;
+import static jrcet.frame.asset.AssetComponent.AAssetComponentPanel;
+import static jrcet.frame.asset.AssetComponent.AssetComponentPanel;
+
 
 public class Asset {
 
@@ -137,11 +139,12 @@ public class Asset {
     public static JFrame addFrame(){
         JFrame JrcetFrame = new JFrame("Add Asset");
 
-        JrcetFrame.setContentPane(new AAssetComponent().AAssetComponentPanel());
+        AAssetComponentPanel=new AAssetComponent().main();
+        JrcetFrame.setContentPane(AAssetComponentPanel);
 
         JrcetFrame.setResizable(true);
         JrcetFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JrcetFrame.setSize(1000, 500);
+        JrcetFrame.setSize(1000, 550);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = ( screenSize.width - JrcetFrame.getWidth())/2;
@@ -263,6 +266,7 @@ public class Asset {
                 put("project", "select id from project where name='"+project+"'");
                 put("source",  "select id from source where name='"+source+"'");
                 put("port",     "select id from port where name='"+port+"'");
+                put("ip",     "select id from port where name='"+ip+"'");
             }
         };
 
@@ -273,6 +277,7 @@ public class Asset {
                 put("project", "insert into project (name) values('"+project+"')");
                 put("source", "insert into source (name) values('"+source+"')");
                 put("port", "insert into port (name) values('"+port+"')");
+                put("ip", "insert into ip (name) values('"+ip+"')");
             }
         };
 
@@ -282,12 +287,13 @@ public class Asset {
                 put("project", "update project set utime='"+Helper.getTime()+"' where name='"+project+"'");
                 put("source", "update source set utime='"+Helper.getTime()+"' where name='"+source+"'");
                 put("port", "update port set utime='"+Helper.getTime()+"' where name='"+port+"'");
+                put("ip", "update ip set utime='"+Helper.getTime()+"' where name='"+ip+"'");
             }
         };
 
         int resultCount;
         PreparedStatement statement;
-        for(String key : new String[]{"asset","service","project","source","port"}){
+        for(String key : new String[]{"asset","service","project","source","port","ip"}){
 //            System.out.println(key);
             sql = selectSqlMap.get(key);
             try{
@@ -326,89 +332,6 @@ public class Asset {
         projectField.setText("");
         sourceField.setText("");
         return "查询成功";
-    }
-
-    public static JComponent NAssetMainHistoryPanel(){
-        JPanel NAssetMainHistoryPanel = new JPanel(new GridBagLayout());
-        NAssetMainHistoryPanel.setName("NAssetMainHistoryPanel");
-        NAssetMainHistoryPanel.setPreferredSize(new Dimension(0,0));
-        NAssetMainHistoryPanel.setBackground(Color.WHITE);
-
-        String[] names = new String[]{"Port","Project","Service","Source"};
-
-        JComponent tmp;
-        for(int i=0; i<names.length; i++){
-            tmp = createHistoryPanel(names[i]);
-            NAssetMainHistoryPanel.add(tmp, new GridBagConstraints(
-                    0,i,
-                    1,1,
-                    1,0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(10,30,0,30),
-                    0,0
-            ));
-        }
-
-        return NAssetMainHistoryPanel;
-    }
-
-    public static JComponent createHistoryPanel(String name){
-        JPanel historyPanel = new JPanel(new GridBagLayout());
-        historyPanel.setName("NAssetMainHistory"+name+"Panel");
-        historyPanel.setPreferredSize(new Dimension(0,30));
-        historyPanel.setBackground(Color.WHITE);
-
-        JLabel titleLabel = new JLabel(name+": ",SwingConstants.RIGHT);
-        titleLabel.setName("NAssetMainHistory"+name+"Label");
-        titleLabel.setPreferredSize(new Dimension(55,0));
-
-        historyPanel.add(titleLabel, new GridBagConstraints(
-                0,0,
-                1,1,
-                0,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        String[] result = new String[0];
-        String sql = "select name from "+name.toLowerCase(Locale.ROOT)+" where name!='' order by utime desc limit 5";
-
-        try{
-            PreparedStatement statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rSet=statement.executeQuery();
-            rSet.last();
-            result = new String[rSet.getRow()];
-            rSet.beforeFirst();
-            int i=0;
-            while (rSet.next()){
-                result[i++]=rSet.getString(1);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        DiyJButton tmpDiyJButton;
-        int resultLength = result.length;
-        for(int i=0; i<resultLength; i++){
-            tmpDiyJButton = new DiyJButton(result[i]);
-            tmpDiyJButton.setName("NAssetMainHistory"+name+"Button");
-            tmpDiyJButton.setPreferredSize(new Dimension(0,0));
-
-            historyPanel.add(tmpDiyJButton, new GridBagConstraints(
-                    i+1,0,
-                    1,1,
-                    1.0/resultLength,1,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
-        }
-
-        return historyPanel;
     }
 
     public static String[][] searchAsset(String searchText,int page, int dataNumber){
@@ -535,5 +458,89 @@ public class Asset {
 
         unitPanel.updateUI();
     }
+
+    public static JComponent NAssetMainHistoryPanel(){
+        JPanel NAssetMainHistoryPanel = new JPanel(new GridBagLayout());
+        NAssetMainHistoryPanel.setName("NAssetMainHistoryPanel");
+        NAssetMainHistoryPanel.setPreferredSize(new Dimension(0,0));
+        NAssetMainHistoryPanel.setBackground(Color.WHITE);
+
+        String[] names = new String[]{"Ip","Port","Project","Service","Source"};
+
+        JComponent tmp;
+        for(int i=0; i<names.length; i++){
+            tmp = createHistoryPanel(names[i]);
+            NAssetMainHistoryPanel.add(tmp, new GridBagConstraints(
+                    0,i,
+                    1,1,
+                    1,0,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(10,30,0,30),
+                    0,0
+            ));
+        }
+
+        return NAssetMainHistoryPanel;
+    }
+
+    public static JComponent createHistoryPanel(String name){
+        JPanel historyPanel = new JPanel(new GridBagLayout());
+        historyPanel.setName("NAssetMainHistory"+name+"Panel");
+        historyPanel.setPreferredSize(new Dimension(0,30));
+        historyPanel.setBackground(Color.WHITE);
+
+        JLabel titleLabel = new JLabel(name+": ",SwingConstants.RIGHT);
+        titleLabel.setName("NAssetMainHistory"+name+"Label");
+        titleLabel.setPreferredSize(new Dimension(55,0));
+
+        historyPanel.add(titleLabel, new GridBagConstraints(
+                0,0,
+                1,1,
+                0,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        String[] result = new String[0];
+        String sql = "select name from "+name.toLowerCase(Locale.ROOT)+" where name!='' order by utime desc limit 5";
+
+        try{
+            PreparedStatement statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rSet=statement.executeQuery();
+            rSet.last();
+            result = new String[rSet.getRow()];
+            rSet.beforeFirst();
+            int i=0;
+            while (rSet.next()){
+                result[i++]=rSet.getString(1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        DiyJButton tmpDiyJButton;
+        int resultLength = result.length;
+        for(int i=0; i<resultLength; i++){
+            tmpDiyJButton = new DiyJButton(result[i]);
+            tmpDiyJButton.setName("NAssetMainHistory"+name+"Button");
+            tmpDiyJButton.setPreferredSize(new Dimension(0,0));
+
+            historyPanel.add(tmpDiyJButton, new GridBagConstraints(
+                    i+1,0,
+                    1,1,
+                    1.0/resultLength,1,
+                    GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH,
+                    new Insets(0,0,0,0),
+                    0,0
+            ));
+        }
+
+        return historyPanel;
+    }
+
 
 }

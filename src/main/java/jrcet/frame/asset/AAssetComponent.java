@@ -3,20 +3,16 @@ package jrcet.frame.asset;
 
 
 import jrcet.diycomponents.DiyJButton;
+import jrcet.diycomponents.DiyJComponent;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-public class AAssetComponent {
+public class AAssetComponent extends DiyJComponent {
 
-    public static JComponent AAssetComponentPanel;
-//
-//    public static void main(String[] args) {
-//        Asset.registerHotKey();
-//    }
+    public JComponent main(){
 
-    public JComponent AAssetComponentPanel(){
-        AAssetComponentPanel = new JPanel(new GridBagLayout());
+        JComponent AAssetComponentPanel = new JPanel(new GridBagLayout());
         AAssetComponentPanel.setName("AAssetComponentPanel");
         AAssetComponentPanel.setBackground(Color.WHITE);
 

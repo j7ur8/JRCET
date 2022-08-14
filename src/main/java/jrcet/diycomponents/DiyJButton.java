@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static jrcet.frame.asset.AAssetComponent.AAssetComponentPanel;
+import static jrcet.frame.asset.AssetComponent.AAssetComponentPanel;
 import static jrcet.frame.asset.AssetComponent.AssetComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
@@ -92,6 +92,10 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         String text;
         String[][] result;
         switch (eButtonName){
+            case "NAssetMainHistoryIpButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddIpField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
             case "NAssetMainHistoryPortButton":
                 tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddPortField"); assert tField != null;
                 tField.setText(eButtonText);

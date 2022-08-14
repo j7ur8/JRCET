@@ -10,16 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3f0f906-585f-408f-9218-74765a7d8eb9" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/244162c3-efce-4841-b8f8-d1398db79bc8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/244162c3-efce-4841-b8f8-d1398db79bc8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AAssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AAssetComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +86,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="jrcet.Main" />
       <module name="JRCET" />
       <extension name="coverage">
@@ -149,7 +147,6 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.AAssetComponent" />
         <item itemvalue="应用程序.test" />
         <item itemvalue="应用程序.test2" />
@@ -180,7 +177,7 @@
       <workItem from="1660117119314" duration="24370000" />
       <workItem from="1660186832038" duration="1524000" />
       <workItem from="1660280334778" duration="6001000" />
-      <workItem from="1660484653663" duration="1126000" />
+      <workItem from="1660484653663" duration="3444000" />
     </task>
     <servers />
   </component>
