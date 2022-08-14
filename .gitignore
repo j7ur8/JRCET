@@ -4,3 +4,4 @@ target/
 .DS_Store
 */.DS_Store
 out/artifacts/BurpLearn_jar/BurpLearn.jar
+src/main/java/jrcet/frame/setting/Database.java

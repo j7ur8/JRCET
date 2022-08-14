@@ -2,6 +2,7 @@ package jrcet;
 
 import jrcet.frame.Jrcet;
 import jrcet.frame.asset.Asset;
+import jrcet.frame.asset.AssetComponent;
 import jrcet.frame.tools.Scanner.Fastjson.FastjsonComponent;
 import jrcet.help.Helper;
 
@@ -9,6 +10,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+
+import static jrcet.frame.asset.AssetComponent.AssetComponentPanel;
 
 public class Main {
 
@@ -30,6 +33,10 @@ public class Main {
         JrcetFrame.setVisible(true);
 
         Asset.registerHotKey();
+        Helper.mysqlInstance = Helper.getJDBC();
+        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
+        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
+        AssetMainResultUnitPanel.updateUI();
 //        Helper.travelComponent(Main.JrcetPanel);
 //
 //        for(String i :Helper.treeComponent(JrcetComponentList)){

@@ -4,6 +4,7 @@ import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJChangeLabel;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.setting.Database;
 import jrcet.frame.tools.Dencrypt.Url.Url;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +31,7 @@ public class Helper {
     /*
     维护的连接
      */
-    public static Connection mysqlInstance = getJDBC();
+    public static Connection mysqlInstance = null;//getJDBC();
 
     /*
     组件类函数
@@ -544,8 +545,8 @@ public class Helper {
      */
     public static Connection getJDBC() {
         String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://localhost:3306/jasset?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-        String user="root", pass="root";
+        String DB_URL = "jdbc:mysql://42.192.228.137:3306/jasset?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String user= Database.user, pass= Database.password;
         try{
             Class.forName(JDBC_DRIVER);
             return DriverManager.getConnection(DB_URL,user,pass);

@@ -1,6 +1,5 @@
 package jrcet.frame.asset;
 
-import com.tulskiy.keymaster.common.HotKey;
 import com.tulskiy.keymaster.common.HotKeyListener;
 import com.tulskiy.keymaster.common.Provider;
 import jrcet.diycomponents.DiyJButton;
@@ -23,27 +22,18 @@ public class Asset {
     public static String lastClipboardText = "lastClipboardText ";
     public static String AssetMode = "Global";
     public static int page = 0;
-    public static int dataNumber = 12;
+    public static int dataNumber = 6;
 
     public static void registerHotKey(){
 
         Provider provider = Provider.getCurrentProvider(false);
-        HotKeyListener listener = new HotKeyListener() {
-            public void onHotKey(HotKey hotKey) {
-                String targetText = Helper.getSysClipboardText();
-                targetText=targetText==null?"clipboard is null":targetText;
-                analyseText(targetText);
-            }
+        HotKeyListener listener = hotKey -> {
+            String targetText = Helper.getSysClipboardText();
+            targetText=targetText==null?"clipboard is null":targetText;
+            analyseText(targetText);
         };
 
-        HotKeyListener listener1 = new HotKeyListener() {
-            public void onHotKey(HotKey hotKey) {
-//                JFrame AAssetFrame = (JFrame) AAssetComponentPanel.getParent();
-//                AAssetFrame.setVisible(false);
-            }
-        };
         provider.register(KeyStroke.getKeyStroke("control 1"), listener);
-        provider.register(KeyStroke.getKeyStroke("control 2"), listener1);
     }
 
     public static void initResultUnitPanel(JComponent AssetMainResultUnitPanel, String[][] result){
@@ -67,7 +57,7 @@ public class Asset {
 
     public static JComponent createUnitPanel(String[] result){
         JComponent unitPanel = new JPanel(new GridBagLayout());
-        unitPanel.setPreferredSize(new Dimension(0,200));
+        unitPanel.setPreferredSize(new Dimension(0,400));
         unitPanel.setBackground(Color.WHITE);
         unitPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,new Color(203,208,209)));
 
@@ -76,15 +66,31 @@ public class Asset {
         for(int i=0; i<columns.length; i++ ){
             tmp = createUnitPropertyPanel(columns[i],result[i]);
             unitPanel.add(tmp, new GridBagConstraints(
-                    i%2,i/2+1,
+//                    i%2,i/2+1,
+                    0,i,
                     1,1,
                     1,0,
                     GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH,
-                    new Insets(10,0,0,1),
+                    new Insets(10,0,0,4),
                     0,0
             ));
         }
+
+        DiyJButton updateButton = new DiyJButton("Update Asset");
+        updateButton.setName("AssetMainResultUpdateButton");
+        updateButton.setPreferredSize(new Dimension(0,30));
+
+        unitPanel.add(updateButton, new GridBagConstraints(
+//                    i%2,i/2+1,
+                0,9,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(10,0,0,0),
+                0,0
+        ));
 
         return unitPanel;
     }
@@ -133,9 +139,9 @@ public class Asset {
 
         JrcetFrame.setContentPane(new AAssetComponent().AAssetComponentPanel());
 
-        JrcetFrame.setResizable(false);
+        JrcetFrame.setResizable(true);
         JrcetFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JrcetFrame.setSize(600, 500);
+        JrcetFrame.setSize(1000, 500);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = ( screenSize.width - JrcetFrame.getWidth())/2;
@@ -416,8 +422,7 @@ public class Asset {
                 "%" + searchText + "%' or service like '" +
                 "%" + searchText + "%' or vul like '" +
                 "%" + searchText + "%' or project like '" +
-                "%" + searchText + "%' limit "+startNumber+", "+dataNumber
-                ;
+                "%" + searchText + "%' order by utime desc limit "+startNumber+", "+dataNumber;
 
         try {
             PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -445,7 +450,7 @@ public class Asset {
     public static String[][] searchFromAsset(int page, int dataNumber){
         String[][] result = new String[dataNumber][8];
         int startNumber = page*dataNumber;
-        String sql = "select ip,domain,url,port,service,vul,project,source from asset limit "+startNumber+", "+dataNumber;
+        String sql = "select ip,domain,url,port,service,vul,project,source from asset order by utime desc limit "+startNumber+", "+dataNumber;
         try {
             PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet = statement.executeQuery();
@@ -467,6 +472,68 @@ public class Asset {
             return new String[][]{};
         }
         return result;
+    }
+
+    public static void updateUniteAsset(JComponent unitPanel){
+        JTextField ipField,domainField,urlField,portField,serviceField,vulField,projectField,sourceField;
+        String ip,domain,url,port,service,vul,project,source,utime;
+        Component[] components = unitPanel.getComponents();
+        ipField = ((JTextField)((JPanel)components[0]).getComponent(1));
+        domainField =((JTextField)((JPanel)components[1]).getComponent(1)) ;
+        urlField = ((JTextField)((JPanel)components[2]).getComponent(1));
+        portField = ((JTextField)((JPanel)components[3]).getComponent(1));
+        serviceField = ((JTextField)((JPanel)components[4]).getComponent(1));
+        vulField = ((JTextField)((JPanel)components[5]).getComponent(1));
+        projectField = ((JTextField)((JPanel)components[6]).getComponent(1));
+        sourceField = ((JTextField)((JPanel)components[7]).getComponent(1));
+
+        ip = ipField.getText();
+        domain = domainField.getText();
+        url = urlField.getText();
+        port = portField.getText();
+        service = serviceField.getText();
+        vul = vulField.getText();
+        project = projectField.getText();
+        source = sourceField.getText();
+        utime = Helper.getTime();
+
+        String[] sqls = new String[]{
+                "update asset set " +
+                    "domain='"+domain+"',"+
+                    "url='"+url+"',"+
+                    "service='"+service+"',"+
+                    "vul='"+vul+"',"+
+                    "project='"+project+"',"+
+                    "source='"+source+"',"+
+                    "utime='"+utime+"' "+
+                    "where ip='"+ip+"' "+
+                    "and port='"+port+"'",
+                "update port set utime='"+ utime+"' where name='"+port+"'",
+                "update project set utime='"+ utime+"' where name='"+project+"'",
+                "update service set utime='"+ utime+"' where name='"+service+"'",
+                "update source set utime='"+ utime+"' where name='"+source+"'",
+        };
+
+        PreparedStatement statement;
+       for(String sql: sqls){
+           try{
+               statement=Helper.mysqlInstance.prepareStatement(sql);
+               statement.executeUpdate();
+           }catch (Exception e){
+                e.printStackTrace();
+           }
+       }
+       addFrame();
+       AAssetComponentPanel.updateUI();
+
+        domainField.setText(domain);
+        urlField.setText(url);
+        serviceField.setText(service);
+        vulField.setText(vul);
+        projectField.setText(project);
+        sourceField.setText(source);
+
+        unitPanel.updateUI();
     }
 
 }

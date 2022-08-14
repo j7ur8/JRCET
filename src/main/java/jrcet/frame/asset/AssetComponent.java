@@ -82,7 +82,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainQueryPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 0,0,
                 1,1,
-                0.2,1,
+                0.25,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -92,7 +92,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainQueryPanel.add(AssetMainQueryInputField, new GridBagConstraints(
                 1,0,
                 1,1,
-                0.6,1,
+                0.5,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -102,7 +102,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainQueryPanel.add(AssetMainQueryMenuPanel(), new GridBagConstraints(
                 2,0,
                 1,1,
-                0.2,1,
+                0.25,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -146,7 +146,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 0,0,
                 1,1,
-                0.15,1,
+                0.05,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -156,7 +156,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultPanel.add(AssetMainResultUnitPanel(), new GridBagConstraints(
                 1,0,
                 1,1,
-                0.7,1,
+                0.9,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -166,7 +166,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 2,0,
                 1,1,
-                0.15,1,
+                0.05,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -182,7 +182,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultUnitPanel.setBackground(Color.WHITE);
         AssetMainResultUnitPanel.setPreferredSize(new Dimension(0,0));
 
-        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,12));
+//        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
         
         return AssetMainResultUnitPanel;
     }
@@ -204,7 +204,6 @@ public class AssetComponent extends DiyJComponent {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextField eField = (JTextField) e.getSource();
                 String queryText = eField.getText();
-
                 if(Objects.equals(queryText, "")){
                     return;
                 }
