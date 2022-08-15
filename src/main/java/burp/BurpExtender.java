@@ -44,17 +44,17 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         stdout = new PrintWriter(callbacks.getStdout(), true);
         helpers = callbacks.getHelpers();
 
-        Helper.mysqlInstance = Helper.getJDBC();
-        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
-        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
-        AssetMainResultUnitPanel.updateUI();
-        Asset.registerHotKey();
-        
         callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
 //        callbacks.registerScannerCheck(this);
         callbacks.registerContextMenuFactory(this);
         callbacks.registerIntruderPayloadProcessor(this);
+
+        Helper.mysqlInstance = Helper.getJDBC();
+        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
+        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
+        AssetMainResultUnitPanel.updateUI();
+        Asset.registerHotKey();
     }
 
     @Override
