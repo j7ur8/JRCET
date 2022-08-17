@@ -297,6 +297,10 @@ public class Asset {
 //            System.out.println(key);
             sql = selectSqlMap.get(key);
             try{
+                Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
+                assert Helper.mysqlInstance != null;
+                Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
+                assert Helper.mysqlInstance != null;
                 statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 ResultSet rSet=statement.executeQuery();
                 rSet.last();
@@ -348,6 +352,8 @@ public class Asset {
                 "%" + searchText + "%' order by utime desc limit "+startNumber+", "+dataNumber;
 
         try {
+            Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
+            assert Helper.mysqlInstance != null;
             PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet = statement.executeQuery();
             int n=0;
@@ -375,6 +381,8 @@ public class Asset {
         int startNumber = page*dataNumber;
         String sql = "select ip,domain,url,port,service,vul,project,source from asset order by utime desc limit "+startNumber+", "+dataNumber;
         try {
+            Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
+            assert Helper.mysqlInstance != null;
             PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet = statement.executeQuery();
             int n=0;
@@ -440,6 +448,8 @@ public class Asset {
         PreparedStatement statement;
        for(String sql: sqls){
            try{
+               Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
+               assert Helper.mysqlInstance != null;
                statement=Helper.mysqlInstance.prepareStatement(sql);
                statement.executeUpdate();
            }catch (Exception e){
@@ -508,6 +518,8 @@ public class Asset {
         String sql = "select name from "+name.toLowerCase(Locale.ROOT)+" where name!='' order by utime desc limit 5";
 
         try{
+            Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
+            assert Helper.mysqlInstance != null;
             PreparedStatement statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet=statement.executeQuery();
             rSet.last();

@@ -49,7 +49,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
         AssetMainResultUnitPanel.updateUI();
         Asset.registerHotKey();
-        
+
         callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
 //        callbacks.registerScannerCheck(this);
