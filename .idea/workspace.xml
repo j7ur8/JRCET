@@ -11,8 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c3f0f906-585f-408f-9218-74765a7d8eb9" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,13 +55,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="extract.method.default.visibility" value="private" />
-    <property name="project.structure.last.edited" value="模块" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
@@ -173,6 +171,7 @@
       <workItem from="1660186832038" duration="1524000" />
       <workItem from="1660280334778" duration="6001000" />
       <workItem from="1660484653663" duration="4418000" />
+      <workItem from="1660698125235" duration="11000" />
     </task>
     <servers />
   </component>
