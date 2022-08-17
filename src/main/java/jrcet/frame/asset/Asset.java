@@ -162,6 +162,7 @@ public class Asset {
         String ip = null,domain = null, port=null, url=null;
         JTextField portField,ipField,domainField,urlField;
 
+        if(s == "") return;
         if(Helper.isIpAddress(s)){ ip = s; }
         if(Helper.isNumeric(s) && Integer.parseInt(s)<65535 && Integer.parseInt(s) >0){ port = s; }
         if(Helper.isDomain(s)){ domain = s; }
