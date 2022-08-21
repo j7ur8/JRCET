@@ -147,7 +147,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 0,0,
                 1,1,
-                0.05,1,
+                0.03,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -167,7 +167,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultPanel.add(Helper.blackPanel(Color.WHITE), new GridBagConstraints(
                 2,0,
                 1,1,
-                0.05,1,
+                0.03,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -219,7 +219,4 @@ public class AssetComponent extends DiyJComponent {
             }
         }
     }
-
-
-
 }

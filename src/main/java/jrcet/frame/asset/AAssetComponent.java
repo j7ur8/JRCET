@@ -19,20 +19,20 @@ public class AAssetComponent extends DiyJComponent {
         AAssetComponentPanel.add(NAssetMainAddPanel(), new GridBagConstraints(
                 0,0,
                 1,1,
-                1,0,
+                1,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(30,30,0,30),
+                new Insets(20,30,0,30),
                 0,0
         ));
 
         AAssetComponentPanel.add(Asset.NAssetMainHistoryPanel(), new GridBagConstraints(
                 0,1,
                 1,1,
-                1,1,
+                1,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,30,30,30),
+                new Insets(10,30,30,30),
                 0,0
         ));
 
@@ -44,7 +44,7 @@ public class AAssetComponent extends DiyJComponent {
         JPanel NAssetMainAddPanel = new JPanel(new GridBagLayout());
         NAssetMainAddPanel.setName("NAssetMainAddPanel");
         NAssetMainAddPanel.setBackground(Color.WHITE);
-        NAssetMainAddPanel.setPreferredSize(new Dimension(0,250));
+        NAssetMainAddPanel.setPreferredSize(new Dimension(0,0));
 
         NAssetMainAddPanel.setBorder(
                 BorderFactory.createTitledBorder(
@@ -58,16 +58,16 @@ public class AAssetComponent extends DiyJComponent {
 
         JLabel NAssetMainAddResultLabel = new JLabel("");
         NAssetMainAddResultLabel.setName("NAssetMainAddResultLabel");
-        NAssetMainAddResultLabel.setFont(new Font("微软雅黑",Font.PLAIN,13));
+//        NAssetMainAddResultLabel.setFont(new Font("微软雅黑",Font.PLAIN,13));
         NAssetMainAddResultLabel.setHorizontalAlignment(JLabel.CENTER);
         NAssetMainAddResultLabel.setForeground(Color.RED);
-        NAssetMainAddResultLabel.setPreferredSize(new Dimension(0,20));
+        NAssetMainAddResultLabel.setPreferredSize(new Dimension(0,0));
 
 
         NAssetMainAddPanel.add(NAssetMainAddResultLabel, new GridBagConstraints(
                 0,0,
                 2,1,
-                1,0,
+                1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,15,0,15),
@@ -76,45 +76,45 @@ public class AAssetComponent extends DiyJComponent {
 
 
         JComponent tmp;
-        String[] columns = new String[]{"Ip","Domain","Url","Port","Service","Vul","Project","Source"};
+        String[] columns = new String[]{"Ip","Domain","Url","Port","Service","Belong","Vendor","Vul","Project","Source"};
         for(int i=0; i<columns.length; i++ ){
             tmp = createUnitPanel(columns[i]);
             NAssetMainAddPanel.add(tmp, new GridBagConstraints(
                     i%2,i/2+1,
                     1,1,
-                    1,0,
+                    1,1,
                     GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH,
-                    new Insets(10,0,0,0),
+                    new Insets(5,0,0,0),
                     0,0
             ));
         }
 
         DiyJButton NAssetMainAddButton = new DiyJButton("Add Asset");
         NAssetMainAddButton.setName("NAssetMainAAddButton");
-        NAssetMainAddButton.setPreferredSize(new Dimension(0,30));
+//        NAssetMainAddButton.setPreferredSize(new Dimension(0,0));
 
         DiyJButton NAssetMainAddweButton = new DiyJButton("Add Asset Without Exit");
         NAssetMainAddweButton.setName("NAssetMainAddweButton");
-        NAssetMainAddweButton.setPreferredSize(new Dimension(0,30));
+//        NAssetMainAddweButton.setPreferredSize(new Dimension(0,0));
 
         NAssetMainAddPanel.add(NAssetMainAddweButton, new GridBagConstraints(
-                0,5,
+                0,6,
                 1,1,
-                1,0,
+                1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(15,15,0,1),
+                new Insets(10,15,0,1),
                 0,0
         ));
 
         NAssetMainAddPanel.add(NAssetMainAddButton, new GridBagConstraints(
-                1,5,
+                1,6,
                 1,1,
-                1,0,
+                1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(15,1,0,15),
+                new Insets(10,1,0,15),
                 0,0
         ));
 
