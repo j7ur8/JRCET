@@ -16,14 +16,171 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static jrcet.frame.asset.AssetComponent.AAssetComponentPanel;
+import static jrcet.frame.asset.AssetComponent.AAssetFrame;
 
 
 public class Asset {
+    public static Integer UPDATE_SUCCESS = 1;
+    public static Integer UPDATE_FAIL = 0;
+    public static Integer UPDATE_ERROR = 2;
+
+    public static Integer INSERT_SUCCESS = 1;
+    public static Integer INSERT_FAIL = 0;
+    public static Integer INSERT_ERROR = 2;
+
+    public static Integer SELECT_SUCCESS = 1;
+    public static Integer SELECT_FAIL = 0;
+    public static Integer SELECT_ERROR = 2;
+
+    public static Integer ASSET_UUID = 0;
+    public static Integer ASSET_IP = 1;
+    public static Integer ASSET_DOMAIN = 2;
+    public static Integer ASSET_URL = 3;
+    public static Integer ASSET_PORT = 4;
+    public static Integer ASSET_SERVICE = 5;
+    public static Integer ASSET_BELONG = 6;
+    public static Integer ASSET_VENDOR = 7;
+    public static Integer ASSET_VUL = 8;
+    public static Integer ASSET_PROJECT = 9;
+    public static Integer ASSET_SOURCE = 10;
+    public static Integer ASSET_ALL_UPDATE = 11;
+    public static Integer ASSET_ALL_INSERT = 12;
+    public static Integer ASSET_ALL_SELECT = 13;
+
+    public static HashMap<Integer, String> insertSqlMap = new HashMap<Integer, String>(){
+        {
+            put(ASSET_ALL_SELECT, "insert into asset (uuid, ip, domain, url, port, service, belong, vendor, vul, project, source ) values('"+UUID.randomUUID()+"','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')");
+            put(ASSET_ALL_INSERT, "insert into asset (uuid, ip, domain, url, port, service, belong, vendor, vul, project, source ) values('"+UUID.randomUUID()+"','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')");
+            put(ASSET_SERVICE, "insert into service (name) values('%s')");
+            put(ASSET_BELONG, "insert into belong (name) values('%s')");
+            put(ASSET_VENDOR, "insert into vendor (name) values('%s')");
+            put(ASSET_PROJECT, "insert into project (name) values('%s')");
+            put(ASSET_SOURCE, "insert into source (name) values('%s')");
+            put(ASSET_PORT, "insert into port (name) values('%s')");
+            put(ASSET_IP, "insert into ip (name) values('%s')");
+        }
+    };
+
+    public static HashMap<Integer, String> updateSqlMap = new HashMap<Integer, String>(){
+        {
+            put(ASSET_IP, "update ip set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_PORT, "update port set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_SERVICE, "update service set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_BELONG, "update belong set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_VENDOR, "update vendor set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_PROJECT, "update project set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_SOURCE, "update source set utime='"+ Helper.getTime()+"' where name='%s'");
+            put(ASSET_ALL_UPDATE,"update asset set " +
+                    "domain='%s',url='%s',service='%s',belong='%s',vendor='%s',vul='%s',project='%s',source='%s'," +
+                    "utime='"+Helper.getTime()+"' where ip='%s' and port='%s'");
+        }
+    };
+
+    public static HashMap<Integer, String> selectSqlMap = new HashMap<Integer, String>(){
+        {
+            put(ASSET_ALL_SELECT,  "select uuid from asset where ip='%s' and port='%s'");
+            put(ASSET_SERVICE, "select id from service where name='%s'");
+            put(ASSET_PROJECT, "select id from project where name='%s'");
+            put(ASSET_SOURCE,  "select id from source where name='%s'");
+            put(ASSET_PORT,    "select id from port where name='%s'");
+            put(ASSET_IP,      "select id from ip where name='%s'");
+            put(ASSET_BELONG,  "select id from belong where name ='%s'");
+            put(ASSET_VENDOR,  "select id from vendor where name ='%s'");
+        }
+    };
 
     public static String lastClipboardText = "lastClipboardText ";
     public static String AssetMode = "Global";
     public static int page = 0;
     public static int dataNumber = 6;
+
+    public static Integer updateDynamic(HashMap<Integer,Object> columns,Integer mode){
+        String sql;
+        try{
+            if(mode<11){
+                String name= (String) columns.get(mode);
+                if(Objects.equals(name, "")){
+                    return UPDATE_SUCCESS;
+                }
+                sql = String.format(updateSqlMap.get(mode), name);
+            }else if(mode.equals(ASSET_ALL_UPDATE)){
+                sql = String.format(updateSqlMap.get(mode), (String [])columns.get(mode));
+            }else{
+                return UPDATE_ERROR;
+            }
+            PreparedStatement statement = Objects.requireNonNull(Helper.getConnector()).prepareStatement(sql);
+            if(statement.executeUpdate()>0){
+                return UPDATE_SUCCESS;
+            }
+            return UPDATE_FAIL;
+        }catch (Exception e){
+            e.printStackTrace();
+            return UPDATE_ERROR;
+        }
+
+    }
+
+    public static Integer insertDynamic(HashMap<Integer,Object> columns,Integer mode) {
+        String sql;
+        try{
+            if(mode<11){
+                sql = String.format(insertSqlMap.get(mode), columns.get(mode));
+            }else if(mode.equals(ASSET_ALL_INSERT)){
+                sql = String.format(insertSqlMap.get(mode), (String [])columns.get(mode));
+            }else{
+                return INSERT_ERROR;
+            }
+            PreparedStatement statement = Objects.requireNonNull(Helper.getConnector()).prepareStatement(sql);
+            if(statement.executeUpdate()>0){
+                return INSERT_SUCCESS;
+            }
+            return INSERT_FAIL;
+        }catch (Exception e){
+            e.printStackTrace();
+            return INSERT_ERROR;
+        }
+    }
+
+    public static Integer selectDynamic(HashMap<Integer,Object> columns,Integer mode) {
+        String sql;
+        try{
+            if(mode<11){
+                sql = String.format(selectSqlMap.get(mode), columns.get(mode));
+            }else if(mode.equals(ASSET_ALL_SELECT)){
+                sql = String.format(selectSqlMap.get(mode), (String [])columns.get(mode));
+            }else{
+                return SELECT_ERROR;
+            }
+            PreparedStatement statement = Objects.requireNonNull(Helper.getConnector()).prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rSet = statement.executeQuery();
+            rSet.last();
+            if(rSet.getRow()>0){
+                return SELECT_SUCCESS;
+            }
+            return SELECT_FAIL;
+        }catch (Exception e){
+            e.printStackTrace();
+            return SELECT_ERROR;
+        }
+    }
+
+    public static void updateUniteAsset(JComponent unitePanel){
+
+        HashMap<Integer,Object> unitContent = getUnitContent(unitePanel);
+
+        try {
+            if(!Objects.equals(updateDynamic(unitContent, ASSET_ALL_UPDATE), UPDATE_SUCCESS)){
+                return;
+            }
+            for(Integer mode: new Integer[]{ASSET_BELONG,ASSET_IP,ASSET_PORT,ASSET_SERVICE,ASSET_PROJECT,ASSET_VENDOR,ASSET_SOURCE}){
+                if(!Objects.equals(updateDynamic(unitContent, mode), UPDATE_SUCCESS) ){
+                    insertDynamic(unitContent, mode);
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public static void registerHotKey(){
 
@@ -45,7 +202,7 @@ public class Asset {
             int column = i%3;
 
             AssetMainResultUnitPanel.add(createUnitPanel(result[i]), new GridBagConstraints(
-                    column+0,row+0,
+                    column, row,
                     1,1,
                     1,1,
                     GridBagConstraints.CENTER,
@@ -67,7 +224,6 @@ public class Asset {
         for(int i=0; i<columns.length; i++ ){
             tmp = createUnitPropertyPanel(columns[i],result[i]);
             unitPanel.add(tmp, new GridBagConstraints(
-//                    i%2,i/2+1,
                     0,i,
                     1,1,
                     1,0,
@@ -83,7 +239,6 @@ public class Asset {
         updateButton.setPreferredSize(new Dimension(0,30));
 
         unitPanel.add(updateButton, new GridBagConstraints(
-//                    i%2,i/2+1,
                 0,10,
                 1,1,
                 1,0,
@@ -135,34 +290,35 @@ public class Asset {
         return createUnitPropertyPanel;
     }
 
-    public static JFrame addFrame(){
-        JFrame JrcetFrame = new JFrame("Add Asset");
+    public static JFrame getAAssetFrame(){
+        JFrame AAssetFrame = new JFrame("Add Asset");
 
-        AAssetComponentPanel=new AAssetComponent().main();
-        JrcetFrame.setContentPane(AAssetComponentPanel);
+//        AAssetComponentPanel=new AAssetComponent().main();
+//        AAssetFrame.setContentPane(AAssetComponentPanel);
 
-        JrcetFrame.setResizable(true);
-        JrcetFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JrcetFrame.setSize(1000, 600);
+        AAssetFrame.setResizable(true);
+        AAssetFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        AAssetFrame.setSize(1000, 600);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = ( screenSize.width - JrcetFrame.getWidth())/2;
-        int y = ( screenSize.height - JrcetFrame.getHeight())/2;
-        JrcetFrame.setLocation(x,  y);
+        int x = ( screenSize.width - AAssetFrame.getWidth())/2;
+        int y = ( screenSize.height - AAssetFrame.getHeight())/2;
+        AAssetFrame.setLocation(x,  y);
 
-        JrcetFrame.setVisible(false);
+        AAssetFrame.setVisible(false);
 
-        return  JrcetFrame;
+        return  AAssetFrame;
     }
-
 
     public static void analyseText(String s){
 
         String ip = null,domain = null, port=null, url=null;
         JTextField portField,ipField,domainField,urlField;
-        JFrame AAssetFrame = null;
+
         if(AAssetComponentPanel == null){
-            AAssetFrame = addFrame();
+            AAssetFrame = getAAssetFrame();
+            AAssetComponentPanel = new AAssetComponent().main();
+            AAssetFrame.setContentPane(AAssetComponentPanel);
         }
 
         AAssetFrame = AAssetFrame==null?(JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel):AAssetFrame;
@@ -185,15 +341,14 @@ public class Asset {
             }
         }
 
-
         if(AAssetFrame.isVisible() && ((ip==null && domain==null && port==null && url==null) || Objects.equals(s, lastClipboardText))){
-            System.out.println("未命中");
             AAssetFrame.setVisible(false);
         }else {
             AAssetFrame.setVisible(true);
             AAssetFrame.setAlwaysOnTop(true);
             AAssetFrame.setAlwaysOnTop(false);
         }
+
         lastClipboardText=s;
         if(ip!=null){
             ipField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddIpField"); assert ipField != null;
@@ -216,119 +371,76 @@ public class Asset {
         }
     }
 
-    public static String addAsset(){
-        JTextField ipField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddIpField"); assert ipField!=null;
-        JTextField domainField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddDomainField"); assert domainField!=null;
-        JTextField urlField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddUrlField"); assert urlField!=null;
-        JTextField portField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddPortField"); assert portField!=null;
-        JTextField serviceField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddServiceField"); assert serviceField!=null;
-        JTextField belongField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddServiceField"); assert belongField!=null;
-        JTextField vendorField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddServiceField"); assert vendorField!=null;
-        JTextField vulField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddVulField"); assert vulField!=null;
-        JTextField projectField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddProjectField"); assert projectField!=null;
-        JTextField sourceField = (JTextField) Helper.getComponent(AAssetComponentPanel,"NAssetMainAddSourceField"); assert sourceField!=null;
+    public static HashMap<Integer,Object> getNAssetContent(JComponent nAssetPanel){
+        JTextField ipField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddIpField"); assert ipField!=null;
+        JTextField domainField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddDomainField"); assert domainField!=null;
+        JTextField urlField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddUrlField"); assert urlField!=null;
+        JTextField portField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddPortField"); assert portField!=null;
+        JTextField serviceField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddServiceField"); assert serviceField!=null;
+        JTextField belongField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddBelongField"); assert belongField!=null;
+        JTextField vendorField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddVendorField"); assert vendorField!=null;
+        JTextField vulField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddVulField"); assert vulField!=null;
+        JTextField projectField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddProjectField"); assert projectField!=null;
+        JTextField sourceField = (JTextField) Helper.getComponent(nAssetPanel,"NAssetMainAddSourceField"); assert sourceField!=null;
 
-        String uuid, ip,url,domain,port,service,vul,project,source,sql,belong,vendor;
-        uuid = UUID.randomUUID().toString();
-        ip = ipField.getText();
-        domain = domainField.getText().toLowerCase(Locale.ROOT);
-        url = urlField.getText();
-        port = portField.getText();
-        service = serviceField.getText();
-        vul = vulField.getText();
-        project = projectField.getText();
-        source = sourceField.getText();
-        belong = belongField.getText();
-        vendor = vendorField.getText();
+        return new HashMap<Integer,Object>(){
+            {
+                put(ASSET_UUID,UUID.randomUUID().toString());
+                put(ASSET_IP,ipField.getText());
+                put(ASSET_DOMAIN,domainField.getText());
+                put(ASSET_URL,urlField.getText());
+                put(ASSET_PORT,portField.getText());
+                put(ASSET_SERVICE,serviceField.getText());
+                put(ASSET_VUL,vulField.getText());
+                put(ASSET_PROJECT,projectField.getText());
+                put(ASSET_SOURCE,sourceField.getText());
+                put(ASSET_BELONG,belongField.getText());
+                put(ASSET_VENDOR,vendorField.getText());
+                put(ASSET_ALL_SELECT,new String[]{ipField.getText(),portField.getText()});
+                put(ASSET_ALL_INSERT,new String[]{ipField.getText(), domainField.getText(), urlField.getText(), portField.getText(), serviceField.getText(), belongField.getText(), vendorField.getText(), vulField.getText(), projectField.getText(), sourceField.getText()});
+            }
+        };
+    }
 
-        if(Objects.equals(ip, "")){
-            return "IP不能为空";
+    public static boolean checkInput(String input){
+        return !input.contains("'");
+    }
+
+    public static String addAsset(JComponent nAssetPanel){
+
+        HashMap<Integer, Object> nAssetContent = getNAssetContent(nAssetPanel);
+
+        for(Object v:nAssetContent.values()){
+            if(v instanceof String && !checkInput((String)v)){
+                return "输入不能含有单引号";
+            }
         }
 
-        if(!Objects.equals(domain, "") && !Helper.isDomain(domain)){
+        if(Objects.equals(nAssetContent.get(ASSET_IP), "") && !Helper.isIpAddress((String) nAssetContent.get(ASSET_IP)) && Objects.equals(nAssetContent.get(ASSET_PORT),"")){
+            return "IP和端口不能为空 或 IP错误";
+        }
+
+        if(!Objects.equals(nAssetContent.get(ASSET_DOMAIN), "") && !Helper.isDomain((String) nAssetContent.get(ASSET_DOMAIN))){
             return "Domain不合法";
         }
 
-        if(!Helper.isIpAddress(ip)){
-            return "IP不合法";
-        }
-
-        if(!Objects.equals(url, "") && !Helper.isUrl(url)){
+        if(!Objects.equals(nAssetContent.get(ASSET_URL), "") && !Helper.isUrl((String) nAssetContent.get(ASSET_URL))){
             return "Url不合法";
         }
 
-        if(Objects.equals(port,"")){
-            return "端口不能为空";
-        }
-
-        if(!Helper.isNumeric(port) && Integer.parseInt(port)>0 && Integer.parseInt(port)<65535){
+        if(!Helper.isNumeric((String) nAssetContent.get(ASSET_PORT)) && Integer.parseInt((String) nAssetContent.get(ASSET_PORT))>0 && Integer.parseInt((String) nAssetContent.get(ASSET_PORT))<65535){
             return "Port不合法";
         }
 
-        HashMap<String, String> selectSqlMap = new HashMap<String, String>(){
-            {
-                put("asset",   "select uuid from asset where ip='"+ip+"' and port='"+port+"'");
-                put("service", "select id from service where name='"+service+"'");
-                put("project", "select id from project where name='"+project+"'");
-                put("source",  "select id from source where name='"+source+"'");
-                put("port",     "select id from port where name='"+port+"'");
-                put("ip",     "select id from port where name='"+ip+"'");
-            }
-        };
+        for(Integer mode : new Integer[]{ASSET_ALL_SELECT,ASSET_SERVICE,ASSET_BELONG,ASSET_VENDOR,ASSET_PROJECT,ASSET_SOURCE,ASSET_PORT,ASSET_IP}){
 
-        HashMap<String, String> insertSqlMap = new HashMap<String, String>(){
-            {
-                put("asset",   "insert into asset (uuid, ip, domain, url, port, service,belong,vendor, vul, project, source ) values('"+ uuid+"','"+ ip+"','"+ domain+"','"+ url+"','"+ port+"','"+ service+"','"+belong+"','"+vendor+"','"+ vul+"','"+ project+"','"+ source + "')");
-                put("service", "insert into service (name) values('"+service+"')");
-                put("belong", "insert into belong (name) values('"+belong+"')");
-                put("vendor", "insert into vendor (name) values('"+vendor+"')");
-                put("project", "insert into project (name) values('"+project+"')");
-                put("source", "insert into source (name) values('"+source+"')");
-                put("port", "insert into port (name) values('"+port+"')");
-                put("ip", "insert into ip (name) values('"+ip+"')");
-            }
-        };
-
-        HashMap<String, String> updateSqlMap = new HashMap<String, String>(){
-            {
-                put("service", "update service set utime='"+Helper.getTime()+"' where name='"+service+"'");
-                put("project", "update project set utime='"+Helper.getTime()+"' where name='"+project+"'");
-                put("belong", "update belong set utime='"+Helper.getTime()+"' where name='"+belong+"'");
-                put("vendor", "update vendor set utime='"+Helper.getTime()+"' where name='"+vendor+"'");
-                put("source", "update source set utime='"+Helper.getTime()+"' where name='"+source+"'");
-                put("port", "update port set utime='"+Helper.getTime()+"' where name='"+port+"'");
-                put("ip", "update ip set utime='"+Helper.getTime()+"' where name='"+ip+"'");
-            }
-        };
-
-        int resultCount;
-        PreparedStatement statement;
-        for(String key : new String[]{"asset","service","belong","vendor","project","source","port","ip"}){
-//            System.out.println(key);
-            sql = selectSqlMap.get(key);
             try{
-                Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-                assert Helper.mysqlInstance != null;
-                Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-                assert Helper.mysqlInstance != null;
-                statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                ResultSet rSet=statement.executeQuery();
-                rSet.last();
-                resultCount = rSet.getRow();
-
-                if(resultCount == 0){
-                    sql = insertSqlMap.get(key);
-                    statement=Helper.mysqlInstance.prepareStatement(sql);
-                    statement.executeUpdate();
-                }else{
-                    if(Objects.equals(key, "asset")){
+                if(!Objects.equals(selectDynamic(nAssetContent, mode), SELECT_SUCCESS)){
+                    insertDynamic(nAssetContent,mode);
+                }else if(Objects.equals(mode, ASSET_ALL_SELECT)){
                         return "重复资产";
-                    }else{
-                        sql = updateSqlMap.get(key);
-                        statement=Helper.mysqlInstance.prepareStatement(sql);
-                        statement.executeUpdate();
-                    }
-
+                }else{
+                    updateDynamic(nAssetContent,mode);
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -336,17 +448,6 @@ public class Asset {
             }
         }
 
-
-        ipField.setText("");
-        domainField.setText("");
-        urlField.setText("");
-        portField.setText("");
-        serviceField.setText("");
-        belongField.setText("");
-        vendorField.setText("");
-        vulField.setText("");
-        projectField.setText("");
-        sourceField.setText("");
         return "查询成功";
     }
 
@@ -366,9 +467,9 @@ public class Asset {
                 "%" + searchText + "%' order by utime desc limit "+startNumber+", "+dataNumber;
 
         try {
-            Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-            assert Helper.mysqlInstance != null;
-            PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Helper.dbConnector =Helper.dbConnector.isValid(2)?Helper.dbConnector :Helper.getConnector();
+            assert Helper.dbConnector != null;
+            PreparedStatement statement = Helper.dbConnector.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet = statement.executeQuery();
             int n=0;
             while (rSet.next()) {
@@ -383,7 +484,6 @@ public class Asset {
                 result[n][8]=rSet.getString("project");
                 result[n][9]=rSet.getString("source");
                 n++;
-//                System.out.println(rSet.getString("uuid") + "," + rSet.getString("ip") + "," + rSet.getString("domain"));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -392,14 +492,14 @@ public class Asset {
         return result;
     }
 
-    public static String[][] searchFromAsset(int page, int dataNumber){
+    public static String[][] getAsset(int page, int dataNumber){
         String[][] result = new String[dataNumber][10];
         int startNumber = page*dataNumber;
         String sql = "select ip,domain,url,port,service,belong,vendor,vul,project,source from asset order by utime desc limit "+startNumber+", "+dataNumber;
         try {
-            Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-            assert Helper.mysqlInstance != null;
-            PreparedStatement statement = Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Helper.dbConnector =Helper.dbConnector.isValid(2)?Helper.dbConnector :Helper.getConnector();
+            assert Helper.dbConnector != null;
+            PreparedStatement statement = Helper.dbConnector.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet = statement.executeQuery();
             int n=0;
             while (rSet.next()) {
@@ -423,9 +523,8 @@ public class Asset {
         return result;
     }
 
-    public static void updateUniteAsset(JComponent unitPanel){
+    public static HashMap<Integer,Object> getUnitContent(JComponent unitPanel){
         JTextField ipField,domainField,urlField,portField,serviceField,vulField,projectField,sourceField,belongField,vendorField;
-        String ip,domain,url,port,service,vul,project,source,utime,belong,vendor;
 
         Component[] components = unitPanel.getComponents();
         ipField = ((JTextField)((JPanel)components[0]).getComponent(1));
@@ -439,87 +538,44 @@ public class Asset {
         projectField = ((JTextField)((JPanel)components[8]).getComponent(1));
         sourceField = ((JTextField)((JPanel)components[9]).getComponent(1));
 
-        ip = ipField.getText();
-        domain = domainField.getText();
-        url = urlField.getText();
-        port = portField.getText();
-        service = serviceField.getText();
-        belong = belongField.getText();
-        vendor = vendorField.getText();
-        vul = vulField.getText();
-        project = projectField.getText();
-        source = sourceField.getText();
-        utime = Helper.getTime();
-
-        HashMap<String, String> insertSqlMap = new HashMap<String, String>(){
+        return new HashMap<Integer, Object>(){
             {
-               put("service", "insert into service (name) values('"+service+"')");
-                put("belong", "insert into belong (name) values('"+belong+"')");
-                put("vendor", "insert into vendor (name) values('"+vendor+"')");
-                put("project", "insert into project (name) values('"+project+"')");
-                put("source", "insert into source (name) values('"+source+"')");
+                put(ASSET_IP,ipField.getText());
+                put(ASSET_DOMAIN,domainField.getText());
+                put(ASSET_URL,urlField.getText());
+                put(ASSET_PORT,portField.getText());
+                put(ASSET_SERVICE,serviceField.getText());
+                put(ASSET_BELONG,belongField.getText());
+                put(ASSET_VENDOR,vendorField.getText());
+                put(ASSET_VUL,vulField.getText());
+                put(ASSET_PROJECT,projectField.getText());
+                put(ASSET_SOURCE,sourceField.getText());
+                put(ASSET_ALL_UPDATE,new String[]{
+                        domainField.getText(),
+                        urlField.getText(),
+                        serviceField.getText(),
+                        belongField.getText(),
+                        vendorField.getText(),
+                        vulField.getText(),
+                        projectField.getText(),
+                        sourceField.getText(),
+                        ipField.getText(),
+                        portField.getText()
+                });
+                put(ASSET_ALL_INSERT,new String[]{
+                        ipField.getText(),
+                        domainField.getText(),
+                        urlField.getText(),
+                        portField.getText(),
+                        serviceField.getText(),
+                        belongField.getText(),
+                        vendorField.getText(),
+                        vulField.getText(),
+                        projectField.getText(),
+                        sourceField.getText()
+                });
             }
         };
-
-        HashMap<String, String> updateSqlMap = new HashMap<String, String>(){
-            {
-                put("asset","update asset set " +
-                        "domain='"+domain+"',"+
-                        "url='"+url+"',"+
-                        "service='"+service+"',"+
-                        "belong='"+belong+"',"+
-                        "vendor='"+vendor+"',"+
-                        "vul='"+vul+"',"+
-                        "project='"+project+"',"+
-                        "source='"+source+"',"+
-                        "utime='"+utime+"' "+
-                        "where ip='"+ip+"' "+
-                        "and port='"+port+"'");
-                put("port", "update port set utime='"+ utime+"' where name='"+port+"'");
-                put("project", "update project set utime='"+ utime+"' where name='"+project+"'");
-                put("belong", "update belong set utime='"+ utime+"' where name='"+belong+"'");
-                put("vendor", "update vendor set utime='"+ utime+"' where name='"+vendor+"'");
-                put("service", "update service set utime='"+ utime+"' where name='"+service+"'");
-                put("source", "update source set utime='"+ utime+"' where name='"+source+"'");
-            }
-        };
-
-        try {
-            int affectRows = 0;
-            PreparedStatement statement;
-            Helper.mysqlInstance = Helper.mysqlInstance.isValid(2) ? Helper.mysqlInstance : Helper.getJDBC();
-            assert Helper.mysqlInstance != null;
-            statement = Helper.mysqlInstance.prepareStatement(updateSqlMap.get("asset"));
-            statement.executeUpdate();
-
-            for(String table: new String[]{"service","belong","project","vendor","source"}){
-                Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-                assert Helper.mysqlInstance != null;
-                statement=Helper.mysqlInstance.prepareStatement(updateSqlMap.get(table));
-                affectRows = statement.executeUpdate();
-               if(affectRows==0){
-                   Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-                   assert Helper.mysqlInstance != null;
-                   statement=Helper.mysqlInstance.prepareStatement(insertSqlMap.get(table));
-                   statement.executeUpdate();
-               }
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        addFrame();
-        AAssetComponentPanel.updateUI();
-
-//        domainField.setText(domain);
-//        urlField.setText(url);
-//        serviceField.setText(service);
-//        vulField.setText(vul);
-//        projectField.setText(project);
-//        sourceField.setText(source);
-//
-//        unitPanel.updateUI();
     }
 
     public static JComponent NAssetMainHistoryPanel(){
@@ -528,7 +584,7 @@ public class Asset {
         NAssetMainHistoryPanel.setPreferredSize(new Dimension(0,0));
         NAssetMainHistoryPanel.setBackground(Color.WHITE);
 
-        String[] names = new String[]{"Ip","Port","Project","Service","belong","vendor","Source"};
+        String[] names = new String[]{"Ip","Port","Project","Service","Belong","Vendor","Source"};
 
         JComponent tmp;
         for(int i=0; i<names.length; i++){
@@ -571,9 +627,9 @@ public class Asset {
         String sql = "select name from "+name.toLowerCase(Locale.ROOT)+" where name!='' order by utime desc limit 5";
 
         try{
-            Helper.mysqlInstance=Helper.mysqlInstance.isValid(2)?Helper.mysqlInstance:Helper.getJDBC();
-            assert Helper.mysqlInstance != null;
-            PreparedStatement statement=Helper.mysqlInstance.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Helper.dbConnector =Helper.dbConnector.isValid(2)?Helper.dbConnector :Helper.getConnector();
+            assert Helper.dbConnector != null;
+            PreparedStatement statement=Helper.dbConnector.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rSet=statement.executeQuery();
             rSet.last();
             result = new String[rSet.getRow()];
@@ -607,5 +663,13 @@ public class Asset {
         return historyPanel;
     }
 
+    public static void refreshAddPanel(){
+//        AAssetFrame.removeAll();
+        AAssetComponentPanel = new AAssetComponent().main();
+        AAssetFrame.setContentPane(AAssetComponentPanel);
+//        AAssetFrame.repaint();
+        AAssetFrame.repaint();
+        AAssetFrame.revalidate();
+    }
 
 }

@@ -1,14 +1,10 @@
 package jrcet;
 
 import jrcet.frame.Jrcet;
-import jrcet.frame.asset.AAssetComponent;
 import jrcet.frame.asset.Asset;
-import jrcet.frame.asset.AssetComponent;
-import jrcet.frame.tools.Scanner.Fastjson.FastjsonComponent;
 import jrcet.help.Helper;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -34,9 +30,9 @@ public class Main {
         JrcetFrame.setVisible(true);
 
 
-        Helper.mysqlInstance = Helper.getJDBC();
+        Helper.dbConnector = Helper.getConnector();
         JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
-        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
+        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.getAsset(0,Asset.dataNumber));
         AssetMainResultUnitPanel.updateUI();
         Asset.registerHotKey();
 //        Helper.travelComponent(Main.JrcetPanel);

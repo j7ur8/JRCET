@@ -3,7 +3,6 @@ package burp;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.ParserConfig;
 import jrcet.frame.asset.Asset;
 import jrcet.frame.tools.Dencrypt.Url.Url;
 import jrcet.frame.tools.Intruder.Intruder;
@@ -11,7 +10,6 @@ import jrcet.frame.tools.Scanner.Fastjson.Fastjson;
 import jrcet.frame.tools.Scanner.Fastjson.FastjsonComponent;
 import jrcet.frame.tools.Scanner.Scanner;
 import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 import jrcet.frame.Jrcet;
 //import jrcet.frame.tools.RScript.RScript;
 import jrcet.help.ShutdownThread;
@@ -51,9 +49,9 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         callbacks.registerContextMenuFactory(this);
         callbacks.registerIntruderPayloadProcessor(this);
 
-        Helper.mysqlInstance = Helper.getJDBC();
+        Helper.dbConnector = Helper.getConnector();
         JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
-        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
+        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.getAsset(0,Asset.dataNumber));
         AssetMainResultUnitPanel.updateUI();
         Asset.registerHotKey();
     }

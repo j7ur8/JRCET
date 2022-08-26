@@ -1,7 +1,6 @@
 package jrcet.diycomponents;
 
 import jrcet.frame.asset.Asset;
-import jrcet.frame.asset.AssetComponent;
 import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.help.Helper;
 
@@ -104,6 +103,14 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddServiceField"); assert tField != null;
                 tField.setText(eButtonText);
                 break;
+            case "NAssetMainHistoryBelongButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddBelongField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
+            case "NAssetMainHistoryVendorButton":
+                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddVendorField"); assert tField != null;
+                tField.setText(eButtonText);
+                break;
             case "NAssetMainHistoryProjectButton":
                 tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddProjectField"); assert tField != null;
                 tField.setText(eButtonText);
@@ -115,7 +122,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             case "AssetMainQueryMenuRefreshButton":
                 tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
                 tPanel.removeAll();
-                Asset.initResultUnitPanel(tPanel, Asset.searchFromAsset(0,Asset.dataNumber));
+                Asset.initResultUnitPanel(tPanel, Asset.getAsset(0,Asset.dataNumber));
                 tPanel.updateUI();
                 Asset.AssetMode="Global";
                 Asset.page=0;
@@ -135,7 +142,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                     }
                     result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
                 }else{
-                    result = Asset.searchFromAsset(Asset.page,Asset.dataNumber);
+                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
                 }
 
                 tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
@@ -155,7 +162,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                     }
                     result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
                 }else{
-                    result = Asset.searchFromAsset(Asset.page,Asset.dataNumber);
+                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
                 }
 
                 if(Arrays.deepEquals(result, new String[Asset.dataNumber][8])){
@@ -176,45 +183,19 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
         switch (eButtonText) {
             case "Add Asset":
-                tLabel = (JLabel) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddResultLabel"); assert tLabel!=null;
-                tLabel.setText(Asset.addAsset());
-//                System.out.println(test.addAsset());
-                tPanel =  Helper.getComponent(AAssetComponentPanel, "AAssetComponentPanel"); assert tPanel !=null;
-                tPanel.remove(tPanel.getComponentCount()-1);
-                tPanel.add(Asset.NAssetMainHistoryPanel(), new GridBagConstraints(
-                        0,1,
-                        1,1,
-                        1,1,
-                        GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH,
-                        new Insets(0,30,30,30),
-                        0,0
-                ));
-                tPanel.updateUI();
-                JFrame AAssetFrame = (JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel);
-
+                tPanel = (JComponent) eButton.getParent();
+                Asset.addAsset(tPanel);
                 updateAfterAdd();
-
-                AAssetFrame.dispose();
+                Asset.refreshAddPanel();
+//                JFrame AAssetFrame = (JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel);
+//                AAssetFrame.dispose();
 
                 break;
             case "Add Asset Without Exit":
-                tLabel = (JLabel) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddResultLabel"); assert tLabel!=null;
-                tLabel.setText(Asset.addAsset());
-//                System.out.println(test.addAsset());
-                tPanel =  Helper.getComponent(AAssetComponentPanel, "AAssetComponentPanel"); assert tPanel !=null;
-                tPanel.remove(tPanel.getComponentCount()-1);
-                tPanel.add(Asset.NAssetMainHistoryPanel(), new GridBagConstraints(
-                        0,1,
-                        1,1,
-                        1,1,
-                        GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH,
-                        new Insets(0,30,30,30),
-                        0,0
-                ));
-                tPanel.updateUI();
+                tPanel = (JComponent) eButton.getParent();
+                Asset.addAsset(tPanel);
                 updateAfterAdd();
+                Asset.refreshAddPanel();
                 break;
             case "Copy":
                 writeRScript(eButton);
@@ -300,7 +281,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         }else{
             tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
             tPanel.removeAll();
-            Asset.initResultUnitPanel(tPanel, Asset.searchFromAsset(Asset.page,Asset.dataNumber));
+            Asset.initResultUnitPanel(tPanel, Asset.getAsset(Asset.page,Asset.dataNumber));
             tPanel.updateUI();
         }
     }

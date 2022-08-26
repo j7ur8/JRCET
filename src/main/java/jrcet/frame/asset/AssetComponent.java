@@ -18,6 +18,7 @@ public class AssetComponent extends DiyJComponent {
 
     public static JComponent AssetComponentPanel = null;
     public static JComponent AAssetComponentPanel = null;
+    public static JFrame AAssetFrame = null;
 
     public JComponent main(){
 
@@ -183,7 +184,7 @@ public class AssetComponent extends DiyJComponent {
         AssetMainResultUnitPanel.setBackground(Color.WHITE);
         AssetMainResultUnitPanel.setPreferredSize(new Dimension(0,0));
 
-//        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.searchFromAsset(0,Asset.dataNumber));
+//        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.getAsset(0,Asset.dataNumber));
         
         return AssetMainResultUnitPanel;
     }

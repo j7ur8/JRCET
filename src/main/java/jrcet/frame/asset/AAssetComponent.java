@@ -56,31 +56,12 @@ public class AAssetComponent extends DiyJComponent {
         );
 
 
-        JLabel NAssetMainAddResultLabel = new JLabel("");
-        NAssetMainAddResultLabel.setName("NAssetMainAddResultLabel");
-//        NAssetMainAddResultLabel.setFont(new Font("微软雅黑",Font.PLAIN,13));
-        NAssetMainAddResultLabel.setHorizontalAlignment(JLabel.CENTER);
-        NAssetMainAddResultLabel.setForeground(Color.RED);
-        NAssetMainAddResultLabel.setPreferredSize(new Dimension(0,0));
-
-
-        NAssetMainAddPanel.add(NAssetMainAddResultLabel, new GridBagConstraints(
-                0,0,
-                2,1,
-                1,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,15,0,15),
-                0,0
-        ));
-
-
         JComponent tmp;
         String[] columns = new String[]{"Ip","Domain","Url","Port","Service","Belong","Vendor","Vul","Project","Source"};
         for(int i=0; i<columns.length; i++ ){
             tmp = createUnitPanel(columns[i]);
             NAssetMainAddPanel.add(tmp, new GridBagConstraints(
-                    i%2,i/2+1,
+                    i%2,i/2,
                     1,1,
                     1,1,
                     GridBagConstraints.CENTER,
@@ -99,7 +80,7 @@ public class AAssetComponent extends DiyJComponent {
 //        NAssetMainAddweButton.setPreferredSize(new Dimension(0,0));
 
         NAssetMainAddPanel.add(NAssetMainAddweButton, new GridBagConstraints(
-                0,6,
+                0,5,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -109,7 +90,7 @@ public class AAssetComponent extends DiyJComponent {
         ));
 
         NAssetMainAddPanel.add(NAssetMainAddButton, new GridBagConstraints(
-                1,6,
+                1,5,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
