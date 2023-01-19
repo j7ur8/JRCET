@@ -5,7 +5,7 @@ import java.awt.*;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.frame.asset.AssetComponent;
+import jrcet.frame.setting.Setting;
 import jrcet.frame.setting.SettingComponent;
 import jrcet.frame.tools.ToolsComponent;
 
@@ -15,6 +15,7 @@ public class Jrcet extends DiyJComponent {
     public final JComponent ToolsComponentPanel = ToolsComponentPanel();
     public final JComponent AssetComponentPanel = AssetComponentPanel();
 
+    public final JComponent ExploitComponentPanel = ExploitComponentPanel();
     public static JComponent JrcetComponentPanel = null;
 
     public JComponent main(){
@@ -44,7 +45,8 @@ public class Jrcet extends DiyJComponent {
                 0,0
         ));
 
-        JrcetComponentPanel.add(AssetComponentPanel, new GridBagConstraints(0,1,
+
+        JrcetComponentPanel.add(JrcetShowPanel(), new GridBagConstraints(0,1,
                 2,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -68,15 +70,15 @@ public class Jrcet extends DiyJComponent {
 
         DiyJTabLabel JrcetMenuExploitLabel = new DiyJTabLabel("Exploit");
         JrcetMenuExploitLabel.setName("JrcetMenuExploitLabel");
-//        JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
+        JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
         JrcetMenuPanel.add(JrcetMenuExploitLabel);
 
-        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools");
+        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools", true);
         JrcetMenuToolsLabel.setName("JrcetMenuToolsLabel");
         JrcetMenuToolsLabel.setPanel(ToolsComponentPanel);
         JrcetMenuPanel.add(JrcetMenuToolsLabel);
 
-        DiyJTabLabel JrcetMenuAssetLabel = new DiyJTabLabel("Asset",true);
+        DiyJTabLabel JrcetMenuAssetLabel = new DiyJTabLabel("Asset");
         JrcetMenuAssetLabel.setName("JrcetMenuToolsLabel");
         JrcetMenuAssetLabel.setPanel(AssetComponentPanel);
         JrcetMenuPanel.add(JrcetMenuAssetLabel);
@@ -94,6 +96,22 @@ public class Jrcet extends DiyJComponent {
     }
 
 
+    private JComponent JrcetShowPanel(){
+        JComponent showPanel = new JPanel();
+        switch (Setting.JrcetShowPanel){
+            case "Tools":
+                showPanel=ToolsComponentPanel;
+                break;
+            case "Asset":
+                showPanel = AssetComponentPanel;
+                break;
+            case "Exploit":
+                showPanel = ExploitComponentPanel;
+                break;
+        }
+        return showPanel;
+    }
+
     private JComponent ToolsComponentPanel(){
         DiyJComponent ToolsComponentInstance=new ToolsComponent();
         return ToolsComponentInstance.main();
@@ -105,8 +123,12 @@ public class Jrcet extends DiyJComponent {
     }
 
     private JComponent AssetComponentPanel(){
-//        return new JPanel();
-        return new AssetComponent().main();
+        return new JPanel();
+//        return new AssetComponent().main();
+    }
+
+    private JComponent ExploitComponentPanel(){
+        return new JPanel();
     }
 
 

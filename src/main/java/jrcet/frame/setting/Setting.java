@@ -11,4 +11,13 @@ public class Setting {
     public static String AesScript = "";
     public static String RsaScript = "";
 
+    // 可选 Tools,Exploit,Asset
+    public static String JrcetShowPanel = "Tools";
+
+
+    // 可选 Intruder, Scanner, Dominate, Password, Dencrypt, RScript, HText;
+    public static String ToolsShowPanel = "HText";
+
+    // 可选 Alone, Sort, Parsepy, Case, Format, IPUnit, Regex, Len
+    public static String HTextShowPanel = "Alone";
 }

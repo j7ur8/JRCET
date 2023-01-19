@@ -2,6 +2,7 @@ package jrcet.frame.tools;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.Dencrypt.DencryptComponent;
 import jrcet.frame.tools.Dominate.DominateComponent;
 import jrcet.frame.tools.HText.HTextComponent;
@@ -53,7 +54,7 @@ public class ToolsComponent extends DiyJComponent {
                 0,0
         ));
 
-        ToolsComponentPanel.add(ScannerComponentPanel,new GridBagConstraints(
+        ToolsComponentPanel.add(ToolsShowPanel(),new GridBagConstraints(
                 0,1,
                 2,1,
                 1,1,
@@ -124,6 +125,33 @@ public class ToolsComponent extends DiyJComponent {
         return ToolsMenuTabBorderPanel;
     }
 
+    private JComponent ToolsShowPanel(){
+        JComponent showPanel = new JPanel();
+        switch (Setting.ToolsShowPanel){
+            case "Intruder":
+                showPanel = IntruderComponentPanel;
+                break;
+            case "Scanner":
+                showPanel = ScannerComponentPanel;
+                break;
+            case "Dominate":
+                showPanel = DominateComponentPanel;
+                break;
+            case "Password":
+                showPanel = PasswordComponentPanel;
+                break;
+            case "Dencrypt":
+                showPanel = DencryptComponentPanel;
+                break;
+            case "RScript":
+                showPanel = RScriptComponentPanel;
+                break;
+            case "HText":
+                showPanel = HTextComponentPanel;
+                break;
+        }
+        return showPanel;
+    }
 
     private JComponent DencryptComponentPanel(){
         DiyJComponent DencryptComponentInstance = new DencryptComponent();

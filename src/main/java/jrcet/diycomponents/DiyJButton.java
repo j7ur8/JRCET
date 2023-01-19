@@ -1,6 +1,5 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.asset.Asset;
 import jrcet.frame.tools.Intruder.IntruderComponent;
 import jrcet.help.Helper;
 
@@ -19,8 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static jrcet.frame.asset.AssetComponent.AAssetComponentPanel;
-import static jrcet.frame.asset.AssetComponent.AssetComponentPanel;
+
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
 
@@ -91,112 +89,112 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         String text;
         String[][] result;
         switch (eButtonName){
-            case "NAssetMainHistoryIpButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddIpField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "NAssetMainHistoryPortButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddPortField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "NAssetMainHistoryServiceButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddServiceField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "NAssetMainHistoryBelongButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddBelongField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "NAssetMainHistoryVendorButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddVendorField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "NAssetMainHistoryProjectButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddProjectField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "NAssetMainHistorySourceButton":
-                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddSourceField"); assert tField != null;
-                tField.setText(eButtonText);
-                break;
-            case "AssetMainQueryMenuRefreshButton":
-                tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
-                tPanel.removeAll();
-                Asset.initResultUnitPanel(tPanel, Asset.getAsset(0,Asset.dataNumber));
-                tPanel.updateUI();
-                Asset.AssetMode="Global";
-                Asset.page=0;
-                break;
-            case "AssetMainQueryMenuLastButton":
-                if(Asset.page>0){
-                    Asset.page-=1;
-                }else{
-                    break;
-                }
-
-                if(Objects.equals(Asset.AssetMode, "Search")){
-                    tField = (JTextField) Helper.getComponent(AssetComponentPanel, "AssetMainQueryInputField"); assert tField!=null;
-                    text = tField.getText();
-                    if(Objects.equals(text, "")){
-                        break;
-                    }
-                    result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
-                }else{
-                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
-                }
-
-                tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
-                tPanel.removeAll();
-                Asset.initResultUnitPanel(tPanel, result);
-                tPanel.updateUI();
-                break;
-            case "AssetMainQueryMenuNextButton":
-                Asset.page++;
-
-                if(Objects.equals(Asset.AssetMode, "Search")){
-                    tField = (JTextField) Helper.getComponent(AssetComponentPanel, "AssetMainQueryInputField"); assert tField!=null;
-                    text = tField.getText();
-                    if(Objects.equals(text, "")){
-                        Asset.page--;
-                        break;
-                    }
-                    result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
-                }else{
-                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
-                }
-
-                if(Arrays.deepEquals(result, new String[Asset.dataNumber][8])){
-                    Asset.page--;
-                    break;
-                }
-
-                tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
-                tPanel.removeAll();
-                Asset.initResultUnitPanel(tPanel, result);
-                tPanel.updateUI();
-                break;
-            case "AssetMainResultUpdateButton":
-                JComponent unitPanel = (JComponent) eButton.getParent();
-                Asset.updateUniteAsset(unitPanel);
-                break;
-        }
-
-        switch (eButtonText) {
-            case "Add Asset":
-                tPanel = (JComponent) eButton.getParent();
-                Asset.addAsset(tPanel);
-                updateAfterAdd();
-                Asset.refreshAddPanel();
-//                JFrame AAssetFrame = (JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel);
-//                AAssetFrame.dispose();
-
-                break;
-            case "Add Asset Without Exit":
-                tPanel = (JComponent) eButton.getParent();
-                Asset.addAsset(tPanel);
-                updateAfterAdd();
-                Asset.refreshAddPanel();
-                break;
+//            case "NAssetMainHistoryIpButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddIpField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "NAssetMainHistoryPortButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddPortField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "NAssetMainHistoryServiceButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddServiceField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "NAssetMainHistoryBelongButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddBelongField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "NAssetMainHistoryVendorButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddVendorField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "NAssetMainHistoryProjectButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddProjectField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "NAssetMainHistorySourceButton":
+//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddSourceField"); assert tField != null;
+//                tField.setText(eButtonText);
+//                break;
+//            case "AssetMainQueryMenuRefreshButton":
+//                tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
+//                tPanel.removeAll();
+//                Asset.initResultUnitPanel(tPanel, Asset.getAsset(0,Asset.dataNumber));
+//                tPanel.updateUI();
+//                Asset.AssetMode="Global";
+//                Asset.page=0;
+//                break;
+//            case "AssetMainQueryMenuLastButton":
+//                if(Asset.page>0){
+//                    Asset.page-=1;
+//                }else{
+//                    break;
+//                }
+//
+//                if(Objects.equals(Asset.AssetMode, "Search")){
+//                    tField = (JTextField) Helper.getComponent(AssetComponentPanel, "AssetMainQueryInputField"); assert tField!=null;
+//                    text = tField.getText();
+//                    if(Objects.equals(text, "")){
+//                        break;
+//                    }
+//                    result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
+//                }else{
+//                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
+//                }
+//
+//                tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
+//                tPanel.removeAll();
+//                Asset.initResultUnitPanel(tPanel, result);
+//                tPanel.updateUI();
+//                break;
+//            case "AssetMainQueryMenuNextButton":
+//                Asset.page++;
+//
+//                if(Objects.equals(Asset.AssetMode, "Search")){
+//                    tField = (JTextField) Helper.getComponent(AssetComponentPanel, "AssetMainQueryInputField"); assert tField!=null;
+//                    text = tField.getText();
+//                    if(Objects.equals(text, "")){
+//                        Asset.page--;
+//                        break;
+//                    }
+//                    result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
+//                }else{
+//                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
+//                }
+//
+//                if(Arrays.deepEquals(result, new String[Asset.dataNumber][8])){
+//                    Asset.page--;
+//                    break;
+//                }
+//
+//                tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
+//                tPanel.removeAll();
+//                Asset.initResultUnitPanel(tPanel, result);
+//                tPanel.updateUI();
+//                break;
+//            case "AssetMainResultUpdateButton":
+//                JComponent unitPanel = (JComponent) eButton.getParent();
+//                Asset.updateUniteAsset(unitPanel);
+//                break;
+//        }
+//
+//        switch (eButtonText) {
+//            case "Add Asset":
+//                tPanel = (JComponent) eButton.getParent();
+//                Asset.addAsset(tPanel);
+//                updateAfterAdd();
+//                Asset.refreshAddPanel();
+////                JFrame AAssetFrame = (JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel);
+////                AAssetFrame.dispose();
+//
+//                break;
+//            case "Add Asset Without Exit":
+//                tPanel = (JComponent) eButton.getParent();
+//                Asset.addAsset(tPanel);
+//                updateAfterAdd();
+//                Asset.refreshAddPanel();
+//                break;
             case "Copy":
                 writeRScript(eButton);
                 break;
@@ -261,30 +259,30 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         }
     }
 
-    private void updateAfterAdd() {
-        JTextField tField;
-        String text;
-        String[][] result;
-        JComponent tPanel;
-        if(Objects.equals(Asset.AssetMode, "Search")){
-            tField = (JTextField) Helper.getComponent(AssetComponentPanel,"AssetMainQueryInputField");assert tField!=null;
-            text = tField.getText();
-            if(Objects.equals(text, "")){
-                return;
-            }
-
-            result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
-            tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
-            tPanel.removeAll();
-            Asset.initResultUnitPanel(tPanel, result);
-            tPanel.updateUI();
-        }else{
-            tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
-            tPanel.removeAll();
-            Asset.initResultUnitPanel(tPanel, Asset.getAsset(Asset.page,Asset.dataNumber));
-            tPanel.updateUI();
-        }
-    }
+//    private void updateAfterAdd() {
+//        JTextField tField;
+//        String text;
+//        String[][] result;
+//        JComponent tPanel;
+//        if(Objects.equals(Asset.AssetMode, "Search")){
+//            tField = (JTextField) Helper.getComponent(AssetComponentPanel,"AssetMainQueryInputField");assert tField!=null;
+//            text = tField.getText();
+//            if(Objects.equals(text, "")){
+//                return;
+//            }
+//
+//            result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
+//            tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
+//            tPanel.removeAll();
+//            Asset.initResultUnitPanel(tPanel, result);
+//            tPanel.updateUI();
+//        }else{
+//            tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
+//            tPanel.removeAll();
+//            Asset.initResultUnitPanel(tPanel, Asset.getAsset(Asset.page,Asset.dataNumber));
+//            tPanel.updateUI();
+//        }
+//    }
 
     public JComponent getNewIntruderModulePanel(String moduleName){
         switch (moduleName){

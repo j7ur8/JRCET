@@ -1,14 +1,11 @@
 package jrcet;
 
 import jrcet.frame.Jrcet;
-import jrcet.frame.asset.Asset;
-import jrcet.help.Helper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static jrcet.frame.asset.AssetComponent.AssetComponentPanel;
 
 public class Main {
 
@@ -30,11 +27,11 @@ public class Main {
         JrcetFrame.setVisible(true);
 
 
-        Helper.dbConnector = Helper.getConnector();
-        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
-        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.getAsset(0,Asset.dataNumber));
-        AssetMainResultUnitPanel.updateUI();
-        Asset.registerHotKey();
+//        Helper.dbConnector = Helper.getConnector();
+//        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;
+//        Asset.initResultUnitPanel(AssetMainResultUnitPanel,Asset.getAsset(0,Asset.dataNumber));
+//        AssetMainResultUnitPanel.updateUI();
+//        Asset.registerHotKey();
 //        Helper.travelComponent(Main.JrcetPanel);
 //
 //        for(String i :Helper.treeComponent(JrcetComponentList)){

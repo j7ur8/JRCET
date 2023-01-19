@@ -2,6 +2,7 @@ package jrcet.frame.tools.HText;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.setting.Setting;
 import jrcet.frame.tools.HText.Alone.AloneComponent;
 import jrcet.frame.tools.HText.Case.CaseComponent;
 import jrcet.frame.tools.HText.Format.FormatComponent;
@@ -39,7 +40,7 @@ public class HTextComponent extends DiyJComponent {
                 0,0
         ));
 
-        HTextComponentPanel.add(LenComponentPanel,new GridBagConstraints(
+        HTextComponentPanel.add(HTextShowPanel(),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -105,6 +106,36 @@ public class HTextComponent extends DiyJComponent {
     }
 
 
+    private JComponent HTextShowPanel(){
+        JComponent showPanel = new JPanel();
+        switch (Setting.HTextShowPanel){
+            case "Alone":
+                showPanel = AloneComponentPanel;
+                break;
+            case "Sort":
+                showPanel = SortComponentPanel;
+                break;
+            case "Parsepy":
+                showPanel = ParsepyComponentPanel;
+                break;
+            case "Case":
+                showPanel = CaseComponentPanel;
+                break;
+            case "Format":
+                showPanel = FormattingComponentPanel;
+                break;
+            case "IPUnit":
+                showPanel = IPUnitComponentPanel;
+                break;
+            case "Regex":
+                showPanel = RegexComponentPanel;
+                break;
+            case "Len":
+                showPanel = LenComponentPanel;
+                break;
+        }
+        return showPanel;
+    }
     public JComponent AloneComponentPanel(){
         return new AloneComponent().main();
     }
