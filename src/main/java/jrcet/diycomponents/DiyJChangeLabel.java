@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.setting.Setting;
+import jrcet.frame.Setting.Setting;
 //import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
 import jrcet.help.Helper;
 
@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import static jrcet.frame.tools.Dencrypt.Base.BaseComponent.BaseComponentPanel;
+import static jrcet.frame.Tools.Dencrypt.Base.BaseComponent.BaseComponentPanel;
 
 public class DiyJChangeLabel extends DiyJTabLabel  {
 

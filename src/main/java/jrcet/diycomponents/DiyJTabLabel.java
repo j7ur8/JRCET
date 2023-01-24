@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.setting.Setting;
+import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;

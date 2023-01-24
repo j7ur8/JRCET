@@ -1,20 +1,19 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.tools.Dencrypt.Hex.HexComponent;
-import jrcet.frame.tools.Dencrypt.Jwt.JwtComponent;
-import jrcet.frame.tools.HText.Case.CaseComponent;
-import jrcet.frame.tools.HText.Format.FormatComponent;
-import jrcet.frame.tools.HText.IPUnit.IPUnitComponent;
-import jrcet.frame.tools.HText.Len.LenComponent;
-import jrcet.frame.tools.HText.Regex.RegexComponent;
-import jrcet.frame.tools.Password.Generate.GenerateComponent;
+import jrcet.frame.Tools.Dencrypt.Hex.HexComponent;
+import jrcet.frame.Tools.Dencrypt.Jwt.JwtComponent;
+import jrcet.frame.Tools.HText.Case.CaseComponent;
+import jrcet.frame.Tools.HText.Format.FormatComponent;
+import jrcet.frame.Tools.HText.IPUnit.IPUnitComponent;
+import jrcet.frame.Tools.HText.Len.LenComponent;
+import jrcet.frame.Tools.HText.Regex.RegexComponent;
+import jrcet.frame.Tools.Password.Generate.GenerateComponent;
 import jrcet.help.Helper;
-import jrcet.frame.tools.Dencrypt.Aes.AesComponent;
-import jrcet.frame.tools.Dencrypt.Ascii.AsciiComponent;
-import jrcet.frame.tools.Dencrypt.Base.BaseComponent;
-import jrcet.frame.tools.Dencrypt.Rsa.RsaComponent;
-import jrcet.frame.tools.Dencrypt.Unicode.UnicodeComponent;
-import jrcet.frame.tools.Dominate.Domain.DomainComponent;
+import jrcet.frame.Tools.Dencrypt.Aes.AesComponent;
+import jrcet.frame.Tools.Dencrypt.Ascii.AsciiComponent;
+import jrcet.frame.Tools.Dencrypt.Base.BaseComponent;
+import jrcet.frame.Tools.Dencrypt.Rsa.RsaComponent;
+import jrcet.frame.Tools.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,8 +22,8 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static jrcet.frame.setting.Setting.orange;
-import static jrcet.frame.setting.Setting.gray;
+import static jrcet.frame.Setting.Setting.orange;
+import static jrcet.frame.Setting.Setting.gray;
 
 public class DiyJAddLabel extends JLabel implements MouseListener {
 
@@ -141,11 +140,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tPanel = AsciiComponent.AsciiComponentPanel;
                 tCMap = AsciiComponent.MainPanelHashMap;
                 break;
-            case "Domain":
-                tGMap = DomainComponent.ComponentConstraintHashMap;
-                tPanel = DomainComponent.DomainComponentPanel;
-                tCMap = DomainComponent.MainPanelHashMap;
-                break;
             case "Generate":
                 tGMap = GenerateComponent.ComponentConstraintHashMap;
                 tPanel = GenerateComponent.GenerateComponentPanel;
@@ -225,10 +219,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Ascii":
                 nPanel = new AsciiComponent().AsciiMainPanel();
                 AsciiComponent.MainPanelHashMap.put(nIndex, nPanel);
-                break;
-            case "Domain":
-                nPanel = new DomainComponent().DomainMainPanel();
-                DomainComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Generate":
                 nPanel = new GenerateComponent().GenerateMainPanel();

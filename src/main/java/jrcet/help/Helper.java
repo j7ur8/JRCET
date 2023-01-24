@@ -1,12 +1,13 @@
 package jrcet.help;
 
+import burp.BurpExtender;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJChangeLabel;
 import jrcet.diycomponents.DiyJLabel;
 import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.frame.setting.Database;
-import org.jetbrains.annotations.NotNull;
+import jrcet.frame.Setting.Database;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static burp.BurpExtender.stdout;
 import static jrcet.Main.JrcetComponentList;
 
 public class Helper {
@@ -252,7 +254,7 @@ public class Helper {
     /*
     是否合法url
      */
-    public static Boolean isUrl(String s){
+    public static Boolean isURL(String s){
         try{
             URL url = new URL(s);
             if(url.getProtocol().startsWith("http") && (isDomain(url.getHost()) || isIpAddress(url.getHost()) )){
@@ -295,7 +297,7 @@ public class Helper {
         return count;
     }
 
-    public static void set4DiyLabel(JComponent tPanel, String @NotNull [] tStrings){
+    public static void set4DiyLabel(JComponent tPanel, String[] tStrings){
         for(int i=0;i<tStrings.length;i++){
             String s = tStrings[i];
             DiyJLabel tmpLabel = new DiyJLabel(s);
@@ -325,7 +327,7 @@ public class Helper {
         }
     }
 
-    public static void set4DiyJChangeLabel(JComponent tPanel, String @NotNull [] tStrings, HashMap<String, JComponent> stringJComponentHashMap){
+    public static void set4DiyJChangeLabel(JComponent tPanel, String[] tStrings, HashMap<String, JComponent> stringJComponentHashMap){
         for(int i=0;i<tStrings.length;i++){
             String s = tStrings[i];
             DiyJChangeLabel tmpLabel = new DiyJChangeLabel(s);
@@ -560,4 +562,125 @@ public class Helper {
             return null;
         }
     }
+
+    public static ImageIcon byte2img(byte[] img) {
+        InputStream buffin = new ByteArrayInputStream(img);
+        Image image = null;
+        ImageIcon icon = null;
+        try {
+            image = ImageIO.read(buffin);
+            icon = new ImageIcon(image);
+        } catch (IOException e) {
+            BurpExtender.stdout.println(e.getMessage());
+        }
+        return icon;
+    }
+
+    public static String trimStart(String str) {
+        if (Objects.equals(str, "") || str == null) {
+            return str;
+        }
+
+        final char[] value = str.toCharArray();
+        int start = 0;
+        int end = str.length();
+        while ((start <= end) && (value[start] <= ' ')) {
+            start++;
+        }
+        if (start == 0) {
+            return str;
+        }
+        if (start >= end) {
+            return "";
+        }
+        return str.substring(start, end);
+    }
+
+    public static String base64Encode(byte[] byteArray){
+        byte[] res = Base64.getEncoder().encode(byteArray);
+        String res2 = new String(res);
+        res2 = res2.replace(System.lineSeparator(),"");
+        return res2;
+    }
+
+    public static String base64Encode(String str){
+//        final Base64.Encoder encoder = new Base64.Encoder;
+
+        byte[] b = new byte[]{};
+        try {
+            b = str.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] res = Base64.getEncoder().encode(b);
+        String res2 = new String(res);
+        //去除base64结果中的换行符，java base64编码默认会76个字母换行一次
+        res2 = res2.replace(System.lineSeparator(),"");
+        return res2;
+    }
+
+    public static byte[] base64Decode(String str){
+//        final Base64.Decoder decoder = new Base64.Decoder;
+        byte[] byteRes = new byte[]{};
+        byteRes = Base64.getDecoder().decode(str);
+        return byteRes;
+    }
+
+    public static String matchByRegular(String str,String reg){
+        String res = "";
+        int start = 0;
+        int end = 0;
+        Pattern r = Pattern.compile(reg);
+        Matcher m = r.matcher(str);
+        if (m.find()) {
+            res = m.group(1);//0会获取多余的内容
+            start = m.start();
+            int n = str.substring(start,str.length()).indexOf(res);
+            start += n;
+            end = start + res.length();
+        }
+        return res;
+    }
+
+    public static String matchByRegular(String str,String reg,int n){
+        String res = "";
+        Pattern r = Pattern.compile(reg,Pattern.MULTILINE);
+        Matcher m = r.matcher(str);
+        if (m.find()) {
+            res = m.group(n);//0会获取多余的内容
+        }
+        return res;
+    }
+
+    public static String URLEncode(String str) {
+        String result = "";
+        if (null == str) {
+            return "";
+        }
+        try {
+            result = java.net.URLEncoder.encode(str, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            stdout.println(e.getMessage());
+        }
+        return result;
+    }
+
+    public static String URLDecode(String str) {
+        String result = "";
+        if (null == str) {
+            return "";
+        }
+        try {
+            result = java.net.URLDecoder.decode(str, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            stdout.println(e.getMessage());
+        }
+        return result;
+    }
+
+    public static boolean isBase64(String str) {
+        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+        return Pattern.matches(base64Pattern, str);
+    }
+
 }

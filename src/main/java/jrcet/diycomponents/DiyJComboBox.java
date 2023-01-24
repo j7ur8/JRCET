@@ -1,7 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.tools.Dencrypt.Base.Base;
-import jrcet.frame.tools.HText.Format.Format;
+import jrcet.frame.Tools.HText.Format.Format;
 
 import javax.swing.*;
 import java.awt.*;

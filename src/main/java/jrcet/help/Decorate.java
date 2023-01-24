@@ -3,8 +3,8 @@ package jrcet.help;
 import javax.swing.*;
 import java.awt.*;
 
-import static jrcet.frame.setting.Setting.gray;
-import static jrcet.frame.setting.Setting.orange;
+import static jrcet.frame.Setting.Setting.gray;
+import static jrcet.frame.Setting.Setting.orange;
 
 public class Decorate {
 

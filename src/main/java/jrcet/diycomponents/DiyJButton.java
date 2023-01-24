@@ -1,9 +1,14 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.tools.Intruder.IntruderComponent;
+import burp.BurpExtender;
+import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
+import jrcet.frame.Tools.Captcha.Captcha;
+import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.help.Helper;
+import jrcet.help.d4ocr.OCREngine;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -14,13 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 
-import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderComponentPanel;
-import static jrcet.frame.tools.Intruder.IntruderComponent.IntruderModuleComponentList;
+import static jrcet.frame.Intruder.IntruderComponent.IntruderComponentPanel;
+import static jrcet.frame.Intruder.Intruder.IntruderModuleComponentList;
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
 
@@ -34,9 +41,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         addActionListener(this);
         setFont(new Font("微软雅黑", Font.PLAIN,14));
     }
-
-
-
 
     private void writeRScript(DiyJButton targetButton){
         JPanel targetPanel = (JPanel) targetButton.getParent().getParent();
@@ -88,7 +92,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JLabel tLabel;
         String text;
         String[][] result;
-        switch (eButtonName){
+        switch (eButtonName) {
 //            case "NAssetMainHistoryIpButton":
 //                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddIpField"); assert tField != null;
 //                tField.setText(eButtonText);
@@ -177,34 +181,62 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 //                JComponent unitPanel = (JComponent) eButton.getParent();
 //                Asset.updateUniteAsset(unitPanel);
 //                break;
-//        }
-//
-//        switch (eButtonText) {
-//            case "Add Asset":
-//                tPanel = (JComponent) eButton.getParent();
-//                Asset.addAsset(tPanel);
-//                updateAfterAdd();
-//                Asset.refreshAddPanel();
-////                JFrame AAssetFrame = (JFrame) SwingUtilities.getWindowAncestor(AAssetComponentPanel);
-////                AAssetFrame.dispose();
-//
-//                break;
-//            case "Add Asset Without Exit":
-//                tPanel = (JComponent) eButton.getParent();
-//                Asset.addAsset(tPanel);
-//                updateAfterAdd();
-//                Asset.refreshAddPanel();
-//                break;
+            case "CaptchaMainCaptchaRequestMenuUrlButton":
+                rootPanel = (JComponent) eButton.getParent().getParent();
+                RSyntaxTextArea sRSyntaxTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestArea");assert sRSyntaxTextArea != null;
+                JTextField urlField = (JTextField) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestMenuUrlField");assert urlField != null;
+                RSyntaxTextArea responseArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea!=null;
+
+                String raw = sRSyntaxTextArea.getText();
+                String url = urlField.getText();
+                Thread thread = new Captcha.getCaptchaThread(url,raw,responseArea);
+                thread.start();
+                break;
+            case "CaptchaMainCaptchaImageMenuIdentifyButton":
+                rootPanel = (JComponent) eButton.getParent().getParent();
+                JTextField ruleField = (JTextField)  Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseMenuRuleFiled");assert ruleField != null;
+                RSyntaxTextArea imageArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaImageArea");assert imageArea!=null;
+                RSyntaxTextArea responseArea1 = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea1!=null;
+
+                String imageText = Helper.matchByRegular(responseArea1.getText(),ruleField.getText());
+                imageText = Helper.isBase64(imageText)?imageText:Helper.base64Encode(imageText);
+                imageArea.setText(imageText);
+
+                ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
+                BufferedImage image = null;
+                try {
+                    image = ImageIO.read(in);
+                } catch (IOException ee) {
+                    BurpExtender.stdout.println(ee);
+                }
+                OCREngine engine = OCREngine.instance();
+                String res = engine.recognize(image);
+
+                JLabel resultLabel = new JLabel(res);
+                resultLabel.setFont(new Font("微软雅黑",Font.PLAIN,20));
+
+                byte[] imageByte = Helper.base64Decode(imageText);
+                ImageIcon imageIcon = Helper.byte2img(imageByte);
+                JLabel imageLabel = new JLabel(imageIcon, JLabel.CENTER);
+                imageLabel.setPreferredSize(new Dimension(160,30));
+
+                JPanel CaptchaMainCaptchaImageMenuResultPanel = (JPanel) Helper.getComponent(rootPanel, "CaptchaMainCaptchaImageMenuResultPanel"); assert  CaptchaMainCaptchaImageMenuResultPanel!=null;
+                CaptchaMainCaptchaImageMenuResultPanel.removeAll();
+                CaptchaMainCaptchaImageMenuResultPanel.add(imageLabel);
+                CaptchaMainCaptchaImageMenuResultPanel.add(resultLabel);
+                CaptchaMainCaptchaImageMenuResultPanel.repaint();
+                CaptchaMainCaptchaImageMenuResultPanel.revalidate();
+                break;
             case "Copy":
                 writeRScript(eButton);
                 break;
-            case "Aes":
-            case "Des":
-            case "Md5":
-            case "Rsa":
-            case "Base":
-            case "Ascii":
-            case "Unicode":
+            case "IntruderMainControlAesButton":
+            case "IntruderMainControlDesButton":
+            case "IntruderMainControlMd5Button":
+            case "IntruderMainControlRsaButton":
+            case "IntruderMainControlBaseButton":
+            case "IntruderMainControlAsciiButton":
+            case "IntruderMainControlUnicodeButton":
                 nPanel = getNewIntruderModulePanel(eButtonText);
                 tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");assert tPanel!=null;
                 IntruderModuleComponentList.add(nPanel);
@@ -236,7 +268,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 ));
                 tPanel.updateUI();
                 break;
-            case "Clear All":
+            case "IntruderMainControlClearButton":
                 tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");assert tPanel!=null;
                 IntruderModuleComponentList = new ArrayList<>();
                 tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel"); assert tLabel!=null;
@@ -255,8 +287,8 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 ));
                 tPanel.updateUI();
                 break;
-
         }
+
     }
 
 //    private void updateAfterAdd() {

@@ -1,22 +1,27 @@
 package jrcet.frame;
 
+import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.Intruder.IntruderComponent;
+import jrcet.frame.Scanner.ScannerComponent;
+import jrcet.frame.Setting.Setting;
+import jrcet.frame.Setting.SettingComponent;
+import jrcet.frame.Tools.ToolsComponent;
+
 import javax.swing.*;
 import java.awt.*;
 
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.frame.setting.Setting;
-import jrcet.frame.setting.SettingComponent;
-import jrcet.frame.tools.ToolsComponent;
 
 public class Jrcet extends DiyJComponent {
 
-    public final JComponent SettingComponentPanel = SettingComponentPanel();
-    public final JComponent ToolsComponentPanel = ToolsComponentPanel();
-    public final JComponent AssetComponentPanel = AssetComponentPanel();
-
-    public final JComponent ExploitComponentPanel = ExploitComponentPanel();
     public static JComponent JrcetComponentPanel = null;
+    private final JComponent SettingComponentPanel = SettingComponentPanel();
+    private final JComponent AssetComponentPanel = AssetComponentPanel();
+    private final JComponent ScannerComponentPanel = ScannerComponentPanel();
+    private final JComponent IntruderComponentPanel = IntruderComponentPanel();
+    private final JComponent ExploitComponentPanel = ExploitComponentPanel();
+    private final JComponent ToolsComponentPanel = ToolsComponentPanel();
+
 
     public JComponent main(){
 
@@ -78,6 +83,16 @@ public class Jrcet extends DiyJComponent {
         JrcetMenuToolsLabel.setPanel(ToolsComponentPanel);
         JrcetMenuPanel.add(JrcetMenuToolsLabel);
 
+        DiyJTabLabel JrcetMenuIntruderLabel = new DiyJTabLabel("Intruder");
+        JrcetMenuIntruderLabel.setName("JrcetMenuIntruderLabel");
+        JrcetMenuIntruderLabel.setPanel(IntruderComponentPanel);
+        JrcetMenuPanel.add(JrcetMenuIntruderLabel);
+
+        DiyJTabLabel JrcetMenuScannerLabel = new DiyJTabLabel("Scanner");
+        JrcetMenuScannerLabel.setName("JrcetMenuScannerLabel");
+        JrcetMenuScannerLabel.setPanel(ScannerComponentPanel);
+        JrcetMenuPanel.add(JrcetMenuScannerLabel);
+
         DiyJTabLabel JrcetMenuAssetLabel = new DiyJTabLabel("Asset");
         JrcetMenuAssetLabel.setName("JrcetMenuToolsLabel");
         JrcetMenuAssetLabel.setPanel(AssetComponentPanel);
@@ -99,6 +114,12 @@ public class Jrcet extends DiyJComponent {
     private JComponent JrcetShowPanel(){
         JComponent showPanel = new JPanel();
         switch (Setting.JrcetShowPanel){
+            case "Intruder":
+                showPanel = IntruderComponentPanel;
+                break;
+            case "Scanner":
+                showPanel = ScannerComponentPanel;
+                break;
             case "Tools":
                 showPanel=ToolsComponentPanel;
                 break;
@@ -111,6 +132,16 @@ public class Jrcet extends DiyJComponent {
         }
         return showPanel;
     }
+
+    private JComponent IntruderComponentPanel(){
+        DiyJComponent IntruderComponentInstance = new IntruderComponent();
+        return IntruderComponentInstance.main();
+    }
+
+    private JComponent ScannerComponentPanel() {
+        return new ScannerComponent().main();
+    }
+
 
     private JComponent ToolsComponentPanel(){
         DiyJComponent ToolsComponentInstance=new ToolsComponent();

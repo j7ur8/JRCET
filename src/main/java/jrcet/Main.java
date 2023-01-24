@@ -10,22 +10,21 @@ import java.util.ArrayList;
 public class Main {
 
     public static ArrayList<String> JrcetComponentList =new ArrayList<>();
-    public static JComponent JrcetComponentPanel=Jrcet.JrcetComponentPanel;
+//    public static JComponent JrcetComponentPanel=Jrcet.JrcetComponentPanel;
 
     public static void main(String[] args) {
         
         JFrame JrcetFrame = new JFrame("J7ur8's Remote Code Execute Tools");
 
         //setContentPane需放在前面，不然需要更改界面尺寸才会显示。
-
-        JrcetFrame.setContentPane(new Jrcet().main());
+        Jrcet jrcet = new Jrcet();
+        JrcetFrame.setContentPane(jrcet.main());
 
         JrcetFrame.setResizable(true);
         JrcetFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JrcetFrame.setSize(1200, 1000);
         centerInScreen(JrcetFrame);
         JrcetFrame.setVisible(true);
-
 
 //        Helper.dbConnector = Helper.getConnector();
 //        JComponent AssetMainResultUnitPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel"); assert AssetMainResultUnitPanel!=null;

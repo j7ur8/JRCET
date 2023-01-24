@@ -2,8 +2,8 @@ package jrcet.diycomponents;
 
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.frame.tools.Dencrypt.Aes.Aes;
-import jrcet.frame.tools.Dencrypt.Rsa.Rsa;
+import jrcet.frame.Tools.Dencrypt.Aes.Aes;
+import jrcet.frame.Tools.Dencrypt.Rsa.Rsa;
 
 import javax.swing.*;
 import java.awt.*;
