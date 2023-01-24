@@ -27,32 +27,20 @@ public class Jrcet extends DiyJComponent {
 
         JrcetComponentPanel = new JPanel(new GridBagLayout());
         JrcetComponentPanel.setName("JrcetComponentPanel");
-        JrcetComponentPanel.setOpaque(false);
         JrcetComponentPanel.setBackground(Color.WHITE);
 
         JrcetComponentPanel.add(JrcetMenuPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        JrcetComponentPanel.add(JrcetMenuBorderPanel(),new GridBagConstraints(
-                1,0,
-                1,1,
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
-
 
         JrcetComponentPanel.add(JrcetShowPanel(), new GridBagConstraints(0,1,
-                2,1,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -64,9 +52,8 @@ public class Jrcet extends DiyJComponent {
     }
 
     private JComponent JrcetMenuPanel(){
-        JPanel JrcetMenuPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+        JPanel JrcetMenuPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         JrcetMenuPanel.setName("JrcetMenuPanel");
-        JrcetMenuPanel.setOpaque(false);
 
         DiyJTabLabel JrcetMenuSettingLabel = new DiyJTabLabel("Setting");
         JrcetMenuSettingLabel.setName("JrcetMenuSettingLabel");
@@ -100,16 +87,6 @@ public class Jrcet extends DiyJComponent {
 
         return  JrcetMenuPanel;
     }
-
-    private JComponent JrcetMenuBorderPanel() {
-        JPanel JrcetMenuBorderPanel = new JPanel();
-        JrcetMenuBorderPanel.setName("JrcetMenuBorderPanel");
-        JrcetMenuBorderPanel.setOpaque(true);
-        JrcetMenuBorderPanel.setBackground(Color.WHITE);
-        JrcetMenuBorderPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        return JrcetMenuBorderPanel;
-    }
-
 
     private JComponent JrcetShowPanel(){
         JComponent showPanel = new JPanel();

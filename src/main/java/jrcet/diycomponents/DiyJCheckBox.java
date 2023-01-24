@@ -1,7 +1,6 @@
 package jrcet.diycomponents;
 
 import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.frame.Tools.Password.Generate.Generate;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextArea;
 //import jrcet.frame.tools.RScript.RScript;
@@ -40,68 +39,7 @@ public class DiyJCheckBox extends JCheckBox implements ItemListener {
 //                    eCheckBox.setSelected(false);
 //                }
                 break;
-            case "GenerateMainMenuModeSpecialcharBox":
-                rootPanel = (JComponent) eCheckBox.getParent();
-                if(eCheckBox.isSelected()){
-                    Generate.SpecialChar = true;
-                    RSyntaxTextArea eTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "GenerateMainMenuModeSpecialcharArea"); assert eTextArea!=null;
-                    for(String s: eTextArea.getText().split("\n")){
-                        if(s.equals("")) break;
-                        if(s.length()!=1){
-                            eTextArea.setText("输入错误");
-                            break;
-                        }else{
-                            Generate.SpecialCharList.add(s);
-                        }
-                    }
-                }else{
-                    Generate.SpecialChar = false;
-                }
-                break;
-            case "GenerateMainMenuModeDigital4Box":
-                if(eCheckBox.isSelected()){
-                    rootPanel = (JComponent) eCheckBox.getParent();
-                    closeCheckBox(rootPanel, Helper.getComponentPos(rootPanel, eCheckBoxName));
-                    Generate.Digital4Suffix = true;
-                    eField = (JTextField) Helper.getComponent(rootPanel, "GenerateMainMenuModeDateField");assert eField!=null;
-                    Generate.YearStart = eField.getText().split("-")[0];
-                    Generate.YearEnd = eField.getText().split("-")[1];
-                }else{
-                    Generate.Digital4Suffix = false;
-                    Generate.YearStart = "1950";
-                    Generate.YearEnd = "2022";
-                }
 
-                break;
-            case "GenerateMainMenuModeDigital6Box":
-                if(eCheckBox.isSelected()){
-                    rootPanel = (JComponent) eCheckBox.getParent();
-                    closeCheckBox(rootPanel, Helper.getComponentPos(rootPanel, eCheckBoxName));
-                    Generate.Digital6Suffix = true;
-                    eField = (JTextField) Helper.getComponent(rootPanel, "GenerateMainMenuModeDateField");assert eField!=null;
-                    Generate.YearStart = eField.getText().split("-")[0];
-                    Generate.YearEnd = eField.getText().split("-")[1];
-                }else{
-                    Generate.Digital6Suffix = false;
-                    Generate.YearStart = "1950";
-                    Generate.YearEnd = "2022";
-                }
-
-                break;
-            case "GenerateMainMenuModeDigital8Box":
-                if(eCheckBox.isSelected()){
-                    rootPanel = (JComponent) eCheckBox.getParent();
-                    closeCheckBox(rootPanel, Helper.getComponentPos(rootPanel, eCheckBoxName));
-                    Generate.Digital8Suffix = true;
-                    eField = (JTextField) Helper.getComponent(rootPanel, "GenerateMainMenuModeDateField");assert eField!=null;
-                    Generate.YearStart = eField.getText().split("-")[0];
-                    Generate.YearEnd = eField.getText().split("-")[1];
-                }else{
-                    Generate.Digital8Suffix = false;
-                    Generate.YearStart = "1950";
-                    Generate.YearEnd = "2022";
-                }
-                break;
         }
     }
     public void closeCheckBox(JComponent rootComponent, int pos){

@@ -6,7 +6,6 @@ import jrcet.frame.Setting.Setting;
 import jrcet.frame.Tools.Captcha.CaptchaComponent;
 import jrcet.frame.Tools.Dencrypt.DencryptComponent;
 import jrcet.frame.Tools.HText.HTextComponent;
-import jrcet.frame.Tools.Password.PasswordComponent;
 import jrcet.frame.Tools.RScript.RScriptComponent;
 
 import javax.swing.*;
@@ -18,7 +17,6 @@ public class ToolsComponent extends DiyJComponent {
     private final JComponent DencryptComponentPanel = DencryptComponentPanel();
 
     private final JComponent HTextComponentPanel = HTextComponentPanel();
-    private final JComponent PasswordComponentPanel = PasswordComponentPanel();
 
     private final JComponent CaptchaComponentPanel = CaptchaComponentPanel();
 
@@ -32,16 +30,6 @@ public class ToolsComponent extends DiyJComponent {
 
         ToolsComponentPanel.add(ToolsMenuTabPanel(), new GridBagConstraints(
                 0,0,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        ToolsComponentPanel.add(ToolsMenuTabBorderPanel(),new GridBagConstraints(
-                1,0,
                 1,1,
                 1,0,
                 GridBagConstraints.CENTER,
@@ -65,16 +53,8 @@ public class ToolsComponent extends DiyJComponent {
 
     private JComponent ToolsMenuTabPanel(){
 
-        JPanel ToolsMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+        JPanel ToolsMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
         ToolsMenuTabPanel.setName("ToolsMenuTabPanel");
-        ToolsMenuTabPanel.setOpaque(false);
-        ToolsMenuTabPanel.setBackground(Color.WHITE);
-
-
-        DiyJTabLabel ToolsMenuPasswordLabel = new DiyJTabLabel("Password");
-        ToolsMenuPasswordLabel.setName("ToolsMenuPasswordLabel");
-        ToolsMenuPasswordLabel.setPanel(PasswordComponentPanel);
-        ToolsMenuTabPanel.add(ToolsMenuPasswordLabel);
 
         DiyJTabLabel ToolsMenuDencryptLabel = new DiyJTabLabel("Dencrypt");
         ToolsMenuDencryptLabel.setName("ToolsMenuDencryptLabel");
@@ -99,38 +79,19 @@ public class ToolsComponent extends DiyJComponent {
         return ToolsMenuTabPanel;
     }
 
-    /*
-        补足toolsMenuPanel的下边框，无其他实际作用。
-     */
-    private JComponent ToolsMenuTabBorderPanel(){
-        JPanel ToolsMenuTabBorderPanel = new JPanel();
-        ToolsMenuTabBorderPanel.setName("ToolsMenuTabBorderPanel");
-        ToolsMenuTabBorderPanel.setOpaque(false);
-        ToolsMenuTabBorderPanel.setBackground(Color.WHITE);
-        ToolsMenuTabBorderPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0,new Color(203,208,209)));
-        return ToolsMenuTabBorderPanel;
-    }
-
     private JComponent ToolsShowPanel(){
-        JComponent showPanel = new JPanel();
+
         switch (Setting.ToolsShowPanel){
-            case "Password":
-                showPanel = PasswordComponentPanel;
-                break;
             case "Dencrypt":
-                showPanel = DencryptComponentPanel;
-                break;
+                return DencryptComponentPanel;
             case "RScript":
-                showPanel = RScriptComponentPanel;
-                break;
+                return  RScriptComponentPanel;
             case "HText":
-                showPanel = HTextComponentPanel;
-                break;
+                return HTextComponentPanel;
             case "Captcha":
-                showPanel = CaptchaComponentPanel;
-                break;
+                return  CaptchaComponentPanel;
         }
-        return showPanel;
+        return new JPanel();
     }
 
     private JComponent DencryptComponentPanel(){
@@ -150,9 +111,6 @@ public class ToolsComponent extends DiyJComponent {
         DiyJComponent HTextComponentPanelInstance = new HTextComponent();
         JComponent HTextComponentPanel = HTextComponentPanelInstance.main();
         return HTextComponentPanel;
-    }
-    private JComponent PasswordComponentPanel(){
-        return new PasswordComponent().main();
     }
 
     private JComponent CaptchaComponentPanel(){

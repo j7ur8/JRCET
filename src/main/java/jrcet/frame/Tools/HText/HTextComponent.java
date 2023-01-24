@@ -54,7 +54,7 @@ public class HTextComponent extends DiyJComponent {
     }
 
     public JComponent HTextMenuTabPanel(){
-        JPanel HTextMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        JPanel HTextMenuTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
         HTextMenuTabPanel.setName("HTextMenuTabPanel");
 
         DiyJTabLabel HTextMenuAloneLabel = new DiyJTabLabel("Alone");
@@ -97,44 +97,30 @@ public class HTextComponent extends DiyJComponent {
         HTextMenuLenLabel.setPanel(LenComponentPanel);
         HTextMenuTabPanel.add(HTextMenuLenLabel);
 
-        for(Component label : HTextMenuTabPanel.getComponents()){
-            label.setFont(new Font("微软雅黑", Font.PLAIN,12));
-            label.setPreferredSize(new Dimension(50,20));
-        }
-
         return HTextMenuTabPanel;
     }
 
 
     private JComponent HTextShowPanel(){
-        JComponent showPanel = new JPanel();
         switch (Setting.HTextShowPanel){
             case "Alone":
-                showPanel = AloneComponentPanel;
-                break;
+                return AloneComponentPanel;
             case "Sort":
-                showPanel = SortComponentPanel;
-                break;
+                return SortComponentPanel;
             case "Parsepy":
-                showPanel = ParsepyComponentPanel;
-                break;
+                return ParsepyComponentPanel;
             case "Case":
-                showPanel = CaseComponentPanel;
-                break;
+                return CaseComponentPanel;
             case "Format":
-                showPanel = FormattingComponentPanel;
-                break;
+                return FormattingComponentPanel;
             case "IPUnit":
-                showPanel = IPUnitComponentPanel;
-                break;
+                return IPUnitComponentPanel;
             case "Regex":
-                showPanel = RegexComponentPanel;
-                break;
+                return RegexComponentPanel;
             case "Len":
-                showPanel = LenComponentPanel;
-                break;
+                return LenComponentPanel;
         }
-        return showPanel;
+        return new JPanel();
     }
     public JComponent AloneComponentPanel(){
         return new AloneComponent().main();

@@ -7,7 +7,6 @@ import jrcet.frame.Tools.HText.Format.FormatComponent;
 import jrcet.frame.Tools.HText.IPUnit.IPUnitComponent;
 import jrcet.frame.Tools.HText.Len.LenComponent;
 import jrcet.frame.Tools.HText.Regex.RegexComponent;
-import jrcet.frame.Tools.Password.Generate.GenerateComponent;
 import jrcet.help.Helper;
 import jrcet.frame.Tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.Tools.Dencrypt.Ascii.AsciiComponent;
@@ -89,7 +88,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             DiyJAddLabel nStickerLabel = setNewStickerLabel(repairedName, eTagTabPanel);
             nStickerLabel.mousePressed(new MouseEvent(nStickerLabel,e.getID(),e.getWhen(),e.getModifiers(),e.getX(),e.getY(),e.getClickCount(),e.isPopupTrigger()));
         }else{
-
             eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0, orange)));
             changeMainPanelBySticker(repairedName, eIndex);
         }
@@ -139,11 +137,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
                 tGMap = AsciiComponent.ComponentConstraintHashMap;
                 tPanel = AsciiComponent.AsciiComponentPanel;
                 tCMap = AsciiComponent.MainPanelHashMap;
-                break;
-            case "Generate":
-                tGMap = GenerateComponent.ComponentConstraintHashMap;
-                tPanel = GenerateComponent.GenerateComponentPanel;
-                tCMap = GenerateComponent.MainPanelHashMap;
                 break;
             case "Format":
                 tGMap = FormatComponent.ComponentConstraintHashMap;
@@ -219,10 +212,6 @@ public class DiyJAddLabel extends JLabel implements MouseListener {
             case "Ascii":
                 nPanel = new AsciiComponent().AsciiMainPanel();
                 AsciiComponent.MainPanelHashMap.put(nIndex, nPanel);
-                break;
-            case "Generate":
-                nPanel = new GenerateComponent().GenerateMainPanel();
-                GenerateComponent.MainPanelHashMap.put(nIndex, nPanel);
                 break;
             case "Format":
                 nPanel = new FormatComponent().FormatMainPanel();

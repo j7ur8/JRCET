@@ -9,6 +9,7 @@ import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Set;
 
 public class CaptchaComponent extends DiyJComponent {
 
@@ -19,6 +20,7 @@ public class CaptchaComponent extends DiyJComponent {
         CaptchaComponentPanel = new JPanel(new GridBagLayout());
         CaptchaComponentPanel.setName("CaptchaComponentPanel");
         CaptchaComponentPanel.setBackground(Color.WHITE);
+        CaptchaComponentPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Setting.gray));
 
         CaptchaComponentPanel.add(CaptchaMainPanel(), new GridBagConstraints(
                 0,0,

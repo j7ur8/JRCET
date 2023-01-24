@@ -2,6 +2,7 @@ package jrcet.frame.Tools.Dencrypt;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.Tools.Dencrypt.Aes.Aes;
 import jrcet.frame.Tools.Dencrypt.Aes.AesComponent;
 import jrcet.frame.Tools.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.Tools.Dencrypt.Base.BaseComponent;
@@ -15,6 +16,8 @@ import jrcet.frame.Tools.Dencrypt.Url.UrlComponent;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static jrcet.frame.Setting.Setting.DencryptShowPanel;
 
 public class DencryptComponent extends DiyJComponent {
 
@@ -46,7 +49,7 @@ public class DencryptComponent extends DiyJComponent {
                 0,0
         ));
 
-        DencryptComponentPanel.add(JwtComponentPanel,new GridBagConstraints(
+        DencryptComponentPanel.add(DencryptShowPanel(),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -59,9 +62,33 @@ public class DencryptComponent extends DiyJComponent {
         return DencryptComponentPanel;
     }
 
+    private Component DencryptShowPanel() {
+        switch (DencryptShowPanel){
+            case "Aes":
+                return AesComponentPanel;
+            case "Md5":
+                return Md5ComponentPanel;
+            case "Rsa":
+                return RsaComponentPanel;
+            case "Hex":
+                return HexComponentPanel;
+            case "Jwt":
+                return JwtComponentPanel;
+            case "Url":
+                return UrlComponentPanel;
+            case "Base":
+                return BaseComponentPanel;
+            case "Ascii":
+                return AsciiComponentPanel;
+            case "Unicode":
+                return UnicodeComponentPanel;
+        }
+        return new JPanel();
+    }
+
     public JComponent DencryptMenuTabPanel(){
 
-        JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        JPanel DencryptMenuPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         DencryptMenuPanel.setName("DencryptMenuPanel");
 
         //AES
@@ -117,13 +144,6 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuUnicodeLabel.setName("DencryptMenuUnicodeLabel");
         DencryptMenuPanel.add(DencryptMenuUnicodeLabel);
 
-
-
-        //设置 Tab 的按钮属性（高宽等）
-        for(Component label : DencryptMenuPanel.getComponents()){
-            label.setFont(new Font("微软雅黑", Font.PLAIN,12));
-            label.setPreferredSize(new Dimension(50,20));
-        }
 
         return DencryptMenuPanel;
     }

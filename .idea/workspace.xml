@@ -10,111 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d62eaa-e9c4-460f-a7cf-45954ffca213" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/CaptchaComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/OCREngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/OCREngineOldImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/network/HttpClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/network/HttpService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/network/LableParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/utils/IOUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/utils/ImageUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/utils/ONNXRuntimeUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/d4/common_old.onnx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/d4/common_old_charset.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JRCET_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JRCET_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/244162c3-efce-4841-b8f8-d1398db79bc8/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/244162c3-efce-4841-b8f8-d1398db79bc8/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/244162c3-efce-4841-b8f8-d1398db79bc8/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/244162c3-efce-4841-b8f8-d1398db79bc8/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJChangeLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJChangeLabel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJCheckBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJCheckBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComboBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTabLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTabLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/TableColumnAdjuster.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AAssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/AAssetComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/Asset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/asset/AssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/AssetComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Setting/Setting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/setting/SettingComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Setting/SettingComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Aes/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Aes/Aes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Aes/AesComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Aes/AesComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Ascii/Ascii.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Ascii/Ascii.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Ascii/AsciiComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Ascii/AsciiComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Base/Base.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Base/BaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Base/BaseComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/DencryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/DencryptComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Hex/Hex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Hex/Hex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Hex/HexComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Hex/HexComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Jwt/Jwt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Jwt/Jwt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Jwt/JwtComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Jwt/JwtComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Md5/Md5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Md5/Md5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Md5/Md5Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Md5/Md5Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Rsa/Rsa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Rsa/Rsa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Rsa/RsaComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Rsa/RsaComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Unicode/Unicode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Unicode/Unicode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Unicode/UnicodeComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Unicode/UnicodeComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Url/Url.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Url/Url.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dencrypt/Url/UrlComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Url/UrlComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dominate/Domain/Domain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dominate/Domain/DomainComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Dominate/DominateComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Alone/Alone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Alone/Alone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Alone/AloneComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Alone/AloneComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Case/Case.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Case/Case.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Case/CaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Case/CaseComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/Format.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Format/Format.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Format/FormatComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Format/FormatComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/HTextComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/HTextComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/IPUnit/IPUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/IPUnit/IPUnitComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/IPUnit/IPUnitComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Len/Len.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Len/Len.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Len/LenComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Len/LenComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Parsepy/Parsepy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Parsepy/Parsepy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Parsepy/ParsepyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Parsepy/ParsepyComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Regex/Regex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Regex/Regex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Regex/RegexComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Regex/RegexComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Sort/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Sort/Sort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/HText/Sort/SortComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/Sort/SortComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Intruder/Intruder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/Intruder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Intruder/IntruderComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/IntruderComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Password/Generate/Generate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/Generate/Generate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Password/Generate/GenerateComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/Generate/GenerateComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Password/PasswordComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/RScript/RScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/RScript/RScriptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/RScript/RScriptComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Scanner/Fastjson/Fastjson.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Scanner/Fastjson/FastjsonComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Scanner/Scanner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/Scanner/ScannerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/ScannerComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/tools/ToolsComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/ToolsComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Decorate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/Decorate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/listeners/DiyFastjsonJTableListSelectionListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/jrcet/frame/tools/Password/Generate/digital-4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jrcet/frame/Tools/Password/Generate/digital-4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/jrcet/frame/tools/Password/Generate/digital-6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jrcet/frame/Tools/Password/Generate/digital-6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/jrcet/frame/tools/Password/Generate/digital-8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jrcet/frame/Tools/Password/Generate/digital-8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Setting/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Setting/Setting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/CaptchaComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/CaptchaComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/DencryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/DencryptComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/HTextComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/HText/HTextComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/Generate/Generate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/Generate/GenerateComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/ToolsComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/ToolsComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +90,7 @@
       <workItem from="1674561379702" duration="70000" />
       <workItem from="1674561460861" duration="667000" />
       <workItem from="1674566346333" duration="1001000" />
+      <workItem from="1674572810076" duration="2282000" />
     </task>
     <servers />
   </component>
