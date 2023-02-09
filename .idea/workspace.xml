@@ -11,8 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b2d62eaa-e9c4-460f-a7cf-45954ffca213" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,11 +133,27 @@
       <workItem from="1674572810076" duration="4162000" />
       <workItem from="1675071283687" duration="12912000" />
       <workItem from="1675643187719" duration="32905000" />
-      <workItem from="1675907167957" duration="7451000" />
+      <workItem from="1675907167957" duration="9700000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/JRCET$Main.ic" NAME="Main Coverage Results" MODIFIED="1675928695068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>jrcet.*</FILTER>
+    </SUITE>
   </component>
 </project>

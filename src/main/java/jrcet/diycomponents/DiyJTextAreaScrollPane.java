@@ -9,6 +9,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,7 +30,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
         textArea = new JTextArea();
         textArea.setName(name);
         textArea.setLineWrap(true);
-//        textArea.setFont(new Font("微软雅黑",Font.PLAIN,14));
+        textArea.setFont(new Font("微软雅黑",Font.PLAIN,14));
         textArea.setBorder(BorderFactory.createEmptyBorder(0,2,0,2));
         textArea.setTabSize(2);
 
@@ -78,6 +80,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
     private void setFirstLine(){
         setText(" ");
         setText("");
+        setText("");
     }
 
     public static class LineNumListModel extends AbstractListModel<Integer> {
@@ -112,22 +115,25 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
             try {
 
                 int lineRows = 1;
-                FontMetrics fontMetrics = FontDesignMetrics.getMetrics(textArea.getFont());
+                Font font = textArea.getFont();
+                AffineTransform affinetransform = new AffineTransform();
+                FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
                 int lineStartOffset = textArea.getLineStartOffset(value-1);
                 int lineEndOffset = textArea.getLineEndOffset(value-1);
                 String line = textArea.getText(lineStartOffset,lineEndOffset-lineStartOffset);
-                int lineWidth = fontMetrics.stringWidth(line);
-                int lineHeight = fontMetrics.getHeight();
+
+                int lineWidth = (int) (font.getStringBounds(line, frc).getWidth());
+                int lineHeight = (int) (font.getStringBounds(line, frc).getHeight());
                 double textAreaWidth = textArea.getSize().getWidth();
-                if(lineWidth>textAreaWidth){
+                if(textAreaWidth!=0.0&&lineWidth>textAreaWidth){
                     lineRows = (int)(lineWidth / textAreaWidth + (lineWidth % textAreaWidth != 0 ? 1 : 0));
+                    int cellHeight = lineHeight*lineRows;
+                    setVerticalAlignment(SwingConstants.TOP);
+                    setPreferredSize(new Dimension(30,cellHeight));
                 }
-                int cellHeight = lineHeight*lineRows;
-                setVerticalAlignment(SwingConstants.TOP);
-                setPreferredSize(new Dimension(30,cellHeight));
                 setText(""+value);
-            } catch (BadLocationException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return this;
         }
