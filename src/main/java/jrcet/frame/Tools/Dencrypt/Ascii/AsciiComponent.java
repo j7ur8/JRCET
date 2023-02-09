@@ -1,12 +1,10 @@
 package jrcet.frame.Tools.Dencrypt.Ascii;
 
 import jrcet.diycomponents.DiyJLabel;
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -15,6 +13,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+
+
 
 public class AsciiComponent extends DiyJComponent {
 
@@ -124,42 +124,21 @@ public class AsciiComponent extends DiyJComponent {
 
     public JComponent AsciiMainPlainScrollPane(){
 
-        RSyntaxTextArea AsciiMainPlainArea = new RSyntaxTextArea();
-        AsciiMainPlainArea.setName("AsciiMainPlainArea");
-        AsciiMainPlainArea.setText("#输入文件地址或者字符串");
-        AsciiMainPlainArea.setLineWrap(true);
-        AsciiMainPlainArea.setCodeFoldingEnabled(true);
-        AsciiMainPlainArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AsciiMainPlainArea.addKeyListener(new AsciiMainKeyListener());
+        DiyJTextAreaScrollPane AsciiMainPlainAreaScrollPane = new DiyJTextAreaScrollPane("AsciiMainPlainArea");
+        AsciiMainPlainAreaScrollPane.setText("#输入文件地址或者字符串");
+        AsciiMainPlainAreaScrollPane.addKeyListener(new AsciiMainKeyListener());
 
-        RTextScrollPane AsciiMainPlainScrollPane = new RTextScrollPane(AsciiMainPlainArea);
-        AsciiMainPlainScrollPane.setName("AsciiMainPlainScrollPane");
-        AsciiMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AsciiMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
-
-        return AsciiMainPlainScrollPane;
+        return AsciiMainPlainAreaScrollPane;
 
     }
 
     public JComponent AsciiMainCipherScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea AsciiMainCipherArea = new RSyntaxTextArea();
-        AsciiMainCipherArea.setText("#输入文件地址或者字符串");
-        AsciiMainCipherArea.setName("AsciiMainCipherArea");
-        AsciiMainCipherArea.setLineWrap(true);
-        AsciiMainCipherArea.setCodeFoldingEnabled(true);
-        AsciiMainCipherArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AsciiMainCipherArea.addKeyListener(new AsciiMainKeyListener());
+        DiyJTextAreaScrollPane AsciiMainCipherAreaScrollPane = new DiyJTextAreaScrollPane("AsciiMainCipherArea");
+        AsciiMainCipherAreaScrollPane.setText("#输入文件地址或者字符串");
+        AsciiMainCipherAreaScrollPane.addKeyListener(new AsciiMainKeyListener());
 
-        RTextScrollPane AsciiMainCipherScrollPane = new RTextScrollPane(AsciiMainCipherArea);
-        AsciiMainCipherScrollPane.setName("AsciiMainCipherScrollPane");
-        AsciiMainCipherScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AsciiMainCipherScrollPane.setPreferredSize(new Dimension(0,0));
-        AsciiMainCipherScrollPane.setBorder(null);
-
-        return AsciiMainCipherScrollPane;
+        return AsciiMainCipherAreaScrollPane;
     }
 
     public JComponent AsciiMainControlPanel(){
@@ -400,19 +379,19 @@ public class AsciiComponent extends DiyJComponent {
         public void keyReleased(KeyEvent e) {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 JTextField separatorField = null;
                 JTextField separator2Field = null;
                 JComponent rootPanel = (JComponent) eArea.getParent().getParent().getParent();
                 if ("AsciiMainPlainArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainCipherArea"); assert outputArea != null;
+                    outputArea = (JTextArea) Helper.getComponent(rootPanel, "AsciiMainCipherArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert separatorField!=null;
                     separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Ascii.encrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
                 }
 
                 if ("AsciiMainCipherArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "AsciiMainPlainArea"); assert outputArea != null;
+                    outputArea = (JTextArea) Helper.getComponent(rootPanel, "AsciiMainPlainArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlCipherSeparatorField"); assert separatorField!=null;
                     separator2Field= (JTextField) Helper.getComponent(rootPanel, "AsciiMainControlPlainSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Ascii.decrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));

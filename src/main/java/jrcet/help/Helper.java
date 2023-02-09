@@ -66,7 +66,7 @@ public class Helper {
                 case "JList":
                 case "JTable":
                 case "DiyJComboBox":
-                case "RSyntaxTextArea":
+                case "JTextArea":
                     JComponent cj = getComponent((JComponent) i,tComponentName);
                     if(cj!=null) return cj;
                     break;
@@ -75,7 +75,7 @@ public class Helper {
                     JComponent cd = getComponent(getRenderedComponent(i),tComponentName);
                     if(cd!=null) return cd;
                     break;
-                case "RTextScrollPane":
+                case "DiyJTextAreaScrollPane":
                 case "JScrollPane":
                     JComponent cs = getComponent((JComponent) ((JScrollPane)i).getViewport().getView(),tComponentName);
                     if(cs!=null) return cs;
@@ -110,7 +110,7 @@ public class Helper {
                     travelComponent(c);
                     deep-=2;
                     break;
-                case "RTextScrollPane":
+                case "DiyJTextAreaScrollPane":
                 case "JScrollPane":
                     JComponent viewPanel = (JComponent) ((JScrollPane)i).getViewport().getComponent(0);
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+viewPanel.getName()+"("+i.getName()+")");
@@ -626,18 +626,12 @@ public class Helper {
         return byteRes;
     }
 
-    public static String matchByRegular(String str,String reg){
+    public static String matchByRegular(String str, String reg){
         String res = "";
-        int start = 0;
-        int end = 0;
-        Pattern r = Pattern.compile(reg);
+        Pattern r = Pattern.compile(reg, Pattern.DOTALL);
         Matcher m = r.matcher(str);
         if (m.find()) {
             res = m.group(1);//0会获取多余的内容
-            start = m.start();
-            int n = str.substring(start,str.length()).indexOf(res);
-            start += n;
-            end = start + res.length();
         }
         return res;
     }

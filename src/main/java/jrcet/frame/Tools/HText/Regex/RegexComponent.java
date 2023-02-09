@@ -1,9 +1,9 @@
 package jrcet.frame.Tools.HText.Regex;
 
 import jrcet.diycomponents.*;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+
+
+
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -109,19 +109,10 @@ public class RegexComponent extends DiyJComponent {
     }
 
     public JComponent RegexMainInputAreaScrollPane(){
-        RSyntaxTextArea RegexMainInputArea = new RSyntaxTextArea();
-        RegexMainInputArea.setName("RegexMainInputArea");
-        RegexMainInputArea.setCodeFoldingEnabled(true);
-        RegexMainInputArea.setLineWrap(true);
-        RegexMainInputArea.setText("#请输入文件路径或\\n分割的字符串...");
-        RegexMainInputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        RegexMainInputArea.addKeyListener(new RegexMainInputAreaKeyListener());
+        DiyJTextAreaScrollPane RegexMainInputAreaScrollPane = new DiyJTextAreaScrollPane("RegexMainInputArea");
 
-        RTextScrollPane RegexMainInputAreaScrollPane = new RTextScrollPane(RegexMainInputArea);
-        RegexMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        RegexMainInputAreaScrollPane.setName("RegexMainInputAreaScrollPane");
-        RegexMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        RegexMainInputAreaScrollPane.setBorder(null);
+        RegexMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+        RegexMainInputAreaScrollPane.addKeyListener(new RegexMainInputAreaKeyListener());
 
         return  RegexMainInputAreaScrollPane;
     }
@@ -182,7 +173,7 @@ public class RegexComponent extends DiyJComponent {
 
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                RSyntaxTextArea eTextArea = (RSyntaxTextArea) e.getSource();
+                JTextArea eTextArea = (JTextArea) e.getSource();
                 JComponent rootPanel = (JComponent) eTextArea.getParent().getParent().getParent();
                 JTextField eTextField = (JTextField) Helper.getComponent(rootPanel, "RegexMainControlRegexField"); assert eTextField!=null;
 

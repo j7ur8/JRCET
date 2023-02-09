@@ -1,9 +1,9 @@
 package jrcet.frame.Tools.HText.Parsepy;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+
+
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class ParsepyComponent extends DiyJComponent {
         ParsepyMainPanel.setBackground(Color.WHITE);
         ParsepyMainPanel.setPreferredSize(new Dimension(0,0));
 
-        ParsepyMainPanel.add(ParsepyMainBorderPanel(),new GridBagConstraints(
+        ParsepyMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 0.2,1,
@@ -62,7 +62,7 @@ public class ParsepyComponent extends DiyJComponent {
                 0,0
         ));
 
-        ParsepyMainPanel.add(ParsepyMainBorderPanel(),new GridBagConstraints(
+        ParsepyMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
                 2,0,
                 1,1,
                 0.2,1,
@@ -76,27 +76,13 @@ public class ParsepyComponent extends DiyJComponent {
     }
 
     public JComponent ParsepyMainInputAreaScrollPane(){
-        RSyntaxTextArea ParsepyMainInputArea = new RSyntaxTextArea();
-        ParsepyMainInputArea.setName("ParsepyMainInputArea");
-        ParsepyMainInputArea.setCodeFoldingEnabled(true);
-        ParsepyMainInputArea.setLineWrap(true);
-        ParsepyMainInputArea.setText("#请输入文件路径或\\n分割的字符串...");
-        ParsepyMainInputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        ParsepyMainInputArea.addKeyListener(new ParsepyMainInputAreaKeyListener());
+        DiyJTextAreaScrollPane ParsepyMainInputAreaScrollPane = new DiyJTextAreaScrollPane("ParsepyMainInputArea");
 
-        RTextScrollPane ParsepyMainInputAreaScrollPane = new RTextScrollPane(ParsepyMainInputArea);
-        ParsepyMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        ParsepyMainInputAreaScrollPane.setName("ParsepyMainInputAreaScrollPane");
-        ParsepyMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        ParsepyMainInputAreaScrollPane.setBorder(null);
+        ParsepyMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+
+        ParsepyMainInputAreaScrollPane.addKeyListener(new ParsepyMainInputAreaKeyListener());
 
         return  ParsepyMainInputAreaScrollPane;
-    }
-    public JComponent ParsepyMainBorderPanel(){
-        JPanel ParsepyMainBorderPanel = new JPanel();
-        ParsepyMainBorderPanel.setName("ParsepyMainBorderPanel");
-
-        return ParsepyMainBorderPanel;
     }
 
     static class ParsepyMainInputAreaKeyListener implements KeyListener {
@@ -115,9 +101,9 @@ public class ParsepyComponent extends DiyJComponent {
         public void keyReleased(KeyEvent e) {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 if ("ParsepyMainInputArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "ParsepyMainInputArea");
+                    outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "ParsepyMainInputArea");
                     assert outputArea != null;
                     outputArea.setText(Parsepy.getPYInitial(eArea.getText()));
                     outputArea.updateUI();

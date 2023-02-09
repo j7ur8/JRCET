@@ -7,9 +7,11 @@ package jrcet.help.d4ocr.network;
 import burp.BurpExtender;
 import burp.IHttpRequestResponse;
 import burp.IRequestInfo;
+import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.help.Helper;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -147,11 +149,14 @@ public class HttpClient {
     }
 
 
-    public byte[] doRequest(){
+    public String doRequest(){
         byte[] req = raw.getBytes();
         try {
             IHttpRequestResponse reqrsp = BurpExtender.callbacks.makeHttpRequest(service, req);
-            return reqrsp.getResponse();
+
+            String responseText = new String(reqrsp.getResponse(), StandardCharsets.ISO_8859_1);
+            Captcha.responseText=responseText.substring(responseText.indexOf("\r\n\r\n")+4).getBytes(StandardCharsets.ISO_8859_1);
+            return responseText;
         }catch (Exception e){
             e.printStackTrace();
             BurpExtender.stdout.println(e);

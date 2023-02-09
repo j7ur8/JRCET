@@ -1,9 +1,6 @@
 package jrcet.frame.Tools.HText.IPUnit;
 
 import jrcet.diycomponents.*;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -16,7 +13,6 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 public class IPUnitComponent extends DiyJComponent {
-
 
     public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
@@ -113,19 +109,10 @@ public class IPUnitComponent extends DiyJComponent {
     }
 
     public JComponent IPUnitMainInputAreaScrollPane(){
-        RSyntaxTextArea IPUnitMainInputArea = new RSyntaxTextArea();
-        IPUnitMainInputArea.setName("IPUnitMainInputArea");
-        IPUnitMainInputArea.setCodeFoldingEnabled(true);
-        IPUnitMainInputArea.setLineWrap(true);
-        IPUnitMainInputArea.setText("#请输入文件路径或\\n分割的字符串...");
-        IPUnitMainInputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        IPUnitMainInputArea.addKeyListener(new IPUnitMainInputAreaKeyListener());
+        DiyJTextAreaScrollPane IPUnitMainInputAreaScrollPane = new DiyJTextAreaScrollPane("IPUnitMainInputArea");
 
-        RTextScrollPane IPUnitMainInputAreaScrollPane = new RTextScrollPane(IPUnitMainInputArea);
-        IPUnitMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        IPUnitMainInputAreaScrollPane.setName("IPUnitMainInputAreaScrollPane");
-        IPUnitMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        IPUnitMainInputAreaScrollPane.setBorder(null);
+        IPUnitMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+        IPUnitMainInputAreaScrollPane.addKeyListener(new IPUnitMainInputAreaKeyListener());
 
         return  IPUnitMainInputAreaScrollPane;
     }
@@ -188,7 +175,7 @@ public class IPUnitComponent extends DiyJComponent {
         public void keyReleased(KeyEvent e) {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                RSyntaxTextArea eTextArea = (RSyntaxTextArea) e.getSource();
+                JTextArea eTextArea = (JTextArea) e.getSource();
                 eTextArea.setText(IPUnit.handle(eTextArea.getText()));
             }
         }

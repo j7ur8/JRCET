@@ -2,9 +2,9 @@ package jrcet.frame.Tools.Captcha;
 
 import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+
+
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -103,18 +103,10 @@ public class CaptchaComponent extends DiyJComponent {
         ));
 
         //CaptchaMainCaptchaRequestAreaScrollPane
-        RSyntaxTextArea CaptchaMainCaptchaRequestArea = new RSyntaxTextArea();
-        CaptchaMainCaptchaRequestArea.setName("CaptchaMainCaptchaRequestArea");
-        CaptchaMainCaptchaRequestArea.setCodeFoldingEnabled(true);
-        CaptchaMainCaptchaRequestArea.setLineWrap(true);
-        CaptchaMainCaptchaRequestArea.setText("#请输入请求数据包...");
-        CaptchaMainCaptchaRequestArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+        DiyJTextAreaScrollPane CaptchaMainCaptchaRequestAreaScrollPane = new DiyJTextAreaScrollPane("CaptchaMainCaptchaRequestArea");
 
-        RTextScrollPane CaptchaMainCaptchaRequestAreaScrollPane = new RTextScrollPane(CaptchaMainCaptchaRequestArea);
-        CaptchaMainCaptchaRequestAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        CaptchaMainCaptchaRequestAreaScrollPane.setName("CaptchaMainCaptchaRequestAreaScrollPane");
-        CaptchaMainCaptchaRequestAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        CaptchaMainCaptchaRequestAreaScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
+        CaptchaMainCaptchaRequestAreaScrollPane.setText("#请输入请求数据包...");
+
 
         //CaptchaMainCaptchaResponseMenuPanel
         JComponent CaptchaMainCaptchaResponseMenuPanel = new JPanel(new GridBagLayout());
@@ -126,6 +118,19 @@ public class CaptchaComponent extends DiyJComponent {
         CaptchaMainCaptchaResponseMenuRuleLabel.setName("CaptchaMainCaptchaResponseMenuRuleLabel");
         JTextField CaptchaMainCaptchaResponseMenuRuleFiled = new JTextField("");
         CaptchaMainCaptchaResponseMenuRuleFiled.setName("CaptchaMainCaptchaResponseMenuRuleFiled");
+        CaptchaMainCaptchaResponseMenuRuleFiled.setPreferredSize(new Dimension(0,0));
+
+        JLabel CaptchaMainCaptchaResponseMenuRule1Label = new JLabel("Rule1: ");
+        CaptchaMainCaptchaResponseMenuRule1Label.setName("CaptchaMainCaptchaResponseMenuRule1Label");
+        JTextField CaptchaMainCaptchaResponseMenuRule1Filed = new JTextField("");
+        CaptchaMainCaptchaResponseMenuRule1Filed.setName("CaptchaMainCaptchaResponseMenuRule1Filed");
+        CaptchaMainCaptchaResponseMenuRule1Filed.setPreferredSize(new Dimension(0,0));
+
+        JLabel CaptchaMainCaptchaResponseMenuStrLabel = new JLabel("Str: ");
+        CaptchaMainCaptchaResponseMenuStrLabel.setName("CaptchaMainCaptchaResponseMenuStrLabel");
+        JTextField CaptchaMainCaptchaResponseMenuStrField = new JTextField("");
+        CaptchaMainCaptchaResponseMenuStrField.setName("CaptchaMainCaptchaResponseMenuStrField");
+        CaptchaMainCaptchaResponseMenuStrField.setPreferredSize(new Dimension(0,0));
 
         CaptchaMainCaptchaResponseMenuPanel.add(CaptchaMainCaptchaResponseMenuRuleLabel, new GridBagConstraints(
                 0,0,
@@ -147,20 +152,47 @@ public class CaptchaComponent extends DiyJComponent {
                 0,0
         ));
 
+        CaptchaMainCaptchaResponseMenuPanel.add(CaptchaMainCaptchaResponseMenuRule1Label, new GridBagConstraints(
+                2,0,
+                1,1,
+                0,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        CaptchaMainCaptchaResponseMenuPanel.add(CaptchaMainCaptchaResponseMenuRule1Filed, new GridBagConstraints(
+                3,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        CaptchaMainCaptchaResponseMenuPanel.add(CaptchaMainCaptchaResponseMenuStrLabel, new GridBagConstraints(
+                4,0,
+                1,1,
+                0,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        CaptchaMainCaptchaResponseMenuPanel.add(CaptchaMainCaptchaResponseMenuStrField, new GridBagConstraints(
+                5,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
         //CaptchaMainCaptchaResponseAreaScrollPane
-        RSyntaxTextArea CaptchaMainCaptchaResponseArea = new RSyntaxTextArea();
-        CaptchaMainCaptchaResponseArea.setName("CaptchaMainCaptchaResponseArea");
-        CaptchaMainCaptchaResponseArea.setCodeFoldingEnabled(true);
-        CaptchaMainCaptchaResponseArea.setLineWrap(true);
-        CaptchaMainCaptchaResponseArea.setText("#返回包数据...");
-        CaptchaMainCaptchaResponseArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-
-        RTextScrollPane CaptchaMainCaptchaResponseAreaScrollPane = new RTextScrollPane(CaptchaMainCaptchaResponseArea);
-        CaptchaMainCaptchaResponseAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        CaptchaMainCaptchaResponseAreaScrollPane.setName("CaptchaMainResponseAreaScrollPane");
-        CaptchaMainCaptchaResponseAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        CaptchaMainCaptchaResponseAreaScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
+        DiyJTextAreaScrollPane CaptchaMainCaptchaResponseAreaScrollPane = new DiyJTextAreaScrollPane("CaptchaMainCaptchaResponseArea");
 
         CaptchaMainCaptchaPanel.add(CaptchaMainCaptchaRequestMenuPanel, new GridBagConstraints(
                 0,0,
@@ -212,10 +244,8 @@ public class CaptchaComponent extends DiyJComponent {
         CaptchaMainCaptchaImageMenuIdentifyButton.setPreferredSize(new Dimension(120,0));
         CaptchaMainCaptchaImageMenuIdentifyButton.setName("CaptchaMainCaptchaImageMenuIdentifyButton");
 
-
-        JComponent CaptchaMainCaptchaImageMenuResultPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,2,2));
+        JComponent CaptchaMainCaptchaImageMenuResultPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,20,3));
         CaptchaMainCaptchaImageMenuResultPanel.setName("CaptchaMainCaptchaImageMenuResultPanel");
-//        CaptchaMainCaptchaImageMenuResultPanel.setBackground(Color.GRAY);
 
         CaptchaMainCaptchaImageMenuPanel.add(CaptchaMainCaptchaImageMenuImageLabel, new GridBagConstraints(
                 0,0,
@@ -246,18 +276,7 @@ public class CaptchaComponent extends DiyJComponent {
                 0,0
         ));
 
-        RSyntaxTextArea CaptchaMainCaptchaImageArea = new RSyntaxTextArea();
-        CaptchaMainCaptchaImageArea.setName("CaptchaMainCaptchaImageArea");
-        CaptchaMainCaptchaImageArea.setCodeFoldingEnabled(true);
-        CaptchaMainCaptchaImageArea.setLineWrap(true);
-        CaptchaMainCaptchaImageArea.setText("#图片信息");
-        CaptchaMainCaptchaImageArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
-
-        RTextScrollPane CaptchaMainCaptchaImageAreaScrollPane = new RTextScrollPane(CaptchaMainCaptchaImageArea);
-        CaptchaMainCaptchaImageAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        CaptchaMainCaptchaImageAreaScrollPane.setName("CaptchaMainCaptchaImageAreaScrollPane");
-        CaptchaMainCaptchaImageAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        CaptchaMainCaptchaImageAreaScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Setting.gray));
+        DiyJTextAreaScrollPane CaptchaMainCaptchaImageAreaScrollPane = new DiyJTextAreaScrollPane("CaptchaMainCaptchaImageArea");
 
         CaptchaMainCaptchaPanel.add(CaptchaMainCaptchaImageMenuPanel,new GridBagConstraints(
                 0,2,

@@ -3,9 +3,10 @@
     <output-path>$PROJECT_DIR$/out/artifacts/JRCET_jar</output-path>
     <root id="archive" name="JRCET.jar">
       <element id="module-output" name="JRCET" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/onnxruntime/onnxruntime/1.11.0/onnxruntime-1.11.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/portswigger/burp/extender/burp-extender-api/2.3/burp-extender-api-2.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.76/fastjson-1.2.76.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/microsoft/onnxruntime/onnxruntime/1.11.0/onnxruntime-1.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fifesoft/rsyntaxtextarea/3.3.2/rsyntaxtextarea-3.3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/alibaba/fastjson/1.2.83/fastjson-1.2.83.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

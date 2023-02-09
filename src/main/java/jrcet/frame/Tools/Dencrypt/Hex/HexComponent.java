@@ -1,12 +1,10 @@
 package jrcet.frame.Tools.Dencrypt.Hex;
 
 import jrcet.diycomponents.DiyJLabel;
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -15,6 +13,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+
+
 
 public class HexComponent extends DiyJComponent {
 
@@ -127,42 +127,21 @@ public class HexComponent extends DiyJComponent {
 
     public JComponent HexMainPlainScrollPane(){
 
-        RSyntaxTextArea HexMainPlainArea = new RSyntaxTextArea();
-        HexMainPlainArea.setName("HexMainPlainArea");
-        HexMainPlainArea.setText("#输入文件地址或者字符串");
-        HexMainPlainArea.setLineWrap(true);
-        HexMainPlainArea.setCodeFoldingEnabled(true);
-        HexMainPlainArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        HexMainPlainArea.addKeyListener(new HexMainKeyListener());
+        DiyJTextAreaScrollPane HexMainPlainAreaScrollPane = new DiyJTextAreaScrollPane("HexMainPlainArea");
+        HexMainPlainAreaScrollPane.setText("#输入文件地址或者字符串");
+        HexMainPlainAreaScrollPane.addKeyListener(new HexMainKeyListener());
 
-        RTextScrollPane HexMainPlainScrollPane = new RTextScrollPane(HexMainPlainArea);
-        HexMainPlainScrollPane.setName("HexMainPlainScrollPane");
-        HexMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        HexMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
-        HexMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
-
-        return HexMainPlainScrollPane;
+        return HexMainPlainAreaScrollPane;
 
     }
 
     public JComponent HexMainCipherScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea HexMainCipherArea = new RSyntaxTextArea();
-        HexMainCipherArea.setText("#输入文件地址或者字符串");
-        HexMainCipherArea.setName("HexMainCipherArea");
-        HexMainCipherArea.setLineWrap(true);
-        HexMainCipherArea.setCodeFoldingEnabled(true);
-        HexMainCipherArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        HexMainCipherArea.addKeyListener(new HexMainKeyListener());
+        DiyJTextAreaScrollPane HexMainCipherAreaScrollPane = new DiyJTextAreaScrollPane("HexMainCipherArea");
+        HexMainCipherAreaScrollPane.setText("#输入文件地址或者字符串");
+        HexMainCipherAreaScrollPane.addKeyListener(new HexMainKeyListener());
 
-        RTextScrollPane HexMainCipherScrollPane = new RTextScrollPane(HexMainCipherArea);
-        HexMainCipherScrollPane.setName("HexMainCipherScrollPane");
-        HexMainCipherScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        HexMainCipherScrollPane.setPreferredSize(new Dimension(0,0));
-        HexMainCipherScrollPane.setBorder(null);
-
-        return HexMainCipherScrollPane;
+        return HexMainCipherAreaScrollPane;
     }
 
     public JComponent HexMainControlPanel(){
@@ -403,19 +382,19 @@ public class HexComponent extends DiyJComponent {
         public void keyReleased(KeyEvent e) {
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 JTextField separatorField = null;
                 JTextField separator2Field = null;
                 JComponent rootPanel = (JComponent) eArea.getParent().getParent().getParent();
                 if ("HexMainPlainArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "HexMainCipherArea"); assert outputArea != null;
+                    outputArea = (JTextArea) Helper.getComponent(rootPanel, "HexMainCipherArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert separatorField!=null;
                     separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Hex.encrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
                 }
 
                 if ("HexMainCipherArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "HexMainPlainArea"); assert outputArea != null;
+                    outputArea = (JTextArea) Helper.getComponent(rootPanel, "HexMainPlainArea"); assert outputArea != null;
                     separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert separatorField!=null;
                     separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separator2Field!=null;
                     outputArea.setText(Hex.decrypt(eArea.getText(), separator2Field.getText(), separatorField.getText()));

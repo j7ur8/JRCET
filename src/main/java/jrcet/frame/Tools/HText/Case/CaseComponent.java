@@ -1,9 +1,6 @@
 package jrcet.frame.Tools.HText.Case;
 
 import jrcet.diycomponents.*;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -13,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Locale;
+
+
 
 public class CaseComponent extends DiyJComponent {
 
@@ -123,34 +122,23 @@ public class CaseComponent extends DiyJComponent {
     }
 
     public JComponent CaseMainPlainAreaScrollPane(){
-        RSyntaxTextArea CaseMainPlainArea = new RSyntaxTextArea();
-        CaseMainPlainArea.setName("CaseMainPlainArea");
-        CaseMainPlainArea.setCodeFoldingEnabled(true);
-        CaseMainPlainArea.setLineWrap(true);
-        CaseMainPlainArea.setText("#请输入文件路径或\\n分割的字符串...");
-        CaseMainPlainArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        CaseMainPlainArea.addKeyListener(new CaseMainPlainAreaKeyListener());
-
-        RTextScrollPane CaseMainPlainAreaScrollPane = new RTextScrollPane(CaseMainPlainArea);
-        CaseMainPlainAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        CaseMainPlainAreaScrollPane.setName("CaseMainPlainAreaScrollPane");
-        CaseMainPlainAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        CaseMainPlainAreaScrollPane.setBorder(null);
-
+        DiyJTextAreaScrollPane CaseMainPlainAreaScrollPane = new DiyJTextAreaScrollPane("CaseMainPlainArea");
+        CaseMainPlainAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+        CaseMainPlainAreaScrollPane.addKeyListener(new CaseMainPlainAreaKeyListener());
         return  CaseMainPlainAreaScrollPane;
     }
 
     public JComponent CaseMainCipherAreaScrollPane(){
-        RSyntaxTextArea CaseMainCipherArea = new RSyntaxTextArea();
+        JTextArea CaseMainCipherArea = new JTextArea();
         CaseMainCipherArea.setName("CaseMainCipherArea");
-        CaseMainCipherArea.setCodeFoldingEnabled(true);
+
         CaseMainCipherArea.setLineWrap(true);
         CaseMainCipherArea.setText("#请输入文件路径或\\n分割的字符串...");
-        CaseMainCipherArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+
         CaseMainCipherArea.addKeyListener(new CaseMainPlainAreaKeyListener());
 
-        RTextScrollPane CaseMainCipherAreaScrollPane = new RTextScrollPane(CaseMainCipherArea);
-        CaseMainCipherAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane CaseMainCipherAreaScrollPane = new JScrollPane(CaseMainCipherArea);
+        CaseMainCipherAreaScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         CaseMainCipherAreaScrollPane.setName("CaseMainPlainAreaScrollPane");
         CaseMainCipherAreaScrollPane.setPreferredSize(new Dimension(0,0));
         CaseMainCipherAreaScrollPane.setBorder(null);

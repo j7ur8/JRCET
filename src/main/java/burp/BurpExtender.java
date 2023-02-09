@@ -5,7 +5,6 @@ package burp;
 import jrcet.frame.Intruder.Intruder;
 
 import jrcet.frame.Jrcet;
-import jrcet.help.ShutdownThread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,6 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public static PrintWriter errors;
 
     public BurpExtender(){
-        Runtime.getRuntime().addShutdownHook(new ShutdownThread());
     }
 
     @Override
@@ -32,7 +30,6 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         stdout = new PrintWriter(callbacks.getStdout(), true);
         errors = new PrintWriter(callbacks.getStderr(), true);
         helpers = callbacks.getHelpers();
-
 
         callbacks.addSuiteTab(this);
         callbacks.setExtensionName("JRCET");
@@ -82,12 +79,9 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
 
         String newPayload = "";
-        if(Arrays.equals(currentPayload, "captcha".getBytes())){
-            newPayload = Intruder.invokeCaptcha(currentPayload);
-        }else{
-            newPayload = Intruder.invokeIntruder(currentPayload);
-        }
-//        stdout.println(newPayload);
+
+        newPayload = Intruder.invokeDiy(currentPayload);
+
         return helpers.stringToBytes(newPayload);
     }
 

@@ -1,11 +1,11 @@
 package jrcet.diycomponents;
 
 import burp.BurpExtender;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
 import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.help.Helper;
 import jrcet.help.d4ocr.OCREngine;
+
 
 
 import javax.imageio.ImageIO;
@@ -22,7 +22,9 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 
@@ -93,101 +95,13 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         String text;
         String[][] result;
         switch (eButtonName) {
-//            case "NAssetMainHistoryIpButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddIpField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "NAssetMainHistoryPortButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddPortField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "NAssetMainHistoryServiceButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddServiceField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "NAssetMainHistoryBelongButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddBelongField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "NAssetMainHistoryVendorButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddVendorField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "NAssetMainHistoryProjectButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddProjectField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "NAssetMainHistorySourceButton":
-//                tField = (JTextField) Helper.getComponent(AAssetComponentPanel, "NAssetMainAddSourceField"); assert tField != null;
-//                tField.setText(eButtonText);
-//                break;
-//            case "AssetMainQueryMenuRefreshButton":
-//                tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
-//                tPanel.removeAll();
-//                Asset.initResultUnitPanel(tPanel, Asset.getAsset(0,Asset.dataNumber));
-//                tPanel.updateUI();
-//                Asset.AssetMode="Global";
-//                Asset.page=0;
-//                break;
-//            case "AssetMainQueryMenuLastButton":
-//                if(Asset.page>0){
-//                    Asset.page-=1;
-//                }else{
-//                    break;
-//                }
-//
-//                if(Objects.equals(Asset.AssetMode, "Search")){
-//                    tField = (JTextField) Helper.getComponent(AssetComponentPanel, "AssetMainQueryInputField"); assert tField!=null;
-//                    text = tField.getText();
-//                    if(Objects.equals(text, "")){
-//                        break;
-//                    }
-//                    result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
-//                }else{
-//                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
-//                }
-//
-//                tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
-//                tPanel.removeAll();
-//                Asset.initResultUnitPanel(tPanel, result);
-//                tPanel.updateUI();
-//                break;
-//            case "AssetMainQueryMenuNextButton":
-//                Asset.page++;
-//
-//                if(Objects.equals(Asset.AssetMode, "Search")){
-//                    tField = (JTextField) Helper.getComponent(AssetComponentPanel, "AssetMainQueryInputField"); assert tField!=null;
-//                    text = tField.getText();
-//                    if(Objects.equals(text, "")){
-//                        Asset.page--;
-//                        break;
-//                    }
-//                    result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
-//                }else{
-//                    result = Asset.getAsset(Asset.page,Asset.dataNumber);
-//                }
-//
-//                if(Arrays.deepEquals(result, new String[Asset.dataNumber][8])){
-//                    Asset.page--;
-//                    break;
-//                }
-//
-//                tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
-//                tPanel.removeAll();
-//                Asset.initResultUnitPanel(tPanel, result);
-//                tPanel.updateUI();
-//                break;
-//            case "AssetMainResultUpdateButton":
-//                JComponent unitPanel = (JComponent) eButton.getParent();
-//                Asset.updateUniteAsset(unitPanel);
-//                break;
             case "CaptchaMainCaptchaRequestMenuUrlButton":
                 rootPanel = (JComponent) eButton.getParent().getParent();
-                RSyntaxTextArea sRSyntaxTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestArea");assert sRSyntaxTextArea != null;
+                JTextArea sJTextArea = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestArea");assert sJTextArea != null;
                 JTextField urlField = (JTextField) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestMenuUrlField");assert urlField != null;
-                RSyntaxTextArea responseArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea!=null;
+                JTextArea responseArea = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea!=null;
 
-                String raw = sRSyntaxTextArea.getText();
+                String raw = sJTextArea.getText();
                 String url = urlField.getText();
                 Thread thread = new Captcha.getCaptchaThread(url,raw,responseArea);
                 thread.start();
@@ -195,11 +109,18 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
             case "CaptchaMainCaptchaImageMenuIdentifyButton":
                 rootPanel = (JComponent) eButton.getParent().getParent();
                 JTextField ruleField = (JTextField)  Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseMenuRuleFiled");assert ruleField != null;
-                RSyntaxTextArea imageArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaImageArea");assert imageArea!=null;
-                RSyntaxTextArea responseArea1 = (RSyntaxTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea1!=null;
+                JTextField rule1Field = (JTextField)  Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseMenuRule1Filed");assert rule1Field != null;
+                JTextArea imageArea = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaImageArea");assert imageArea!=null;
+                JTextArea responseArea1 = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea1!=null;
 
+                String token="";
+                String rule1 = rule1Field.getText();
+                if(!Objects.equals(rule1, "")){
+                    token=Helper.matchByRegular(responseArea1.getText(),rule1);
+                }
                 String imageText = Helper.matchByRegular(responseArea1.getText(),ruleField.getText());
-                imageText = Helper.isBase64(imageText)?imageText:Helper.base64Encode(imageText);
+
+                imageText = Helper.isBase64(imageText)?imageText:Helper.base64Encode(Captcha.responseText);
                 imageArea.setText(imageText);
 
                 ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
@@ -215,6 +136,9 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 JLabel resultLabel = new JLabel(res);
                 resultLabel.setFont(new Font("微软雅黑",Font.PLAIN,20));
 
+                JLabel tokenLabel= new JLabel(token);
+                tokenLabel.setFont(new Font("微软雅黑",Font.PLAIN,20));
+
                 byte[] imageByte = Helper.base64Decode(imageText);
                 ImageIcon imageIcon = Helper.byte2img(imageByte);
                 JLabel imageLabel = new JLabel(imageIcon, JLabel.CENTER);
@@ -224,6 +148,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 CaptchaMainCaptchaImageMenuResultPanel.removeAll();
                 CaptchaMainCaptchaImageMenuResultPanel.add(imageLabel);
                 CaptchaMainCaptchaImageMenuResultPanel.add(resultLabel);
+                CaptchaMainCaptchaImageMenuResultPanel.add(tokenLabel);
                 CaptchaMainCaptchaImageMenuResultPanel.repaint();
                 CaptchaMainCaptchaImageMenuResultPanel.revalidate();
                 break;

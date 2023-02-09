@@ -1,11 +1,9 @@
 package jrcet.frame.Tools.Dencrypt.Url;
 
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -14,6 +12,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+
+
 
 public class UrlComponent extends DiyJComponent {
 
@@ -124,38 +124,24 @@ public class UrlComponent extends DiyJComponent {
 
     public JComponent UrlMainStringScrollPane(){
 
-        RSyntaxTextArea UrlMainStringArea = new RSyntaxTextArea();
-        UrlMainStringArea.setName("UrlMainStringArea");
-        UrlMainStringArea.setCodeFoldingEnabled(true);
-        UrlMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        UrlMainStringArea.addKeyListener(new UrlMainKeyListener());
+        DiyJTextAreaScrollPane UrlMainStringAreaScrollPane = new DiyJTextAreaScrollPane("UrlMainStringArea");
 
-        RTextScrollPane UrlMainStringScrollPane = new RTextScrollPane(UrlMainStringArea);
-        UrlMainStringScrollPane.setName("UrlMainStringScrollPane");
-        UrlMainStringScrollPane.setPreferredSize(new Dimension(0,0));
-        UrlMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
+        UrlMainStringAreaScrollPane.addKeyListener(new UrlMainKeyListener());
 
-        return UrlMainStringScrollPane;
+
+        return UrlMainStringAreaScrollPane;
 
     }
 
     public JComponent UrlMainUrlScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea UrlMainUrlArea = new RSyntaxTextArea();
-        UrlMainUrlArea.setName("UrlMainUrlArea");
-        UrlMainUrlArea.setLineWrap(true);
-        UrlMainUrlArea.setCodeFoldingEnabled(true);
-        UrlMainUrlArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        UrlMainUrlArea.addKeyListener(new UrlMainKeyListener());
+        DiyJTextAreaScrollPane UrlMainUrlAreaScrollPane = new DiyJTextAreaScrollPane("UrlMainUrlArea");
 
-        RTextScrollPane UrlMainUrlScrollPane = new RTextScrollPane(UrlMainUrlArea);
-        UrlMainUrlScrollPane.setName("UrlMainPlaintextScrollPane");
-        UrlMainUrlScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        UrlMainUrlScrollPane.setPreferredSize(new Dimension(0,0));
-        UrlMainUrlScrollPane.setBorder(null);
+        UrlMainUrlAreaScrollPane.addKeyListener(new UrlMainKeyListener());
 
-        return UrlMainUrlScrollPane;
+
+
+        return UrlMainUrlAreaScrollPane;
     }
 
     public JComponent BaseMainControlPanel(){
@@ -209,13 +195,13 @@ public class UrlComponent extends DiyJComponent {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 JComponent rootPanel = (JComponent) eArea.getParent().getParent().getParent();
                 String tText = "未成功";
                 JCheckBox tCheckBox = (JCheckBox) Helper.getComponent(UrlComponentPanel, "BaseMainControlModeBox"); assert tCheckBox !=null;
                 switch (eArea.getName()){
                     case "UrlMainStringArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "UrlMainUrlArea" );
+                        outputArea = (JTextArea) Helper.getComponent(rootPanel, "UrlMainUrlArea" );
                         if(tCheckBox.isSelected()){
                             tText = Url.encodeAll(eArea.getText());
                         }else{
@@ -223,7 +209,7 @@ public class UrlComponent extends DiyJComponent {
                         }
                         break;
                     case "UrlMainUrlArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "UrlMainStringArea" );
+                        outputArea = (JTextArea) Helper.getComponent(rootPanel, "UrlMainStringArea" );
                         tText=Url.decode(eArea.getText());
                         break;
                 }

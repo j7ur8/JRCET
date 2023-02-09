@@ -1,6 +1,5 @@
 package jrcet.diycomponents;
 
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.FileTypeUtil;
 
 import javax.swing.*;
 import java.util.HashMap;

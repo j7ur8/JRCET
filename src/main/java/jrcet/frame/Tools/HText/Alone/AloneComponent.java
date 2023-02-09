@@ -1,10 +1,10 @@
 package jrcet.frame.Tools.HText.Alone;
 
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
+
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,19 +78,13 @@ public class AloneComponent extends DiyJComponent {
 
     public JComponent AloneMainInputAreaScrollPane(){
 
-        RSyntaxTextArea AloneMainInputArea = new RSyntaxTextArea();
-        AloneMainInputArea.setName("AloneMainInputArea");
-        AloneMainInputArea.setCodeFoldingEnabled(true);
-        AloneMainInputArea.setLineWrap(true);
-        AloneMainInputArea.setText("#请输入文件路径或\\n分割的字符串...");
-        AloneMainInputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        AloneMainInputArea.addKeyListener(new AloneMainInputAreaKeyListener());
+        DiyJTextAreaScrollPane AloneMainInputAreaScrollPane = new DiyJTextAreaScrollPane("AloneMainInputArea");
 
-        RTextScrollPane AloneMainInputAreaScrollPane = new RTextScrollPane(AloneMainInputArea);
-        AloneMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AloneMainInputAreaScrollPane.setName("AloneMainInputAreaScrollPane");
-        AloneMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        AloneMainInputAreaScrollPane.setBorder(null);
+
+        AloneMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+
+        AloneMainInputAreaScrollPane.addKeyListener(new AloneMainInputAreaKeyListener());
+
 
         return AloneMainInputAreaScrollPane;
     }
@@ -119,9 +113,9 @@ public class AloneComponent extends DiyJComponent {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 if ("AloneMainInputArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AloneMainInputArea");
+                    outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "AloneMainInputArea");
                     assert outputArea != null;
                     outputArea.setText(Alone.removeDuplication(eArea.getText()));
                 }

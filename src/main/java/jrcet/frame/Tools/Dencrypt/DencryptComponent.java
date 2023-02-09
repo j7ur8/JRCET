@@ -92,7 +92,7 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuPanel.setName("DencryptMenuPanel");
 
         //AES
-        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("Aes");
+        DiyJTabLabel DencryptMenuAESLabel = new DiyJTabLabel("Aes",true);
         DencryptMenuAESLabel.setPanel(AesComponentPanel);
         DencryptMenuAESLabel.setName("DencryptMenuAESLabel");
         DencryptMenuPanel.add(DencryptMenuAESLabel);
@@ -116,7 +116,7 @@ public class DencryptComponent extends DiyJComponent {
         DencryptMenuPanel.add(DencryptMenuHexLabel);
 
         //Hex
-        DiyJTabLabel DencryptMenuJwtLabel = new DiyJTabLabel("Jwt", true);
+        DiyJTabLabel DencryptMenuJwtLabel = new DiyJTabLabel("Jwt");
         DencryptMenuJwtLabel.setPanel(JwtComponentPanel);
         DencryptMenuJwtLabel.setName("DencryptMenuJwtLabel");
         DencryptMenuPanel.add(DencryptMenuJwtLabel);

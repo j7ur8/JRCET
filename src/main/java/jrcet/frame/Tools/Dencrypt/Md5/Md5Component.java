@@ -1,11 +1,9 @@
 package jrcet.frame.Tools.Dencrypt.Md5;
 
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -14,6 +12,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+
+
 
 public class Md5Component extends DiyJComponent {
 
@@ -131,38 +131,22 @@ public class Md5Component extends DiyJComponent {
 
     public JComponent Md5MainStringScrollPane(){
 
-        RSyntaxTextArea Md5MainStringArea = new RSyntaxTextArea();
-        Md5MainStringArea.setName("Md5MainStringArea");
-        Md5MainStringArea.setCodeFoldingEnabled(true);
-        Md5MainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        Md5MainStringArea.addKeyListener(new Md5MainKeyListener());
+        DiyJTextAreaScrollPane Md5MainStringAreaScrollPane = new DiyJTextAreaScrollPane("Md5MainStringArea");
 
-        RTextScrollPane Md5MainStringScrollPane = new RTextScrollPane(Md5MainStringArea);
-        Md5MainStringScrollPane.setName("Md5MainStringScrollPane");
-        Md5MainStringScrollPane.setPreferredSize(new Dimension(0,0));
-        Md5MainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
+        Md5MainStringAreaScrollPane.addKeyListener(new Md5MainKeyListener());
 
-        return Md5MainStringScrollPane;
+        return Md5MainStringAreaScrollPane;
 
     }
 
     public JComponent Md5MainMd5ScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea Md5MainMd5Area = new RSyntaxTextArea();
-        Md5MainMd5Area.setName("Md5MainMd5Area");
-        Md5MainMd5Area.setLineWrap(true);
-        Md5MainMd5Area.setCodeFoldingEnabled(true);
-        Md5MainMd5Area.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        Md5MainMd5Area.addKeyListener(new Md5MainKeyListener());
 
-        RTextScrollPane Md5MainMd5ScrollPane = new RTextScrollPane(Md5MainMd5Area);
-        Md5MainMd5ScrollPane.setName("Md5MainPlaintextScrollPane");
-        Md5MainMd5ScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        Md5MainMd5ScrollPane.setPreferredSize(new Dimension(0,0));
-        Md5MainMd5ScrollPane.setBorder(null);
+        DiyJTextAreaScrollPane Md5MainMd5AreaScrollPane = new DiyJTextAreaScrollPane("Md5MainMd5Area");
 
-        return Md5MainMd5ScrollPane;
+        Md5MainMd5AreaScrollPane.addKeyListener(new Md5MainKeyListener());
+
+        return Md5MainMd5AreaScrollPane;
     }
 
     public JComponent getMd5MainPanel(String TagName){
@@ -193,10 +177,10 @@ public class Md5Component extends DiyJComponent {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 String tText = "未成功";
                 if ("Md5MainStringArea".equals(eArea.getName())) {
-                    outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "Md5MainMd5Area");
+                    outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "Md5MainMd5Area");
                     tText = Md5.stringToMd5(eArea.getText());
                 }
                 assert outputArea != null;

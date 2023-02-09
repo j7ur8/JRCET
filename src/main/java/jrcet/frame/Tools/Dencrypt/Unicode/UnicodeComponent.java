@@ -1,11 +1,9 @@
 package jrcet.frame.Tools.Dencrypt.Unicode;
 
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -14,6 +12,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+
+
 
 public class UnicodeComponent extends DiyJComponent {
 
@@ -131,51 +131,23 @@ public class UnicodeComponent extends DiyJComponent {
 
     public JComponent UnicodeMainStringScrollPane(){
 
-        RSyntaxTextArea UnicodeMainStringArea = new RSyntaxTextArea();
-        UnicodeMainStringArea.setName("UnicodeMainStringArea");
-        UnicodeMainStringArea.setCodeFoldingEnabled(true);
-        UnicodeMainStringArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        UnicodeMainStringArea.addKeyListener(new UnicodeMainKeyListener());
+        DiyJTextAreaScrollPane UnicodeMainStringAreaScrollPane = new DiyJTextAreaScrollPane("UnicodeMainStringArea");
+        UnicodeMainStringAreaScrollPane.addKeyListener(new UnicodeMainKeyListener());
 
-        RTextScrollPane UnicodeMainStringScrollPane = new RTextScrollPane(UnicodeMainStringArea);
-        UnicodeMainStringScrollPane.setName("UnicodeMainStringScrollPane");
-        UnicodeMainStringScrollPane.setPreferredSize(new Dimension(0,0));
-        UnicodeMainStringScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
-
-        return UnicodeMainStringScrollPane;
+        return UnicodeMainStringAreaScrollPane;
 
     }
 
     public JComponent UnicodeMainUnicodeScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea UnicodeMainUnicodeArea = new RSyntaxTextArea();
-        UnicodeMainUnicodeArea.setName("UnicodeMainUnicodeArea");
-        UnicodeMainUnicodeArea.setLineWrap(true);
-        UnicodeMainUnicodeArea.setCodeFoldingEnabled(true);
-        UnicodeMainUnicodeArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        UnicodeMainUnicodeArea.addKeyListener(new UnicodeMainKeyListener());
+        DiyJTextAreaScrollPane UnicodeMainUnicodeAreaScrollPane = new DiyJTextAreaScrollPane("UnicodeMainUnicodeArea");
+        UnicodeMainUnicodeAreaScrollPane.addKeyListener(new UnicodeMainKeyListener());
 
-        RTextScrollPane UnicodeMainUnicodeScrollPane = new RTextScrollPane(UnicodeMainUnicodeArea);
-        UnicodeMainUnicodeScrollPane.setName("UnicodeMainPlaintextScrollPane");
-        UnicodeMainUnicodeScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        UnicodeMainUnicodeScrollPane.setPreferredSize(new Dimension(0,0));
-        UnicodeMainUnicodeScrollPane.setBorder(null);
-
-        return UnicodeMainUnicodeScrollPane;
+        return UnicodeMainUnicodeAreaScrollPane;
     }
 
     public JComponent getUnicodeMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):UnicodeBlackPanel()):UnicodeBlackPanel();
-    }
-
-    public JComponent UnicodeBlackPanel(){
-        JPanel UnicodeBlackPanel = new JPanel();
-        UnicodeBlackPanel.setName("UnicodeBlackPanel");
-        UnicodeBlackPanel.setOpaque(true);
-        UnicodeBlackPanel.setBackground(Color.PINK);
-
-        return UnicodeBlackPanel;
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):Helper.blackPanel()):Helper.blackPanel();
     }
 
     static class UnicodeMainKeyListener implements KeyListener {
@@ -193,15 +165,15 @@ public class UnicodeComponent extends DiyJComponent {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
                 JTextArea eArea = (JTextArea) e.getSource();
-                RSyntaxTextArea outputArea = null;
+                JTextArea outputArea = null;
                 String tText = "未成功";
                 switch (eArea.getName()){
                     case "UnicodeMainStringArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainUnicodeArea" );
+                        outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainUnicodeArea" );
                         tText = Unicode.stringToUnicode(eArea.getText());
                         break;
                     case "UnicodeMainUnicodeArea":
-                        outputArea = (RSyntaxTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainStringArea" );
+                        outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainStringArea" );
                         tText=Unicode.unicodeToString(eArea.getText());
                         break;
                 }

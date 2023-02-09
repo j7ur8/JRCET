@@ -6,7 +6,6 @@ import jrcet.frame.Setting.Setting;
 import jrcet.frame.Tools.Captcha.CaptchaComponent;
 import jrcet.frame.Tools.Dencrypt.DencryptComponent;
 import jrcet.frame.Tools.HText.HTextComponent;
-import jrcet.frame.Tools.RScript.RScriptComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,9 +100,7 @@ public class ToolsComponent extends DiyJComponent {
     }
 
     private JComponent RScriptComponentPanel(){
-        DiyJComponent RScriptComponentInstance = new RScriptComponent();
-        JComponent RScriptComponentPanel = RScriptComponentInstance.main();
-        return RScriptComponentPanel;
+        return new JPanel();
     }
 
 

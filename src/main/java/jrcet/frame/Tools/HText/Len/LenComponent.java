@@ -1,9 +1,6 @@
 package jrcet.frame.Tools.HText.Len;
 
 import jrcet.diycomponents.*;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -12,6 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
+
+
 
 public class LenComponent extends DiyJComponent {
 
@@ -111,19 +110,11 @@ public class LenComponent extends DiyJComponent {
     }
 
     public JComponent LenMainInputAreaScrollPane(){
-        RSyntaxTextArea LenMainInputArea = new RSyntaxTextArea();
-        LenMainInputArea.setName("LenMainInputArea");
-        LenMainInputArea.setCodeFoldingEnabled(true);
-        LenMainInputArea.setLineWrap(true);
-        LenMainInputArea.setText("#请输入文件路径或\\n分割的字符串...");
-        LenMainInputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        LenMainInputArea.addKeyListener(new LenMainInputAreaKeyListener());
+        DiyJTextAreaScrollPane LenMainInputAreaScrollPane = new DiyJTextAreaScrollPane("LenMainInputArea");
 
-        RTextScrollPane LenMainInputAreaScrollPane = new RTextScrollPane(LenMainInputArea);
-        LenMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        LenMainInputAreaScrollPane.setName("LenMainInputAreaScrollPane");
-        LenMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        LenMainInputAreaScrollPane.setBorder(null);
+        LenMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+
+        LenMainInputAreaScrollPane.addKeyListener(new LenMainInputAreaKeyListener());
 
         return  LenMainInputAreaScrollPane;
     }
@@ -216,7 +207,7 @@ public class LenComponent extends DiyJComponent {
         public void keyReleased(KeyEvent e) {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                RSyntaxTextArea eTextArea = (RSyntaxTextArea) e.getSource();
+                JTextArea eTextArea = (JTextArea) e.getSource();
                 JComponent rootPanel = (JComponent) eTextArea.getParent().getParent().getParent();
                 JTextField eTextField = (JTextField) Helper.getComponent(rootPanel, "LenMainControlLenField"); assert eTextField!=null;
                 DiyJLabel tLabel = (DiyJLabel) Helper.getComponent(LenComponentPanel, "LenMainControlResultLabel");assert tLabel != null;

@@ -1,9 +1,6 @@
 package jrcet.frame.Tools.HText.Format;
 
 import jrcet.diycomponents.*;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -17,7 +14,6 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 public class FormatComponent extends DiyJComponent {
-
 
     public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
     public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
@@ -115,19 +111,12 @@ public class FormatComponent extends DiyJComponent {
     }
 
     public JComponent FormatMainInputAreaScrollPane(){
-        RSyntaxTextArea FormatMainInputArea = new RSyntaxTextArea();
-        FormatMainInputArea.setName("FormatMainInputArea");
-        FormatMainInputArea.setCodeFoldingEnabled(true);
-        FormatMainInputArea.setLineWrap(true);
-        FormatMainInputArea.setText("#请输入文件路径或\\n分割的字符串...");
-        FormatMainInputArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        FormatMainInputArea.addKeyListener(new FormatMainInputAreaKeyListener());
+        DiyJTextAreaScrollPane FormatMainInputAreaScrollPane = new DiyJTextAreaScrollPane("FormatMainInputArea");
 
-        RTextScrollPane FormatMainInputAreaScrollPane = new RTextScrollPane(FormatMainInputArea);
-        FormatMainInputAreaScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        FormatMainInputAreaScrollPane.setName("FormatMainInputAreaScrollPane");
-        FormatMainInputAreaScrollPane.setPreferredSize(new Dimension(0,0));
-        FormatMainInputAreaScrollPane.setBorder(null);
+        FormatMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
+
+        FormatMainInputAreaScrollPane.addKeyListener(new FormatMainInputAreaKeyListener());
+
 
         return  FormatMainInputAreaScrollPane;
     }

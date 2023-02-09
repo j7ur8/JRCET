@@ -1,11 +1,9 @@
 package jrcet.frame.Tools.Dencrypt.Jwt;
 
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -13,6 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+
+
 
 public class JwtComponent extends DiyJComponent {
 
@@ -133,58 +133,27 @@ public class JwtComponent extends DiyJComponent {
 
     public JComponent JwtMainTokenScrollPane(){
 
-        RSyntaxTextArea JwtMainTokenArea = new RSyntaxTextArea();
-        JwtMainTokenArea.setName("JwtMainTokenArea");
-        JwtMainTokenArea.setCodeFoldingEnabled(true);
-        JwtMainTokenArea.setLineWrap(true);
-        JwtMainTokenArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        JwtMainTokenArea.addKeyListener(new JwtMainKeyListener());
+        DiyJTextAreaScrollPane JwtMainTokenAreaScrollPane = new DiyJTextAreaScrollPane("JwtMainTokenArea");
+        JwtMainTokenAreaScrollPane.addKeyListener(new JwtMainKeyListener());
 
-        RTextScrollPane JwtMainTokenScrollPane = new RTextScrollPane(JwtMainTokenArea);
-        JwtMainTokenScrollPane.setName("JwtMainTokenScrollPane");
-        JwtMainTokenScrollPane.setPreferredSize(new Dimension(0,0));
-        JwtMainTokenScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JwtMainTokenScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
-
-        return JwtMainTokenScrollPane;
+        return JwtMainTokenAreaScrollPane;
     }
 
     public JComponent JwtMainHeaderScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea JwtMainHeaderArea = new RSyntaxTextArea();
-        JwtMainHeaderArea.setName("JwtMainHeaderArea");
-        JwtMainHeaderArea.setLineWrap(true);
-        JwtMainHeaderArea.setCodeFoldingEnabled(true);
-        JwtMainHeaderArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        JwtMainHeaderArea.addKeyListener(new JwtMainKeyListener());
+        DiyJTextAreaScrollPane JwtMainHeaderAreaScrollPane = new DiyJTextAreaScrollPane("JwtMainHeaderArea");
+        JwtMainHeaderAreaScrollPane.addKeyListener(new JwtMainKeyListener());
 
-        RTextScrollPane JwtMainHeaderScrollPane = new RTextScrollPane(JwtMainHeaderArea);
-        JwtMainHeaderScrollPane.setName("JwtMainHeaderScrollPane");
-        JwtMainHeaderScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JwtMainHeaderScrollPane.setPreferredSize(new Dimension(0,0));
-        JwtMainHeaderScrollPane.setBorder(null);
-
-        return JwtMainHeaderScrollPane;
+        return JwtMainHeaderAreaScrollPane;
     }
 
     public JComponent JwtMainDataScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea JwtMainDataArea = new RSyntaxTextArea();
-        JwtMainDataArea.setName("JwtMainDataArea");
-        JwtMainDataArea.setLineWrap(true);
-        JwtMainDataArea.setCodeFoldingEnabled(true);
-        JwtMainDataArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        JwtMainDataArea.addKeyListener(new JwtMainKeyListener());
+        DiyJTextAreaScrollPane JwtMainDataAreaScrollPane = new DiyJTextAreaScrollPane("JwtMainDataArea");
+        JwtMainDataAreaScrollPane.addKeyListener(new JwtMainKeyListener());
+        JwtMainDataAreaScrollPane.addKeyListener(new JwtMainKeyListener());
 
-        RTextScrollPane JwtMainDataScrollPane = new RTextScrollPane(JwtMainDataArea);
-        JwtMainDataScrollPane.setName("JwtMainDataScrollPane");
-        JwtMainDataScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JwtMainDataScrollPane.setPreferredSize(new Dimension(0,0));
-        JwtMainDataScrollPane.setBorder(null);
-
-        return JwtMainDataScrollPane;
+        return JwtMainDataAreaScrollPane;
     }
 
     public JComponent JwtMainControlPanel(){

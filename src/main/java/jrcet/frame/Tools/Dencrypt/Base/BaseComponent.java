@@ -1,11 +1,11 @@
 package jrcet.frame.Tools.Dencrypt.Base;
 
 import jrcet.diycomponents.*;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.help.Helper;
 import jrcet.frame.Setting.Setting;
+
+
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,39 +121,18 @@ public class BaseComponent extends DiyJComponent {
 
     public JComponent BaseMainPlainScrollPane(){
 
-        RSyntaxTextArea BaseMainPlainArea = new RSyntaxTextArea();
-        BaseMainPlainArea.setName("BaseMainPlainArea");
-        BaseMainPlainArea.setCodeFoldingEnabled(true);
-        BaseMainPlainArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        BaseMainPlainArea.addKeyListener(new BaseMainKeyListener());
+        DiyJTextAreaScrollPane BaseMainPlainAreaScrollPane = new DiyJTextAreaScrollPane("BaseMainPlainArea");
+        BaseMainPlainAreaScrollPane.addKeyListener(new BaseMainKeyListener());
 
-        RTextScrollPane BaseMainPlainScrollPane = new RTextScrollPane(BaseMainPlainArea);
-        BaseMainPlainScrollPane.setName("BaseMainPlainScrollPane");
-        BaseMainPlainScrollPane.setPreferredSize(new Dimension(0,0));
-        BaseMainPlainScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        BaseMainPlainScrollPane.setBorder(BorderFactory.createMatteBorder(1,0,1,0, Setting.gray));
-
-        return BaseMainPlainScrollPane;
-
+        return BaseMainPlainAreaScrollPane;
     }
 
     public JComponent BaseMainCipherScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea BaseMainCipherArea = new RSyntaxTextArea();
-        BaseMainCipherArea.setName("BaseMainCipherArea");
-        BaseMainCipherArea.setLineWrap(true);
-        BaseMainCipherArea.setCodeFoldingEnabled(true);
-        BaseMainCipherArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        BaseMainCipherArea.addKeyListener(new BaseMainKeyListener());
+        DiyJTextAreaScrollPane BaseMainCipherAreaScrollPane = new DiyJTextAreaScrollPane("BaseMainCipherArea");
+        BaseMainCipherAreaScrollPane.addKeyListener(new BaseMainKeyListener());
 
-        RTextScrollPane BaseMainCipherScrollPane = new RTextScrollPane(BaseMainCipherArea);
-        BaseMainCipherScrollPane.setName("BaseMainCipherScrollPane");
-        BaseMainCipherScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        BaseMainCipherScrollPane.setPreferredSize(new Dimension(0,0));
-        BaseMainCipherScrollPane.setBorder(null);
-
-        return BaseMainCipherScrollPane;
+        return BaseMainCipherAreaScrollPane;
     }
 
     public JComponent BaseMainControlPanel(){
@@ -264,19 +243,19 @@ public class BaseComponent extends DiyJComponent {
         public void keyReleased(KeyEvent e) {
 
             if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                RSyntaxTextArea eTextArea = (RSyntaxTextArea) e.getSource();
+                JTextArea eTextArea = (JTextArea) e.getSource();
                 JComponent rootPanel = (JComponent) eTextArea.getParent().getParent().getParent();
-                RSyntaxTextArea tTextArea;
+                JTextArea tTextArea;
                 DiyJLabel tLabel;
                 switch (eTextArea.getName()){
                     case "BaseMainPlainArea":
-                        tTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "BaseMainCipherArea"); assert tTextArea!=null;
+                        tTextArea = (JTextArea) Helper.getComponent(rootPanel, "BaseMainCipherArea"); assert tTextArea!=null;
                         tLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel"); assert tLabel!=null;
 
                         tTextArea.setText(Base.encrypt(eTextArea.getText(),tLabel.getText().split(": ")[1]));
                         break;
                     case "BaseMainCipherArea":
-                        tTextArea = (RSyntaxTextArea) Helper.getComponent(rootPanel, "BaseMainPlainArea"); assert tTextArea!=null;
+                        tTextArea = (JTextArea) Helper.getComponent(rootPanel, "BaseMainPlainArea"); assert tTextArea!=null;
                         tLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel"); assert tLabel!=null;
                         tTextArea.setText(Base.decrypt(eTextArea.getText(), tLabel.getText().split(": ")[1]));
                         break;

@@ -1,18 +1,18 @@
 package jrcet.frame.Tools.Dencrypt.Rsa;
 
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.help.Helper;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLabel;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 
 import java.awt.*;
 import java.util.HashMap;
+
+
 
 
 public class RsaComponent extends DiyJComponent {
@@ -96,17 +96,17 @@ public class RsaComponent extends DiyJComponent {
         RsaMainPanel.add(RsaMainPlaintextScrollPane(), new GridBagConstraints(
                 0,0,
                 1,1,
-                0.9,1,
+                0.7,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        RsaMainPanel.add(RsaMainCiphertextScrollPane(), new GridBagConstraints(
+        RsaMainPanel.add(RsaMainCipherJScrollPane(), new GridBagConstraints(
                 0,1,
                 1,1,
-                0.9,1,
+                0.7,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -116,7 +116,7 @@ public class RsaComponent extends DiyJComponent {
         RsaMainPanel.add(RsaMainControlPanel(), new GridBagConstraints(
                 1,0,
                 1,2,
-                0.127,1,
+                0.3,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -128,39 +128,16 @@ public class RsaComponent extends DiyJComponent {
 
     public JComponent RsaMainPlaintextScrollPane(){
 
-        RSyntaxTextArea RsaMainPlaintextArea = new RSyntaxTextArea();
-        RsaMainPlaintextArea.setName("RsaMainPlaintextArea");
-        RsaMainPlaintextArea.setCodeFoldingEnabled(true);
-        RsaMainPlaintextArea.setLineWrap(true);
-        RsaMainPlaintextArea.setText("#请输入...");
-        RsaMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        DiyJTextAreaScrollPane RsaMainPlaintextAreaScrollPane = new DiyJTextAreaScrollPane("RsaMainPlaintextArea");
 
-        RTextScrollPane RsaMainPlaintextScrollPane = new RTextScrollPane(RsaMainPlaintextArea);
-        RsaMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        RsaMainPlaintextScrollPane.setName("RsaMainPlaintextScrollPane");
-        RsaMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.gray));
-
-        return RsaMainPlaintextScrollPane;
-
+        return RsaMainPlaintextAreaScrollPane;
     }
 
-    public JComponent RsaMainCiphertextScrollPane(){
+    public JComponent RsaMainCipherJScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea RsaMainCiphertextArea = new RSyntaxTextArea();
-        RsaMainCiphertextArea.setName("RsaMainCiphertextArea");
-        RsaMainCiphertextArea.setCodeFoldingEnabled(true);
-        RsaMainCiphertextArea.setLineWrap(true);
-        RsaMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        DiyJTextAreaScrollPane RsaMainCiphertextAreaScrollPane = new DiyJTextAreaScrollPane("RsaMainCiphertextArea");
 
-        RTextScrollPane RsaMainCiphertextScrollPane = new RTextScrollPane(RsaMainCiphertextArea);
-        RsaMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        RsaMainCiphertextScrollPane.setName("RsaMainCiphertextScrollPane");
-        RsaMainCiphertextScrollPane.setBorder(null);
-        RsaMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
-
-        return RsaMainCiphertextScrollPane;
+        return RsaMainCiphertextAreaScrollPane;
     }
 
     public JComponent RsaMainControlPanel(){
@@ -192,16 +169,6 @@ public class RsaComponent extends DiyJComponent {
         RsaMainControlPanel.add(RsaMainControlActionPanel(),new GridBagConstraints(
                 0,2,
                 1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        RsaMainControlPanel.add(RsaMainControlBlackPanel(), new GridBagConstraints(
-                0,3,
-                1,1,
                 1,0.5,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
@@ -209,57 +176,41 @@ public class RsaComponent extends DiyJComponent {
                 0,0
         ));
 
+
         return RsaMainControlPanel;
     }
 
     public JComponent RsaMainControlPublicScrollPane(){
-        RSyntaxTextArea RsaMainControlPublicArea = new RSyntaxTextArea();
-        RsaMainControlPublicArea.setName("RsaMainControlPublicArea");
-        RsaMainControlPublicArea.setCodeFoldingEnabled(true);
-        RsaMainControlPublicArea.setLineWrap(true);
-        RsaMainControlPublicArea.setText("#Public Key");
-        RsaMainControlPublicArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
 
-        RTextScrollPane RsaMainControlPublicScrollPane = new RTextScrollPane(RsaMainControlPublicArea);
-        RsaMainControlPublicScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        RsaMainControlPublicScrollPane.setName("RsaMainControlPublicScrollPane");
-        RsaMainControlPublicScrollPane.setLineNumbersEnabled(false);
-        RsaMainControlPublicScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainControlPublicScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.gray));
+        DiyJTextAreaScrollPane RsaMainControlPublicAreaScrollPane = new DiyJTextAreaScrollPane("RsaMainControlPublicArea");
 
-        return RsaMainControlPublicScrollPane;
+        RsaMainControlPublicAreaScrollPane.setText("#Public Key");
+
+        return  RsaMainControlPublicAreaScrollPane;
     }
 
     public JComponent RsaMainControlPrivateScrollPane(){
-        RSyntaxTextArea RsaMainControlPrivateArea = new RSyntaxTextArea();
-        RsaMainControlPrivateArea.setName("RsaMainControlPrivateArea");
-        RsaMainControlPrivateArea.setCodeFoldingEnabled(true);
-        RsaMainControlPrivateArea.setLineWrap(true);
-        RsaMainControlPrivateArea.setText("#Private Key");
-        RsaMainControlPrivateArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_NONE);
+        DiyJTextAreaScrollPane RsaMainControlPrivateAreaScrollPane = new DiyJTextAreaScrollPane("RsaMainControlPrivateArea");
+        RsaMainControlPrivateAreaScrollPane.setPreferredSize(new Dimension(0,0));
+        RsaMainControlPrivateAreaScrollPane.setText("Private key");
 
-        RTextScrollPane RsaMainControlPrivateScrollPane = new RTextScrollPane(RsaMainControlPrivateArea);
-        RsaMainControlPrivateScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        RsaMainControlPrivateScrollPane.setName("RsaMainControlPrivateScrollPane");
-        RsaMainControlPrivateScrollPane.setLineNumbersEnabled(false);
-        RsaMainControlPrivateScrollPane.setPreferredSize(new Dimension(0,0));
-        RsaMainControlPrivateScrollPane.setBorder(null);
-
-        return RsaMainControlPrivateScrollPane;
+        return RsaMainControlPrivateAreaScrollPane;
     }
 
     public JComponent RsaMainControlActionPanel() {
         JComponent RsaMainControlActionPanel = new JPanel(new GridBagLayout());
         RsaMainControlActionPanel.setName("RsaMainControlActionPanel");
+        RsaMainControlActionPanel.setPreferredSize(new Dimension(0,0));
         RsaMainControlActionPanel.setBackground(Color.WHITE);
 
         DiyJLabel RsaMainControlEncryptLabel = new DiyJLabel("Encrypt");
+        RsaMainControlEncryptLabel.setPreferredSize(new Dimension(0,27));
         RsaMainControlEncryptLabel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.gray));
         RsaMainControlEncryptLabel.setName("RsaMainControlEncryptLabel");
         RsaMainControlActionPanel.add(RsaMainControlEncryptLabel, new GridBagConstraints(
                 0, 0,
                 1, 1,
-                0.5, 1,
+                0.5, 0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0),
@@ -267,41 +218,34 @@ public class RsaComponent extends DiyJComponent {
         ));
 
         DiyJLabel RsaMainControlDecryptLabel = new DiyJLabel("Decrypt");
+        RsaMainControlDecryptLabel.setPreferredSize(new Dimension(0,27));
         RsaMainControlDecryptLabel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.gray));
         RsaMainControlDecryptLabel.setName("RsaMainControlDecryptLabel");
         RsaMainControlActionPanel.add(RsaMainControlDecryptLabel, new GridBagConstraints(
                 1, 0,
                 1, 1,
-                0.5, 1,
+                0.5, 0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 0),
                 0, 0
         ));
 
+        RsaMainControlActionPanel.add(Helper.blackPanel(Color.white), new GridBagConstraints(
+                0,1,
+                2,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
         return  RsaMainControlActionPanel;
     }
 
-    public JComponent RsaMainControlBlackPanel(){
-        JComponent AseMainControlBlackPanel = new JPanel();
-        AseMainControlBlackPanel.setBackground(Color.WHITE);
-        AseMainControlBlackPanel.setName("AseMainControlBlackPanel");
-
-        return AseMainControlBlackPanel;
-    }
-
-
-    public JComponent RsaBlackPanel(){
-        JPanel RsaBlackPanel = new JPanel();
-        RsaBlackPanel.setName("RsaBlackPanel");
-        RsaBlackPanel.setOpaque(true);
-        RsaBlackPanel.setBackground(Color.PINK);
-
-        return RsaBlackPanel;
-    }
 
     public JComponent getRsaMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):RsaBlackPanel()):RsaBlackPanel();
+        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):Helper.blackPanel()):Helper.blackPanel();
     }
 
 }

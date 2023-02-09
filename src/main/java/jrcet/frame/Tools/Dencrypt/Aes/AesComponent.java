@@ -1,18 +1,13 @@
 package jrcet.frame.Tools.Dencrypt.Aes;
 
+import jrcet.diycomponents.*;
 import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJComboBox;
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLabel;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.RSyntaxTextArea;
-import jrcet.diycomponents.DiyJTextArea.ui.rsyntaxtextarea.SyntaxConstants;
-import jrcet.diycomponents.DiyJTextArea.ui.rtextarea.RTextScrollPane;
-import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+
+
 
 
 public class AesComponent extends DiyJComponent {
@@ -85,7 +80,7 @@ public class AesComponent extends DiyJComponent {
                 0,0
         ));
 
-        AesMainPanel.add(AesMainCiphertextScrollPane(), new GridBagConstraints(
+        AesMainPanel.add(AesMainCipherJScrollPane(), new GridBagConstraints(
                 0,1,
                 1,1,
                 0.9,1,
@@ -110,39 +105,20 @@ public class AesComponent extends DiyJComponent {
 
     public JComponent AesMainPlaintextScrollPane(){
 
-        RSyntaxTextArea AesMainPlaintextArea = new RSyntaxTextArea();
-        AesMainPlaintextArea.setName("AesMainPlaintextArea");
-        AesMainPlaintextArea.setCodeFoldingEnabled(true);
-        AesMainPlaintextArea.setLineWrap(true);
-        AesMainPlaintextArea.setText("#请输入...\n#iv和key支持Raw、Base64、Hex三种方式");
-        AesMainPlaintextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
 
-        RTextScrollPane AesMainPlaintextScrollPane = new RTextScrollPane(AesMainPlaintextArea);
-        AesMainPlaintextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AesMainPlaintextScrollPane.setName("AesMainPlaintextScrollPane");
-        AesMainPlaintextScrollPane.setPreferredSize(new Dimension(0,0));
-        AesMainPlaintextScrollPane.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Setting.gray));
+        DiyJTextAreaScrollPane AesMainPlaintextAreaScrollPane = new DiyJTextAreaScrollPane("AesMainPlaintextArea");
 
-        return AesMainPlaintextScrollPane;
+        AesMainPlaintextAreaScrollPane.setText("#请输入...\n#iv和key支持Raw、Base64、Hex三种方式");
 
+
+        return AesMainPlaintextAreaScrollPane;
     }
 
-    public JComponent AesMainCiphertextScrollPane(){
+    public JComponent AesMainCipherJScrollPane(){
 
-        //setCodeFoldingEnabled需要在setSyntaxEditingStyle前面
-        RSyntaxTextArea AesMainCiphertextArea = new RSyntaxTextArea();
-        AesMainCiphertextArea.setName("AesMainCiphertextArea");
-        AesMainCiphertextArea.setCodeFoldingEnabled(true);
-        AesMainCiphertextArea.setLineWrap(true);
-        AesMainCiphertextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        DiyJTextAreaScrollPane AesMainCiphertextAreaScrollPane = new DiyJTextAreaScrollPane("AesMainCiphertextArea");
 
-        RTextScrollPane AesMainCiphertextScrollPane = new RTextScrollPane(AesMainCiphertextArea);
-        AesMainCiphertextScrollPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        AesMainCiphertextScrollPane.setName("AesMainCiphertextScrollPane");
-        AesMainCiphertextScrollPane.setPreferredSize(new Dimension(0,0));
-        AesMainCiphertextScrollPane.setBorder(null);
-
-        return AesMainCiphertextScrollPane;
+        return AesMainCiphertextAreaScrollPane;
     }
 
     public JComponent AesMainControlPanel(){
