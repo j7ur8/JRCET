@@ -1,12 +1,15 @@
 package jrcet.diycomponents;
 
 import jrcet.frame.Setting.Setting;
+import sun.font.FontDesignMetrics;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.util.Objects;
 import java.util.Set;
 
 public class DiyJTextAreaScrollPane extends JScrollPane{
@@ -24,7 +27,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
 
         textArea = new JTextArea();
         textArea.setName(name);
-//        textArea.setLineWrap(true);
+        textArea.setLineWrap(true);
 //        textArea.setFont(new Font("微软雅黑",Font.PLAIN,14));
         textArea.setBorder(BorderFactory.createEmptyBorder(0,2,0,2));
         textArea.setTabSize(2);
@@ -51,7 +54,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
             }
         });
 
-        LineNumListCellRenderer lineNumListCellRenderer = new LineNumListCellRenderer();
+        LineNumListCellRenderer lineNumListCellRenderer = new LineNumListCellRenderer(textArea);
         lineNumListCellRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         lineNumListCellRenderer.setFont(textArea.getFont());
 
@@ -63,15 +66,19 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
         listLineNum.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0,0,0,1, Setting.gray),BorderFactory.createEmptyBorder(0,0,0,2)));
         listLineNum.setFont(textArea.getFont());
 
-
+        setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         setName(name+"ScrollPane");
         setViewportView(textArea);
         setRowHeaderView(listLineNum);
         setPreferredSize(new Dimension(0,0));
         setBorder(BorderFactory.createMatteBorder(0,0,1,1,Setting.gray));
-
+        setFirstLine();
     }
 
+    private void setFirstLine(){
+        setText(" ");
+        setText("");
+    }
 
     public static class LineNumListModel extends AbstractListModel<Integer> {
         private int size;
@@ -96,12 +103,33 @@ public class DiyJTextAreaScrollPane extends JScrollPane{
 
     public static class LineNumListCellRenderer extends JLabel implements ListCellRenderer<Integer> {
 
+        private final JTextArea textArea;
+        public LineNumListCellRenderer(JTextArea textArea){
+            this.textArea=textArea;
+        }
         @Override
         public Component getListCellRendererComponent(JList<? extends Integer> list, Integer value, int index, boolean isSelected, boolean cellHasFocus) {
-            setText("" + value);
+            try {
+
+                int lineRows = 1;
+                FontMetrics fontMetrics = FontDesignMetrics.getMetrics(textArea.getFont());
+                int lineStartOffset = textArea.getLineStartOffset(value-1);
+                int lineEndOffset = textArea.getLineEndOffset(value-1);
+                String line = textArea.getText(lineStartOffset,lineEndOffset-lineStartOffset);
+                int lineWidth = fontMetrics.stringWidth(line);
+                int lineHeight = fontMetrics.getHeight();
+                double textAreaWidth = textArea.getSize().getWidth();
+                if(lineWidth>textAreaWidth){
+                    lineRows = (int)(lineWidth / textAreaWidth + (lineWidth % textAreaWidth != 0 ? 1 : 0));
+                }
+                int cellHeight = lineHeight*lineRows;
+                setVerticalAlignment(SwingConstants.TOP);
+                setPreferredSize(new Dimension(30,cellHeight));
+                setText(""+value);
+            } catch (BadLocationException e) {
+                throw new RuntimeException(e);
+            }
             return this;
         }
-
     }
-
 }
