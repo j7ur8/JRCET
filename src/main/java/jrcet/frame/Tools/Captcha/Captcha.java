@@ -20,6 +20,24 @@ import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaComponentPanel;
 public class Captcha {
 
     public static byte[] responseText="".getBytes();
+
+    public static String identifyCaptcha(String requestPackage, String url, String regex){
+        try{
+            HttpClient httpClient = new HttpClient(url, requestPackage);
+            String response = httpClient.doRequest();
+            String imageText = Helper.matchByRegular(response, regex);
+            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(Captcha.responseText);
+            ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
+
+            BufferedImage image = ImageIO.read(in);
+            OCREngine engine = OCREngine.instance();
+            String res = engine.recognize(image);
+            return res;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Error";
+    }
     public static String identifyCaptcha() {
         try {
 
@@ -37,8 +55,6 @@ public class Captcha {
             String url = urlField.getText();
             String rule = ruleField.getText();
             String requestPacket = requestArea.getText();
-
-
 
             String response;
             BufferedImage image;

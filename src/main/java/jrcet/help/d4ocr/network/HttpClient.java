@@ -5,6 +5,7 @@
 package jrcet.help.d4ocr.network;
 
 import burp.BurpExtender;
+import burp.IHttpHeader;
 import burp.IHttpRequestResponse;
 import burp.IRequestInfo;
 import jrcet.frame.Tools.Captcha.Captcha;
@@ -25,6 +26,7 @@ public class HttpClient {
     private String path;
     private HttpService service;
     private final Map<String,String> headers = new HashMap<>();
+
     private String data;
     private String raw;
 
@@ -151,6 +153,7 @@ public class HttpClient {
 
     public String doRequest(){
         byte[] req = raw.getBytes();
+        BurpExtender.stdout.println(new String(req));
         try {
             IHttpRequestResponse reqrsp = BurpExtender.callbacks.makeHttpRequest(service, req);
 
@@ -163,5 +166,31 @@ public class HttpClient {
         }
         return null;
 
+    }
+
+    static class httpHeader implements IHttpHeader {
+        public String name;
+        public String value;
+        public httpHeader(String name, String value){
+            this.name = name;
+            this.value = value;
+        }
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        @Override
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setName(String name){
+            this.name = name;
+        }
+
+        public void setValue(String value){
+            this.value = value;
+        }
     }
 }

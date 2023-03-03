@@ -10,9 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d62eaa-e9c4-460f-a7cf-45954ffca213" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ts.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JRCET_jar/JRCET.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/Intruder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/Intruder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/network/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/network/HttpClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,10 +56,24 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3413793&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.3413793&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RunManager" selected="Application.Main">
+    <configuration name="Des" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jrcet.frame.Tools.Dencrypt.Des.Des" />
+      <module name="JRCET" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jrcet.frame.Tools.Dencrypt.Des.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="jrcet.Main" />
       <module name="JRCET" />
@@ -112,6 +129,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Des" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.MyTextArea" />
         <item itemvalue="Application.area" />
@@ -133,23 +151,14 @@
       <workItem from="1674572810076" duration="4162000" />
       <workItem from="1675071283687" duration="12912000" />
       <workItem from="1675643187719" duration="32905000" />
-      <workItem from="1675907167957" duration="9700000" />
+      <workItem from="1675907167957" duration="27763000" />
+      <workItem from="1676859952137" duration="3718000" />
+      <workItem from="1677124501253" duration="626000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/JRCET$Main.ic" NAME="Main Coverage Results" MODIFIED="1675928695068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
