@@ -103,6 +103,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
                 String raw = sJTextArea.getText();
                 String url = urlField.getText();
+                BurpExtender.stdout.println("start");
                 Thread thread = new Captcha.getCaptchaThread(url,raw,responseArea);
                 thread.start();
                 break;
@@ -215,32 +216,6 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         }
 
     }
-
-//    private void updateAfterAdd() {
-//        JTextField tField;
-//        String text;
-//        String[][] result;
-//        JComponent tPanel;
-//        if(Objects.equals(Asset.AssetMode, "Search")){
-//            tField = (JTextField) Helper.getComponent(AssetComponentPanel,"AssetMainQueryInputField");assert tField!=null;
-//            text = tField.getText();
-//            if(Objects.equals(text, "")){
-//                return;
-//            }
-//
-//            result = Asset.searchAsset(text,Asset.page,Asset.dataNumber);
-//            tPanel = Helper.getComponent(AssetComponentPanel,"AssetMainResultUnitPanel");assert tPanel!=null;
-//            tPanel.removeAll();
-//            Asset.initResultUnitPanel(tPanel, result);
-//            tPanel.updateUI();
-//        }else{
-//            tPanel =  Helper.getComponent(AssetComponentPanel, "AssetMainResultUnitPanel"); assert tPanel!=null;
-//            tPanel.removeAll();
-//            Asset.initResultUnitPanel(tPanel, Asset.getAsset(Asset.page,Asset.dataNumber));
-//            tPanel.updateUI();
-//        }
-//    }
-
     public JComponent getNewIntruderModulePanel(String moduleName){
         switch (moduleName){
             case "Aes":

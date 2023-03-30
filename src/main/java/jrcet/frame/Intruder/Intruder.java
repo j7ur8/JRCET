@@ -12,7 +12,6 @@ import jrcet.frame.Tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.Tools.Dencrypt.Unicode.Unicode;
 import jrcet.help.Helper;
 import jrcet.help.d4ocr.OCREngine;
-import jrcet.help.d4ocr.network.HttpClient;
 
 
 import javax.imageio.ImageIO;

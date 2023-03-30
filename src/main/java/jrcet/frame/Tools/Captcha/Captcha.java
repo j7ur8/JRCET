@@ -2,8 +2,8 @@ package jrcet.frame.Tools.Captcha;
 
 import burp.BurpExtender;
 import jrcet.help.Helper;
+import jrcet.help.connect.HttpClient;
 import jrcet.help.d4ocr.OCREngine;
-import jrcet.help.d4ocr.network.HttpClient;
 
 
 import javax.imageio.ImageIO;
@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
@@ -21,23 +22,6 @@ public class Captcha {
 
     public static byte[] responseText="".getBytes();
 
-    public static String identifyCaptcha(String requestPackage, String url, String regex){
-        try{
-            HttpClient httpClient = new HttpClient(url, requestPackage);
-            String response = httpClient.doRequest();
-            String imageText = Helper.matchByRegular(response, regex);
-            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(Captcha.responseText);
-            ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
-
-            BufferedImage image = ImageIO.read(in);
-            OCREngine engine = OCREngine.instance();
-            String res = engine.recognize(image);
-            return res;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return "Error";
-    }
     public static String identifyCaptcha() {
         try {
 
@@ -56,20 +40,20 @@ public class Captcha {
             String rule = ruleField.getText();
             String requestPacket = requestArea.getText();
 
-            String response;
+            byte[] response;
             BufferedImage image;
 
             HttpClient httpClient = new HttpClient(url, requestPacket);
             response = httpClient.doRequest();
-
             String token="";
             String rule1 = rule1Field.getText();
+            BurpExtender.stdout.println("rule1: "+rule1);
             if(!Objects.equals(rule1, "")){
-                token=Helper.matchByRegular(response,rule1);
+                token=Helper.matchByRegular(new String(response,StandardCharsets.ISO_8859_1),rule1);
             }
-
-            String imageText = Helper.matchByRegular(response, rule);
-            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(Captcha.responseText);
+            BurpExtender.stdout.println("token:"+token);
+            String imageText = Helper.matchByRegular(new String(response,StandardCharsets.ISO_8859_1), rule);
+            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(response);
 
             ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
 
@@ -104,15 +88,19 @@ public class Captcha {
 
 
         public void run() {
-            String response="";
+            byte[] response= "".getBytes();
             try {
+                BurpExtender.stdout.println("start123");
                 HttpClient httpClient = new HttpClient(url, raw);
+                BurpExtender.stdout.println("444");
                 response = httpClient.doRequest();
+                BurpExtender.stdout.println("555");
+                responseText= response;
             } catch (Exception ee) {
                 BurpExtender.stdout.println(ee);
             }
 
-            responseArea.setText(response);
+            responseArea.setText(new String(response,StandardCharsets.ISO_8859_1));
         }
     }
 }

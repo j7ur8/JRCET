@@ -626,6 +626,40 @@ public class Helper {
         return byteRes;
     }
 
+    public static boolean notAndDeleteZip(File file) {
+
+        if(file == null){
+            return false;
+        }
+
+        if (file.isDirectory()) {
+            return false;
+        }
+
+        boolean isArchive = false;
+        InputStream input = null;
+        try {
+            input = new FileInputStream(file);
+            byte[] buffer = new byte[4];
+            int length = input.read(buffer, 0, 4);
+            if (length == 4) {
+                isArchive = (Arrays.equals(new byte[] { 80, 75, 3, 4 }, buffer)) || (Arrays.equals(new byte[] { 80, 75, 5, 6 }, buffer));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+        if(isArchive){
+            file.delete();
+        }
+        return  isArchive;
+    }
     public static String matchByRegular(String str, String reg){
         String res = "";
         Pattern r = Pattern.compile(reg, Pattern.DOTALL);
