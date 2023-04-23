@@ -9,8 +9,6 @@ import java.awt.event.ItemListener;
 
 public class DiyJComboBox<E> extends JComboBox<E> implements ItemListener {
 
-    public String[] types = new String[]{"PHP","Java","Nodejs","Other"};
-
     public DiyJComboBox(E[] targetList){
         super(targetList);
         addItemListener(this);

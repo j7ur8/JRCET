@@ -2,13 +2,18 @@ package burp;
 
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import jrcet.frame.Intruder.Intruder;
 
 import jrcet.frame.Jrcet;
+import jrcet.frame.Scanner.Fastjson.Fastjson;
+import jrcet.help.Helper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 
@@ -20,6 +25,7 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public static PrintWriter stdout;
     public static PrintWriter errors;
 
+    List<IScanIssue> iScanIssues = new ArrayList<>();
     public BurpExtender(){
     }
 
@@ -69,7 +75,6 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
         return Collections.singletonList(RScriptItem);
     }
 
-
     @Override
     public String getProcessorName() {
         return "JIntruder";
@@ -79,23 +84,29 @@ public class BurpExtender implements IBurpExtender, ITab, IContextMenuFactory, I
     public byte[] processPayload(byte[] currentPayload, byte[] originalPayload, byte[] baseValue) {
 
         String newPayload = "";
-
         newPayload = Intruder.invokeDiy(currentPayload);
-
         return helpers.stringToBytes(newPayload);
     }
 
     @Override
     public List<IScanIssue> doPassiveScan(IHttpRequestResponse baseRequestResponse) {
-        List<IScanIssue> iScanIssues = new ArrayList<>();
 
 
+        Fastjson.doScan(baseRequestResponse);
         return iScanIssues;
     }
 
     @Override
     public List<IScanIssue> doActiveScan(IHttpRequestResponse baseRequestResponse, IScannerInsertionPoint insertionPoint) {
-        return null;
+
+//        if(vul1){
+//            iScanIssues.add(new BurpScanIssue(baseRequestResponse.getHttpService(),iRequestInfo.getUrl(),new IHttpRequestResponse[]{baseRequestResponse},"log4j2","logj4j","High"));
+//        }
+//        if(vul2){
+//            iScanIssues.add(new BurpScanIssue(baseRequestResponse.getHttpService(),iRequestInfo.getUrl(),new IHttpRequestResponse[]{baseRequestResponse},"log4j2","logj4j","High"));
+//        }
+
+        return iScanIssues;
     }
 
     @Override
