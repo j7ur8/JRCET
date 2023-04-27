@@ -1,24 +1,18 @@
 package jrcet.frame.Intruder;
 
 
-import burp.BurpExtender;
 import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.frame.Tools.Dencrypt.Aes.Aes;
 import jrcet.frame.Tools.Dencrypt.Ascii.Ascii;
 import jrcet.frame.Tools.Dencrypt.Base.Base;
-import jrcet.frame.Tools.Dencrypt.Des.Des;
 import jrcet.frame.Tools.Dencrypt.Md5.Md5;
 import jrcet.frame.Tools.Dencrypt.Rsa.Rsa;
 import jrcet.frame.Tools.Dencrypt.Unicode.Unicode;
 import jrcet.help.Helper;
-import jrcet.help.d4ocr.OCREngine;
 
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 

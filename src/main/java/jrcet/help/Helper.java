@@ -1,6 +1,6 @@
 package jrcet.help;
 
-import burp.BurpExtender;
+import burp.MyExtender;
 import jrcet.diycomponents.DiyJAddLabel;
 import jrcet.diycomponents.DiyJChangeLabel;
 import jrcet.diycomponents.DiyJLabel;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static burp.BurpExtender.stdout;
+//import static burp.MyExtender.stdout;
 import static jrcet.Main.JrcetComponentList;
 
 public class Helper {
@@ -571,7 +571,7 @@ public class Helper {
             image = ImageIO.read(buffin);
             icon = new ImageIcon(image);
         } catch (IOException e) {
-            BurpExtender.stdout.println(e.getMessage());
+
         }
         return icon;
     }
@@ -688,7 +688,7 @@ public class Helper {
         try {
             result = java.net.URLEncoder.encode(str, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            stdout.println(e.getMessage());
+
         }
         return result;
     }
@@ -701,7 +701,7 @@ public class Helper {
         try {
             result = java.net.URLDecoder.decode(str, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            stdout.println(e.getMessage());
+
         }
         return result;
     }

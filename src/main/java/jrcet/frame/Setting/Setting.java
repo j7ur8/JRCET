@@ -19,4 +19,6 @@ public class Setting {
     public static String HTextShowPanel = "Alone";
 
     public static String DencryptShowPanel = "Aes";
+
+    public static boolean DEBUG = true;
 }

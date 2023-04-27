@@ -17,7 +17,6 @@ package jrcet.help.d4ocr;
 
 
 import ai.onnxruntime.OnnxTensor;
-import burp.BurpExtender;
 import com.alibaba.fastjson.JSONArray;
 import jrcet.help.Helper;
 import jrcet.help.d4ocr.utils.IOUtils;
@@ -28,7 +27,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,7 +66,7 @@ class OCREngineOldImpl implements OCREngine {
                 IOUtils.extractJarResource("/d4/common_old.onnx", modelFile);
             }
         } catch (Exception e) {
-//            BurpExtender.stdout.println(e);
+
             e.printStackTrace();
         }
     }
@@ -76,18 +74,18 @@ class OCREngineOldImpl implements OCREngine {
     @Override
     public String recognize(BufferedImage image) {
         try  {
-//            BurpExtender.stdout.println("10");
+
             ONNXRuntimeUtils onnx = new ONNXRuntimeUtils();
-//            BurpExtender.stdout.println("11");
+
             if (image == null) {
                 return null;
             }
-//            BurpExtender.stdout.println("12");
+
             if (modelFile == null || !modelFile.exists() || charsetArray == null) {
                 return null;
             }
 
-//            BurpExtender.stdout.println("13");
+
             image = ImageUtils.resize(image, 64 * image.getWidth() / image.getHeight(), 64);
             image = ImageUtils.toGray(image);
 
@@ -100,15 +98,15 @@ class OCREngineOldImpl implements OCREngine {
                 data[i] = (float) ((data[i] - 0.5) / 0.5);
             }
 
-//            BurpExtender.stdout.println("14");
+
             Map<String, OnnxTensor> map = new HashMap<>();
             map.put("input1",  onnx.createTensor(data, shape));
-//            BurpExtender.stdout.println("15");
+
             OnnxTensor indexTensor = (OnnxTensor) onnx.run(
                     modelFile.getAbsolutePath(),
                     map
             ).get(0);
-//            BurpExtender.stdout.println("16");
+
             long[][] index = (long[][])indexTensor.getValue();
 
             indexTensor.close();
@@ -121,8 +119,8 @@ class OCREngineOldImpl implements OCREngine {
 
             return words.toString();
         } catch (Exception e) {
-//            BurpExtender.stdout.println("出错了");
-//            BurpExtender.stdout.println(e);
+
+
         }
         return null;
     }

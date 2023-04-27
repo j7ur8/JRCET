@@ -1,7 +1,5 @@
 package jrcet.frame.Intruder;
 
-import burp.BurpExtender;
-import burp.ITextEditor;
 import jrcet.diycomponents.*;
 import jrcet.help.Helper;
 
@@ -9,7 +7,6 @@ import jrcet.help.Helper;
 
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class IntruderComponent extends DiyJComponent {

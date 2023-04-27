@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import burp.BurpExtender;
+import burp.MyExtender;
 import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.help.Helper;
@@ -22,9 +22,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 
@@ -103,7 +101,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
 
                 String raw = sJTextArea.getText();
                 String url = urlField.getText();
-                BurpExtender.stdout.println("start");
+
                 Thread thread = new Captcha.getCaptchaThread(url,raw,responseArea);
                 thread.start();
                 break;
@@ -129,7 +127,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 try {
                     image = ImageIO.read(in);
                 } catch (IOException ee) {
-                    BurpExtender.stdout.println(ee);
+
                 }
                 OCREngine engine = OCREngine.instance();
                 String res = engine.recognize(image);

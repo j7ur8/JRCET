@@ -1,8 +1,8 @@
 package jrcet.frame.Tools.Captcha;
 
-import burp.BurpExtender;
+import burp.api.montoya.http.HttpService;
+import burp.api.montoya.http.message.requests.HttpRequest;
 import jrcet.help.Helper;
-import jrcet.help.connect.HttpClient;
 import jrcet.help.d4ocr.OCREngine;
 
 
@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Objects;
 
+import static burp.MyExtender.api;
 import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaComponentPanel;
 
 public class Captcha {
@@ -43,15 +43,16 @@ public class Captcha {
             byte[] response;
             BufferedImage image;
 
-            HttpClient httpClient = new HttpClient(url, requestPacket);
-            response = httpClient.doRequest();
+            HttpRequest httpRequest = HttpRequest.httpRequest(requestPacket).withService(HttpService.httpService(url));
+            response = api.http().issueRequest(httpRequest).httpResponse().body();
+
             String token="";
             String rule1 = rule1Field.getText();
-            BurpExtender.stdout.println("rule1: "+rule1);
+
             if(!Objects.equals(rule1, "")){
                 token=Helper.matchByRegular(new String(response,StandardCharsets.ISO_8859_1),rule1);
             }
-            BurpExtender.stdout.println("token:"+token);
+
             String imageText = Helper.matchByRegular(new String(response,StandardCharsets.ISO_8859_1), rule);
             imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(response);
 
@@ -68,7 +69,7 @@ public class Captcha {
             return res;
 
         } catch (Exception e) {
-            BurpExtender.stdout.println(e);
+            api.logging().output().println(e.getMessage());
         }
 
         return "ErrorOrz";
@@ -77,7 +78,6 @@ public class Captcha {
     public static class getCaptchaThread extends Thread{
         public String url;
         public String raw;
-        public String rule;
         public JTextArea responseArea;
         public getCaptchaThread(String url, String raw, JTextArea responseArea){
             this.url = url;
@@ -85,19 +85,15 @@ public class Captcha {
             this.responseArea = responseArea;
         }
 
-
-
         public void run() {
             byte[] response= "".getBytes();
             try {
-                BurpExtender.stdout.println("start123");
-                HttpClient httpClient = new HttpClient(url, raw);
-                BurpExtender.stdout.println("444");
-                response = httpClient.doRequest();
-                BurpExtender.stdout.println("555");
+                HttpRequest httpRequest = HttpRequest.httpRequest(raw).withService(HttpService.httpService(url));
+
+                response = api.http().issueRequest(httpRequest).httpResponse().body();
                 responseText= response;
-            } catch (Exception ee) {
-                BurpExtender.stdout.println(ee);
+            } catch (Exception e) {
+                api.logging().output().println(e.getMessage());
             }
 
             responseArea.setText(new String(response,StandardCharsets.ISO_8859_1));

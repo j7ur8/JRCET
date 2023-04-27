@@ -3,7 +3,7 @@ package jrcet.help.d4ocr.utils;
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
 import ai.onnxruntime.OrtSession;
-import burp.BurpExtender;
+import burp.MyExtender;
 
 import java.nio.FloatBuffer;
 import java.util.Map;
@@ -15,11 +15,11 @@ public class ONNXRuntimeUtils implements AutoCloseable {
 
     public ONNXRuntimeUtils(){
         try{
-//            BurpExtender.stdout.println("cccc");
+
             env = OrtEnvironment.getEnvironment();
-//            BurpExtender.stdout.println("ccc2c");
+
         }catch (Exception e){
-            BurpExtender.stdout.println(e);
+
         }
 
     }
@@ -35,7 +35,7 @@ public class ONNXRuntimeUtils implements AutoCloseable {
             return session.run(inputs);
         } catch (Exception e) {
             e.printStackTrace();
-            BurpExtender.stdout.println(e);
+
         }
         return null;
     }
@@ -49,7 +49,7 @@ public class ONNXRuntimeUtils implements AutoCloseable {
         try {
             return OnnxTensor.createTensor(env, data, shape);
         } catch (Exception e) {
-           BurpExtender.stdout.println(e);
+
         }
         return null;
     }
