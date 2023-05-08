@@ -7,12 +7,19 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
+import static burp.MyExtender.API;
 
 public class DiyJTextAreaScrollPane extends JScrollPane {
     private final JTextArea textArea;
+    private String textEncoding = "UTF-8";
+    private byte[] textBytes = new byte[]{};
     private final JList<Integer> lineNumberList;
     private final Font font = new Font("微软雅黑", Font.PLAIN, 14);
     private final FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, true);
@@ -24,6 +31,40 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
         textArea.setTabSize(2);
         textArea.setLineWrap(true);
         textArea.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
+
+        // 为文本区域添加鼠标监听器，当右键被单击时显示弹出菜单
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem changeEncodingItem  = new JMenuItem("Change Encoding");
+        changeEncodingItem.setName(name+"EncodingMenuItem");
+        changeEncodingItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(Objects.equals(textEncoding, "UTF-8")){
+                    textBytes=textArea.getText().getBytes(StandardCharsets.UTF_8);
+                    try {
+                        textArea.setText(new String(textBytes, "GBK"));
+                        textEncoding="GBK";
+                    } catch (UnsupportedEncodingException ex) {
+                        API.logging().error().println("Unsupport Encoding at DiyJTextAreaScrollPane.java");
+                    }
+                } else if(Objects.equals(textEncoding, "GBK")){
+                    textArea.setText(new String(textBytes,StandardCharsets.UTF_8));
+                    textEncoding="UTF-8";
+                }
+            }
+        });
+        popupMenu.add(changeEncodingItem);
+        textArea.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+                if (e.getModifiers()== InputEvent.META_MASK) {
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
 
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -64,6 +105,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
     }
 
     public void setText(String text) {
+        textBytes = text.getBytes(StandardCharsets.ISO_8859_1);
         textArea.setText(text);
     }
 
@@ -135,6 +177,8 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
             return this;
         }
     }
+
+
 
     public static void main(String[] args) {
         JFrame JrcetFrame = new JFrame("J7ur8's Remote Code Execute Tools");

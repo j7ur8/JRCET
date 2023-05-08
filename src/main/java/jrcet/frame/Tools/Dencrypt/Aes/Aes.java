@@ -93,6 +93,7 @@ public class Aes {
             returned = "请选择模式";
         }
         //对InputText处理
+        assert InputText != null;
         inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
         len = inputTextByte.length;
         //设置key和iv

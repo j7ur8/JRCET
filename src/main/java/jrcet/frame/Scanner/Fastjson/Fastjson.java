@@ -1,6 +1,5 @@
 package jrcet.frame.Scanner.Fastjson;
 
-import burp.*;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.headers.HttpHeader;
 import burp.api.montoya.http.message.requests.HttpRequest;
@@ -8,7 +7,6 @@ import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.frame.Setting.Setting;
 import jrcet.help.Helper;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -19,9 +17,9 @@ public class Fastjson {
     public static String DNSLOG = "";
     public static String TOKEN = "";
 
-    private static final HashSet<String> url_set = new HashSet<>();
+    private static final HashSet<String> UrlSet = new HashSet<>();
 
-    private static String current_url;
+    private static String CurrentURL;
 
     public static void doScan(HttpRequestResponse httpRequestResponse){
 
@@ -35,17 +33,17 @@ public class Fastjson {
         HttpRequest newHttpRequest=null;
 //        newHttpRequest.withBody(body);
         httpRequest = httpRequest.withBody(body);
-        if(Setting.DEBUG)api.logging().output().println(httpRequest.bodyAsString());
-        httpRequestResponse = api.http().issueRequest(httpRequest);
+        if(Setting.DEBUG) API.logging().output().println(httpRequest.bodyAsString());
+        httpRequestResponse = API.http().issueRequest(httpRequest);
 
         HttpResponse httpResponse = httpRequestResponse.httpResponse();
-        if(Setting.DEBUG)api.logging().output().println(httpResponse.statusCode());
-        url_set.add(current_url);
+        if(Setting.DEBUG) API.logging().output().println(httpResponse.statusCode());
+        UrlSet.add(CurrentURL);
     }
 
     private static boolean check(HttpRequestResponse httpRequestResponse){
-        current_url = httpRequestResponse.httpRequest().withPath("/").url();
-        if(url_set.contains(current_url)) return false;
+        CurrentURL = httpRequestResponse.httpRequest().withPath("/").url();
+        if(UrlSet.contains(CurrentURL)) return false;
 
         List<HttpHeader> httpHeaders = httpRequestResponse.httpRequest().headers();
         for(HttpHeader httpHeader: httpHeaders){

@@ -6,7 +6,7 @@ import jrcet.frame.Jrcet;
 
 public class MyExtender implements BurpExtension{
 
-    public static MontoyaApi api;
+    public static MontoyaApi API;
 
     public MyExtender(){
     }
@@ -21,8 +21,9 @@ public class MyExtender implements BurpExtension{
 
         api.intruder().registerPayloadProcessor(new MyPayloadProcessor());
 
-        api.userInterface().createHttpRequestEditor()
-        MyExtender.api =api;
+        api.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
+
+        MyExtender.API =api;
     }
 
 

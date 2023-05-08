@@ -1,5 +1,6 @@
 package jrcet.frame.Scanner.Springboot;
 
+import burp.api.montoya.http.HttpTransformation;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
@@ -7,16 +8,19 @@ import jrcet.frame.Setting.Setting;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static burp.MyExtender.api;
+import static burp.MyExtender.API;
 
 public class Springboot {
 
-    public static String[] dict_paths=new String[]{"/swagger-resources", "/actuator/env","/druid/index.html","/doc.html"};
-    private static final HashSet<String> url_set = new HashSet<>();
+    public static ArrayList<String> VulPathList =new ArrayList<>(Arrays.asList("/swagger-resources", "/actuator/env", "/druid/index.html", "/doc.html"));
+    private static final HashSet<String> UrlSet = new HashSet<>();
 
-    private static String current_url;
+    private static String CurrentUrl;
     public static void doScan(HttpRequestResponse httpRequestResponse){
 
         if(!check(httpRequestResponse)) return;
@@ -26,12 +30,31 @@ public class Springboot {
         HttpRequest httpRequest = httpRequestResponse.httpRequest();
 
         for(String path : path_list){
-            httpRequest = httpRequest.withPath(path);
-            httpRequestResponse = api.http().issueRequest(httpRequest);
+
+            Pattern pattern = Pattern.compile("(.*)? /");
+            Matcher matcher = pattern.matcher(httpRequest.withBody("").
+                    removeHeader("Content-Length").
+                    removeHeader("Sec-Ch-Ua").
+                    removeHeader("Sec-Ch-Ua-Mobile").
+                    removeHeader("Sec-Ch-Ua-Platform").
+                    removeHeader("Sec-Fetch-Site").
+                    removeHeader("Sec-Fetch-Mode").
+                    removeHeader("Sec-Fetch-Dest").
+                    removeHeader("Last-Modified").
+                    removeHeader("Cache-Control").
+                    removeHeader("Expires").
+                    removeHeader("Last-Modified").
+                    toString()
+            );
+
+            String result = matcher.replaceAll("GET /");
+
+            httpRequest = HttpRequest.httpRequest(httpRequest.httpService(),result).withPath(path);
+            httpRequestResponse = API.http().issueRequest(httpRequest);
             HttpResponse httpResponse = httpRequestResponse.httpResponse();
         }
 
-        url_set.add(current_url);
+        UrlSet.add(CurrentUrl);
     }
 
     private static ArrayList<String> get_path_list(HttpRequestResponse httpRequestResponse){
@@ -40,7 +63,7 @@ public class Springboot {
         try{
             url = new URL(httpRequestResponse.httpRequest().url());
         }catch (Exception e){
-            api.logging().error().println(e.getMessage());
+            API.logging().error().println(e.getMessage());
         }
         assert url != null;
 
@@ -55,9 +78,9 @@ public class Springboot {
         }
 
         ArrayList<String> path_list = new ArrayList<>();
-        for(String dict_path : dict_paths){
+        for(String dict_path : VulPathList){
             for(String root_path : root_paths){
-                if(Setting.DEBUG)api.logging().output().println(root_path+dict_path);
+                if(Setting.DEBUG) API.logging().output().println(root_path+dict_path);
                 path_list.add(root_path+dict_path);
             }
         }
@@ -66,7 +89,7 @@ public class Springboot {
     }
 
     private static boolean check(HttpRequestResponse httpRequestResponse){
-        current_url = httpRequestResponse.httpRequest().withPath("/").url();
-        return !url_set.contains(current_url);
+        CurrentUrl = httpRequestResponse.httpRequest().withPath("/").url();
+        return !UrlSet.contains(CurrentUrl);
     }
 }

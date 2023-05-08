@@ -15,7 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import static burp.MyExtender.api;
+import static burp.MyExtender.API;
 import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaComponentPanel;
 
 public class Captcha {
@@ -44,16 +44,16 @@ public class Captcha {
             BufferedImage image;
 
             HttpRequest httpRequest = HttpRequest.httpRequest(requestPacket).withService(HttpService.httpService(url));
-            response = api.http().issueRequest(httpRequest).httpResponse().body();
+            response = API.http().issueRequest(httpRequest).httpResponse().body();
 
             String token="";
             String rule1 = rule1Field.getText();
 
             if(!Objects.equals(rule1, "")){
-                token=Helper.matchByRegular(new String(response,StandardCharsets.ISO_8859_1),rule1);
+                token=Helper.matchByRegular(new String(response,StandardCharsets.UTF_8),rule1);
             }
 
-            String imageText = Helper.matchByRegular(new String(response,StandardCharsets.ISO_8859_1), rule);
+            String imageText = Helper.matchByRegular(new String(response,StandardCharsets.UTF_8), rule);
             imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(response);
 
             ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
@@ -69,7 +69,7 @@ public class Captcha {
             return res;
 
         } catch (Exception e) {
-            api.logging().output().println(e.getMessage());
+            API.logging().output().println(e.getMessage());
         }
 
         return "ErrorOrz";
@@ -90,13 +90,13 @@ public class Captcha {
             try {
                 HttpRequest httpRequest = HttpRequest.httpRequest(raw).withService(HttpService.httpService(url));
 
-                response = api.http().issueRequest(httpRequest).httpResponse().body();
+                response = API.http().issueRequest(httpRequest).httpResponse().body();
                 responseText= response;
             } catch (Exception e) {
-                api.logging().output().println(e.getMessage());
+                API.logging().output().println(e.getMessage());
             }
 
-            responseArea.setText(new String(response,StandardCharsets.ISO_8859_1));
+            responseArea.setText(new String(response,StandardCharsets.UTF_8));
         }
     }
 }
