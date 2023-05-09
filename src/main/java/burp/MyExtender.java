@@ -13,17 +13,20 @@ public class MyExtender implements BurpExtension{
 
     @Override
     public void initialize(MontoyaApi api) {
-        api.misc().setExtensionName("JRCET");
-
-        api.userInterface().registerSuiteTab("JRCET",new Jrcet().main());
-
-        api.scanner().registerScanCheck(new MyScanCheck());
-
-        api.intruder().registerPayloadProcessor(new MyPayloadProcessor());
-
-        api.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
 
         MyExtender.API =api;
+
+        API.misc().setExtensionName("JRCET");
+        API.userInterface().registerSuiteTab("JRCET",new Jrcet().main());
+
+        API.scanner().registerScanCheck(new MyScanCheck());
+
+        API.intruder().registerPayloadProcessor(new MyPayloadProcessor());
+
+        API.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
+//        API.userInterface().registerHttpRequestEditorProvider(new MyRegisterHttpRequestEditorProvider());
+        API.userInterface().registerHttpResponseEditorProvider(new MyRegisterHttpResponseEditorProvider());
+
     }
 
 

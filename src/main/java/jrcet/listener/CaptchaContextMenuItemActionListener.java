@@ -41,6 +41,5 @@ public class CaptchaContextMenuItemActionListener implements ActionListener {
         }catch (Exception exception){
             API.logging().error().println(exception);
         }
-
     }
 }

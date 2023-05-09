@@ -10,14 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d62eaa-e9c4-460f-a7cf-45954ffca213" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyExtender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/Fastjson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/Fastjson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Aes/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Dencrypt/Aes/Aes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/listener/CaptchaContextMenuItemActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/listener/CaptchaContextMenuItemActionListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +66,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="burp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/burp" />
       <recent name="$PROJECT_DIR$/src/main/java" />
@@ -186,7 +184,7 @@
       <workItem from="1682475563523" duration="18821000" />
       <workItem from="1682668313487" duration="3513000" />
       <workItem from="1683086749627" duration="4000" />
-      <workItem from="1683362332101" duration="6827000" />
+      <workItem from="1683362332101" duration="15189000" />
     </task>
     <servers />
   </component>
