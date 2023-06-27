@@ -2,6 +2,7 @@ package jrcet.frame;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.Asset.AssetComponent;
 import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.frame.Scanner.ScannerComponent;
 import jrcet.frame.Setting.Setting;
@@ -111,8 +112,7 @@ public class Jrcet extends DiyJComponent {
     }
 
     private JComponent IntruderComponentPanel(){
-        DiyJComponent IntruderComponentInstance = new IntruderComponent();
-        return IntruderComponentInstance.main();
+        return new IntruderComponent().main();
     }
 
     private JComponent ScannerComponentPanel() {
@@ -121,18 +121,15 @@ public class Jrcet extends DiyJComponent {
 
 
     private JComponent ToolsComponentPanel(){
-        DiyJComponent ToolsComponentInstance=new ToolsComponent();
-        return ToolsComponentInstance.main();
+        return new ToolsComponent().main();
     }
 
     private JComponent SettingComponentPanel(){
-        DiyJComponent SettingComponentInstance=new SettingComponent();
-        return SettingComponentInstance.main();
+        return new SettingComponent().main();
     }
 
     private JComponent AssetComponentPanel(){
-        return new JPanel();
-//        return new AssetComponent().main();
+        return new AssetComponent().main();
     }
 
     private JComponent ExploitComponentPanel(){

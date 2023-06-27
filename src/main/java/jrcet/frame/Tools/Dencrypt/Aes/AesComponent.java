@@ -116,9 +116,7 @@ public class AesComponent extends DiyJComponent {
 
     public JComponent AesMainCipherJScrollPane(){
 
-        DiyJTextAreaScrollPane AesMainCiphertextAreaScrollPane = new DiyJTextAreaScrollPane("AesMainCiphertextArea");
-
-        return AesMainCiphertextAreaScrollPane;
+        return new DiyJTextAreaScrollPane("AesMainCiphertextArea");
     }
 
     public JComponent AesMainControlPanel(){

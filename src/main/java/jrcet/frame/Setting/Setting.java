@@ -1,6 +1,7 @@
 package jrcet.frame.Setting;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 
 public class Setting {
 
@@ -13,7 +14,7 @@ public class Setting {
 
 
     // 可选 Intruder, Scanner, Dominate, Password, Dencrypt, RScript, HText， Captcha
-    public static String ToolsShowPanel = "Captcha";
+    public static String ToolsShowPanel = "Password";
 
     // 可选 Alone, Sort, Parsepy, Case, Format, IPUnit, Regex, Len
     public static String HTextShowPanel = "Alone";
@@ -21,4 +22,6 @@ public class Setting {
     public static String DencryptShowPanel = "Aes";
 
     public static boolean DEBUG = true;
+
+    public static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 }

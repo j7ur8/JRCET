@@ -4,3 +4,4 @@ target/
 out/
 src/main/java/jrcet/frame/Setting/Database.java
 .idea/
+src/main/resources/jrcet/frame/Asset

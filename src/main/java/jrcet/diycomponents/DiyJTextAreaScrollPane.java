@@ -1,6 +1,5 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Jrcet;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -15,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import static burp.MyExtender.API;
+import static jrcet.Main.centerInScreen;
 
 public class DiyJTextAreaScrollPane extends JScrollPane {
     private final JTextArea textArea;
@@ -25,13 +25,14 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
     private final FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, true);
 
     public DiyJTextAreaScrollPane(String name) {
-        textArea = new JTextArea();
+        super(new JTextArea());
+        textArea = (JTextArea) getViewport().getComponent(0);
         textArea.setName(name);
         textArea.setFont(font);
         textArea.setTabSize(2);
         textArea.setLineWrap(true);
         textArea.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
-
+        textArea.setForeground(new Color(34,34,34));
         // 为文本区域添加鼠标监听器，当右键被单击时显示弹出菜单
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem changeEncodingItem  = new JMenuItem("Change Encoding");
@@ -95,7 +96,6 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
         );
 
         setName(name + "ScrollPane");
-        setViewportView(textArea);
         setRowHeaderView(lineNumberList);
 
         setPreferredSize(new Dimension(0, 0));
@@ -142,6 +142,8 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
         public LineNumberListCellRenderer(JTextArea textArea) {
             this.textArea = textArea;
             setFont(font);
+//            setBorder(BorderFactory.createEmptyBorder(0,2,0,0));
+            setForeground(new Color(120,120,120));
             setHorizontalAlignment(SwingConstants.LEADING);
         }
 
@@ -154,7 +156,6 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
                 int lineStartOffset = textArea.getLineStartOffset(value - 1);
                 int lineEndOffset = textArea.getLineEndOffset(value - 1);
                 String line = textArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
-
                 int lineWidth = (int) font.getStringBounds(line, frc).getWidth();
                 int lineHeight = (int) font.getStringBounds(line, frc).getHeight()+1;
                 int headerWidth = (int) font.getStringBounds(String.valueOf(value), frc).getWidth();
@@ -168,7 +169,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
 //                    System.out.println("行高："+lineHeight);
                 }
 
-                setPreferredSize(new Dimension((int) (headerWidth * 1.13), lineHeight));
+                setPreferredSize(new Dimension((int) (headerWidth * 1.13)+3, lineHeight));
                 setText(String.valueOf(value));
             } catch (Exception e) {
 
@@ -181,15 +182,15 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
 
 
     public static void main(String[] args) {
-        JFrame JrcetFrame = new JFrame("J7ur8's Remote Code Execute Tools");
+        JFrame RScriptFrame = new JFrame("RScript");
 
         //setContentPane需放在前面，不然需要更改界面尺寸才会显示。
-        Jrcet jrcet = new Jrcet();
-        JrcetFrame.setContentPane(new DiyJTextAreaScrollPane("test"));
+        RScriptFrame.setContentPane(new JTextPane());
 
-        JrcetFrame.setResizable(true);
-        JrcetFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JrcetFrame.setSize(1200, 1000);
-        JrcetFrame.setVisible(true);
+//        JrcetFrame.setResizable(true);
+//        RScriptFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        RScriptFrame.setSize(600, 500);
+        centerInScreen(RScriptFrame);
+        RScriptFrame.setVisible(true);
     }
 }

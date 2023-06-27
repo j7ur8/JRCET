@@ -6,6 +6,7 @@ import jrcet.frame.Setting.Setting;
 import jrcet.frame.Tools.Captcha.CaptchaComponent;
 import jrcet.frame.Tools.Dencrypt.DencryptComponent;
 import jrcet.frame.Tools.HText.HTextComponent;
+import jrcet.frame.Tools.Password.PasswordComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ public class ToolsComponent extends DiyJComponent {
 
     private final JComponent CaptchaComponentPanel = CaptchaComponentPanel();
 
+    private final JComponent PasswordComponentPanel = PasswordComponentPanel();
     public static JComponent ToolsComponentPanel = null;
 
     @Override
@@ -70,10 +72,15 @@ public class ToolsComponent extends DiyJComponent {
         ToolsMenuHTextLabel.setPanel(HTextComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuHTextLabel);
 
-        DiyJTabLabel ToolsMenuCaptchaLabel = new DiyJTabLabel("Captcha", true);
+        DiyJTabLabel ToolsMenuCaptchaLabel = new DiyJTabLabel("Captcha");
         ToolsMenuCaptchaLabel.setName("ToolsMenuCaptchaLabel");
         ToolsMenuCaptchaLabel.setPanel(CaptchaComponentPanel);
         ToolsMenuTabPanel.add(ToolsMenuCaptchaLabel);
+
+        DiyJTabLabel ToolsMenuPasswordLabel = new DiyJTabLabel("Password", true);
+        ToolsMenuPasswordLabel.setName("ToolsMenuPasswordLabel");
+        ToolsMenuPasswordLabel.setPanel(PasswordComponentPanel);
+        ToolsMenuTabPanel.add(ToolsMenuPasswordLabel);
 
         return ToolsMenuTabPanel;
     }
@@ -89,6 +96,8 @@ public class ToolsComponent extends DiyJComponent {
                 return HTextComponentPanel;
             case "Captcha":
                 return  CaptchaComponentPanel;
+            case "Password":
+                return PasswordComponentPanel;
         }
         return new JPanel();
     }
@@ -112,5 +121,9 @@ public class ToolsComponent extends DiyJComponent {
 
     private JComponent CaptchaComponentPanel(){
         return  new CaptchaComponent().main();
+    }
+
+    private JComponent PasswordComponentPanel() {
+        return new PasswordComponent().main();
     }
 }
