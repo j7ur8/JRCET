@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -14,7 +14,7 @@ package burp.api.montoya.sitemap;
 public interface SiteMapNode
 {
     /**
-     * This method is used to retrieve the URL associated with the site map's node.
+     * Retrieve the URL associated with the site map's node.
      *
      * @return The URL of the node.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -7,6 +7,8 @@
  */
 
 package burp.api.montoya.utilities;
+
+import burp.api.montoya.core.ByteArray;
 
 /**
  * This interface gives you access to cryptographic features.
@@ -18,7 +20,8 @@ public interface CryptoUtils
      *
      * @param data      the data to generate the digest from
      * @param algorithm the message {@link DigestAlgorithm} to use
+     *
      * @return the generated message digest
      */
-    byte[] generateDigest(byte[] data, DigestAlgorithm algorithm);
+    ByteArray generateDigest(ByteArray data, DigestAlgorithm algorithm);
 }

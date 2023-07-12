@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,7 +9,7 @@
 package burp.api.montoya.http.message.responses.analysis;
 
 /**
- * This enum defines various options that Burp can use to query attributes of HTTP responses.
+ * Otions that Burp can use to query attributes of HTTP responses.
  */
 public enum AttributeType
 {

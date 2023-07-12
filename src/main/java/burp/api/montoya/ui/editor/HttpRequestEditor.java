@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,9 +9,13 @@
 package burp.api.montoya.ui.editor;
 
 import burp.api.montoya.http.message.requests.HttpRequest;
+import burp.api.montoya.ui.Selection;
+
+import java.awt.Component;
+import java.util.Optional;
 
 /**
- * This interface provides extensions with an instance of Burp Suites HTTP request editor to use in their own user interface.
+ * Provides extensions with an instance of Burp Suites HTTP request editor to use in their own user interface.
  */
 public interface HttpRequestEditor extends Editor
 {
@@ -21,9 +25,39 @@ public interface HttpRequestEditor extends Editor
     HttpRequest getRequest();
 
     /**
-     * This method is used to display the contents of an HTTP request in the editor.
+     * Display the contents of an HTTP request in the editor.
      *
      * @param request The HTTP request to be set.
      */
     void setRequest(HttpRequest request);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void setSearchExpression(String expression);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    boolean isModified();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    int caretPosition();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Optional<Selection> selection();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Component uiComponent();
 }

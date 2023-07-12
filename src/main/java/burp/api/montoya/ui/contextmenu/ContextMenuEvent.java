@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This interface provides useful information when generating context menu items from a {@link ContextMenuItemsProvider}.
+ * Provides useful information when generating context menu items from a {@link ContextMenuItemsProvider}.
  */
 public interface ContextMenuEvent extends ComponentEvent, ToolSource, InvocationSource
 {
@@ -40,6 +40,8 @@ public interface ContextMenuEvent extends ComponentEvent, ToolSource, Invocation
      * This will return an empty list if no issues are applicable to the invocation.
      *
      * @return a List of {@link AuditIssue} objects representing the items that were shown or selected by the user when the context menu was invoked.
+     * @deprecated Use {@link ContextMenuItemsProvider#provideMenuItems(AuditIssueContextMenuEvent)} instead.
      */
+    @Deprecated
     List<AuditIssue> selectedIssues();
 }

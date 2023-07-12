@@ -44,7 +44,7 @@ public class Captcha {
             BufferedImage image;
 
             HttpRequest httpRequest = HttpRequest.httpRequest(requestPacket).withService(HttpService.httpService(url));
-            response = API.http().issueRequest(httpRequest).httpResponse().body();
+            response = API.http().sendRequest(httpRequest).response().body().getBytes();
 
             String token="";
             String rule1 = rule1Field.getText();
@@ -90,7 +90,7 @@ public class Captcha {
             try {
                 HttpRequest httpRequest = HttpRequest.httpRequest(raw).withService(HttpService.httpService(url));
 
-                response = API.http().issueRequest(httpRequest).httpResponse().body();
+                response = API.http().sendRequest(httpRequest).response().body().getBytes();
                 responseText= response;
             } catch (Exception e) {
                 API.logging().output().println(e.getMessage());

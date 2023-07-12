@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,23 +8,25 @@
 
 package burp.api.montoya.collaborator;
 
+import burp.api.montoya.core.ByteArray;
+
 /**
- * This interface provides information about a DNS interaction detected by Burp
+ * Provides information about a DNS interaction detected by Burp
  * Collaborator.
  */
 public interface DnsDetails
 {
     /**
-     * Returns the DNS query type.
+     * DNS query type.
      *
      * @return The type of DNS query performed by the interaction.
      */
     DnsQueryType queryType();
 
     /**
-     * Returns the raw DNS query.
+     * Raw DNS query.
      *
      * @return The raw DNS query sent to the Collaborator server.
      */
-    byte[] query();
+    ByteArray query();
 }

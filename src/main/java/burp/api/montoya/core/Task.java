@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,14 +9,17 @@
 package burp.api.montoya.core;
 
 /**
- * This interface represents a task on the Dashboard.
+ * Task on the Dashboard.
  */
 public interface Task
 {
     /**
-     * This method is used to delete the task.
+     * Delete the task.
      */
     void delete();
 
+    /**
+     * @return the current status message of the task
+     */
     String statusMessage();
 }

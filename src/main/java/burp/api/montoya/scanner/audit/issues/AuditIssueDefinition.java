@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -19,23 +19,7 @@ public interface AuditIssueDefinition
 {
 
     /**
-     * This method can be used to create a default implementation of an audit
-     * issue definition.
-     *
-     * @param name            The name of the issue type.
-     * @param background      The background description for the type of issue.
-     * @param remediation     The background description of the remediation for
-     *                        this type of issue.
-     * @param typicalSeverity The typical {@link AuditIssueSeverity} level.
-     * @return The audit issue definition.
-     */
-    static AuditIssueDefinition auditIssueDefinition(String name, String background, String remediation, AuditIssueSeverity typicalSeverity)
-    {
-        return FACTORY.auditIssueDefinition(name, background, remediation, typicalSeverity);
-    }
-
-    /**
-     * This method returns the name of this issue type.
+     * Name of this issue type.
      *
      * @return The name of this issue type (e.g. "SQL injection").
      */
@@ -60,7 +44,7 @@ public interface AuditIssueDefinition
     String remediation();
 
     /**
-     * This method returns the typical issue severity level.
+     * Typical issue severity level.
      *
      * @return The typical {@link AuditIssueSeverity} level.
      */
@@ -73,4 +57,21 @@ public interface AuditIssueDefinition
      * @return An index of the issue type.
      */
     int typeIndex();
+
+    /**
+     * This method can be used to create a default implementation of an audit
+     * issue definition.
+     *
+     * @param name            The name of the issue type.
+     * @param background      The background description for the type of issue.
+     * @param remediation     The background description of the remediation for
+     *                        this type of issue.
+     * @param typicalSeverity The typical {@link AuditIssueSeverity} level.
+     *
+     * @return The audit issue definition.
+     */
+    static AuditIssueDefinition auditIssueDefinition(String name, String background, String remediation, AuditIssueSeverity typicalSeverity)
+    {
+        return FACTORY.auditIssueDefinition(name, background, remediation, typicalSeverity);
+    }
 }

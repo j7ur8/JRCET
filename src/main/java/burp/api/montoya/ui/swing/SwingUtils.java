@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,6 +8,9 @@
 
 package burp.api.montoya.ui.swing;
 
+import burp.api.montoya.core.HighlightColor;
+
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Window;
@@ -26,7 +29,17 @@ public interface SwingUtils
      * Retrieve the top-level {@code Window} containing the supplied component.
      *
      * @param component the component.
+     *
      * @return the top-level {@code Window} containing the component.
      */
     Window windowForComponent(Component component);
+
+    /**
+     * Convert a highlight color to a java color.
+     *
+     * @param highlightColor the {@link HighlightColor}
+     *
+     * @return the java color for the highlight color.
+     */
+    Color colorForHighLight(HighlightColor highlightColor);
 }

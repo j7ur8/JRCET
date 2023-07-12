@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -15,7 +15,7 @@ import burp.api.montoya.scanner.audit.issues.AuditIssue;
 import java.util.List;
 
 /**
- * This interface provides methods for querying and modifying Burp's site map.
+ * Provides methods for querying and modifying Burp's site map.
  */
 public interface SiteMap
 {
@@ -25,6 +25,7 @@ public interface SiteMap
      *
      * @param filter This parameter can be used to specify a filter, in order to extract a
      *               specific subset of the site map.
+     *
      * @return A list of filtered items from the site map.
      */
     List<HttpRequestResponse> requestResponses(SiteMapFilter filter);
@@ -34,10 +35,7 @@ public interface SiteMap
      *
      * @return A list of all items from the site map.
      */
-    default List<HttpRequestResponse> requestResponses()
-    {
-        return requestResponses(node -> true);
-    }
+    List<HttpRequestResponse> requestResponses();
 
     /**
      * This method returns current audit issues for URLs in the site map that are matched by the
@@ -45,6 +43,7 @@ public interface SiteMap
      *
      * @param filter This parameter can be used to specify a filter, in order to extract issues
      *               for a specific subset of the site map.
+     *
      * @return A filtered list of audit issues.
      */
     List<AuditIssue> issues(SiteMapFilter filter);
@@ -54,10 +53,7 @@ public interface SiteMap
      *
      * @return A list of audit issues.
      */
-    default List<AuditIssue> issues()
-    {
-        return issues(node -> true);
-    }
+    List<AuditIssue> issues();
 
     /**
      * This method can be used to add an {@link HttpRequestResponse} item to Burp's site
@@ -69,7 +65,7 @@ public interface SiteMap
     void add(HttpRequestResponse requestResponse);
 
     /**
-     * This method is used to register a new Audit issue. Note: Wherever possible, extensions
+     * Register a new Audit issue. Note: Wherever possible, extensions
      * should implement custom Scanner checks using {@link ScanCheck} and report issues
      * via those checks, to integrate with Burp's user-driven workflow, and ensure proper
      * consolidation of duplicate reported issues. This method is only designed for tasks

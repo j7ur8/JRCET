@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,15 +8,17 @@
 
 package burp.api.montoya.comparer;
 
+import burp.api.montoya.core.ByteArray;
+
 /**
- * This interface provides access to the functionality of the Comparer tool.
+ * Provides access to the functionality of the Comparer tool.
  */
 public interface Comparer
 {
     /**
-     * This method can be used to send data to the Comparer tool.
+     * Send data to the Comparer tool.
      *
      * @param data The data to be sent to Comparer.
      */
-    void sendToComparer(byte[]... data);
+    void sendToComparer(ByteArray... data);
 }

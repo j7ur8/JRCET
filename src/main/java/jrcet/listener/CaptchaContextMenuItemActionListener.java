@@ -27,7 +27,7 @@ public class CaptchaContextMenuItemActionListener implements ActionListener {
             API.logging().error().println("httpRequestResponseList.size()!=1");
             return;
         }
-        HttpRequest httpRequest = httpRequestResponseList.get(0).httpRequest();
+        HttpRequest httpRequest = httpRequestResponseList.get(0).request();
         String urlString = httpRequest.url();
         String reqString = httpRequest.toString();
 

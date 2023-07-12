@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -16,7 +16,7 @@ import burp.api.montoya.core.Task;
 public interface ScanTask extends Task
 {
     /**
-     * This method returns the number of requests that have been made for the
+     * Number of requests that have been made for the
      * scan task.
      *
      * @return The number of requests that have been made for the scan task.
@@ -24,11 +24,23 @@ public interface ScanTask extends Task
     int requestCount();
 
     /**
-     * This method returns the number of network errors that have occurred for
+     * Number of network errors that have occurred for
      * the scan task.
      *
      * @return The number of network errors that have occurred for the scan
      * task.
      */
     int errorCount();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void delete();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    String statusMessage();
 }

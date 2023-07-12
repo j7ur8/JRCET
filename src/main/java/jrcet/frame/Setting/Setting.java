@@ -21,7 +21,8 @@ public class Setting {
 
     public static String DencryptShowPanel = "Aes";
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public static Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    public static String ScannerShowPanel = "Overauth";
 }

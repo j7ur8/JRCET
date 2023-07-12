@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,7 +9,7 @@
 package burp.api.montoya.ui.contextmenu;
 
 /**
- * This interface provides information about the source from which a context menu was invoked.
+ * Provides information about the source from which a context menu was invoked.
  */
 public interface InvocationSource
 {
@@ -22,6 +22,7 @@ public interface InvocationSource
      * A helper method to allow the extension to ask if the context is within a set of locations.
      *
      * @param invocationType One or more instances of {@link InvocationType} to check.
+     *
      * @return True if the context menu is being invoked from one of the types that is being checked.
      */
     boolean isFrom(InvocationType... invocationType);

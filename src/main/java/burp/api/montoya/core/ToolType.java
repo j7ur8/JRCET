@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,7 +9,7 @@
 package burp.api.montoya.core;
 
 /**
- * This enum represents tools in Burp Suite.
+ * Tools in Burp Suite.
  */
 public enum ToolType
 {
@@ -23,7 +23,7 @@ public enum ToolType
     SEQUENCER("Sequencer"),
     DECODER("Decoder"),
     COMPARER("Comparer"),
-    EXTENDER("Extender"),
+    EXTENSIONS("Extensions"),
     RECORDED_LOGIN_REPLAYER("Recorded login replayer");
 
     private final String toolName;
@@ -33,11 +33,17 @@ public enum ToolType
         this.toolName = toolName;
     }
 
+    /**
+     * @return The tool name.
+     */
     public String toolName()
     {
         return toolName;
     }
 
+    /**
+     * @return The tool name.
+     */
     @Override
     public String toString()
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,11 +9,20 @@
 package burp.api.montoya.collaborator;
 
 /**
- * This enum defines the possible types of interaction with Burp Collaborator.
+ * Possible types of interaction with Burp Collaborator.
  */
 public enum InteractionType
 {
+    /**
+     * Domain Name System
+     */
     DNS,
+    /**
+     * Hypertext Transfer Protocol
+     */
     HTTP,
+    /**
+     * Simple Mail Transfer Protocol
+     */
     SMTP
 }

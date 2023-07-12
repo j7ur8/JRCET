@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -11,7 +11,7 @@ package burp.api.montoya.collaborator;
 import static burp.api.montoya.internal.ObjectFactoryLocator.FACTORY;
 
 /**
- * This interface provides a filtering mechanism for use when retrieving
+ * Provides a filtering mechanism for use when retrieving
  * interactions from the Burp Collaborator server.
  * Helper methods are provided to create filters based on the interaction id
  * and the payload.
@@ -19,10 +19,24 @@ import static burp.api.montoya.internal.ObjectFactoryLocator.FACTORY;
 public interface InteractionFilter
 {
     /**
-     * This method constructs an InteractionFilter that matches any
+     * This method is invoked for each interaction retrieved from the
+     * Collaborator server and determines whether the interaction should be
+     * included in the list of interactions returned.
+     *
+     * @param server      The collaborator server that received the interaction.
+     * @param interaction The interaction details.
+     *
+     * @return {@code true} if the interaction should be included,
+     * {@code false} if not.
+     */
+    boolean matches(CollaboratorServer server, Interaction interaction);
+
+    /**
+     * Construct a InteractionFilter that matches any
      * interaction with the specified interaction id.
      *
      * @param id The interaction id.
+     *
      * @return {@code true} if the interaction has the specified id,
      * {@code false} if not.
      */
@@ -32,10 +46,11 @@ public interface InteractionFilter
     }
 
     /**
-     * This method constructs an InteractionFilter that matches any
+     * Construct an InteractionFilter that matches any
      * interaction with the specified payload.
      *
      * @param payload The payload.
+     *
      * @return {@code true} if the interaction has the specified payload,
      * {@code false} if not.
      */
@@ -43,16 +58,4 @@ public interface InteractionFilter
     {
         return FACTORY.interactionPayloadFilter(payload);
     }
-
-    /**
-     * This method will be called for each interaction retrieved from the
-     * Collaborator server and determines whether the interaction should be
-     * included in the list of interactions returned.
-     *
-     * @param server      The collaborator server that received the interaction.
-     * @param interaction The interaction details.
-     * @return {@code true} if the interaction should be included,
-     * {@code false} if not.
-     */
-    boolean matches(CollaboratorServer server, Interaction interaction);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -13,7 +13,7 @@ import burp.api.montoya.http.message.responses.HttpResponse;
 import java.util.Set;
 
 /**
- * This interface is used to analyze HTTP responses and find variations between them, according to various attributes.
+ * Analyze HTTP responses and find variations between them, according to various attributes.
  */
 public interface ResponseVariationsAnalyzer
 {
@@ -28,7 +28,7 @@ public interface ResponseVariationsAnalyzer
     Set<AttributeType> invariantAttributes();
 
     /**
-     * This method is used to update the analysis based on an additional response.
+     * Update the analysis based on an additional response.
      *
      * @param response The new response to include in the analysis.
      */

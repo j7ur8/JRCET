@@ -1,7 +1,7 @@
 package jrcet.listener;
 
+import burp.api.montoya.http.message.HttpHeader;
 import burp.api.montoya.http.message.HttpRequestResponse;
-import burp.api.montoya.http.message.headers.HttpHeader;
 import burp.api.montoya.http.message.params.ParsedHttpParameter;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
@@ -118,7 +118,7 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
                 API.logging().error().println("RScriptContextMenuItemActionListener httpRequestResponseList.size()!=1");
                 return;
             }
-            HttpRequest httpRequest = httpRequestResponseList.get(0).httpRequest();
+            HttpRequest httpRequest = httpRequestResponseList.get(0).request();
             List<HttpHeader> headers = httpRequest.headers();
             headers.remove(0);
             for(HttpHeader header:headers){

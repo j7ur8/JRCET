@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -19,12 +19,10 @@ public interface ByteUtils
      *
      * @param data       The data to be searched.
      * @param searchTerm The value to be searched for.
+     *
      * @return The offset of the first occurrence of the pattern within the specified bounds, or -1 if no match is found.
      */
-    default int indexOf(byte[] data, byte[] searchTerm)
-    {
-        return indexOf(data, searchTerm, true, 0, data.length);
-    }
+    int indexOf(byte[] data, byte[] searchTerm);
 
     /**
      * This method searches a piece of data for the first occurrence of a specified pattern.
@@ -33,12 +31,10 @@ public interface ByteUtils
      * @param data          The data to be searched.
      * @param searchTerm    The value to be searched for.
      * @param caseSensitive Flags whether the search is case-sensitive.
+     *
      * @return The offset of the first occurrence of the pattern within the specified bounds, or -1 if no match is found.
      */
-    default int indexOf(byte[] data, byte[] searchTerm, boolean caseSensitive)
-    {
-        return indexOf(data, searchTerm, caseSensitive, 0, data.length);
-    }
+    int indexOf(byte[] data, byte[] searchTerm, boolean caseSensitive);
 
     /**
      * This method searches a piece of data for the first occurrence of a specified pattern.
@@ -49,6 +45,7 @@ public interface ByteUtils
      * @param caseSensitive Flags whether the search is case-sensitive.
      * @param from          The offset within data where the search should begin.
      * @param to            The offset within data where the search should end.
+     *
      * @return The offset of the first occurrence of the pattern within the specified bounds, or -1 if no match is found.
      */
     int indexOf(byte[] data, byte[] searchTerm, boolean caseSensitive, int from, int to);
@@ -58,12 +55,10 @@ public interface ByteUtils
      *
      * @param data       The data to be searched.
      * @param searchTerm The value to be searched for.
+     *
      * @return The count of all matches of the pattern
      */
-    default int countMatches(byte[] data, byte[] searchTerm)
-    {
-        return countMatches(data, searchTerm, true, 0, data.length);
-    }
+    int countMatches(byte[] data, byte[] searchTerm);
 
     /**
      * This method searches a piece of data and counts all matches for a specified pattern.
@@ -71,12 +66,10 @@ public interface ByteUtils
      * @param data          The data to be searched.
      * @param searchTerm    The value to be searched for.
      * @param caseSensitive Flags whether the search is case-sensitive.
+     *
      * @return The count of all matches of the pattern
      */
-    default int countMatches(byte[] data, byte[] searchTerm, boolean caseSensitive)
-    {
-        return countMatches(data, searchTerm, caseSensitive, 0, data.length);
-    }
+    int countMatches(byte[] data, byte[] searchTerm, boolean caseSensitive);
 
     /**
      * This method searches a piece of data and counts all matches for a specified pattern.
@@ -86,6 +79,7 @@ public interface ByteUtils
      * @param caseSensitive Flags whether the search is case-sensitive.
      * @param from          The offset within data where the search should begin.
      * @param to            The offset within data where the search should end.
+     *
      * @return The count of all matches of the pattern within the specified bounds
      */
     int countMatches(byte[] data, byte[] searchTerm, boolean caseSensitive, int from, int to);
@@ -97,6 +91,7 @@ public interface ByteUtils
      * conversions that reflect a given character set).
      *
      * @param bytes The data to be converted.
+     *
      * @return The converted data.
      */
     String convertToString(byte[] bytes);
@@ -108,6 +103,7 @@ public interface ByteUtils
      * conversions that reflect a given character set).
      *
      * @param string The data to be converted
+     *
      * @return The converted data.
      */
     byte[] convertFromString(String string);

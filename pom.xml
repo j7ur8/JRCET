@@ -30,6 +30,11 @@
             <artifactId>rsyntaxtextarea</artifactId>
             <version>3.3.3</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.portswigger.burp.extensions</groupId>-->
+<!--            <artifactId>montoya-api</artifactId>-->
+<!--            <version>2023.5</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

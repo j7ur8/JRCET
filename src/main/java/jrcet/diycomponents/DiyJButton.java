@@ -1,6 +1,7 @@
 package jrcet.diycomponents;
 
 import burp.MyExtender;
+import jrcet.frame.Asset.Asset;
 import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.help.Helper;
@@ -210,6 +211,12 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                         0,0
                 ));
                 tPanel.updateUI();
+                break;
+            case "AssetMainBodyControlLastButton":
+                Asset.lastPage();
+                break;
+            case "AssetMainBodyControlNextButton":
+                Asset.nextPage();
                 break;
         }
 

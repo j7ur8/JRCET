@@ -35,13 +35,13 @@ public class ToolsComponent extends DiyJComponent {
                 1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
+                new Insets(0,0,5,0),
                 0,0
         ));
 
         ToolsComponentPanel.add(ToolsShowPanel(),new GridBagConstraints(
                 0,1,
-                2,1,
+                1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,

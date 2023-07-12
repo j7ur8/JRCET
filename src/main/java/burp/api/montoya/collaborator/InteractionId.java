@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -10,12 +10,12 @@ package burp.api.montoya.collaborator;
 
 
 /**
- * This interface represents a Burp Collaborator interaction id.
+ * Burp Collaborator interaction id.
  */
 public interface InteractionId
 {
     /**
-     * Returns a string containing the interaction id.
+     * Interaction id.
      *
      * @return The interaction id string.
      */

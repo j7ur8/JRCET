@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,7 +9,7 @@
 package burp.api.montoya.http.message.responses.analysis;
 
 /**
- * This interface is used to store the number of types a given keyword appeared in a response.
+ * Stores the number of types a given keyword appeared in a response.
  */
 public interface KeywordCount
 {

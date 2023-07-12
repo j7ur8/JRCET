@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,10 +9,16 @@
 package burp.api.montoya.http;
 
 /**
- * This enum defines HTTP protocols.
+ * HTTP protocols.
  */
 public enum HttpProtocol
 {
+    /**
+     * Hypertext Transfer Protocol
+     */
     HTTP,
+    /**
+     * Hypertext Transfer Protocol Secure
+     */
     HTTPS
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -9,6 +9,7 @@
 package burp.api.montoya.scanner;
 
 import burp.api.montoya.core.Registration;
+import burp.api.montoya.scanner.audit.Audit;
 import burp.api.montoya.scanner.audit.AuditIssueHandler;
 import burp.api.montoya.scanner.audit.insertionpoint.AuditInsertionPointProvider;
 import burp.api.montoya.scanner.audit.issues.AuditIssue;
@@ -17,55 +18,64 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * This interface provides access to the functionality of the Scanner tool.
+ * Provides access to the functionality of the Scanner tool.
  */
 public interface Scanner
 {
     /**
-     * This method is used to register a handler which will be notified of new
+     * Register a handler which will be notified of new
      * audit issues that are reported by the Scanner tool. Extensions can
      * perform custom analysis or logging of audit issues by registering an
      * audit issue handler.
      *
      * @param auditIssueHandler An object created by the extension that
      *                          implements the {@link AuditIssueHandler} interface.
+     *
      * @return The {@link Registration} for the handler.
      */
     Registration registerAuditIssueHandler(AuditIssueHandler auditIssueHandler);
 
     /**
-     * This method is used to register a custom Scanner check. When performing
+     * Register a custom Scanner check. When performing
      * scanning, Burp will ask the check to perform active or passive scanning
      * on the base request, and report any Scanner issues that are identified.
      *
      * @param scanCheck An object created by the extension that implements the
      *                  {@link ScanCheck} interface.
+     *
      * @return The {@link Registration} for the check.
      */
     Registration registerScanCheck(ScanCheck scanCheck);
 
     /**
-     * This method is used to register a provider of Scanner insertion points.
+     * Register a provider of Scanner insertion points.
      * For each base request that is actively scanned, Burp will ask the
      * provider to provide any custom Scanner insertion points that are
      * appropriate for the request.
      *
      * @param insertionPointProvider An object created by the extension that
      *                               implements the {@link AuditInsertionPointProvider} interface.
+     *
      * @return The {@link Registration} for the provider.
      */
     Registration registerInsertionPointProvider(AuditInsertionPointProvider insertionPointProvider);
 
     /**
-     * This method can be used to create a scan that can be configured before
-     * being sent to the Burp Scanner tool.
+     * This method can be used to start a crawl in the Burp Scanner tool.
      *
-     * @return The {@link Scan} that can be configured.
+     * @return The {@link Crawl} started in the Burp Scanner tool.
      */
-    Scan createScan();
+    Crawl startCrawl(CrawlConfiguration crawlConfiguration);
 
     /**
-     * This method is used to generate a report for the specified Scanner
+     * This method can be used to start an audit in the Burp Scanner tool.
+     *
+     * @return The {@link Audit} started in the Burp Scanner tool.
+     */
+    Audit startAudit(AuditConfiguration auditConfiguration);
+
+    /**
+     * Generate a report for the specified Scanner
      * issues. The report format can be specified. For all other reporting
      * options, the default settings that appear in the reporting UI wizard are
      * used.

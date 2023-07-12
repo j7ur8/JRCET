@@ -15,8 +15,8 @@ public class MyExtender implements BurpExtension{
     public void initialize(MontoyaApi api) {
 
         MyExtender.API =api;
-
-        API.misc().setExtensionName("JRCET");
+        API.extension().setName("JRCET");
+//        API.misc().setExtensionName("JRCET");
         API.userInterface().registerSuiteTab("JRCET",new Jrcet().main());
 
         API.scanner().registerScanCheck(new MyScanCheck());

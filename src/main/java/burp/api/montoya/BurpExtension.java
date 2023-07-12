@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -16,9 +16,9 @@ package burp.api.montoya;
 public interface BurpExtension
 {
     /**
-     * This method is invoked when the extension is loaded.
+     * Invoked when the extension is loaded. Any registered handlers will only be enabled once this method has completed.
      *
-     * @param api The api implementation to access the functionality of burp suite.
+     * @param api The API implementation to access the functionality of Burp Suite.
      */
     void initialize(MontoyaApi api);
 }

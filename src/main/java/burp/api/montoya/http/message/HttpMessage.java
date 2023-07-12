@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,57 +8,73 @@
 
 package burp.api.montoya.http.message;
 
-import burp.api.montoya.http.message.headers.HttpHeader;
+import burp.api.montoya.core.ByteArray;
+import burp.api.montoya.core.Marker;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
 
 import java.util.List;
 
 /**
- * This interface is used to retrieve common information shared by {@link HttpRequest} and {@link HttpResponse} interfaces.
+ * Burp message retrieve common information shared by {@link HttpRequest} and {@link HttpResponse}.
  */
 public interface HttpMessage
 {
     /**
-     * This method is used to obtain the HTTP headers contained in the message.
+     * HTTP headers contained in the message.
      *
      * @return A list of HTTP headers.
      */
     List<HttpHeader> headers();
 
     /**
-     * This method is used to obtain the offset within the message where the message body begins.
+     * HTTP Version text parsed from the request or response line for HTTP 1 messages.
+     * HTTP 2 messages will return "HTTP/2"
+     *
+     * @return Version string
+     */
+    String httpVersion();
+
+    /**
+     * Offset within the message where the message body begins.
      *
      * @return The message body offset.
      */
     int bodyOffset();
 
     /**
-     * This method is used to get the message as a byte array.
+     * Body of a message as a byte array.
+     *
+     * @return The body of a message as a byte array.
+     */
+    ByteArray body();
+
+    /**
+     * Body of a message as a {@code String}.
+     *
+     * @return The body of a message as a {@code String}.
+     */
+    String bodyToString();
+
+    /**
+     * Markers for the message.
+     *
+     * @return A list of markers.
+     */
+    List<Marker> markers();
+
+    /**
+     * Message as a byte array.
      *
      * @return The message as a byte array.
      */
-    byte[] asBytes();
+    ByteArray toByteArray();
 
     /**
-     * This method is used to get the message as a {@code String}.
+     * Message as a {@code String}.
      *
      * @return The message as a {@code String}.
      */
     @Override
     String toString();
-
-    /**
-     * This method is used to get the body of a message as a byte array.
-     *
-     * @return The body of a message as a byte array.
-     */
-    byte[] body();
-
-    /**
-     * This method is used to get the body of a message as a {@code String}.
-     *
-     * @return The body of a message as a {@code String}.
-     */
-    String bodyAsString();
 }

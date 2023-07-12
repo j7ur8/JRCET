@@ -1,9 +1,6 @@
 package jrcet.frame.Scanner.Springboot;
 
-import burp.api.montoya.http.HttpTransformation;
-import burp.api.montoya.http.message.HttpRequestResponse;
-import burp.api.montoya.http.message.requests.HttpRequest;
-import burp.api.montoya.http.message.responses.HttpResponse;
+
 import jrcet.frame.Setting.Setting;
 
 import java.net.URL;
@@ -12,6 +9,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import burp.api.montoya.http.message.HttpRequestResponse;
+import burp.api.montoya.http.message.requests.HttpRequest;
+import burp.api.montoya.http.message.responses.HttpResponse;
 
 import static burp.MyExtender.API;
 
@@ -27,31 +28,31 @@ public class Springboot {
 
         ArrayList<String> path_list = get_path_list(httpRequestResponse);
 
-        HttpRequest httpRequest = httpRequestResponse.httpRequest();
+        HttpRequest httpRequest = httpRequestResponse.request();
 
         for(String path : path_list){
 
             Pattern pattern = Pattern.compile("(.*)? /");
             Matcher matcher = pattern.matcher(httpRequest.withBody("").
-                    removeHeader("Content-Length").
-                    removeHeader("Sec-Ch-Ua").
-                    removeHeader("Sec-Ch-Ua-Mobile").
-                    removeHeader("Sec-Ch-Ua-Platform").
-                    removeHeader("Sec-Fetch-Site").
-                    removeHeader("Sec-Fetch-Mode").
-                    removeHeader("Sec-Fetch-Dest").
-                    removeHeader("Last-Modified").
-                    removeHeader("Cache-Control").
-                    removeHeader("Expires").
-                    removeHeader("Last-Modified").
+                    withRemovedHeader("Content-Length").
+                    withRemovedHeader("Sec-Ch-Ua").
+                    withRemovedHeader("Sec-Ch-Ua-Mobile").
+                    withRemovedHeader("Sec-Ch-Ua-Platform").
+                    withRemovedHeader("Sec-Fetch-Site").
+                    withRemovedHeader("Sec-Fetch-Mode").
+                    withRemovedHeader("Sec-Fetch-Dest").
+                    withRemovedHeader("Last-Modified").
+                    withRemovedHeader("Cache-Control").
+                    withRemovedHeader("Expires").
+                    withRemovedHeader("Last-Modified").
                     toString()
             );
 
             String result = matcher.replaceAll("GET /");
 
             httpRequest = HttpRequest.httpRequest(httpRequest.httpService(),result).withPath(path);
-            httpRequestResponse = API.http().issueRequest(httpRequest);
-            HttpResponse httpResponse = httpRequestResponse.httpResponse();
+            httpRequestResponse = API.http().sendRequest(httpRequest);
+            HttpResponse httpResponse = httpRequestResponse.response();
         }
 
         UrlSet.add(CurrentUrl);
@@ -61,7 +62,7 @@ public class Springboot {
         URL url = null;
 
         try{
-            url = new URL(httpRequestResponse.httpRequest().url());
+            url = new URL(httpRequestResponse.request().url());
         }catch (Exception e){
             API.logging().error().println(e.getMessage());
         }
@@ -89,7 +90,7 @@ public class Springboot {
     }
 
     private static boolean check(HttpRequestResponse httpRequestResponse){
-        CurrentUrl = httpRequestResponse.httpRequest().withPath("/").url();
+        CurrentUrl = httpRequestResponse.request().withPath("/").url();
         return !UrlSet.contains(CurrentUrl);
     }
 }

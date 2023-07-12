@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -15,7 +15,7 @@ package burp.api.montoya.intruder;
 public interface PayloadProcessor
 {
     /**
-     * This method returns the name Burp will use when displaying the payload processor
+     * Name Burp will use when displaying the payload processor
      * in a dropdown list in the UI.
      *
      * @return Name of the payload processor
@@ -23,12 +23,11 @@ public interface PayloadProcessor
     String displayName();
 
     /**
-     * This method is invoked by Burp each time the processor should be applied to an Intruder payload.
+     * Invoked by Burp each time the processor should be applied to an Intruder payload.
      *
-     * @param currentPayload  The value of the payload to be processed.
-     * @param originalPayload The value of the original payload prior to processing by any already-applied processing rules
-     * @param insertionPoint  The insertion point data.
+     * @param payloadData Information about the current payload to be processed
+     *
      * @return The value of the processed payload.
      */
-    PayloadProcessingResult processPayload(Payload currentPayload, Payload originalPayload, IntruderInsertionPoint insertionPoint);
+    PayloadProcessingResult processPayload(PayloadData payloadData);
 }

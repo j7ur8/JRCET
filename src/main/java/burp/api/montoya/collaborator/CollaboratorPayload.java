@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -11,26 +11,26 @@ package burp.api.montoya.collaborator;
 import java.util.Optional;
 
 /**
- * This interface represents a Burp Collaborator payload.
+ * Burp Collaborator payload.
  */
 public interface CollaboratorPayload
 {
     /**
-     * Returns the payload's interaction id.
+     * Payload's interaction id.
      *
      * @return The interaction id of the payload.
      */
     InteractionId id();
 
     /**
-     * Return custom data from the payload.
+     * Custom data from the payload.
      *
      * @return The payload's custom data.
      */
     Optional<String> customData();
 
     /**
-     * Returns an optional instance of CollaboratorServer describing the
+     * Optional instance of CollaboratorServer describing the
      * server location for this payload. If the payload was generated without
      * the server location this method will return an empty Optional.
      *
@@ -40,7 +40,7 @@ public interface CollaboratorPayload
     Optional<CollaboratorServer> server();
 
     /**
-     * Returns a string containing the payload.
+     * The payload.
      *
      * @return The payload string.
      */

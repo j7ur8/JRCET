@@ -1,14 +1,15 @@
 package burp;
 
-import burp.api.montoya.http.MimeType;
 import burp.api.montoya.http.message.HttpRequestResponse;
+import burp.api.montoya.http.message.MimeType;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import burp.api.montoya.ui.Selection;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
 import burp.api.montoya.ui.editor.RawEditor;
+import burp.api.montoya.ui.editor.extension.EditorCreationContext;
 import burp.api.montoya.ui.editor.extension.EditorMode;
-import burp.api.montoya.ui.editor.extension.ExtensionHttpResponseEditor;
-import burp.api.montoya.ui.editor.extension.ExtensionHttpResponseEditorProvider;
+import burp.api.montoya.ui.editor.extension.ExtensionProvidedHttpResponseEditor;
+import burp.api.montoya.ui.editor.extension.HttpResponseEditorProvider;
 import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.frame.Tools.Dencrypt.Unicode.Unicode;
 
@@ -18,13 +19,15 @@ import java.nio.charset.StandardCharsets;
 
 import static burp.MyExtender.API;
 
-public class MyRegisterHttpResponseEditorProvider implements ExtensionHttpResponseEditorProvider {
+public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorProvider {
+
+
     @Override
-    public ExtensionHttpResponseEditor provideHttpResponseEditor(HttpRequestResponse httpRequestResponse, EditorMode editorMode) {
+    public ExtensionProvidedHttpResponseEditor provideHttpResponseEditor(EditorCreationContext editorCreationContext) {
         return new MyExtensionHttpResponseEditor();
     }
 
-    private static class MyExtensionHttpResponseEditor implements ExtensionHttpResponseEditor{
+    private static class MyExtensionHttpResponseEditor implements ExtensionProvidedHttpResponseEditor{
 
         HttpRequestResponse MyHttpRequestResponse;
         RawEditor MyExtenderEditor;
@@ -33,16 +36,21 @@ public class MyRegisterHttpResponseEditorProvider implements ExtensionHttpRespon
         }
 
         @Override
-        public void setHttpRequestResponse(HttpRequestResponse requestResponse) {
-            MyHttpRequestResponse = requestResponse;
-            HttpResponse httpResponse = MyHttpRequestResponse.httpResponse();
-            httpResponse = httpResponse.withBody(Unicode.unicodeToString(new String(httpResponse.body(), StandardCharsets.UTF_8)));
-            MyExtenderEditor.setContents(httpResponse.asBytes());
+        public HttpResponse getResponse() {
+            return HttpResponse.httpResponse(MyExtenderEditor.getContents());
+        }
+
+        @Override
+        public void setRequestResponse(HttpRequestResponse httpRequestResponse) {
+            MyHttpRequestResponse = httpRequestResponse;
+            HttpResponse httpResponse = MyHttpRequestResponse.response();
+            httpResponse = httpResponse.withBody(Unicode.unicodeToString(new String(httpResponse.body().getBytes(), StandardCharsets.UTF_8)));
+            MyExtenderEditor.setContents(httpResponse.toByteArray());
         }
 
         @Override
         public boolean isEnabledFor(HttpRequestResponse requestResponse) {
-            HttpResponse httpResponse = requestResponse.httpResponse();
+            HttpResponse httpResponse = requestResponse.response();
             return (httpResponse.inferredMimeType() == MimeType.JSON || httpResponse.statedMimeType() == MimeType.JSON);
         }
 
@@ -66,9 +74,6 @@ public class MyRegisterHttpResponseEditorProvider implements ExtensionHttpRespon
             return false;
         }
 
-        @Override
-        public HttpResponse getHttpResponse() {
-            return HttpResponse.httpResponse(MyExtenderEditor.getContents());
-        }
+
     }
 }

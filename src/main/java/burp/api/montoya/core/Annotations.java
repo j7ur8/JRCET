@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -11,75 +11,96 @@ package burp.api.montoya.core;
 import static burp.api.montoya.internal.ObjectFactoryLocator.FACTORY;
 
 /**
- * This interface represents annotations that can be applied to a message.
+ * Annotations stored with requests and responses in Burp Suite.
  */
 public interface Annotations
 {
     /**
-     * This method is used to construct empty annotations.
+     * @return the notes
+     */
+    String notes();
+
+    /**
+     * Set (mutate) the current annotations notes value
+     *
+     * @param notes the notes to set on the current annotations
+     */
+    void setNotes(String notes);
+
+    /**
+     * @return the highlight color;
+     */
+    HighlightColor highlightColor();
+
+    /**
+     * Set (mutate) the current annotations highlight color value
+     *
+     * @param highlightColor the highlight color to set on the current annotations
+     */
+    void setHighlightColor(HighlightColor highlightColor);
+
+    /**
+     * Create a copy of the annotations with new notes.
+     *
+     * @param notes The new notes.
+     *
+     * @return The new annotations.
+     */
+    Annotations withNotes(String notes);
+
+    /**
+     * Create a copy of the annotations with a new highlight color.
+     *
+     * @param highlightColor The new highlight color.
+     *
+     * @return The new annotations.
+     */
+    Annotations withHighlightColor(HighlightColor highlightColor);
+
+    /**
+     * Create a new empty annotations.
      *
      * @return The annotations.
      */
     static Annotations annotations()
     {
-        return annotations("", HighlightColor.NONE);
+        return FACTORY.annotations();
     }
 
     /**
-     * This method is used to construct annotations from a comment.
+     * Create a new annotations with notes.
      *
-     * @param comment The comment of the annotation
+     * @param notes The notes of the annotations
+     *
      * @return The annotations.
      */
-    static Annotations annotations(String comment)
+    static Annotations annotations(String notes)
     {
-        return annotations(comment, HighlightColor.NONE);
+        return FACTORY.annotations(notes);
     }
 
     /**
-     * This method is used to construct a annotations from a highlight
-     * color.
+     * Create a new annotations with a highlight color.
      *
-     * @param highlightColor The highlight color of the annotation
+     * @param highlightColor The highlight color of the annotations
+     *
      * @return The annotations.
      */
     static Annotations annotations(HighlightColor highlightColor)
     {
-        return annotations("", highlightColor);
+        return FACTORY.annotations(highlightColor);
     }
 
     /**
-     * This method is used to construct a annotations from a comment
-     * and a highlight color.
+     * Create a new annotations with notes and a highlight color.
      *
-     * @param comment        The comment of the annotation
-     * @param highlightColor The highlight color of the annotation
+     * @param notes        The notes of the annotations
+     * @param highlightColor The highlight color of the annotations
+     *
      * @return The annotations.
      */
-    static Annotations annotations(String comment, HighlightColor highlightColor)
+    static Annotations annotations(String notes, HighlightColor highlightColor)
     {
-        return FACTORY.annotations(comment, highlightColor);
+        return FACTORY.annotations(notes, highlightColor);
     }
-
-    String comment();
-
-    HighlightColor highlightColor();
-
-    /**
-     * This method is used to construct a copy of the annotations with
-     * a new comment.
-     *
-     * @param comment The new comment.
-     * @return The new annotations.
-     */
-    Annotations withComment(String comment);
-
-    /**
-     * This method is used to construct a copy of the annotations with
-     * a new highlight color.
-     *
-     * @param highlightColor The new highlight color.
-     * @return The new annotations.
-     */
-    Annotations withHighlightColor(HighlightColor highlightColor);
 }

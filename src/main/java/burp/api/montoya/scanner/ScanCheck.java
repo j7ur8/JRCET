@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -11,8 +11,6 @@ package burp.api.montoya.scanner;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.scanner.audit.insertionpoint.AuditInsertionPoint;
 import burp.api.montoya.scanner.audit.issues.AuditIssue;
-
-import java.util.List;
 
 /**
  * Extensions can implement this interface and then call
@@ -40,10 +38,11 @@ public interface ScanCheck
      * @param auditInsertionPoint An {@link AuditInsertionPoint} object that
      *                            can be queried to obtain details of the insertion point being tested, and
      *                            can be used to build requests for particular payloads.
-     * @return A list of {@link AuditIssue} objects, or {@code null} if no
-     * issues are identified.
+     *
+     * @return An {@link AuditResult} object with a list of {@link AuditIssue}
+     * objects, or an empty {@link AuditResult} object if no issues are identified.
      */
-    List<AuditIssue> activeAudit(HttpRequestResponse baseRequestResponse, AuditInsertionPoint auditInsertionPoint);
+    AuditResult activeAudit(HttpRequestResponse baseRequestResponse, AuditInsertionPoint auditInsertionPoint);
 
     /**
      * The Scanner invokes this method for each base request / response that is
@@ -53,10 +52,11 @@ public interface ScanCheck
      *
      * @param baseRequestResponse The base {@link HttpRequestResponse} that
      *                            should be passively audited.
-     * @return A list of {@link AuditIssue} objects, or {@code null} if no
-     * issues are identified.
+     *
+     * @return An {@link AuditResult} object with a list of {@link AuditIssue}
+     * objects, or an empty {@link AuditResult} object if no issues are identified.
      */
-    List<AuditIssue> passiveAudit(HttpRequestResponse baseRequestResponse);
+    AuditResult passiveAudit(HttpRequestResponse baseRequestResponse);
 
     /**
      * The Scanner invokes this method when the custom Scan check has
@@ -72,6 +72,7 @@ public interface ScanCheck
      *                      newly reported by this Scan check.
      * @param existingIssue An {@link AuditIssue} that was previously reported
      *                      by this Scan check.
+     *
      * @return A {@link ConsolidationAction} to determine which issue(s) should
      * be reported in the main Scanner results.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -17,36 +17,30 @@ public interface RandomUtils
      * Generate a random string using alphanumeric characters
      *
      * @param length length of the resulting random string
+     *
      * @return randomly generated string
      */
-    default String randomString(int length)
-    {
-        return randomString(length, CharacterSet.ASCII_LETTERS, CharacterSet.DIGITS);
-    }
+    String randomString(int length);
 
     /**
      * Generate a random string using the supplied characters
      *
      * @param length length of the resulting random string
      * @param chars  the characters to use to generate the string
+     *
      * @return randomly generated string
      */
-    default String randomString(int length, String chars)
-    {
-        return randomString(length, length, chars);
-    }
+    String randomString(int length, String chars);
 
     /**
      * Generate a random string using the supplied {@link CharacterSet}
      *
      * @param length        length of the resulting random string
      * @param characterSets the list {@code CharacterSet} to use to generate the string
+     *
      * @return randomly generated string
      */
-    default String randomString(int length, CharacterSet... characterSets)
-    {
-        return randomString(length, length, characterSets);
-    }
+    String randomString(int length, CharacterSet... characterSets);
 
     /**
      * Generate a random string using the supplied characters
@@ -54,6 +48,7 @@ public interface RandomUtils
      * @param minLength the inclusive minimum length of the generated string
      * @param maxLength the inclusive maximum length of the generated string
      * @param chars     the characters to use to generate the string
+     *
      * @return randomly generated string
      */
     String randomString(int minLength, int maxLength, String chars);
@@ -64,6 +59,7 @@ public interface RandomUtils
      * @param minLength     the inclusive minimum length of the generated string
      * @param maxLength     the inclusive maximum length of the generated string
      * @param characterSets the list {@code CharacterSet} to use to generate the string
+     *
      * @return randomly generated string
      */
     String randomString(int minLength, int maxLength, CharacterSet... characterSets);

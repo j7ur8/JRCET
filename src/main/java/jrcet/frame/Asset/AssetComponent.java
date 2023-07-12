@@ -1,5 +1,6 @@
 package jrcet.frame.Asset;
 
+import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextField;
 import jrcet.listener.AssetSearchKeyListener;
@@ -170,6 +171,8 @@ public class AssetComponent extends DiyJComponent {
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         JTable AssetMainBodyResultTable = new JTable(model);
+//        Font font = new Font("SimSun", Font.PLAIN, 12);
+//        AssetMainBodyResultTable.setFont(font);
         AssetMainBodyResultTable.setName("AssetMainBodyResultTable");
         AssetMainBodyResultTable.setDefaultRenderer(Object.class,renderer);
         AssetMainBodyResultTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -187,8 +190,19 @@ public class AssetComponent extends DiyJComponent {
         JScrollPane AssetMainBodyResultTableScrollPane = new JScrollPane(AssetMainBodyResultTable);
         AssetMainBodyResultTableScrollPane.setName("AssetMainBodyResultTableScrollPane");
 //        AssetMainBodyResultTable.setDefaultEditor(Object.class, null);
-        AssetMainBodyPanel.add(AssetMainBodyResultTableScrollPane,new GridBagConstraints(
+
+        AssetMainBodyPanel.add(AssetMainBodyControlPanel(),new GridBagConstraints(
                 0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,5,4,5),
+                0,0
+        ));
+
+        AssetMainBodyPanel.add(AssetMainBodyResultTableScrollPane,new GridBagConstraints(
+                0,1,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -197,5 +211,43 @@ public class AssetComponent extends DiyJComponent {
                 0,0
         ));
         return AssetMainBodyPanel;
+
     }
+
+    public static JComponent AssetMainBodyControlPanel(){
+        JComponent AssetMainBodyControlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,5,0));
+        AssetMainBodyControlPanel.setName("AssetMainBodyControlPanel");
+        AssetMainBodyControlPanel.setBackground(Color.WHITE);
+
+
+        JLabel AssetMainBodyControlFofaLabel = new JLabel("");
+        AssetMainBodyControlFofaLabel.setName("AssetMainBodyControlFofaLabel");
+        AssetMainBodyControlFofaLabel.setBorder(null);
+        AssetMainBodyControlFofaLabel.setBackground(Color.WHITE);
+
+        JLabel AssetMainBodyControlHunterLabel = new JLabel("");
+        AssetMainBodyControlHunterLabel.setName("AssetMainBodyControlHunterLabel");
+        AssetMainBodyControlHunterLabel.setBorder(null);
+        AssetMainBodyControlHunterLabel.setBackground(Color.WHITE);
+
+        JLabel AssetMainBodyControlPageLabel = new JLabel("");
+        AssetMainBodyControlPageLabel.setName("AssetMainBodyControlPageLabel");
+        AssetMainBodyControlPageLabel.setBorder(null);
+        AssetMainBodyControlPageLabel.setBackground(Color.WHITE);
+
+        DiyJButton AssetMainBodyControlLastButton = new DiyJButton("Last");
+        AssetMainBodyControlLastButton.setName("AssetMainBodyControlLastButton");
+
+        DiyJButton AssetMainBodyControlNextButton = new DiyJButton("Next");
+        AssetMainBodyControlNextButton.setName("AssetMainBodyControlNextButton");
+
+        AssetMainBodyControlPanel.add(AssetMainBodyControlFofaLabel);
+        AssetMainBodyControlPanel.add(AssetMainBodyControlHunterLabel);
+        AssetMainBodyControlPanel.add(AssetMainBodyControlPageLabel);
+        AssetMainBodyControlPanel.add(AssetMainBodyControlLastButton);
+        AssetMainBodyControlPanel.add(AssetMainBodyControlNextButton);
+
+        return AssetMainBodyControlPanel;
+    }
+
 }

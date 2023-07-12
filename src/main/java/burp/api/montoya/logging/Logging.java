@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -11,13 +11,12 @@ package burp.api.montoya.logging;
 import java.io.PrintStream;
 
 /**
- * This interface provides access to the functionality related to logging and
- * events.
+ * Provides access to the functionality related to logging and events.
  */
 public interface Logging
 {
     /**
-     * This method is used to obtain the current extension's standard output
+     * Obtain the current extension's standard output
      * stream. Extensions should write all output to this stream, allowing the
      * Burp user to configure how that output is handled from within the UI.
      *
@@ -26,7 +25,7 @@ public interface Logging
     PrintStream output();
 
     /**
-     * This method is used to obtain the current extension's standard error
+     * Obtain the current extension's standard error
      * stream. Extensions should write all error messages to this stream,
      * allowing the Burp user to configure how that output is handled from
      * within the UI.

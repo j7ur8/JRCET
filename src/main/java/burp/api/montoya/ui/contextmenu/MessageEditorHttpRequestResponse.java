@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,7 +8,6 @@
 
 package burp.api.montoya.ui.contextmenu;
 
-import burp.api.montoya.core.Annotations;
 import burp.api.montoya.core.Range;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.requests.HttpRequest;
@@ -41,7 +40,7 @@ public interface MessageEditorHttpRequestResponse
     /**
      * @return An instance of {@link HttpRequestResponse} which contains the information about the currently displayed or selected HTTP request/response.
      */
-    HttpRequestResponse getRequestResponse();
+    HttpRequestResponse requestResponse();
 
     /**
      * Update the message editor with the HTTP request
@@ -57,12 +56,6 @@ public interface MessageEditorHttpRequestResponse
      */
     void setResponse(HttpResponse response);
 
-    /**
-     * Update the message editor with the annotations
-     *
-     * @param annotations the annotations to update.
-     */
-    void setMessageAnnotations(Annotations annotations);
 
     enum SelectionContext
     {

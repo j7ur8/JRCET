@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,14 +8,13 @@
 
 package burp.api.montoya.scanner.audit.issues;
 
+import burp.api.montoya.collaborator.Interaction;
 import burp.api.montoya.http.HttpService;
 import burp.api.montoya.http.message.HttpRequestResponse;
-import burp.api.montoya.http.message.MarkedHttpRequestResponse;
 import burp.api.montoya.scanner.ScanCheck;
 import burp.api.montoya.scanner.audit.AuditIssueHandler;
 import burp.api.montoya.sitemap.SiteMap;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static burp.api.montoya.internal.ObjectFactoryLocator.FACTORY;
@@ -32,75 +31,7 @@ import static burp.api.montoya.internal.ObjectFactoryLocator.FACTORY;
 public interface AuditIssue
 {
     /**
-     * This method can be used to create a default implementation of an audit
-     * issue for a URL.
-     *
-     * @param name                  The name of the issue type.
-     * @param detail                The detailed information about the issue.
-     * @param remediation           The detailed information about the remediation for
-     *                              the issue.
-     * @param baseUrl               The base URL for which the issue is generated.
-     * @param severity              The {@link AuditIssueSeverity} level.
-     * @param confidence            The {@link AuditIssueConfidence} level.
-     * @param background            The background description for the type of issue.
-     * @param remediationBackground The background description of the
-     *                              remediation for this type of issue.
-     * @param typicalSeverity       The typical {@link AuditIssueSeverity} level.
-     * @param requestResponses      The {@link HttpRequestResponse} objects on the
-     *                              basis of which the issue is generated.
-     * @return The audit issue for the URL.
-     */
-    static AuditIssue auditIssue(
-            String name,
-            String detail,
-            String remediation,
-            String baseUrl,
-            AuditIssueSeverity severity,
-            AuditIssueConfidence confidence,
-            String background,
-            String remediationBackground,
-            AuditIssueSeverity typicalSeverity,
-            MarkedHttpRequestResponse... requestResponses)
-    {
-        return auditIssue(name, detail, remediation, baseUrl, severity, confidence, background, remediationBackground, typicalSeverity, Arrays.asList(requestResponses));
-    }
-
-    /**
-     * This method can be used to create a default implementation of an audit
-     * issue for a URL.
-     *
-     * @param name                  The name of the issue type.
-     * @param detail                The detailed information about the issue.
-     * @param remediation           The detailed information about the remediation for
-     *                              the issue.
-     * @param baseUrl               The base URL for which the issue is generated.
-     * @param severity              The {@link AuditIssueSeverity} level.
-     * @param confidence            The {@link AuditIssueConfidence} level.
-     * @param background            The background description for the type of issue.
-     * @param remediationBackground The background description of the
-     *                              remediation for this type of issue.
-     * @param typicalSeverity       The typical {@link AuditIssueSeverity} level.
-     * @param requestResponses      The list of {@link HttpRequestResponse} objects
-     *                              on the basis of which the issue is generated.
-     * @return The audit issue for the URL.
-     */
-    static AuditIssue auditIssue(
-            String name,
-            String detail,
-            String remediation,
-            String baseUrl,
-            AuditIssueSeverity severity,
-            AuditIssueConfidence confidence,
-            String background,
-            String remediationBackground,
-            AuditIssueSeverity typicalSeverity,
-            List<MarkedHttpRequestResponse> requestResponses)
-    {
-        return FACTORY.auditIssue(name, detail, remediation, baseUrl, severity, confidence, background, remediationBackground, typicalSeverity, requestResponses);
-    }
-
-    /**
-     * This method returns the name of this issue type.
+     * Name of this issue type.
      *
      * @return The name of this issue type (e.g. "SQL injection").
      */
@@ -126,45 +57,123 @@ public interface AuditIssue
     String remediation();
 
     /**
-     * This method returns the HTTP service for which the issue was generated.
+     * HTTP service for which the issue was generated.
      *
      * @return The HTTP service for which the issue was generated.
      */
     HttpService httpService();
 
     /**
-     * This method returns the base URL for which this issue was generated.
+     * Base URL for which this issue was generated.
      *
      * @return The base URL for which this issue was generated.
      */
     String baseUrl();
 
     /**
-     * This method returns the issue severity level.
+     * Issue severity level.
      *
      * @return The {@link AuditIssueSeverity} level.
      */
     AuditIssueSeverity severity();
 
     /**
-     * This method returns the issue confidence level.
+     * Issue confidence level.
      *
      * @return The {@link AuditIssueConfidence} level.
      */
     AuditIssueConfidence confidence();
 
     /**
-     * This method returns the HTTP request/response messages that caused the issue to be generated.
+     * HTTP request/response messages that caused the issue to be generated.
      *
-     * @return The list of {@link MarkedHttpRequestResponse} objects on the basis of
+     * @return The list of {@link HttpRequestResponse} objects on the basis of
      * which the issue was generated.
      */
-    List<MarkedHttpRequestResponse> requestResponses();
+    List<HttpRequestResponse> requestResponses();
 
     /**
-     * This method returns the definition for this issue.
+     * Collaborator interactions that caused the issue to be generated.
+     *
+     * @return The list of Burp Collaborator {@link Interaction} objects that caused the issue to be generated.
+     * If there are no interactions, this will be empty.
+     */
+    List<Interaction> collaboratorInteractions();
+
+    /**
+     * Definition for this issue.
      *
      * @return The {@link AuditIssueDefinition} for this issue.
      */
     AuditIssueDefinition definition();
+
+    /**
+     * This method can be used to create a default implementation of an audit
+     * issue for a URL.
+     *
+     * @param name                  The name of the issue type.
+     * @param detail                The detailed information about the issue.
+     * @param remediation           The detailed information about the remediation for
+     *                              the issue.
+     * @param baseUrl               The base URL for which the issue is generated.
+     * @param severity              The {@link AuditIssueSeverity} level.
+     * @param confidence            The {@link AuditIssueConfidence} level.
+     * @param background            The background description for the type of issue.
+     * @param remediationBackground The background description of the
+     *                              remediation for this type of issue.
+     * @param typicalSeverity       The typical {@link AuditIssueSeverity} level.
+     * @param requestResponses      The {@link HttpRequestResponse} objects on the
+     *                              basis of which the issue is generated.
+     *
+     * @return The audit issue for the URL.
+     */
+    static AuditIssue auditIssue(
+            String name,
+            String detail,
+            String remediation,
+            String baseUrl,
+            AuditIssueSeverity severity,
+            AuditIssueConfidence confidence,
+            String background,
+            String remediationBackground,
+            AuditIssueSeverity typicalSeverity,
+            HttpRequestResponse... requestResponses)
+    {
+        return FACTORY.auditIssue(name, detail, remediation, baseUrl, severity, confidence, background, remediationBackground, typicalSeverity, requestResponses);
+    }
+
+    /**
+     * This method can be used to create a default implementation of an audit
+     * issue for a URL.
+     *
+     * @param name                  The name of the issue type.
+     * @param detail                The detailed information about the issue.
+     * @param remediation           The detailed information about the remediation for
+     *                              the issue.
+     * @param baseUrl               The base URL for which the issue is generated.
+     * @param severity              The {@link AuditIssueSeverity} level.
+     * @param confidence            The {@link AuditIssueConfidence} level.
+     * @param background            The background description for the type of issue.
+     * @param remediationBackground The background description of the
+     *                              remediation for this type of issue.
+     * @param typicalSeverity       The typical {@link AuditIssueSeverity} level.
+     * @param requestResponses      The list of {@link HttpRequestResponse} objects
+     *                              on the basis of which the issue is generated.
+     *
+     * @return The audit issue for the URL.
+     */
+    static AuditIssue auditIssue(
+            String name,
+            String detail,
+            String remediation,
+            String baseUrl,
+            AuditIssueSeverity severity,
+            AuditIssueConfidence confidence,
+            String background,
+            String remediationBackground,
+            AuditIssueSeverity typicalSeverity,
+            List<HttpRequestResponse> requestResponses)
+    {
+        return FACTORY.auditIssue(name, detail, remediation, baseUrl, severity, confidence, background, remediationBackground, typicalSeverity, requestResponses);
+    }
 }

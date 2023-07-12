@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,18 +8,18 @@
 
 package burp.api.montoya.http.sessions;
 
-import burp.api.montoya.http.message.cookies.Cookie;
+import burp.api.montoya.http.message.Cookie;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * This interface is used to access Burp's Cookie Jar functionality.
+ * Provides access to Burp's Cookie Jar functionality.
  */
 public interface CookieJar
 {
     /**
-     * This method is used to add a new HTTP cookie to the Cookie Jar.
+     * Add a new HTTP cookie to the Cookie Jar.
      *
      * @param name       The name of the cookie.
      * @param value      The value of the cookie.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -10,16 +10,16 @@ package burp.api.montoya.ui.editor;
 
 import burp.api.montoya.ui.Selection;
 
-import javax.swing.JComponent;
+import java.awt.Component;
 import java.util.Optional;
 
 /**
- * This interface provides the shared behaviour between the different editor types available from the Extender API.
+ * Provides the shared behaviour between the different editor types.
  */
 public interface Editor
 {
     /**
-     * This method is used to update the search expression that is shown in the search bar below the editor.
+     * Update the search expression that is shown in the search bar below the editor.
      *
      * @param expression The search expression.
      */
@@ -45,5 +45,5 @@ public interface Editor
     /**
      * @return UI component of the editor, for extensions to add to their own UI.
      */
-    JComponent uiComponent();
+    Component uiComponent();
 }

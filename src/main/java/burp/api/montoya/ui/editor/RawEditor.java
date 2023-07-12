@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -8,8 +8,14 @@
 
 package burp.api.montoya.ui.editor;
 
+import burp.api.montoya.core.ByteArray;
+import burp.api.montoya.ui.Selection;
+
+import java.awt.Component;
+import java.util.Optional;
+
 /**
- * This interface provides extensions with an instance of Burp Suite's HTTP text editor to use in their own user interface.
+ * Provides extensions with an instance of Burp Suite's HTTP text editor to use in their own user interface.
  */
 public interface RawEditor extends Editor
 {
@@ -21,13 +27,42 @@ public interface RawEditor extends Editor
     /**
      * @return The contents of the text editor.
      */
-    byte[] getContents();
+    ByteArray getContents();
 
     /**
-     * This method can be used to set content within the text editor programmatically.
-     * The default system charset is used when encoding to a String.
+     * This method can be used to set content within the text editor programmatically
      *
      * @param contents The content to set in the text editor.
      */
-    void setContents(byte[] contents);
+    void setContents(ByteArray contents);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void setSearchExpression(String expression);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    boolean isModified();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    int caretPosition();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Optional<Selection> selection();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Component uiComponent();
 }

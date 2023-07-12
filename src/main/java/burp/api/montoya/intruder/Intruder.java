@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -13,23 +13,24 @@ import burp.api.montoya.http.HttpService;
 import burp.api.montoya.http.message.requests.HttpRequest;
 
 /**
- * This interface provides access to the functionality of the Burp Intruder tool.
+ * Provides access to the functionality of the Burp Intruder tool.
  */
 public interface Intruder
 {
     /**
-     * This method is used to register a custom Intruder payload processor. Each registered
+     * Register a custom Intruder payload processor. Each registered
      * processor will be available within the Intruder UI for the user to select as the
      * action for a payload processing rule.
      *
      * @param payloadProcessor An object created by the extension that implements the
      *                         {@link PayloadProcessor} interface.
+     *
      * @return The {@link Registration} for the payload processor.
      */
     Registration registerPayloadProcessor(PayloadProcessor payloadProcessor);
 
     /**
-     * This method is used to register a provider for Intruder payloads. Each registered
+     * Register a provider for Intruder payloads. Each registered
      * provider will be available within the Intruder UI for the user to select as the payload
      * source for an attack. When this is selected, the provider will be asked to provide a
      * new instance of an {@link PayloadGenerator} object, which will be used to generate
@@ -37,12 +38,13 @@ public interface Intruder
      *
      * @param payloadGeneratorProvider An object created by the extension that implements the
      *                                 PayloadGeneratorProvider interface.
+     *
      * @return The {@link Registration} for the payload generator provider.
      */
     Registration registerPayloadGeneratorProvider(PayloadGeneratorProvider payloadGeneratorProvider);
 
     /**
-     * This method can be used to send an HTTP request to the Burp Intruder tool. The request
+     * Send an HTTP request to the Burp Intruder tool. The request
      * will be displayed in the user interface, and markers for attack payloads will be placed
      * into the locations specified in the provided {@link HttpRequestTemplate} object.
      *
@@ -53,7 +55,7 @@ public interface Intruder
     void sendToIntruder(HttpService service, HttpRequestTemplate requestTemplate);
 
     /**
-     * This method can be used to send an HTTP request to the Burp Intruder tool. The request
+     * Send an HTTP request to the Burp Intruder tool. The request
      * will be displayed in the user interface, and markers for attack payloads will be placed
      * into default locations within the request.
      *

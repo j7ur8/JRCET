@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. PortSwigger Ltd. All rights reserved.
+ * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
@@ -19,11 +19,12 @@ public interface ProxyHistoryFilter
      * This method is invoked for every item in the Proxy history to determine
      * whether it should be included in the filtered list of items.
      *
-     * @param requestResponse A {@link ProxyRequestResponse} object that
+     * @param requestResponse A {@link ProxyHttpRequestResponse} object that
      *                        extensions can use to determine whether the item should be included in
      *                        the filtered list of items.
+     *
      * @return Return {@code true} if the item should be included in the
      * filtered list of items.
      */
-    boolean matches(ProxyRequestResponse requestResponse);
+    boolean matches(ProxyHttpRequestResponse requestResponse);
 }
