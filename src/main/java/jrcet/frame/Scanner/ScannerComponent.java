@@ -58,7 +58,7 @@ public class ScannerComponent extends DiyJComponent {
         ScannerMenuSpringbootLabel.setPanel(new JPanel());
         ScannerMenuTabPanel.add(ScannerMenuSpringbootLabel);
 
-        DiyJTabLabel ScannerMenuOverauthLabel = new DiyJTabLabel("Overauth");
+        DiyJTabLabel ScannerMenuOverauthLabel = new DiyJTabLabel("Overauth",true);
         ScannerMenuOverauthLabel.setName("ScannerMenuOverauthLabel");
         ScannerMenuOverauthLabel.setPanel(OverauthComponentPanel);
         ScannerMenuTabPanel.add(ScannerMenuOverauthLabel);

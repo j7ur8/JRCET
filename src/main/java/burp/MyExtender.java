@@ -26,6 +26,7 @@ public class MyExtender implements BurpExtension{
         API.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
 //        API.userInterface().registerHttpRequestEditorProvider(new MyRegisterHttpRequestEditorProvider());
         API.userInterface().registerHttpResponseEditorProvider(new MyRegisterHttpResponseEditorProvider());
+        API.http().registerHttpHandler(new MyRegisterHttpHandler());
 
     }
 

@@ -1,6 +1,7 @@
 package jrcet;
 
 import com.alibaba.fastjson.JSONArray;
+import org.xm.Similarity;
 
 import javax.swing.*;
 
@@ -11,7 +12,7 @@ import static burp.MyExtender.API;
 public class test {
     public static void main(String[] args) {
         // 创建 JFrame 对象
-        System.out.println();
+//        Similarity.charBasedSimilarity();
 
     }
 

@@ -62,6 +62,7 @@ public class Helper {
                 return (JComponent) i;
             }
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
+                case "DiyJTextField":
                 case "JPanel":
                 case "JList":
                 case "JTable":
@@ -95,6 +96,7 @@ public class Helper {
         for( Component i : tComponent.getComponents()){
 
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)){
+                case "DiyJTextField":
                 case "JPanel":
                     JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
                     deep+=1;

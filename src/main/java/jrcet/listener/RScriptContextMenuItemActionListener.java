@@ -41,6 +41,7 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
 
     public RScriptContextMenuItemActionListener(ContextMenuEvent event) {
         this.event = event;
+//        event.
 
         if(rSyntaxTextArea==null)rSyntaxTextArea = new RSyntaxTextArea();
         if(rTextScrollPane==null)rTextScrollPane = new RTextScrollPane(rSyntaxTextArea);
@@ -113,14 +114,10 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            List<HttpRequestResponse> httpRequestResponseList = event.selectedRequestResponses();
-            if(httpRequestResponseList.size()!=1){
-                API.logging().error().println("RScriptContextMenuItemActionListener httpRequestResponseList.size()!=1");
-                return;
-            }
-            HttpRequest httpRequest = httpRequestResponseList.get(0).request();
+            HttpRequest httpRequest = event.messageEditorRequestResponse().get().requestResponse().request();
+
             List<HttpHeader> headers = httpRequest.headers();
-            headers.remove(0);
+//            headers.remove(0);
             for(HttpHeader header:headers){
                 if(Objects.equals(header.name(), "Cookie"))continue;
                 HeaderMap.put(header.name(),header.value());
@@ -139,7 +136,6 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
                         break;
                 }
             }
-
             String method = httpRequest.method().toLowerCase();
             String url = httpRequest.url().split("\\?")[0];
             String urlParameter = JSON.toJSONString(URLParameterMap).replace("\",\"","\",\n\t\"").replace("{\"","{\n\t\"").replace("\"}","\"\n}");
@@ -156,7 +152,7 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
                     method,
                     url);
 
-
+//            API.logging().output().println((3));
             rSyntaxTextArea.setText(pythonRequest);
             RScriptFrame.setVisible(true);
 

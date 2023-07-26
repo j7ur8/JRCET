@@ -22,12 +22,7 @@ public class CaptchaContextMenuItemActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<HttpRequestResponse> httpRequestResponseList = event.selectedRequestResponses();
-        if(httpRequestResponseList.size()!=1){
-            API.logging().error().println("httpRequestResponseList.size()!=1");
-            return;
-        }
-        HttpRequest httpRequest = httpRequestResponseList.get(0).request();
+        HttpRequest httpRequest = event.messageEditorRequestResponse().get().requestResponse().request();
         String urlString = httpRequest.url();
         String reqString = httpRequest.toString();
 
