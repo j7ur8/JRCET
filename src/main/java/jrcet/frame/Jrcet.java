@@ -66,7 +66,7 @@ public class Jrcet extends DiyJComponent {
         JrcetMenuExploitLabel.setPanel(ExploitComponentPanel);
         JrcetMenuPanel.add(JrcetMenuExploitLabel);
 
-        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools", true);
+        DiyJTabLabel JrcetMenuToolsLabel = new DiyJTabLabel("Tools");
         JrcetMenuToolsLabel.setName("JrcetMenuToolsLabel");
         JrcetMenuToolsLabel.setPanel(ToolsComponentPanel);
         JrcetMenuPanel.add(JrcetMenuToolsLabel);
@@ -76,7 +76,7 @@ public class Jrcet extends DiyJComponent {
         JrcetMenuIntruderLabel.setPanel(IntruderComponentPanel);
         JrcetMenuPanel.add(JrcetMenuIntruderLabel);
 
-        DiyJTabLabel JrcetMenuScannerLabel = new DiyJTabLabel("Scanner");
+        DiyJTabLabel JrcetMenuScannerLabel = new DiyJTabLabel("Scanner",true);
         JrcetMenuScannerLabel.setName("JrcetMenuScannerLabel");
         JrcetMenuScannerLabel.setPanel(ScannerComponentPanel);
         JrcetMenuPanel.add(JrcetMenuScannerLabel);

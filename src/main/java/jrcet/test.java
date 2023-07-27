@@ -13,7 +13,7 @@ public class test {
     public static void main(String[] args) {
         // 创建 JFrame 对象
 //        Similarity.charBasedSimilarity();
-
+        System.out.println("www.baidu.com".contains(""));
     }
 
 }

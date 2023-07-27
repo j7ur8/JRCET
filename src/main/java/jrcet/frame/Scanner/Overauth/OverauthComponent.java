@@ -11,9 +11,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import static burp.MyExtender.API;
-import static burp.MyRegisterHttpHandler.RequestMap;
+import static burp.MyRegisterHttpHandler.*;
 
 public class OverauthComponent extends DiyJComponent {
 
@@ -87,22 +89,29 @@ public class OverauthComponent extends DiyJComponent {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 ((DefaultTableCellRenderer) c).setHorizontalAlignment(SwingConstants.CENTER);
-                if( (column==8 || column==9) && table.getValueAt(row,column)=="True"){
-                        c.setForeground(Color.RED);
 
-                }else{
-                    c.setForeground(Color.BLACK);
+                c.setEnabled(true);
+                c.setForeground(Color.BLACK);
+                if(RequestMap.get((String) table.getValueAt(row,0)).Removed){
+                    c.setEnabled(false);
+                } else if( (column==8 || column==9 || column==10) && table.getValueAt(row,column)!=""){
+                        c.setForeground(Color.RED);
                 }
                 return c;
             }
         };
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","OverAuth","UnAuth"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","OverAuth","UnAuth","FlatAuth"};
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        JTable OverauthLoggerTable = new JTable(model);
-//        API.logging().output().println(OverauthLoggerTable.getModel().getColumnName(8));
+        JTable OverauthLoggerTable = new JTable(model){
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+
         OverauthLoggerTable.setName("OverauthLoggerTable");
         OverauthLoggerTable.setDefaultRenderer(Object.class,renderer);
         OverauthLoggerTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -116,18 +125,74 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerTable.getColumnModel().getColumn(7).setPreferredWidth(150);
         OverauthLoggerTable.getColumnModel().getColumn(8).setPreferredWidth(100);
         OverauthLoggerTable.getColumnModel().getColumn(9).setPreferredWidth(100);
+        OverauthLoggerTable.getColumnModel().getColumn(10).setPreferredWidth(200);
+
 
         OverauthLoggerTable.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedRow = OverauthLoggerTable.getSelectedRow()+1;
-//                API.logging().output().println(selectedRow);
-                OverauthTableEntry overauthTableEntry = RequestMap.get(Integer.toString(selectedRow));
+            int selectedRow = OverauthLoggerTable.getSelectedRow();
+            if (!e.getValueIsAdjusting() && selectedRow!=-1) {
+                OverauthTableEntry overauthTableEntry = RequestMap.get(getRequestNumber(selectedRow));
                 OverauthAuthHighauthRequestEditor.setRequest(overauthTableEntry.HighAuthRequest);
                 OverauthAuthHighauthResponseEditor.setResponse(overauthTableEntry.simplifyHighAuthResponse);
                 OverauthAuthLowauthRequestEditor.setRequest(overauthTableEntry.LowAuthRequest);
                 OverauthAuthLowauthResponseEditor.setResponse(overauthTableEntry.simplifyLowAuthResponse);
                 OverauthAuthUnauthRequestEditor.setRequest(overauthTableEntry.UnAuthRequest);
                 OverauthAuthUnauthResponseEditor.setResponse(overauthTableEntry.simplifyUnAuthResponse);
+            }
+        });
+
+        JPopupMenu OverauthLoggerTablePopupMenu = new JPopupMenu();
+
+        JMenuItem delMenItem = new JMenuItem();
+        delMenItem.setText("Remove From Scope");
+        delMenItem.addActionListener(evt -> {
+            int row = OverauthLoggerTable.getSelectedRow();
+            try{
+                UrlList.remove(RequestMap.get(getRequestNumber(row)).HighAuthRequest.url());
+                RequestMap.get(getRequestNumber(row)).Removed=true;
+                OverauthAuthHighauthRequestEditor.setRequest(null);
+                OverauthAuthHighauthResponseEditor.setResponse(null);
+                OverauthAuthLowauthRequestEditor.setRequest(null);
+                OverauthAuthLowauthResponseEditor.setResponse(null);
+                OverauthAuthUnauthRequestEditor.setRequest(null);
+                OverauthAuthUnauthResponseEditor.setResponse(null);
+            }catch (Exception e){
+                API.logging().output().println(e);
+            }
+
+        });
+        OverauthLoggerTablePopupMenu.add(delMenItem);
+
+        OverauthLoggerTable.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if(e.getButton()==3){
+                    int focusedRowIndex = OverauthLoggerTable.rowAtPoint(e.getPoint());
+                    if (focusedRowIndex == -1) {
+                        return;
+                    }
+                    //将表格所选项设为当前右键点击的行
+                    OverauthLoggerTable.setRowSelectionInterval(focusedRowIndex, focusedRowIndex);
+                    OverauthLoggerTablePopupMenu.show(OverauthLoggerTable, e.getX(), e.getY());
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
 

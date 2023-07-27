@@ -36,6 +36,8 @@ public class OverauthTableEntry {
 
     public String UnAuth;
 
+    public boolean Removed = false;
+
 //    public Boolean Check = false;
     public OverauthTableEntry(String[] inf){
         this.RequestNumber = inf[0];

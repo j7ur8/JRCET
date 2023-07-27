@@ -10,7 +10,7 @@ public class Setting {
 
 
     // 可选 Tools,Exploit,Asset
-    public static String JrcetShowPanel = "Tools";
+    public static String JrcetShowPanel = "Scanner";
 
 
     // 可选 Intruder, Scanner, Dominate, Password, Dencrypt, RScript, HText， Captcha
