@@ -2,6 +2,8 @@ package jrcet.frame.Tools.Captcha;
 
 import burp.api.montoya.http.HttpService;
 import burp.api.montoya.http.message.requests.HttpRequest;
+import burp.api.montoya.http.message.responses.HttpResponse;
+import jrcet.diycomponents.DiyJTextField;
 import jrcet.help.Helper;
 import jrcet.help.d4ocr.OCREngine;
 
@@ -17,55 +19,43 @@ import java.util.Objects;
 
 import static burp.MyExtender.API;
 import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaComponentPanel;
+import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaResponseEditor;
 
 public class Captcha {
 
-    public static byte[] responseText="".getBytes();
 
     public static String identifyCaptcha() {
         try {
+//            JTextField urlField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestMenuUrlField");
+//            assert urlField != null;
+            JTextField ruleField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuRuleFiled");assert ruleField != null;
 
-            JTextField urlField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestMenuUrlField");
-            assert urlField != null;
-            JTextField ruleField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuRuleFiled");
-            assert ruleField != null;
-            JTextField rule1Field = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuRule1Filed");
-            assert rule1Field != null;
-            JTextField StrField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuStrField");
-            assert StrField != null;
-            JTextArea requestArea = (JTextArea) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestArea");
-            assert requestArea != null;
+            JTextField rule1Field = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuRule1Filed");assert rule1Field != null;
 
-            String url = urlField.getText();
+            JTextField StrField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuStrField");assert StrField != null;
+
+            JTextArea requestArea = (JTextArea) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestArea"); assert requestArea != null;
+
             String rule = ruleField.getText();
-            String requestPacket = requestArea.getText();
-
-            byte[] response;
-            BufferedImage image;
-
-            HttpRequest httpRequest = HttpRequest.httpRequest(requestPacket).withService(HttpService.httpService(url));
-            response = API.http().sendRequest(httpRequest).response().body().getBytes();
-
-            String token="";
             String rule1 = rule1Field.getText();
 
-            if(!Objects.equals(rule1, "")){
-                token=Helper.matchByRegular(new String(response,StandardCharsets.UTF_8),rule1);
-            }
+            String response = new String(CaptchaResponseEditor.getResponse().body().getBytes(),StandardCharsets.UTF_8);
 
-            String imageText = Helper.matchByRegular(new String(response,StandardCharsets.UTF_8), rule);
-            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(response);
+            String imageText = Helper.matchByRegular(response, rule);
+
+            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(imageText);
 
             ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
 
-            image = ImageIO.read(in);
-            OCREngine engine = OCREngine.instance();
-            String res = engine.recognize(image);
+            String res = OCREngine.instance().recognize(ImageIO.read(in));
 
             String Str = StrField.getText();
+
             if(!Objects.equals(Str, "")){
-                return token+Str+res;
+                res =  Objects.equals(rule1, "")?"":Helper.matchByRegular(response,rule1)
+                        +Str+res;
             }
+
             return res;
 
         } catch (Exception e) {
@@ -75,28 +65,28 @@ public class Captcha {
         return "ErrorOrz";
     }
 
-    public static class getCaptchaThread extends Thread{
-        public String url;
-        public String raw;
-        public JTextArea responseArea;
-        public getCaptchaThread(String url, String raw, JTextArea responseArea){
-            this.url = url;
-            this.raw = raw;
-            this.responseArea = responseArea;
+
+    public static class setCaptchaWorker extends SwingWorker<String, Void> {
+
+        protected HttpRequest httpRequest;
+        public setCaptchaWorker(HttpRequest httpRequest) {
+            this.httpRequest = httpRequest;
         }
 
-        public void run() {
-            byte[] response= "".getBytes();
-            try {
-                HttpRequest httpRequest = HttpRequest.httpRequest(raw).withService(HttpService.httpService(url));
-
-                response = API.http().sendRequest(httpRequest).response().body().getBytes();
-                responseText= response;
-            } catch (Exception e) {
-                API.logging().output().println(e.getMessage());
-            }
-
-            responseArea.setText(new String(response,StandardCharsets.UTF_8));
+        @Override
+        protected String doInBackground() {
+            CaptchaResponseEditor.setResponse(API.http().sendRequest(httpRequest).response());
+            return null;
         }
+    }
+
+    public static JTextField getUrlField(){
+        return (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuRequestUrlField");
+    }
+    public static JTextField getImageRuleField(){
+        return (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuResponseImageField");
+    }
+    public static JTextField getTokenRuleField(){
+        return (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuResponseTokenField");
     }
 }

@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import static burp.MyExtender.API;
+import static jrcet.frame.Tools.Captcha.Captcha.getUrlField;
 import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaComponentPanel;
+import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaRequestEditor;
 
 public class CaptchaContextMenuItemActionListener implements ActionListener {
 
@@ -22,19 +24,8 @@ public class CaptchaContextMenuItemActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        HttpRequest httpRequest = event.messageEditorRequestResponse().get().requestResponse().request();
-        String urlString = httpRequest.url();
-        String reqString = httpRequest.toString();
-
-        try{
-            JTextField urlField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestMenuUrlField");
-            JTextArea requestArea = (JTextArea) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestArea");
-            assert urlField != null;
-            urlField.setText(urlString);
-            assert requestArea != null;
-            requestArea.setText(reqString);
-        }catch (Exception exception){
-            API.logging().error().println(exception);
-        }
+        HttpRequest httpRequest = event.messageEditorRequestResponse().orElseThrow().requestResponse().request();
+        getUrlField().setText(httpRequest.url());
+        CaptchaRequestEditor.setRequest(httpRequest);
     }
 }

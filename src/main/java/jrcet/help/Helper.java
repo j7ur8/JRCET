@@ -1,10 +1,8 @@
 package jrcet.help;
 
 import burp.MyExtender;
-import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJChangeLabel;
-import jrcet.diycomponents.DiyJLabel;
-import jrcet.diycomponents.DiyJTabLabel;
+import com.coreyd97.BurpExtenderUtilities.VariableViewPanel;
+import jrcet.diycomponents.*;
 import jrcet.frame.Setting.Database;
 
 import javax.imageio.ImageIO;
@@ -25,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //import static burp.MyExtender.stdout;
+import static burp.MyExtender.API;
 import static jrcet.Main.JrcetComponentList;
 
 public class Helper {
@@ -58,29 +57,24 @@ public class Helper {
         }
 
         for( Component i : rootComponent.getComponents()) {
+//            API.logging().output().println(i.getName()+":"+i.getClass());
             if (Objects.equals(i.getName(), tComponentName)){
                 return (JComponent) i;
             }
+//            API.logging().output().println(i.getClass());
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
-                case "DiyJTextField":
-                case "JPanel":
-                case "JList":
-                case "JTable":
-                case "DiyJComboBox":
-                case "JTextArea":
-                    JComponent cj = getComponent((JComponent) i,tComponentName);
-                    if(cj!=null) return cj;
-                    break;
-                case "DiyJAddLabel":
-                case "DiyJTabLabel":
-                    JComponent cd = getComponent(getRenderedComponent(i),tComponentName);
-                    if(cd!=null) return cd;
-                    break;
-                case "DiyJTextAreaScrollPane":
-                case "JScrollPane":
-                    JComponent cs = getComponent((JComponent) ((JScrollPane)i).getViewport().getView(),tComponentName);
-                    if(cs!=null) return cs;
-                    break;
+                case "JTabbedPane","JSplitPane","DiyJTextField", "VariableViewPanel", "JPanel", "JList", "JTable", "DiyJComboBox", "JTextArea" -> {
+                    JComponent cj = getComponent((JComponent) i, tComponentName);
+                    if (cj != null) return cj;
+                }
+                case "DiyJAddLabel", "DiyJTabLabel" -> {
+                    JComponent cd = getComponent(getRenderedComponent(i), tComponentName);
+                    if (cd != null) return cd;
+                }
+                case "DiyJTextAreaScrollPane", "JScrollPane" -> {
+                    JComponent cs = getComponent((JComponent) ((JScrollPane) i).getViewport().getView(), tComponentName);
+                    if (cs != null) return cs;
+                }
             }
         }
         return null;

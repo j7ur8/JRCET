@@ -4,16 +4,12 @@ import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.MimeType;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import burp.api.montoya.ui.Selection;
-import burp.api.montoya.ui.editor.HttpResponseEditor;
 import burp.api.montoya.ui.editor.RawEditor;
 import burp.api.montoya.ui.editor.extension.EditorCreationContext;
-import burp.api.montoya.ui.editor.extension.EditorMode;
 import burp.api.montoya.ui.editor.extension.ExtensionProvidedHttpResponseEditor;
 import burp.api.montoya.ui.editor.extension.HttpResponseEditorProvider;
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.frame.Tools.Dencrypt.Unicode.Unicode;
+import jrcet.frame.Dencrypt.Unicode.Unicode;
 
-import javax.swing.*;
 import java.awt.*;
 import java.nio.charset.StandardCharsets;
 

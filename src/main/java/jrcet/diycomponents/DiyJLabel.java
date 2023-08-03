@@ -1,8 +1,8 @@
 package jrcet.diycomponents;
 
 import jrcet.help.Helper;
-import jrcet.frame.Tools.Dencrypt.Aes.Aes;
-import jrcet.frame.Tools.Dencrypt.Rsa.Rsa;
+import jrcet.frame.Dencrypt.Aes.Aes;
+import jrcet.frame.Dencrypt.Rsa.Rsa;
 
 import javax.swing.*;
 import java.awt.*;

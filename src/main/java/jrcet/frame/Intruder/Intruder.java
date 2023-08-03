@@ -2,12 +2,12 @@ package jrcet.frame.Intruder;
 
 
 import jrcet.frame.Tools.Captcha.Captcha;
-import jrcet.frame.Tools.Dencrypt.Aes.Aes;
-import jrcet.frame.Tools.Dencrypt.Ascii.Ascii;
-import jrcet.frame.Tools.Dencrypt.Base.Base;
-import jrcet.frame.Tools.Dencrypt.Md5.Md5;
-import jrcet.frame.Tools.Dencrypt.Rsa.Rsa;
-import jrcet.frame.Tools.Dencrypt.Unicode.Unicode;
+import jrcet.frame.Dencrypt.Aes.Aes;
+import jrcet.frame.Dencrypt.Ascii.Ascii;
+import jrcet.frame.Dencrypt.Base.Base;
+import jrcet.frame.Dencrypt.Md5.Md5;
+import jrcet.frame.Dencrypt.Rsa.Rsa;
+import jrcet.frame.Dencrypt.Unicode.Unicode;
 import jrcet.help.Helper;
 
 

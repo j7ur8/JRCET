@@ -14,6 +14,7 @@ import org.xm.Similarity;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -26,16 +27,16 @@ public class MyRegisterHttpHandler implements HttpHandler {
     public static ArrayList<String> UrlList = new ArrayList<>();
     public static HashMap<String, OverauthTableEntry> RequestMap = new HashMap<>();
 
-    public String[] blackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml"};
+    public String[] blackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js"};
     @Override
     public RequestToBeSentAction handleHttpRequestToBeSent(HttpRequestToBeSent requestToBeSent) {
 
         //不接受Extensions和Intruder的流量
         String requestTool = requestToBeSent.toolSource().toolType().toolName();
-        switch (requestTool){
-            case "Extensions":
-            case "Intruder":
+        switch (requestTool) {
+            case "Extensions", "Intruder" -> {
                 return RequestToBeSentAction.continueWith(requestToBeSent);
+            }
         }
 
         //不接受不期望的流量
@@ -53,6 +54,7 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //不接受静态文件的请求
         String requestPath = requestToBeSent.path();
         for(String ext:blackExtensionList){
+            requestPath = (requestPath.split("\\?"))[0];
             if(requestPath.endsWith(ext)){
                 return RequestToBeSentAction.continueWith(requestToBeSent);
             }
@@ -133,18 +135,22 @@ public class MyRegisterHttpHandler implements HttpHandler {
         String lowAuth = getField("OverauthMenuLowauthField").getText();
 
         //如果未设置高权限鉴权字段，将不进行检测
+//        API.logging().output().println(highAuth);
         if(Objects.equals(highAuth, "")){
+//            API.logging().output().println("未设置高权限字段");
             return ResponseReceivedAction.continueWith(responseReceived);
         }
 
         String highAuthHttpReuqestString = highAuthHttpRequest.toString();
         //如果设置了低权限鉴权字段，发送低权限请求
         if(!Objects.equals(lowAuth, "")){
+//            API.logging().output().println("发送低权限请求包");
             HttpRequest lowAuthHttpRequest = HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,lowAuth));
             new authCheckWorker("lowAuth",requestNumber,lowAuthHttpRequest).execute();
         }
 
         //发送未授权请求
+//        API.logging().output().println("发送未授权请求包");
         HttpRequest unAuthHttpRequest =  HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,""));
         new authCheckWorker("unAuth",requestNumber,unAuthHttpRequest).execute();
 
@@ -179,44 +185,37 @@ public class MyRegisterHttpHandler implements HttpHandler {
             HttpResponse iSimplifyhttpResponse = ihttpResponse.withBody(ihttpResponse.body().subArray(0,Math.min(20000,ihttpResponse.body().length())));
 
             HttpResponse highAuthHttpResponse = RequestMap.get(number).HighAuthResponse;
-            switch (type){
-                case "unAuth":
+            switch (type) {
+                case "unAuth" -> {
                     RequestMap.get(number).setUnAuthRequest(httpRequestResponse.request());
                     RequestMap.get(number).setUnAuthResponse(ihttpResponse);
                     RequestMap.get(number).setSimplifyUnAuthResponse(iSimplifyhttpResponse);
-
-                    double unAuthSimilarity = Similarity.charBasedSimilarity(highAuthHttpResponse.bodyToString(),ihttpResponse.bodyToString());
-                    if(unAuthSimilarity>=0.9){
-                        RequestMap.get(number).UnAuth="True";
-                        getTable().getModel().setValueAt("True", Integer.parseInt(number)-1,9);
+                    double unAuthSimilarity = Similarity.charBasedSimilarity(highAuthHttpResponse.bodyToString(), ihttpResponse.bodyToString());
+                    if (unAuthSimilarity >= 0.9) {
+                        RequestMap.get(number).UnAuth = "True";
+                        getTable().getModel().setValueAt("True", Integer.parseInt(number) - 1, 9);
                     }
-
-                    break;
-                case "lowAuth":
+                }
+                case "lowAuth" -> {
                     RequestMap.get(number).setLowAuthRequest(httpRequestResponse.request());
                     RequestMap.get(number).setUnAuthResponse(ihttpResponse);
                     RequestMap.get(number).setSimplifyLowAuthResponse(iSimplifyhttpResponse);
-                    double lowAuthSimilarity = Similarity.charBasedSimilarity(highAuthHttpResponse.bodyToString(),ihttpResponse.bodyToString());
-                    if(lowAuthSimilarity>=0.9){
-                        RequestMap.get(number).OverAuth="True";
-                        getTable().getModel().setValueAt("True", Integer.parseInt(number)-1,8);
+                    double lowAuthSimilarity = Similarity.charBasedSimilarity(highAuthHttpResponse.bodyToString(), ihttpResponse.bodyToString());
+                    if (lowAuthSimilarity >= 0.9) {
+                        RequestMap.get(number).OverAuth = "True";
+                        getTable().getModel().setValueAt("True", Integer.parseInt(number) - 1, 8);
                     }
-                    break;
+                }
             }
         }
     }
 
     public static JTable getTable(){
-        JTable tTbale = (JTable) Helper.getComponent(OverauthComponent,"OverauthLoggerTable");
-        assert tTbale != null;
-
-        return tTbale;
+        return (JTable) Helper.getComponent(OverauthComponent,"OverauthLoggerTable");
     }
 
     public static JTextField getField(String filedName){
-        JTextField highAuthField = (JTextField) Helper.getComponent(OverauthComponent,filedName);assert highAuthField != null;
-
-        return highAuthField;
+        return (JTextField) Helper.getComponent(OverauthComponent,filedName);
     }
 
     public static String getRequestNumber(int row){

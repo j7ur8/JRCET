@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Tools.HText.Format.Format;
+import jrcet.frame.HText.Format.Format;
 
 import javax.swing.*;
 import java.awt.*;

@@ -8,8 +8,8 @@
     <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jjwt.version>0.11.2</jjwt.version>
     </properties>
@@ -40,6 +40,11 @@
             <groupId>com.github.shibing624</groupId>
             <artifactId>similarity</artifactId>
             <version>1.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.CoreyD97</groupId>
+            <artifactId>Burp-Montoya-Utilities</artifactId>
+            <version>234d21d</version>
         </dependency>
     </dependencies>
 

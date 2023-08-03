@@ -1,11 +1,9 @@
 package jrcet.frame.Asset;
 
-import burp.api.montoya.http.HttpService;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import jrcet.frame.Tools.Dencrypt.Url.Url;
 import jrcet.help.Helper;
 
 import javax.swing.*;

@@ -1,18 +1,18 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Tools.Dencrypt.Hex.HexComponent;
-import jrcet.frame.Tools.Dencrypt.Jwt.JwtComponent;
-import jrcet.frame.Tools.HText.Case.CaseComponent;
-import jrcet.frame.Tools.HText.Format.FormatComponent;
-import jrcet.frame.Tools.HText.IPUnit.IPUnitComponent;
-import jrcet.frame.Tools.HText.Len.LenComponent;
-import jrcet.frame.Tools.HText.Regex.RegexComponent;
+import jrcet.frame.Dencrypt.Hex.HexComponent;
+import jrcet.frame.Dencrypt.Jwt.JwtComponent;
+import jrcet.frame.HText.Case.CaseComponent;
+import jrcet.frame.HText.Format.FormatComponent;
+import jrcet.frame.HText.IPUnit.IPUnitComponent;
+import jrcet.frame.HText.Len.LenComponent;
+import jrcet.frame.HText.Regex.RegexComponent;
 import jrcet.help.Helper;
-import jrcet.frame.Tools.Dencrypt.Aes.AesComponent;
-import jrcet.frame.Tools.Dencrypt.Ascii.AsciiComponent;
-import jrcet.frame.Tools.Dencrypt.Base.BaseComponent;
-import jrcet.frame.Tools.Dencrypt.Rsa.RsaComponent;
-import jrcet.frame.Tools.Dencrypt.Unicode.UnicodeComponent;
+import jrcet.frame.Dencrypt.Aes.AesComponent;
+import jrcet.frame.Dencrypt.Ascii.AsciiComponent;
+import jrcet.frame.Dencrypt.Base.BaseComponent;
+import jrcet.frame.Dencrypt.Rsa.RsaComponent;
+import jrcet.frame.Dencrypt.Unicode.UnicodeComponent;
 
 import javax.swing.*;
 import java.awt.*;

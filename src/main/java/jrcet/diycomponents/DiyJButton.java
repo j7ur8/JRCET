@@ -4,6 +4,7 @@ import burp.MyExtender;
 import jrcet.frame.Asset.Asset;
 import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.frame.Intruder.IntruderComponent;
+import jrcet.frame.Tools.Captcha.CaptchaComponent;
 import jrcet.help.Helper;
 import jrcet.help.d4ocr.OCREngine;
 
@@ -23,12 +24,17 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Objects;
 
 
+import static burp.MyExtender.API;
 import static jrcet.frame.Intruder.IntruderComponent.IntruderComponentPanel;
 import static jrcet.frame.Intruder.Intruder.IntruderModuleComponentList;
+import static jrcet.frame.Tools.Captcha.Captcha.getImageRuleField;
+import static jrcet.frame.Tools.Captcha.Captcha.getTokenRuleField;
+import static jrcet.frame.Tools.Captcha.CaptchaComponent.*;
 
 public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
 
@@ -89,135 +95,111 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JComponent rootPanel;
         JComponent tPanel;
         JComponent nPanel;
-        JTextField tField = null;
         JLabel tLabel;
-        String text;
-        String[][] result;
         switch (eButtonName) {
-            case "CaptchaMainCaptchaRequestMenuUrlButton":
-                rootPanel = (JComponent) eButton.getParent().getParent();
-                JTextArea sJTextArea = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestArea");assert sJTextArea != null;
-                JTextField urlField = (JTextField) Helper.getComponent(rootPanel, "CaptchaMainCaptchaRequestMenuUrlField");assert urlField != null;
-                JTextArea responseArea = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea!=null;
+            case "CaptchaMenuRequestUrlButton" -> new Captcha.setCaptchaWorker(CaptchaRequestEditor.getRequest()).execute();
+            case "CaptchaMenuImageIdentifyButton" -> {
 
-                String raw = sJTextArea.getText();
-                String url = urlField.getText();
+                String responseText = new String(CaptchaResponseEditor.getResponse().body().getBytes(), StandardCharsets.UTF_8);
+//                API.logging().output().println(responseText);
 
-                Thread thread = new Captcha.getCaptchaThread(url,raw,responseArea);
-                thread.start();
-                break;
-            case "CaptchaMainCaptchaImageMenuIdentifyButton":
-                rootPanel = (JComponent) eButton.getParent().getParent();
-                JTextField ruleField = (JTextField)  Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseMenuRuleFiled");assert ruleField != null;
-                JTextField rule1Field = (JTextField)  Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseMenuRule1Filed");assert rule1Field != null;
-                JTextArea imageArea = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaImageArea");assert imageArea!=null;
-                JTextArea responseArea1 = (JTextArea) Helper.getComponent(rootPanel, "CaptchaMainCaptchaResponseArea");assert responseArea1!=null;
-
-                String token="";
-                String rule1 = rule1Field.getText();
-                if(!Objects.equals(rule1, "")){
-                    token=Helper.matchByRegular(responseArea1.getText(),rule1);
-                }
-                String imageText = Helper.matchByRegular(responseArea1.getText(),ruleField.getText());
-
-                imageText = Helper.isBase64(imageText)?imageText:Helper.base64Encode(Captcha.responseText);
-                imageArea.setText(imageText);
+//                API.logging().output().println(getImageRuleField());
+//                API.logging().output().println(getImageRuleField().getText());
+                String imageText = Helper.matchByRegular(responseText, getImageRuleField().getText());
+                imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(imageText);
+//                API.logging().output().println(imageText);
 
                 ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
                 BufferedImage image = null;
                 try {
                     image = ImageIO.read(in);
-                } catch (IOException ee) {
+                } catch (IOException ignored) {
 
                 }
                 OCREngine engine = OCREngine.instance();
                 String res = engine.recognize(image);
+//                API.logging().output().println(res);
 
                 JLabel resultLabel = new JLabel(res);
-                resultLabel.setFont(new Font("微软雅黑",Font.PLAIN,20));
+                resultLabel.setFont(new Font("微软雅黑", Font.PLAIN, 20));
 
-                JLabel tokenLabel= new JLabel(token);
-                tokenLabel.setFont(new Font("微软雅黑",Font.PLAIN,20));
-
+                String token = "";
+                String rule1 = getTokenRuleField().getText();
+                if (!Objects.equals(rule1, "")) {
+                    token = Helper.matchByRegular(responseText, rule1);
+                }
+                JLabel tokenLabel = new JLabel(token);
+                tokenLabel.setFont(new Font("微软雅黑", Font.PLAIN, 20));
                 byte[] imageByte = Helper.base64Decode(imageText);
                 ImageIcon imageIcon = Helper.byte2img(imageByte);
                 JLabel imageLabel = new JLabel(imageIcon, JLabel.CENTER);
-                imageLabel.setPreferredSize(new Dimension(160,30));
-
-                JPanel CaptchaMainCaptchaImageMenuResultPanel = (JPanel) Helper.getComponent(rootPanel, "CaptchaMainCaptchaImageMenuResultPanel"); assert  CaptchaMainCaptchaImageMenuResultPanel!=null;
+                imageLabel.setPreferredSize(new Dimension(160, 30));
+                JPanel CaptchaMainCaptchaImageMenuResultPanel = (JPanel) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuImageResultPanel");
+                assert CaptchaMainCaptchaImageMenuResultPanel != null;
                 CaptchaMainCaptchaImageMenuResultPanel.removeAll();
                 CaptchaMainCaptchaImageMenuResultPanel.add(imageLabel);
                 CaptchaMainCaptchaImageMenuResultPanel.add(resultLabel);
                 CaptchaMainCaptchaImageMenuResultPanel.add(tokenLabel);
                 CaptchaMainCaptchaImageMenuResultPanel.repaint();
                 CaptchaMainCaptchaImageMenuResultPanel.revalidate();
-                break;
-            case "Copy":
-                writeRScript(eButton);
-                break;
-            case "IntruderMainControlAesButton":
-            case "IntruderMainControlDesButton":
-            case "IntruderMainControlMd5Button":
-            case "IntruderMainControlRsaButton":
-            case "IntruderMainControlBaseButton":
-            case "IntruderMainControlAsciiButton":
-            case "IntruderMainControlUnicodeButton":
+            }
+            case "IntruderMainControlAesButton", "IntruderMainControlDesButton", "IntruderMainControlMd5Button", "IntruderMainControlRsaButton", "IntruderMainControlBaseButton", "IntruderMainControlAsciiButton", "IntruderMainControlUnicodeButton" -> {
                 nPanel = getNewIntruderModulePanel(eButtonText);
-                tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");assert tPanel!=null;
+                tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");
+                assert tPanel != null;
                 IntruderModuleComponentList.add(nPanel);
-                tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel"); assert tLabel!=null;
+                tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel");
+                assert tLabel != null;
                 String tLabelText = tLabel.getText();
-                if(Objects.equals(tLabelText, "")){
-                    tLabel.setText(tLabelText+eButtonText);
-                }else{
-                    tLabel.setText(tLabelText+"->"+eButtonText);
+                if (Objects.equals(tLabelText, "")) {
+                    tLabel.setText(tLabelText + eButtonText);
+                } else {
+                    tLabel.setText(tLabelText + "->" + eButtonText);
                 }
-                tPanel.remove(tPanel.getComponents().length-1);
+                tPanel.remove(tPanel.getComponents().length - 1);
                 tPanel.add(nPanel, new GridBagConstraints(
-                        0,tPanel.getComponentCount(),
-                        1,1,
-                        1,0,
+                        0, tPanel.getComponentCount(),
+                        1, 1,
+                        1, 0,
                         GridBagConstraints.CENTER,
                         GridBagConstraints.BOTH,
-                        new Insets(0,100,0,100),
-                        0,0
+                        new Insets(0, 100, 0, 100),
+                        0, 0
                 ));
-                tPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                        0,tPanel.getComponentCount(),
-                        1,1,
-                        1,1,
+                tPanel.add(Helper.blackPanel(), new GridBagConstraints(
+                        0, tPanel.getComponentCount(),
+                        1, 1,
+                        1, 1,
                         GridBagConstraints.CENTER,
                         GridBagConstraints.BOTH,
-                        new Insets(0,0,0,0),
-                        0,0
+                        new Insets(0, 0, 0, 0),
+                        0, 0
                 ));
                 tPanel.updateUI();
-                break;
-            case "IntruderMainControlClearButton":
-                tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");assert tPanel!=null;
+            }
+            case "IntruderMainControlClearButton" -> {
+                tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");
+                assert tPanel != null;
                 IntruderModuleComponentList = new ArrayList<>();
-                tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel"); assert tLabel!=null;
+                tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel");
+                assert tLabel != null;
                 tLabel.setText("");
-                while (tPanel.getComponentCount()!=1){
+                while (tPanel.getComponentCount() != 1) {
                     tPanel.remove(1);
                 }
-                tPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                        0,tPanel.getComponentCount(),
-                        1,1,
-                        1,1,
+                tPanel.add(Helper.blackPanel(), new GridBagConstraints(
+                        0, tPanel.getComponentCount(),
+                        1, 1,
+                        1, 1,
                         GridBagConstraints.CENTER,
                         GridBagConstraints.BOTH,
-                        new Insets(0,0,0,0),
-                        0,0
+                        new Insets(0, 0, 0, 0),
+                        0, 0
                 ));
                 tPanel.updateUI();
-                break;
-            case "AssetMainBodyControlLastButton":
-                Asset.lastPage();
-                break;
-            case "AssetMainBodyControlNextButton":
-                Asset.nextPage();
-                break;
+            }
+            case "AssetMainBodyControlLastButton" -> Asset.lastPage();
+            case "AssetMainBodyControlNextButton" -> Asset.nextPage();
         }
 
     }

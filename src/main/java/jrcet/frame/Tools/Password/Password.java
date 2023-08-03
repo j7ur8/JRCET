@@ -1,6 +1,6 @@
 package jrcet.frame.Tools.Password;
 
-import jrcet.frame.Tools.HText.Parsepy.Parsepy;
+import jrcet.frame.HText.Parsepy.Parsepy;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Password {
 

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import static jrcet.frame.Tools.Dencrypt.Base.BaseComponent.BaseComponentPanel;
+import static jrcet.frame.Dencrypt.Base.BaseComponent.BaseComponentPanel;
 
 public class DiyJChangeLabel extends DiyJTabLabel  {
 

@@ -37,10 +37,6 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
 
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
 
         for(Component i:this.getParent().getComponents()){
@@ -71,15 +67,4 @@ public class DiyJTabLabel extends DiyJLabel implements MouseListener {
 
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
 }
