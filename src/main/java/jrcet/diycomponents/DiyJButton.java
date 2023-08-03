@@ -98,7 +98,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
         JLabel tLabel;
         switch (eButtonName) {
             case "CaptchaMenuRequestUrlButton" -> new Captcha.setCaptchaWorker(CaptchaRequestEditor.getRequest()).execute();
-            case "CaptchaMenuImageIdentifyButton" -> {
+            case "CaptchaMenuRequestIdentifyButton" -> {
 
                 String responseText = new String(CaptchaResponseEditor.getResponse().body().getBytes(), StandardCharsets.UTF_8);
 //                API.logging().output().println(responseText);
@@ -134,7 +134,7 @@ public class DiyJButton extends JButton implements MouseListener, ClipboardOwner
                 ImageIcon imageIcon = Helper.byte2img(imageByte);
                 JLabel imageLabel = new JLabel(imageIcon, JLabel.CENTER);
                 imageLabel.setPreferredSize(new Dimension(160, 30));
-                JPanel CaptchaMainCaptchaImageMenuResultPanel = (JPanel) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuImageResultPanel");
+                JPanel CaptchaMainCaptchaImageMenuResultPanel = (JPanel) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuResultPanel");
                 assert CaptchaMainCaptchaImageMenuResultPanel != null;
                 CaptchaMainCaptchaImageMenuResultPanel.removeAll();
                 CaptchaMainCaptchaImageMenuResultPanel.add(imageLabel);

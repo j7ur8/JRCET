@@ -18,45 +18,26 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import static burp.MyExtender.API;
-import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaComponentPanel;
-import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaResponseEditor;
+import static jrcet.frame.Tools.Captcha.CaptchaComponent.*;
 
 public class Captcha {
 
 
     public static String identifyCaptcha() {
         try {
-//            JTextField urlField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestMenuUrlField");
-//            assert urlField != null;
-            JTextField ruleField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuRuleFiled");assert ruleField != null;
 
-            JTextField rule1Field = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuRule1Filed");assert rule1Field != null;
+            String imageRule = getImageRuleField().getText();
+            String tokenRule = getTokenRuleField().getText();
 
-            JTextField StrField = (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaResponseMenuStrField");assert StrField != null;
+            String response = new String(API.http().sendRequest(CaptchaRequestEditor.getRequest()).response().body().getBytes(),StandardCharsets.UTF_8);
 
-            JTextArea requestArea = (JTextArea) Helper.getComponent(CaptchaComponentPanel, "CaptchaMainCaptchaRequestArea"); assert requestArea != null;
-
-            String rule = ruleField.getText();
-            String rule1 = rule1Field.getText();
-
-            String response = new String(CaptchaResponseEditor.getResponse().body().getBytes(),StandardCharsets.UTF_8);
-
-            String imageText = Helper.matchByRegular(response, rule);
-
+            String imageText = Helper.matchByRegular(response, imageRule);
             imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(imageText);
-
             ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
 
-            String res = OCREngine.instance().recognize(ImageIO.read(in));
-
-            String Str = StrField.getText();
-
-            if(!Objects.equals(Str, "")){
-                res =  Objects.equals(rule1, "")?"":Helper.matchByRegular(response,rule1)
-                        +Str+res;
-            }
-
-            return res;
+            return (Objects.equals(tokenRule, "")?"":Helper.matchByRegular(response,tokenRule)) +
+                    getExtStrField().getText()+
+                    OCREngine.instance().recognize(ImageIO.read(in));
 
         } catch (Exception e) {
             API.logging().output().println(e.getMessage());
@@ -88,5 +69,9 @@ public class Captcha {
     }
     public static JTextField getTokenRuleField(){
         return (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuResponseTokenField");
+    }
+
+    public static JTextField getExtStrField(){
+        return (JTextField) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuResponseExtField");
     }
 }

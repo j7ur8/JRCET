@@ -79,8 +79,8 @@ public class CaptchaComponent extends DiyJComponent {
                 0,0
         ));
 
-        CaptchaMenuPanel.add(CaptchaMenuImagePanel(),new GridBagConstraints(
-                0,2,
+        CaptchaMenuPanel.add(CaptchaMenuResultPanel(),new GridBagConstraints(
+                0,1,
                 2,1,
                 1,0,
                 GridBagConstraints.CENTER,
@@ -116,11 +116,24 @@ public class CaptchaComponent extends DiyJComponent {
 
         DiyJButton CaptchaMenuRequestUrlButton = new DiyJButton("获取");
         CaptchaMenuRequestUrlButton.setName("CaptchaMenuRequestUrlButton");
-        CaptchaMenuRequestUrlButton.setPreferredSize(new Dimension(0,80));
+        CaptchaMenuRequestUrlButton.setPreferredSize(new Dimension(80,0));
         CaptchaMenuRequestPanel.add(CaptchaMenuRequestUrlButton, new GridBagConstraints(
                 1,0,
                 1,1,
-                0,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJButton CaptchaMenuRequestIdentifyButton = new DiyJButton("识别");
+        CaptchaMenuRequestIdentifyButton.setPreferredSize(new Dimension(80,0));
+        CaptchaMenuRequestIdentifyButton.setName("CaptchaMenuRequestIdentifyButton");
+        CaptchaMenuRequestPanel.add(CaptchaMenuRequestIdentifyButton, new GridBagConstraints(
+                2,0,
+                1,1,
+                0,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -165,10 +178,10 @@ public class CaptchaComponent extends DiyJComponent {
                 0,0
         ));
 
-        DiyJTextField CaptchaMenuResponseExtFiled = new DiyJTextField("ExtStr");
-        CaptchaMenuResponseExtFiled.setName("CaptchaMenuResponseExtFiled");
-        CaptchaMenuResponseExtFiled.setPreferredSize(new Dimension(0,0));
-        CaptchaMenuResponsePanel.add(CaptchaMenuResponseExtFiled, new GridBagConstraints(
+        DiyJTextField CaptchaMenuResponseExtField = new DiyJTextField("ExtStr");
+        CaptchaMenuResponseExtField.setName("CaptchaMenuResponseExtField");
+        CaptchaMenuResponseExtField.setPreferredSize(new Dimension(0,0));
+        CaptchaMenuResponsePanel.add(CaptchaMenuResponseExtField, new GridBagConstraints(
                 2,0,
                 1,1,
                 1,1,
@@ -182,51 +195,13 @@ public class CaptchaComponent extends DiyJComponent {
         return CaptchaMenuResponsePanel;
     }
 
-    private JComponent CaptchaMenuImagePanel(){
-        JComponent CaptchaMenuImagePanel = new JPanel(new GridBagLayout());
-        CaptchaMenuImagePanel.setName("CaptchaMenuImagePanel");
-        CaptchaMenuImagePanel.setBackground(Color.WHITE);
-        CaptchaMenuImagePanel.setPreferredSize(new Dimension(0,35));
+    private JComponent CaptchaMenuResultPanel(){
 
-        JLabel CaptchaMenuImageViewLabel = new JLabel("image: ");
-        CaptchaMenuImageViewLabel.setName("CaptchaCaptchaImageMenuImageLabel");
-        CaptchaMenuImagePanel.add(CaptchaMenuImageViewLabel, new GridBagConstraints(
-                0,0,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
+        JComponent CaptchaMenuResultPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        CaptchaMenuResultPanel.setName("CaptchaMenuResultPanel");
+        CaptchaMenuResultPanel.setPreferredSize(new Dimension(0,30));
 
-        JComponent CaptchaMenuImageResultPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,20,3));
-        CaptchaMenuImageResultPanel.setName("CaptchaMenuImageResultPanel");
-        CaptchaMenuImagePanel.add(CaptchaMenuImageResultPanel,new GridBagConstraints(
-                1,0,
-                1,1,
-                1,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-
-        DiyJButton CaptchaMenuImageIdentifyButton = new DiyJButton("Identify");
-        CaptchaMenuImageIdentifyButton.setPreferredSize(new Dimension(120,0));
-        CaptchaMenuImageIdentifyButton.setName("CaptchaMenuImageIdentifyButton");
-        CaptchaMenuImagePanel.add(CaptchaMenuImageIdentifyButton,new GridBagConstraints(
-                2,0,
-                1,1,
-                0,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,5),
-                0,0
-        ));
-
-        return CaptchaMenuImagePanel;
+        return CaptchaMenuResultPanel;
     }
 
     private JComponent CaptchaViewPanel(){
