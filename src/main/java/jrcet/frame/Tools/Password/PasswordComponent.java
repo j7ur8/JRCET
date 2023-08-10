@@ -13,7 +13,7 @@ public class PasswordComponent extends DiyJComponent {
     public static JComponent PasswordComponentPanel = null;
 
     @Override
-    public JComponent main() {
+    public JComponent component() {
         PasswordComponentPanel = new JPanel(new GridBagLayout());
         PasswordComponentPanel.setName("CaptchaComponentPanel");
         PasswordComponentPanel.setBackground(Color.WHITE);

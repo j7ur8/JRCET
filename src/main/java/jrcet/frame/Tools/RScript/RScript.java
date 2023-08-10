@@ -1,16 +1,17 @@
 package jrcet.frame.Tools.RScript;
 
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rtextarea.RTextScrollPane;
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
+import jrcet.help.Helper;
+
 
 import javax.swing.*;
+
+
 
 public class RScript {
     public static JFrame RScriptFrame =null;
 
-    public static RSyntaxTextArea rSyntaxTextArea = null;
-
-    public static RTextScrollPane rTextScrollPane = null;
+    public static DiyJTextAreaScrollPane RScriptEditor = Helper.createDiyJTextAreaScrollPane("RScriptArea");
 
     public static JPanel RScriptPanel = null;
 

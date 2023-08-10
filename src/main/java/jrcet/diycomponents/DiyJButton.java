@@ -1,230 +1,217 @@
 package jrcet.diycomponents;
 
-import burp.MyExtender;
 import jrcet.frame.Asset.Asset;
+import jrcet.frame.Dencrypt.Aes.Aes;
+import jrcet.frame.Dencrypt.Ascii.Ascii;
+import jrcet.frame.Dencrypt.Base.Base;
+import jrcet.frame.Dencrypt.Hex.Hex;
+import jrcet.frame.Dencrypt.Jwt.Jwt;
+import jrcet.frame.Dencrypt.Md5.Md5;
+import jrcet.frame.Dencrypt.Rsa.Rsa;
+import jrcet.frame.Dencrypt.Unicode.Unicode;
+import jrcet.frame.Dencrypt.Url.Url;
+import jrcet.frame.HText.Alone.Alone;
+import jrcet.frame.HText.Format.Format;
+import jrcet.frame.HText.IPUnit.IPUnit;
+import jrcet.frame.HText.Len.Len;
+import jrcet.frame.HText.Parsepy.Parsepy;
+import jrcet.frame.HText.Regex.Regex;
+import jrcet.frame.HText.Sort.Sort;
 import jrcet.frame.Tools.Captcha.Captcha;
-import jrcet.frame.Intruder.IntruderComponent;
-import jrcet.frame.Tools.Captcha.CaptchaComponent;
 import jrcet.help.Helper;
-import jrcet.help.d4ocr.OCREngine;
 
 
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Objects;
 
 
-import static burp.MyExtender.API;
-import static jrcet.frame.Intruder.IntruderComponent.IntruderComponentPanel;
-import static jrcet.frame.Intruder.Intruder.IntruderModuleComponentList;
-import static jrcet.frame.Tools.Captcha.Captcha.getImageRuleField;
-import static jrcet.frame.Tools.Captcha.Captcha.getTokenRuleField;
+import static jrcet.frame.Dencrypt.Aes.AesComponent.AesCipherArea;
+import static jrcet.frame.Dencrypt.Aes.AesComponent.AesPlainArea;
+import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiCipherArea;
+import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiPlainArea;
+import static jrcet.frame.Dencrypt.Base.BaseComponent.BaseCipherArea;
+import static jrcet.frame.Dencrypt.Base.BaseComponent.BasePlainArea;
+import static jrcet.frame.Dencrypt.Hex.HexComponent.HexCipherArea;
+import static jrcet.frame.Dencrypt.Hex.HexComponent.HexPlainArea;
+import static jrcet.frame.Dencrypt.Jwt.JwtComponent.*;
+import static jrcet.frame.Dencrypt.Md5.Md5Component.Md5CipherArea;
+import static jrcet.frame.Dencrypt.Md5.Md5Component.Md5PlainArea;
+import static jrcet.frame.Dencrypt.Rsa.RsaComponent.RsaCipherArea;
+import static jrcet.frame.Dencrypt.Rsa.RsaComponent.RsaPlainArea;
+import static jrcet.frame.Dencrypt.Unicode.UnicodeComponent.UnicodeCipherArea;
+import static jrcet.frame.Dencrypt.Unicode.UnicodeComponent.UnicodePlainArea;
+import static jrcet.frame.Dencrypt.Url.UrlComponent.UrlCipherArea;
+import static jrcet.frame.Dencrypt.Url.UrlComponent.UrlPlainArea;
+import static jrcet.frame.HText.Alone.AloneComponent.AloneInputArea;
+import static jrcet.frame.HText.Alone.AloneComponent.AloneOutputArea;
+
+import static jrcet.frame.HText.Case.CaseComponent.CaseLowerArea;
+import static jrcet.frame.HText.Case.CaseComponent.CaseUpperArea;
+import static jrcet.frame.HText.Format.FormatComponent.FormatInputArea;
+import static jrcet.frame.HText.Format.FormatComponent.FormatOutputArea;
+import static jrcet.frame.HText.IPUnit.IPUnitComponent.IPUnitInputArea;
+import static jrcet.frame.HText.IPUnit.IPUnitComponent.IPUnitOutputArea;
+import static jrcet.frame.HText.Len.LenComponent.LenInputArea;
+import static jrcet.frame.HText.Len.LenComponent.LenOutputArea;
+import static jrcet.frame.HText.Parsepy.ParsepyComponent.ParsepyInputArea;
+import static jrcet.frame.HText.Parsepy.ParsepyComponent.ParsepyOutputArea;
+import static jrcet.frame.HText.Regex.RegexComponent.RegexInputArea;
+import static jrcet.frame.HText.Regex.RegexComponent.RegexOutputArea;
+import static jrcet.frame.HText.Sort.SortComponent.SortInputArea;
+import static jrcet.frame.HText.Sort.SortComponent.SortOutputArea;
 import static jrcet.frame.Tools.Captcha.CaptchaComponent.*;
 
-public class DiyJButton extends JButton implements MouseListener, ClipboardOwner, ActionListener {
+public class DiyJButton extends JButton implements  ActionListener {
 
     public DiyJButton(String text) {
         setText(text);
-        setOpaque(true);
         setFocusPainted(false);
-        addMouseListener(this);
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(120,30));
         addActionListener(this);
         setFont(new Font("微软雅黑", Font.PLAIN,14));
     }
 
-    private void writeRScript(DiyJButton targetButton){
-        JPanel targetPanel = (JPanel) targetButton.getParent().getParent();
-        JScrollPane targetJScrollPane = (JScrollPane) targetPanel.getComponent(1);
-        JTextArea targetJTextArea = (JTextArea) targetJScrollPane.getViewport().getComponent(0);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(targetJTextArea.getText()), this);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void lostOwnership(Clipboard clipboard, Transferable contents) {
-
-    }
-
     @Override
     public void actionPerformed(ActionEvent e){
-        DiyJButton eButton = (DiyJButton) e.getSource();
-        String eButtonText = eButton.getText();
-        String eButtonName = eButton.getName();
-        JComponent rootPanel;
-        JComponent tPanel;
-        JComponent nPanel;
-        JLabel tLabel;
-        switch (eButtonName) {
-            case "CaptchaMenuRequestUrlButton" -> new Captcha.setCaptchaWorker(CaptchaRequestEditor.getRequest()).execute();
+        switch (((DiyJButton) e.getSource()).getName()) {
+            case "CaptchaMenuRequestUrlButton" -> {
+                new Captcha.setCaptchaWorker(CaptchaRequestEditor.getRequest()).execute();
+            }
             case "CaptchaMenuRequestIdentifyButton" -> {
-
-                String responseText = new String(CaptchaResponseEditor.getResponse().body().getBytes(), StandardCharsets.UTF_8);
-//                API.logging().output().println(responseText);
-
-//                API.logging().output().println(getImageRuleField());
-//                API.logging().output().println(getImageRuleField().getText());
-                String imageText = Helper.matchByRegular(responseText, getImageRuleField().getText());
-                imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode(imageText);
-//                API.logging().output().println(imageText);
-
-                ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode(imageText));
-                BufferedImage image = null;
-                try {
-                    image = ImageIO.read(in);
-                } catch (IOException ignored) {
-
-                }
-                OCREngine engine = OCREngine.instance();
-                String res = engine.recognize(image);
-//                API.logging().output().println(res);
-
-                JLabel resultLabel = new JLabel(res);
-                resultLabel.setFont(new Font("微软雅黑", Font.PLAIN, 20));
-
-                String token = "";
-                String rule1 = getTokenRuleField().getText();
-                if (!Objects.equals(rule1, "")) {
-                    token = Helper.matchByRegular(responseText, rule1);
-                }
-                JLabel tokenLabel = new JLabel(token);
-                tokenLabel.setFont(new Font("微软雅黑", Font.PLAIN, 20));
-                byte[] imageByte = Helper.base64Decode(imageText);
-                ImageIcon imageIcon = Helper.byte2img(imageByte);
-                JLabel imageLabel = new JLabel(imageIcon, JLabel.CENTER);
-                imageLabel.setPreferredSize(new Dimension(160, 30));
-                JPanel CaptchaMainCaptchaImageMenuResultPanel = (JPanel) Helper.getComponent(CaptchaComponentPanel, "CaptchaMenuResultPanel");
-                assert CaptchaMainCaptchaImageMenuResultPanel != null;
-                CaptchaMainCaptchaImageMenuResultPanel.removeAll();
-                CaptchaMainCaptchaImageMenuResultPanel.add(imageLabel);
-                CaptchaMainCaptchaImageMenuResultPanel.add(resultLabel);
-                CaptchaMainCaptchaImageMenuResultPanel.add(tokenLabel);
-                CaptchaMainCaptchaImageMenuResultPanel.repaint();
-                CaptchaMainCaptchaImageMenuResultPanel.revalidate();
+                Captcha.identifyCaptcha();
             }
-            case "IntruderMainControlAesButton", "IntruderMainControlDesButton", "IntruderMainControlMd5Button", "IntruderMainControlRsaButton", "IntruderMainControlBaseButton", "IntruderMainControlAsciiButton", "IntruderMainControlUnicodeButton" -> {
-                nPanel = getNewIntruderModulePanel(eButtonText);
-                tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");
-                assert tPanel != null;
-                IntruderModuleComponentList.add(nPanel);
-                tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel");
-                assert tLabel != null;
-                String tLabelText = tLabel.getText();
-                if (Objects.equals(tLabelText, "")) {
-                    tLabel.setText(tLabelText + eButtonText);
-                } else {
-                    tLabel.setText(tLabelText + "->" + eButtonText);
-                }
-                tPanel.remove(tPanel.getComponents().length - 1);
-                tPanel.add(nPanel, new GridBagConstraints(
-                        0, tPanel.getComponentCount(),
-                        1, 1,
-                        1, 0,
-                        GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH,
-                        new Insets(0, 100, 0, 100),
-                        0, 0
-                ));
-                tPanel.add(Helper.blackPanel(), new GridBagConstraints(
-                        0, tPanel.getComponentCount(),
-                        1, 1,
-                        1, 1,
-                        GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 0),
-                        0, 0
-                ));
-                tPanel.updateUI();
+            case "AloneExecuteButton" -> {
+                AloneOutputArea.setText(Alone.removeDuplication(AloneInputArea.getText()));
+
             }
-            case "IntruderMainControlClearButton" -> {
-                tPanel = Helper.getComponent(IntruderComponentPanel, "IntruderMainPanel");
-                assert tPanel != null;
-                IntruderModuleComponentList = new ArrayList<>();
-                tLabel = (DiyJLabel) Helper.getComponent(IntruderComponentPanel, "IntruderMainControlShowPanel");
-                assert tLabel != null;
-                tLabel.setText("");
-                while (tPanel.getComponentCount() != 1) {
-                    tPanel.remove(1);
-                }
-                tPanel.add(Helper.blackPanel(), new GridBagConstraints(
-                        0, tPanel.getComponentCount(),
-                        1, 1,
-                        1, 1,
-                        GridBagConstraints.CENTER,
-                        GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 0),
-                        0, 0
-                ));
-                tPanel.updateUI();
+            case "CaseLowerButton" -> {
+                CaseLowerArea.setText(CaseUpperArea.getText().toLowerCase());
+
             }
-            case "AssetMainBodyControlLastButton" -> Asset.lastPage();
-            case "AssetMainBodyControlNextButton" -> Asset.nextPage();
+            case "CaseUpperButton" -> {
+                CaseUpperArea.setText(CaseLowerArea.getText().toUpperCase());
+            }
+
+            case "ParsepyParseButton" -> {
+                ParsepyOutputArea.setText(Parsepy.getPYInitial(ParsepyInputArea.getText()));
+            }
+
+            case "SortExecuteButton" -> {
+                SortOutputArea.setText(Sort.uniq(SortInputArea.getText()));
+            }
+
+            case "FormatExecuteButton" -> {
+                FormatOutputArea.setText(Format.formatting(FormatInputArea.getText()));
+            }
+
+            case "IPUnitPrintButton" -> {
+                IPUnitOutputArea.setText(IPUnit.printIpRange(IPUnitInputArea.getText()));
+            }
+
+            case "IPUnitBelongButton" -> {
+                IPUnitOutputArea.setText(IPUnit.isInRange(IPUnitInputArea.getText()));
+            }
+
+            case "RegexExecuteButton" -> {
+                RegexOutputArea.setText(Regex.match(RegexInputArea.getText()));
+            }
+
+            case "LenExecuteButton" -> {
+                LenOutputArea.setText(Len.length(LenInputArea.getText()));
+            }
+
+            case "AesFunctionEncryptButton" -> {
+                AesCipherArea.setText(Aes.Encrypt(AesPlainArea.getText()));
+            }
+
+            case "AesFunctionDecryptButton" -> {
+                AesPlainArea.setText(Aes.Decrypt(AesCipherArea.getText()));
+            }
+
+            case "Md5FunctionEncryptButton" -> {
+                Md5CipherArea.setText(Md5.stringToMd5(Md5PlainArea.getText()));
+            }
+
+            case "RsaFunctionEncryptButton" ->{
+                RsaCipherArea.setText(Rsa.encrypt(RsaPlainArea.getText()));
+            }
+
+            case "RsaFunctionDecryptButton" ->{
+                RsaPlainArea.setText(Rsa.decrypt(RsaCipherArea.getText()));
+            }
+
+            case "HexFunctionEncryptButton" -> {
+                HexCipherArea.setText(Hex.encrypt(HexPlainArea.getText()));
+            }
+
+            case "HexFunctionDecryptButton" -> {
+                HexPlainArea.setText(Hex.decrypt(HexCipherArea.getText()));
+            }
+
+            case "UrlFunctionEncryptButton" -> {
+                UrlCipherArea.setText(Url.encodeAll(UrlPlainArea.getText()));
+            }
+
+            case "UrlFunctionDecryptButton" -> {
+                UrlPlainArea.setText(Url.decode(UrlCipherArea.getText()));
+            }
+
+            case "AsciiFunctionEncryptButton" -> {
+                AsciiCipherArea.setText(Ascii.encrypt(AsciiPlainArea.getText()));
+            }
+
+            case "AsciiFunctionDecryptButton" -> {
+                AsciiPlainArea.setText(Ascii.decrypt(AsciiCipherArea.getText()));
+            }
+
+            case "UnicodeFunctionEncryptButton" -> {
+                UnicodeCipherArea.setText(Unicode.stringToUnicode(UnicodePlainArea.getText()));
+            }
+
+            case "UnicodeFunctionDecryptButton" -> {
+                UnicodePlainArea.setText(Unicode.unicodeToString(UnicodeCipherArea.getText()));
+            }
+
+            case "BaseFunctionEncryptButton" -> {
+                BaseCipherArea.setText(Base.encrypt(BasePlainArea.getText()));
+            }
+
+            case "BaseFunctionDecryptButton" -> {
+                BasePlainArea.setText(Base.decrypt(BaseCipherArea.getText()));
+            }
+
+            case "JwtFunctionEncryptButton" -> {
+                JwtCipherArea.setText(Jwt.encrypt(JwtPlainHeaderArea.getText(),JwtPlainPayloadArea.getText(), JwtPlainSecretArea.getText(),JwtPlainPrivateArea.getText()));
+            }
+
+            case "JwtFunctionVerifyButton" -> {
+                String JwtToken = JwtCipherArea.getText();
+                String header = JwtToken.substring(0,JwtToken.lastIndexOf("."));
+                String payload = JwtToken.substring(JwtToken.lastIndexOf(".")+1);
+                if(Jwt.verify(JwtToken, JwtPlainSecretArea.getText(), JwtPlainPublicArea.getText())){
+                    Jwt.getJwtMenuVerifyLabel().setText("signature verified");
+                    Jwt.getJwtMenuVerifyLabel().setForeground(new Color(80,183,236));
+                    JwtPlainHeaderArea.setText(Helper.base64UrlDecode2String(header));
+                    JwtPlainPayloadArea.setText(Helper.base64Encode2String(payload));
+                }else{
+                    Jwt.getJwtMenuVerifyLabel().setText("invalid signature");
+                    Jwt.getJwtMenuVerifyLabel().setForeground(Color.red);
+                }
+
+            }
+
+            case "AssetMainBodyControlLastButton" -> {
+                Asset.lastPage();
+            }
+
+            case "AssetMainBodyControlNextButton" -> {
+                Asset.nextPage();
+            }
         }
 
-    }
-    public JComponent getNewIntruderModulePanel(String moduleName){
-        switch (moduleName){
-            case "Aes":
-                return new IntruderComponent().IntruderMainAesPanel();
-            case "Base":
-                return new IntruderComponent().IntruderMainBasePanel();
-            case "Rsa":
-                return new IntruderComponent().IntruderMainRsaPanel();
-            case "Ascii":
-                return new IntruderComponent().IntruderMainAsciiPanel();
-            case "Unicode":
-                return new IntruderComponent().IntruderMainUnicodePanel();
-            case "Md5":
-                JComponent acc = new JPanel();
-                acc.setName("IntruderMainMd5Panel");
-                return acc;
-            case "Des":
-                JComponent acc1 = new JPanel();
-                acc1.setName("IntruderMainDesPanel");
-                return acc1;
-        }
-        return null;
     }
 
 }

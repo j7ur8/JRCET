@@ -98,7 +98,6 @@ class OCREngineOldImpl implements OCREngine {
                 data[i] = (float) ((data[i] - 0.5) / 0.5);
             }
 
-
             Map<String, OnnxTensor> map = new HashMap<>();
             map.put("input1",  onnx.createTensor(data, shape));
 

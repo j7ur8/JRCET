@@ -1,9 +1,7 @@
 package jrcet.frame.Dencrypt.Unicode;
 
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
+import jrcet.diycomponents.*;
 import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,19 +14,19 @@ import java.util.HashMap;
 
 public class UnicodeComponent extends DiyJComponent {
 
-    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
-    public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
-
     public static JComponent UnicodeComponentPanel = null;
 
-    public JComponent main(){
+    public static DiyJTextAreaScrollPane UnicodePlainArea = new DiyJTextAreaScrollPane("UnicodePlainArea");
+    public static DiyJTextAreaScrollPane UnicodeCipherArea = new DiyJTextAreaScrollPane("UnicodeCipherArea");
+
+    public JComponent component(){
 
         UnicodeComponentPanel = new JPanel(new GridBagLayout());
         UnicodeComponentPanel.setName("UnicodeComponentPanel");
         UnicodeComponentPanel.setBackground(Color.WHITE);
 
 
-        UnicodeComponentPanel.add(UnicodeTagTabPanel(),new GridBagConstraints(
+        UnicodeComponentPanel.add(UnicodeFunctionPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -37,150 +35,61 @@ public class UnicodeComponent extends DiyJComponent {
                 new Insets(0,0,0,0),
                 0,0
         ));
-
-        MainPanelHashMap.put("1", UnicodeMainPanel());
-        Helper.setConstraints(ComponentConstraintHashMap,UnicodeComponentPanel,getUnicodeMainPanel("1"),new GridBagConstraints(
+        UnicodeComponentPanel.add(UnicodeAreaPanel(),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(5,5,5,5),
+                new Insets(0,0,0,0),
                 0,0
         ));
+
 
         return UnicodeComponentPanel;
     }
 
+    public JComponent UnicodeFunctionPanel(){
+        JPanel UnicodeFunctionPanel = new JPanel(new GridBagLayout());
+        UnicodeFunctionPanel.setName("UnicodeFunctionPanel");
+        UnicodeFunctionPanel.setPreferredSize(new Dimension(0,30));
 
-    public JComponent UnicodeTagTabPanel(){
-
-        JPanel UnicodeTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
-        UnicodeTagTabPanel.setName("UnicodeTagTabPanel");
-        UnicodeTagTabPanel.setBackground(Color.WHITE);
-
-        DiyJAddLabel UnicodeTagTabSticker1Label = new DiyJAddLabel("1",true);
-        UnicodeTagTabSticker1Label.setName("UnicodeTagTabSticker1Label");
-        UnicodeTagTabSticker1Label.setPanel(getUnicodeMainPanel("1"));
-        UnicodeTagTabPanel.add(UnicodeTagTabSticker1Label);
-
-        DiyJAddLabel UnicodeTabAddLabel = new DiyJAddLabel("···");
-        UnicodeTabAddLabel.setName("UnicodeTabAddLabel");
-        UnicodeTagTabPanel.add(UnicodeTabAddLabel);
-
-        return UnicodeTagTabPanel;
-    }
-
-    public JComponent UnicodeMainPanel(){
-
-        JComponent UnicodeMainPanel = new JPanel(new GridBagLayout());
-        UnicodeMainPanel.setName("UnicodeMainPanel");
-        UnicodeMainPanel.setPreferredSize(new Dimension(0,0));
-
-        UnicodeMainPanel.add(UnicodeMainBorderPanel(),new GridBagConstraints(
+        DiyJButton UnicodeFunctionDecryptButton = new DiyJButton("Decrypt");
+        UnicodeFunctionDecryptButton.setName("UnicodeFunctionDecryptButton");
+        UnicodeFunctionPanel.add(UnicodeFunctionDecryptButton,new GridBagConstraints(
                 0,0,
-                1,2,
-                0.2,1,
+                1,1,
+                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        UnicodeMainPanel.add(UnicodeMainStringScrollPane(), new GridBagConstraints(
+        DiyJButton UnicodeFunctionEncryptButton = new DiyJButton("Encrypt");
+        UnicodeFunctionEncryptButton.setName("UnicodeFunctionEncryptButton");
+        UnicodeFunctionPanel.add(UnicodeFunctionEncryptButton,new GridBagConstraints(
                 1,0,
                 1,1,
-                0.6,0.5,
+                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        UnicodeMainPanel.add(UnicodeMainUnicodeScrollPane(), new GridBagConstraints(
-                1,1,
-                1,1,
-                0.6,0.5,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        UnicodeMainPanel.add(UnicodeMainBorderPanel(),new GridBagConstraints(
-                2,0,
-                1,2,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return UnicodeMainPanel;
+        return UnicodeFunctionPanel;
     }
 
-    public JComponent UnicodeMainBorderPanel(){
-        JComponent UnicodeMainBorderPanel = new JPanel();
-        UnicodeMainBorderPanel.setName("UnicodeMainBorderPanel");
-        UnicodeMainBorderPanel.setPreferredSize(new Dimension(0,0));
-
-        return  UnicodeMainBorderPanel;
+    public JComponent UnicodeAreaPanel(){
+        DiyVariablePanel UnicodeAreaPanel = new DiyVariablePanel(
+                UnicodePlainArea,"UnicodePlainArea",
+                UnicodeCipherArea,"UnicodeCipherArea",
+                DiyVariablePanel.View.HORIZONTAL
+        );
+        UnicodeAreaPanel.setName("UnicodeAreaPanel");
+        UnicodeAreaPanel.setPreferredSize(new Dimension(0,0));
+        return UnicodeAreaPanel;
     }
-
-    public JComponent UnicodeMainStringScrollPane(){
-
-        DiyJTextAreaScrollPane UnicodeMainStringAreaScrollPane = new DiyJTextAreaScrollPane("UnicodeMainStringArea");
-        UnicodeMainStringAreaScrollPane.addKeyListener(new UnicodeMainKeyListener());
-
-        return UnicodeMainStringAreaScrollPane;
-
-    }
-
-    public JComponent UnicodeMainUnicodeScrollPane(){
-
-        DiyJTextAreaScrollPane UnicodeMainUnicodeAreaScrollPane = new DiyJTextAreaScrollPane("UnicodeMainUnicodeArea");
-        UnicodeMainUnicodeAreaScrollPane.addKeyListener(new UnicodeMainKeyListener());
-
-        return UnicodeMainUnicodeAreaScrollPane;
-    }
-
-    public JComponent getUnicodeMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):Helper.blackPanel()):Helper.blackPanel();
-    }
-
-    static class UnicodeMainKeyListener implements KeyListener {
-
-        @Override
-        public void keyTyped(KeyEvent e){
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-            if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                JTextArea eArea = (JTextArea) e.getSource();
-                JTextArea outputArea = null;
-                String tText = "未成功";
-                switch (eArea.getName()){
-                    case "UnicodeMainStringArea":
-                        outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainUnicodeArea" );
-                        tText = Unicode.stringToUnicode(eArea.getText());
-                        break;
-                    case "UnicodeMainUnicodeArea":
-                        outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "UnicodeMainStringArea" );
-                        tText=Unicode.unicodeToString(eArea.getText());
-                        break;
-                }
-                assert outputArea != null;
-                outputArea.setText(tText);
-            }
-        }
-    }
-
 
 }

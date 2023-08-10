@@ -1,33 +1,34 @@
 package jrcet.frame.Dencrypt.Jwt;
 
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
-
 
 
 public class JwtComponent extends DiyJComponent {
 
-    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
-    public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
-
     public static JComponent JwtComponentPanel = null;
 
-    public JComponent main(){
+    public static DiyJTextAreaScrollPane JwtPlainHeaderArea = new DiyJTextAreaScrollPane("JwtPlainHeaderArea");
+
+    public static DiyJTextAreaScrollPane JwtPlainPayloadArea = new DiyJTextAreaScrollPane("JwtPlainPayloadArea");
+
+    public static DiyJTextAreaScrollPane JwtPlainSecretArea = new DiyJTextAreaScrollPane("JwtPlainSignatureArea");
+
+    public static DiyJTextAreaScrollPane JwtPlainPublicArea = new DiyJTextAreaScrollPane("JwtPlainPublicArea");
+
+    public static DiyJTextAreaScrollPane JwtPlainPrivateArea = new DiyJTextAreaScrollPane("JwtPlainPrivateArea");
+
+
+    public static DiyJTextAreaScrollPane JwtCipherArea = new DiyJTextAreaScrollPane("JwtCipherArea");
+    public JComponent component(){
 
         JwtComponentPanel = new JPanel(new GridBagLayout());
         JwtComponentPanel.setName("JwtComponentPanel");
         JwtComponentPanel.setBackground(Color.WHITE);
 
-
-        JwtComponentPanel.add(JwtTagTabPanel(),new GridBagConstraints(
+        JwtComponentPanel.add(JwtMenuPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -37,150 +38,166 @@ public class JwtComponent extends DiyJComponent {
                 0,0
         ));
 
-        MainPanelHashMap.put("1", JwtMainPanel());
-        Helper.setConstraints(ComponentConstraintHashMap,JwtComponentPanel,getJwtMainPanel("1"),new GridBagConstraints(
+        JwtComponentPanel.add(JwtFunctionPanel(),new GridBagConstraints(
                 0,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        JwtComponentPanel.add(JwtAreaPanel(),new GridBagConstraints(
+                0,2,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(5,5,5,5),
+                new Insets(0,0,0,0),
                 0,0
         ));
 
         return JwtComponentPanel;
     }
 
+    public JComponent JwtMenuPanel(){
+        JPanel JwtMenuPanel = new JPanel(new GridBagLayout());
+        JwtMenuPanel.setName("JwtMenuPanel");
+        JwtMenuPanel.setPreferredSize(new Dimension(0,30));
 
-    public JComponent JwtTagTabPanel(){
-
-        JPanel JwtTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
-        JwtTagTabPanel.setName("JwtTagTabPanel");
-        JwtTagTabPanel.setBackground(Color.WHITE);
-
-        DiyJAddLabel JwtTagTabSticker1Label = new DiyJAddLabel("1",true);
-        JwtTagTabSticker1Label.setName("JwtTagTabSticker1Label");
-        JwtTagTabSticker1Label.setPanel(getJwtMainPanel("1"));
-        JwtTagTabPanel.add(JwtTagTabSticker1Label);
-
-        DiyJAddLabel JwtTabAddLabel = new DiyJAddLabel("···");
-        JwtTabAddLabel.setName("JwtTabAddLabel");
-        JwtTagTabPanel.add(JwtTabAddLabel);
-
-        return JwtTagTabPanel;
-    }
-
-    public JComponent JwtMainPanel(){
-
-        JComponent JwtMainPanel = new JPanel(new GridBagLayout());
-        JwtMainPanel.setName("JwtMainPanel");
-        JwtMainPanel.setPreferredSize(new Dimension(0,0));
-
-        JwtMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
+        DiyJComboBox<String> JwtMenuTypeBox = new DiyJComboBox<>(new String[]{"HS256","HS384","HS512","RS256","RS384","RS512","ES256","ES384","ES512"});
+        JwtMenuTypeBox.setName("JwtMenuTypeBox");
+        JwtMenuTypeBox.setPreferredSize(new Dimension(0,0));
+        JwtMenuPanel.add(JwtMenuTypeBox,new GridBagConstraints(
                 0,0,
-                1,2,
-                0.2,1,
+                1,1,
+                1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        JwtMainPanel.add(JwtMainTokenScrollPane(), new GridBagConstraints(
+
+        DiyJComboBox<String> JwtMenuSecretBox = new DiyJComboBox<>(new String[]{"Raw Of Secret","Base64 Of Secret"});
+        JwtMenuSecretBox.setName("JwtMenuSecretBox");
+        JwtMenuSecretBox.setPreferredSize(new Dimension(0,0));
+        JwtMenuPanel.add(JwtMenuSecretBox,new GridBagConstraints(
                 1,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        JLabel JwtMenuVerifyLabel = new JLabel("invalid signature");
+        JwtMenuVerifyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JwtMenuVerifyLabel.setName("JwtMenuVerifyLabel");
+        JwtMenuVerifyLabel.setPreferredSize(new Dimension(0,0));
+        JwtMenuVerifyLabel.setForeground(Color.RED);
+        JwtMenuPanel.add(JwtMenuVerifyLabel,new GridBagConstraints(
+                2,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+
+        return JwtMenuPanel;
+    }
+
+    public JComponent JwtFunctionPanel(){
+        JPanel JwtFunctionPanel = new JPanel(new GridBagLayout());
+        JwtFunctionPanel.setName("JwtMenuPanel");
+        JwtFunctionPanel.setPreferredSize(new Dimension(0,30));
+
+        DiyJButton JwtFunctionEncryptButton = new DiyJButton("Encrypt");
+        JwtFunctionEncryptButton.setName("JwtFunctionEncryptButton");
+        JwtFunctionPanel.add(JwtFunctionEncryptButton,new GridBagConstraints(
+                0,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJButton JwtFunctionVerifyButton = new DiyJButton("Verify");
+        JwtFunctionVerifyButton.setName("JwtFunctionVerifyButton");
+        JwtFunctionPanel.add(JwtFunctionVerifyButton,new GridBagConstraints(
+                1,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+
+        return JwtFunctionPanel;
+    }
+
+    public JComponent JwtAreaPanel(){
+        JwtCipherArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"JWT Token"));
+        DiyVariablePanel JwtAreaPanel = new DiyVariablePanel(
+                JwtCipherArea,"JwtPlainArea",
+                JwtPlainAreaPanel(), "JwtCipherArea",
+                DiyVariablePanel.View.HORIZONTAL
+        );
+        JwtAreaPanel.setName("JwtAreaPanel");
+        JwtAreaPanel.setPreferredSize(new Dimension(0,0));
+
+        return JwtAreaPanel;
+    }
+
+    public JComponent JwtPlainAreaPanel(){
+        JPanel JwtPlainAreaPanel = new JPanel(new GridBagLayout());
+        JwtPlainAreaPanel.setName("JwtPlainAreaPanel");
+
+        JwtPlainHeaderArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"Header"));
+        JwtPlainAreaPanel.add(JwtPlainHeaderArea,new GridBagConstraints(
+                0,0,
                 2,1,
-                0.6,0.2,
+                1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        JwtMainPanel.add(JwtMainHeaderScrollPane(), new GridBagConstraints(
-                1,1,
-                1,1,
-                0.3,0.8,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        JwtMainPanel.add(JwtMainDataScrollPane(), new GridBagConstraints(
+        JwtPlainPayloadArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"Payload"));
+        JwtPlainAreaPanel.add(JwtPlainPayloadArea,new GridBagConstraints(
+                0,1,
                 2,1,
                 1,1,
-                0.3,0.8,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        JwtMainPanel.add(JwtMainControlPanel(),new GridBagConstraints(
-                3,0,
-                1,2,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return JwtMainPanel;
-    }
-
-
-    public JComponent JwtMainTokenScrollPane(){
-
-        DiyJTextAreaScrollPane JwtMainTokenAreaScrollPane = new DiyJTextAreaScrollPane("JwtMainTokenArea");
-        JwtMainTokenAreaScrollPane.addKeyListener(new JwtMainKeyListener());
-
-        return JwtMainTokenAreaScrollPane;
-    }
-
-    public JComponent JwtMainHeaderScrollPane(){
-
-        DiyJTextAreaScrollPane JwtMainHeaderAreaScrollPane = new DiyJTextAreaScrollPane("JwtMainHeaderArea");
-        JwtMainHeaderAreaScrollPane.addKeyListener(new JwtMainKeyListener());
-
-        return JwtMainHeaderAreaScrollPane;
-    }
-
-    public JComponent JwtMainDataScrollPane(){
-
-        DiyJTextAreaScrollPane JwtMainDataAreaScrollPane = new DiyJTextAreaScrollPane("JwtMainDataArea");
-        JwtMainDataAreaScrollPane.addKeyListener(new JwtMainKeyListener());
-        JwtMainDataAreaScrollPane.addKeyListener(new JwtMainKeyListener());
-
-        return JwtMainDataAreaScrollPane;
-    }
-
-    public JComponent JwtMainControlPanel(){
-        JComponent JwtMainControlPanel = new JPanel(new GridBagLayout());
-        JwtMainControlPanel.setName("JwtMainControlPanel");
-
-        JwtMainControlPanel.add(JwtMainControlModePanel(),new GridBagConstraints(
-                0,JwtMainControlPanel.getComponentCount(),
+        JwtPlainSecretArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"SignatureArea"));
+        JwtPlainAreaPanel.add(JwtPlainSecretArea,new GridBagConstraints(
+                0,2,
+                2,1,
                 1,1,
-                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
 
-        JwtMainControlPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                0,JwtMainControlPanel.getComponentCount(),
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        JwtMainControlPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                0,JwtMainControlPanel.getComponentCount(),
+        JwtPlainPublicArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"PublicArea"));
+        JwtPlainAreaPanel.add(JwtPlainPublicArea,new GridBagConstraints(
+                0,3,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -189,38 +206,11 @@ public class JwtComponent extends DiyJComponent {
                 0,0
         ));
 
-        return JwtMainControlPanel;
-    }
-
-    public JComponent JwtMainControlHS256Panel(){
-        JComponent JwtMainControlModePanel = new JPanel(new GridBagLayout());
-        JwtMainControlModePanel.setName("JwtMainControlModePanel");
-        JwtMainControlModePanel.setPreferredSize(new Dimension(0,80));
-        JwtMainControlModePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.BLACK),"HS256"));
-
-        JTextField JwtMainControlSecretField = new JTextField();
-        JwtMainControlSecretField.setName("JwtMainControlSecretField");
-        JwtMainControlSecretField.setPreferredSize(new Dimension(0,40));
-        JwtMainControlSecretField.addKeyListener(new JwtMainKeyListener());
-
-        JCheckBox JwtMainControlModeBox = new JCheckBox("Base64 Encoded");
-        JwtMainControlModeBox.setName("JwtMainControlModeBox");
-        JwtMainControlModeBox.setPreferredSize(new Dimension(0,30));
-
-        JwtMainControlModePanel.add(JwtMainControlSecretField, new GridBagConstraints(
-                0,JwtMainControlModePanel.getComponentCount(),
+        JwtPlainPrivateArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"PrivateArea"));
+        JwtPlainAreaPanel.add(JwtPlainPrivateArea,new GridBagConstraints(
+                1,3,
                 1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        JwtMainControlModePanel.add(JwtMainControlModeBox,new GridBagConstraints(
-                0,JwtMainControlModePanel.getComponentCount(),
                 1,1,
-                1,0,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -228,84 +218,10 @@ public class JwtComponent extends DiyJComponent {
         ));
 
 
-        return JwtMainControlModePanel;
+        return JwtPlainAreaPanel;
+
     }
 
-    public JComponent JwtMainControlModePanel(){
-        JComponent JwtMainControlModePanel = new JPanel(new GridBagLayout());
-        JwtMainControlModePanel.setName("JwtMainControlModePanel");
-        JwtMainControlModePanel.setPreferredSize(new Dimension(0,110));
-
-        HashMap<String, JComponent> jComponentHashMap = new HashMap<String, JComponent>(){
-            {
-                put("HS256",JwtMainControlHS256Panel());
-            }
-        };
-
-        String[] labelNames = new String[]{"HS256","HS384","HS512","RS256","RS384","RS512","ES256","ES384","ES512","PS256","PS384","PS512"};
-
-        Helper.set4DiyJChangeLabel(JwtMainControlModePanel, labelNames, jComponentHashMap);
-
-        return JwtMainControlModePanel;
-    }
-
-    public JComponent getJwtMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):Helper.blackPanel()):Helper.blackPanel();
-    }
-
-
-
-    static class JwtMainKeyListener implements KeyListener {
-
-        @Override
-        public void keyTyped(KeyEvent e){
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-//
-//            JTextComponent eTextComponent = (JTextComponent) e.getSource();
-//            String eText = eTextComponent.getText();
-//            String eTextComponentName = eTextComponent.getName();
-//            JComponent rootPanel = (JComponent) eTextComponent.getParent().getParent().getParent();
-//            switch (eTextComponentName){
-//                case "JwtMainTokenArea":
-//                    ArrayList<String> arrayList = Jwt.parseJwt(eText);
-//                    if(arrayList!=null){
-//                        JTextComponent headerTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainHeaderArea");assert headerTextArea !=null;
-//                        JTextComponent dataTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainDataArea"); assert dataTextArea !=null;
-//                        headerTextArea.setText(arrayList.get(0));
-//                        dataTextArea.setText(arrayList.get(1));
-//                    }
-//                    break;
-//                case "JwtMainControlSecretField":
-//                case "JwtMainHeaderArea":
-//                case "JwtMainDataArea":
-//                    String mode = Jwt.JwtModeType;
-//                    JTextComponent tokenTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainTokenArea");assert tokenTextArea !=null;
-//                    if(mode ==null){
-//                        tokenTextArea.setText("请选择模式");
-//                        break;
-//                    }
-//                    JTextField secretTextField = (JTextField)  Helper.getComponent(rootPanel, "JwtMainControlSecretField"); assert secretTextField!=null;
-//                    JTextComponent headerTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainHeaderArea");assert headerTextArea !=null;
-//                    JTextComponent dataTextArea = (JTextComponent) Helper.getComponent(rootPanel,"JwtMainDataArea"); assert dataTextArea !=null;
-//                    String headerText = headerTextArea.getText();
-//                    String dataText = dataTextArea.getText();
-//                    String secret = secretTextField.getText();
-//
-//                    tokenTextArea.setText(Jwt.generateJwt(headerText,dataText,secret, mode));
-//                    break;
-//            }
-
-        }
-    }
 
 
 }

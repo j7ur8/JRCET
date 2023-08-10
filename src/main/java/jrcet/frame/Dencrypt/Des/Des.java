@@ -173,6 +173,6 @@ public class Des {
 //    }
     public static void main(String[] args) {
 //        System.out.println(decrypt("lianyitech","Iv/B6cFc6f7hJsTV3HHCUg=="));
-        System.out.println(decrypt(new String(Helper.base64Decode("dPHcZQvoZ0qC5AmKkjGXrw==")),"nPHT6L960brRpOfddlpJGC2MOzXrpOU/Iiu22qGteejQESSFsxPNt3lg/ryZhYyHM9SbHggxXJl2ngargHbKmxTwV0/rXahrNxlKtObnCS5nDaYMaMpB//ny04mE11Q6OalOj2mdYiUJnmJNbfdV9iUTUglwNhyGnrIwe33wbPx9bUssUdUptS0t1rrSu21+5h9SaBbBatmpY0RzI1PbkQ=="));
+        System.out.println(decrypt(new String(Helper.base64Decode2Byte("dPHcZQvoZ0qC5AmKkjGXrw==")),"nPHT6L960brRpOfddlpJGC2MOzXrpOU/Iiu22qGteejQESSFsxPNt3lg/ryZhYyHM9SbHggxXJl2ngargHbKmxTwV0/rXahrNxlKtObnCS5nDaYMaMpB//ny04mE11Q6OalOj2mdYiUJnmJNbfdV9iUTUglwNhyGnrIwe33wbPx9bUssUdUptS0t1rrSu21+5h9SaBbBatmpY0RzI1PbkQ=="));
     }
 }

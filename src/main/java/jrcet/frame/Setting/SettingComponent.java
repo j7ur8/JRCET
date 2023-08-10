@@ -10,7 +10,7 @@ public class SettingComponent extends DiyJComponent {
     public static JComponent SettingComponentPanel = null;
     public SettingComponent(){}
 
-    public JComponent main() {
+    public JComponent component() {
 
         SettingComponentPanel = new JPanel(null);
         SettingComponentPanel.setName("SettingComponentPanel");

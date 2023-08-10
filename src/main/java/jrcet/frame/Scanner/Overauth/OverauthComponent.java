@@ -2,9 +2,9 @@ package jrcet.frame.Scanner.Overauth;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import com.coreyd97.BurpExtenderUtilities.VariableViewPanel;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextField;
+import jrcet.diycomponents.DiyVariablePanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -16,10 +16,11 @@ import java.awt.event.MouseListener;
 
 import static burp.MyExtender.API;
 import static burp.MyRegisterHttpHandler.*;
+import static jrcet.frame.Scanner.Overauth.Overauth.getOverAuthRequestNumber;
 
 public class OverauthComponent extends DiyJComponent {
 
-    public static JComponent OverauthComponent = null;
+    public static JComponent OverauthComponentPanel = null;
     public static HttpRequestEditor OverauthAuthHighauthRequestEditor = API.userInterface().createHttpRequestEditor();
     public static HttpResponseEditor OverauthAuthHighauthResponseEditor = API.userInterface().createHttpResponseEditor();
 
@@ -31,10 +32,10 @@ public class OverauthComponent extends DiyJComponent {
 
 
     @Override
-    public JComponent main() {
+    public JComponent component() {
 
-        OverauthComponent = new JPanel(new GridBagLayout());
-        OverauthComponent.add(OverauthMenuPanel(),new GridBagConstraints(
+        OverauthComponentPanel = new JPanel(new GridBagLayout());
+        OverauthComponentPanel.add(OverauthMenuPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -44,7 +45,7 @@ public class OverauthComponent extends DiyJComponent {
                 0,0
         ));
 
-        OverauthComponent.add(OverauthVariablePanel(),new GridBagConstraints(
+        OverauthComponentPanel.add(OverauthVariablePanel(),new GridBagConstraints(
                 0,1,
                 1,1,
                 1,1,
@@ -54,14 +55,15 @@ public class OverauthComponent extends DiyJComponent {
                 0,0
         ));
 
-        return OverauthComponent;
+        return OverauthComponentPanel;
     }
 
 
     private JComponent OverauthVariablePanel(){
-        VariableViewPanel OverauthVariablePanel = new VariableViewPanel(null, null,
-                OverauthLoggerPanel(), "Log Table",
-                OverauthViewPanel(), "Request/Response", VariableViewPanel.View.VERTICAL);
+        DiyVariablePanel OverauthVariablePanel = new DiyVariablePanel(
+                OverauthLoggerPanel(), "OverauthLoggerPanel",
+                OverauthViewPanel(), "OverauthViewPanel", DiyVariablePanel.View.VERTICAL
+        );
         OverauthVariablePanel.setName("OverauthVariablePanel");
         OverauthVariablePanel.setBackground(Color.WHITE);
         OverauthVariablePanel.setPreferredSize(new Dimension(0,0));
@@ -84,7 +86,7 @@ public class OverauthComponent extends DiyJComponent {
                 c.setEnabled(true);
                 c.setForeground(Color.BLACK);
                 ((DefaultTableCellRenderer) c).setHorizontalAlignment(SwingConstants.CENTER);
-                if(RequestMap.get((String) table.getValueAt(row,0)).Removed){
+                if(AuthCheckEntryMap.get((String) table.getValueAt(row,0)).Removed){
                     c.setEnabled(false);
                 } else if( (column==8 || column==9 || column==10) && table.getValueAt(row,column)!=""){
                     c.setForeground(Color.RED);
@@ -122,7 +124,7 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedRow = OverauthLoggerTable.getSelectedRow();
             if (!e.getValueIsAdjusting() && selectedRow!=-1) {
-                OverauthTableEntry overauthTableEntry = RequestMap.get(getRequestNumber(selectedRow));
+                OverauthTableEntry overauthTableEntry = AuthCheckEntryMap.get(getOverAuthRequestNumber(selectedRow));
                 OverauthAuthHighauthRequestEditor.setRequest(overauthTableEntry.HighAuthRequest);
                 OverauthAuthHighauthResponseEditor.setResponse(overauthTableEntry.simplifyHighAuthResponse);
                 OverauthAuthLowauthRequestEditor.setRequest(overauthTableEntry.LowAuthRequest);
@@ -139,8 +141,9 @@ public class OverauthComponent extends DiyJComponent {
         delMenItem.addActionListener(evt -> {
             int row = OverauthLoggerTable.getSelectedRow();
             try{
-                UrlList.remove(RequestMap.get(getRequestNumber(row)).HighAuthRequest.url());
-                RequestMap.get(getRequestNumber(row)).Removed=true;
+                String rowNumber = getOverAuthRequestNumber(row);
+                AuthCheckUrlList.remove(AuthCheckEntryMap.get(rowNumber).HighAuthRequest.url());
+                AuthCheckEntryMap.get(rowNumber).Removed=true;
                 OverauthAuthHighauthRequestEditor.setRequest(null);
                 OverauthAuthHighauthResponseEditor.setResponse(null);
                 OverauthAuthLowauthRequestEditor.setRequest(null);
@@ -188,7 +191,7 @@ public class OverauthComponent extends DiyJComponent {
         });
 
         JScrollPane OverauthLoggerTableScrollPane = new JScrollPane(OverauthLoggerTable);
-        OverauthLoggerTableScrollPane.setName("AssetMainBodyResultTableScrollPane");
+        OverauthLoggerTableScrollPane.setName("OverauthLoggerTableScrollPane");
         OverauthLoggerTableScrollPane.setPreferredSize(new Dimension(0,0));
 
         OverauthLoggerPanel.add(OverauthLoggerTableScrollPane,new GridBagConstraints(
@@ -235,15 +238,15 @@ public class OverauthComponent extends DiyJComponent {
 
         DiyJTextField  OverauthMenuHostField= new DiyJTextField("目标：");
         OverauthMenuHostField.setName("OverauthMenuHostField");
-        OverauthMenuHostField.setPreferredSize(new Dimension(300,26));
+        OverauthMenuHostField.setPreferredSize(new Dimension(300,30));
 
         DiyJTextField  OverauthMenuHighauthField= new DiyJTextField("高权限：");
         OverauthMenuHighauthField.setName("OverauthMenuHighauthField");
-        OverauthMenuHighauthField.setPreferredSize(new Dimension(400,26));
+        OverauthMenuHighauthField.setPreferredSize(new Dimension(400,30));
 
         DiyJTextField  OverauthMenuLowauthField= new DiyJTextField("低权限：");
         OverauthMenuLowauthField.setName("OverauthMenuLowauthField");
-        OverauthMenuLowauthField.setPreferredSize(new Dimension(400,26));
+        OverauthMenuLowauthField.setPreferredSize(new Dimension(400,30));
 
         OverauthMenuPanel.add(OverauthMenuHostField);
         OverauthMenuPanel.add(OverauthMenuHighauthField);
@@ -253,10 +256,11 @@ public class OverauthComponent extends DiyJComponent {
     }
 
     private JComponent OverauthAuthHighauthPanel(){
-        JComponent OverauthAuthHighauthPanel = new VariableViewPanel(null, null,
+        JComponent OverauthAuthHighauthPanel = new DiyVariablePanel(
                 OverauthAuthHighauthRequestEditor.uiComponent(), "HighRequest",
                 OverauthAuthHighauthResponseEditor.uiComponent(), "HighResponse",
-                VariableViewPanel.View.HORIZONTAL);
+                DiyVariablePanel.View.HORIZONTAL
+        );
         OverauthAuthHighauthPanel.setName("OverauthAuthHighauthPanel");
         OverauthAuthHighauthPanel.setBackground(Color.WHITE);
         OverauthAuthHighauthPanel.setPreferredSize(new Dimension(0,0));
@@ -265,10 +269,11 @@ public class OverauthComponent extends DiyJComponent {
     }
 
     private JComponent OverauthAuthLowauthPanel(){
-        JComponent OverauthAuthLowauthPanel = new VariableViewPanel(null, null,
+        JComponent OverauthAuthLowauthPanel = new DiyVariablePanel(
                 OverauthAuthLowauthRequestEditor.uiComponent(), "LowRequest",
                 OverauthAuthLowauthResponseEditor.uiComponent(), "LowResponse",
-                VariableViewPanel.View.HORIZONTAL);
+                DiyVariablePanel.View.HORIZONTAL
+        );
         OverauthAuthLowauthPanel.setName("OverauthAuthLowauthPanel");
         OverauthAuthLowauthPanel.setBackground(Color.WHITE);
         OverauthAuthLowauthPanel.setPreferredSize(new Dimension(0,0));
@@ -278,10 +283,11 @@ public class OverauthComponent extends DiyJComponent {
 
 
     private JComponent OverauthAuthUnauthPanel(){
-        JComponent OverauthAuthUnauthPanel = new VariableViewPanel(null, null,
+        JComponent OverauthAuthUnauthPanel = new DiyVariablePanel(
                 OverauthAuthUnauthRequestEditor.uiComponent(), "LowRequest",
                 OverauthAuthUnauthResponseEditor.uiComponent(), "LowResponse",
-                VariableViewPanel.View.HORIZONTAL);
+                DiyVariablePanel.View.HORIZONTAL
+        );
         OverauthAuthUnauthPanel.setName("OverauthAuthHighauthPanel");
         OverauthAuthUnauthPanel.setBackground(Color.WHITE);
         OverauthAuthUnauthPanel.setPreferredSize(new Dimension(0,0));

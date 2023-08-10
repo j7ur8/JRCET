@@ -84,37 +84,37 @@ public class DiyJChangeLabel extends DiyJTabLabel  {
                     }
                 }
                 eLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(2,0,0,0),BorderFactory.createMatteBorder(0,0,2,0,Setting.orange)));
-                switch (eLabelName){
-                    case "BaseMainControlMode":
+                switch (eLabelName) {
+                    case "BaseMainControlMode" -> {
                         tFieldLabel = (DiyJLabel) Helper.getComponent(BaseComponentPanel, "BaseMainControlFieldLabel");
                         assert tFieldLabel != null;
-                        tFieldLabel.setText("当前模式: "+eLabelText);
-                        break;
-                    case "JwtMainControlMode":
+                        tFieldLabel.setText("当前模式: " + eLabelText);
+                    }
+                    case "JwtMainControlMode" -> {
 //                        Jwt.JwtModeType = eLabelText;
                         rootPanel = (JComponent) eLabel.getParent().getParent();
-                        rootPanel.remove(rootPanel.getComponentCount()-1);
-                        rootPanel.remove(rootPanel.getComponentCount()-1);
-                        rootPanel.add(mapPanel,new GridBagConstraints(
-                                0,rootPanel.getComponentCount(),
-                                1,1,
-                                1,0,
+                        rootPanel.remove(rootPanel.getComponentCount() - 1);
+                        rootPanel.remove(rootPanel.getComponentCount() - 1);
+                        rootPanel.add(mapPanel, new GridBagConstraints(
+                                0, rootPanel.getComponentCount(),
+                                1, 1,
+                                1, 0,
                                 GridBagConstraints.CENTER,
                                 GridBagConstraints.BOTH,
-                                new Insets(0,0,0,0),
-                                0,0
+                                new Insets(0, 0, 0, 0),
+                                0, 0
                         ));
-                        rootPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                                0,rootPanel.getComponentCount(),
-                                1,1,
-                                1,1,
+                        rootPanel.add(Helper.blackPanel(), new GridBagConstraints(
+                                0, rootPanel.getComponentCount(),
+                                1, 1,
+                                1, 1,
                                 GridBagConstraints.CENTER,
                                 GridBagConstraints.BOTH,
-                                new Insets(0,0,0,0),
-                                0,0
+                                new Insets(0, 0, 0, 0),
+                                0, 0
                         ));
                         rootPanel.updateUI();
-                        break;
+                    }
                 }
             }
 

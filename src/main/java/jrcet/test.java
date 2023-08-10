@@ -1,6 +1,7 @@
 package jrcet;
 
 import com.alibaba.fastjson.JSONArray;
+import jrcet.help.Helper;
 import org.xm.Similarity;
 
 import javax.swing.*;
@@ -13,7 +14,8 @@ public class test {
     public static void main(String[] args) {
         // 创建 JFrame 对象
 //        Similarity.charBasedSimilarity();
-        System.out.println("www.baidu.com".contains(""));
+        System.out.println(Helper.base64UrlEncode2String("11"));
+        System.out.println(Helper.base64Encode2String("11"));
     }
 
 }

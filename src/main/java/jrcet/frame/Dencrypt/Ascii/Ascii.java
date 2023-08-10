@@ -4,6 +4,10 @@ import java.util.Objects;
 
 import jrcet.help.Helper;
 
+import javax.swing.*;
+
+import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiComponentPanel;
+
 public class Ascii {
 
     public static HashMap<String, String > SeparatorMap = new HashMap<String, String>() {
@@ -15,6 +19,24 @@ public class Ascii {
             put("空白","");
         }
     };
+
+
+    public static JComboBox<?> getAsciiMenuPlainBox(){
+        return (JComboBox<?>) Helper.getComponent(AsciiComponentPanel,"AsciiMenuPlainBox");
+    }
+
+    public static JComboBox<?> getAsciiMenuCipherBox(){
+        return (JComboBox<?>) Helper.getComponent(AsciiComponentPanel,"AsciiMenuCipherBox");
+    }
+
+    public static String encrypt(String plaintext){
+        return encrypt(plaintext, (String)getAsciiMenuPlainBox().getSelectedItem(),(String) getAsciiMenuCipherBox().getSelectedItem());
+    }
+
+    public static String decrypt(String plaintext){
+        return decrypt(plaintext,(String) getAsciiMenuCipherBox().getSelectedItem(), (String)getAsciiMenuPlainBox().getSelectedItem());
+    }
+
 
 
     public static String encrypt(String text, String separator, String separator2){

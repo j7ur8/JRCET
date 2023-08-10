@@ -16,15 +16,9 @@ public class MyExtender implements BurpExtension{
 
         MyExtender.API =api;
         API.extension().setName("JRCET");
-//        API.misc().setExtensionName("JRCET");
-        API.userInterface().registerSuiteTab("JRCET",new Jrcet().main());
-
-        API.scanner().registerScanCheck(new MyScanCheck());
-
+        API.userInterface().registerSuiteTab("JRCET",new Jrcet().component());
         API.intruder().registerPayloadProcessor(new MyPayloadProcessor());
-
         API.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
-//        API.userInterface().registerHttpRequestEditorProvider(new MyRegisterHttpRequestEditorProvider());
         API.userInterface().registerHttpResponseEditorProvider(new MyRegisterHttpResponseEditorProvider());
         API.http().registerHttpHandler(new MyRegisterHttpHandler());
 

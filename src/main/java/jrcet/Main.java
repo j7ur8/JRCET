@@ -18,7 +18,7 @@ public class Main {
 
         //setContentPane需放在前面，不然需要更改界面尺寸才会显示。
         Jrcet jrcet = new Jrcet();
-        JrcetFrame.setContentPane(jrcet.main());
+        JrcetFrame.setContentPane(jrcet.component());
 
         JrcetFrame.setResizable(true);
         JrcetFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

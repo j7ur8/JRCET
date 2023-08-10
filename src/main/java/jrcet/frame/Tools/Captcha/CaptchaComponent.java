@@ -2,13 +2,9 @@ package jrcet.frame.Tools.Captcha;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import com.coreyd97.BurpExtenderUtilities.VariableViewPanel;
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.*;
 
 
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.diycomponents.DiyJTextField;
 import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
@@ -25,7 +21,7 @@ public class CaptchaComponent extends DiyJComponent {
 
     public static HttpResponseEditor CaptchaResponseEditor = API.userInterface().createHttpResponseEditor();
 
-    public JComponent main(){
+    public JComponent component(){
         CaptchaComponentPanel = new JPanel(new GridBagLayout());
         CaptchaComponentPanel.setName("CaptchaComponentPanel");
         CaptchaComponentPanel.setBackground(Color.WHITE);
@@ -205,10 +201,11 @@ public class CaptchaComponent extends DiyJComponent {
     }
 
     private JComponent CaptchaViewPanel(){
-        VariableViewPanel CaptchaViewPanel = new VariableViewPanel(null, null,
-                CaptchaRequestEditor.uiComponent(), "LowRequest",
-                CaptchaResponseEditor.uiComponent(), "LowResponse",
-                VariableViewPanel.View.HORIZONTAL);
+        DiyVariablePanel CaptchaViewPanel = new DiyVariablePanel(
+                CaptchaRequestEditor.uiComponent(), "CaptchaRequestEditor",
+                CaptchaResponseEditor.uiComponent(), "CaptchaResponseEditor",
+                DiyVariablePanel.View.HORIZONTAL
+        );
 
         CaptchaViewPanel.setPreferredSize(new Dimension(0,0));
 

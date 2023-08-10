@@ -1,9 +1,15 @@
 package jrcet.frame.Dencrypt.Hex;
 
+import jrcet.help.Helper;
+
+import javax.swing.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Objects;
+
+import static burp.MyExtender.API;
+import static jrcet.frame.Dencrypt.Hex.HexComponent.HexComponentPanel;
 
 public class Hex {
 
@@ -18,7 +24,21 @@ public class Hex {
         }
     };
 
+    public static JComboBox<?> getHexMenuPlainBox(){
+        return (JComboBox<?>) Helper.getComponent(HexComponentPanel, "HexMenuPlainBox");
+    }
 
+    public static JComboBox<?> getHexMenuCipherBox(){
+        return (JComboBox<?>) Helper.getComponent(HexComponentPanel, "HexMenuCipherBox");
+    }
+    public static String encrypt(String plaintext){
+        return encrypt(plaintext,(String) getHexMenuPlainBox().getSelectedItem(),(String) getHexMenuCipherBox().getSelectedItem());
+    }
+
+    public static String decrypt(String plaintext){
+//        API.logging().output().println(plaintext);
+        return decrypt(plaintext,(String) getHexMenuCipherBox().getSelectedItem(),(String) getHexMenuPlainBox().getSelectedItem());
+    }
     public static String encrypt(String text, String inputSeparator, String outputSeparator) {
         String hexRaw = String.format("%x", new BigInteger(1, text.replace(parseSeparator(inputSeparator),"").getBytes(StandardCharsets.UTF_8)));
         char[] hexRawArr = hexRaw.toCharArray();
@@ -28,21 +48,25 @@ public class Hex {
             hexFmtStr.append(hexRawArr[i]).append(hexRawArr[++i]).append(parseSeparator(outputSeparator));
         }
 
-        return hexFmtStr.toString();
+        return hexFmtStr.toString().strip();
     }
 
     public static String decrypt(String text, String inputSeparator, String outputSeparator) {
 
+
         inputSeparator = parseSeparator(inputSeparator);
         outputSeparator = parseSeparator(outputSeparator);
         String hexString =text.replace(inputSeparator,"");
+//        API.logging().output().println("inputSeparator:"+inputSeparator);
+//        API.logging().output().println("outputSeparator:"+outputSeparator);
+//        API.logging().output().println("hexString:"+hexString);
         String resString = new String(hexToByteArray(hexString), StandardCharsets.UTF_8);
 
         if(Objects.equals(outputSeparator, "")){
             return resString.replace("",outputSeparator);
         }
 
-        return resString.replace("",outputSeparator).substring(1);
+        return resString.replace("",outputSeparator).substring(1).strip();
 //        byte[] byteArr = new byte[strArr.length - 1];
 //        for (int i = 1; i < strArr.length; i++) {
 //            Integer hexInt = Integer.decode("0X" + strArr[i]);

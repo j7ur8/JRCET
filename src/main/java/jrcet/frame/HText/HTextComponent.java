@@ -1,8 +1,6 @@
 package jrcet.frame.HText;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTabLabel;
-import jrcet.frame.Setting.Setting;
 import jrcet.frame.HText.Alone.AloneComponent;
 import jrcet.frame.HText.Case.CaseComponent;
 import jrcet.frame.HText.Format.FormatComponent;
@@ -20,7 +18,7 @@ public class HTextComponent extends DiyJComponent {
 
     public JComponent HTextComponentPanel = null;
     @Override
-    public JComponent main() {
+    public JComponent component() {
         HTextComponentPanel = new JPanel(new GridBagLayout());
         HTextComponentPanel.setName("HTextComponentPanel");
 
@@ -40,14 +38,14 @@ public class HTextComponent extends DiyJComponent {
     public JComponent HTextTabbedPanel(){
         JTabbedPane HTextTabbedPanel = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
         HTextTabbedPanel.setName("HTextTabbedPanel");
-        HTextTabbedPanel.add("Alone",new AloneComponent().main());
-        HTextTabbedPanel.add("Sort",new SortComponent().main());
-        HTextTabbedPanel.add("Parsepy",new ParsepyComponent().main());
-        HTextTabbedPanel.add("Case",new CaseComponent().main());
-        HTextTabbedPanel.add("Format",new FormatComponent().main());
-        HTextTabbedPanel.add("IPUnit",new IPUnitComponent().main());
-        HTextTabbedPanel.add("Regex",new RegexComponent().main());
-        HTextTabbedPanel.add("Len",new LenComponent().main());
+        HTextTabbedPanel.add("Alone",new AloneComponent().component());
+        HTextTabbedPanel.add("Sort",new SortComponent().component());
+        HTextTabbedPanel.add("Parsepy",new ParsepyComponent().component());
+        HTextTabbedPanel.add("Case",new CaseComponent().component());
+        HTextTabbedPanel.add("Format",new FormatComponent().component());
+        HTextTabbedPanel.add("IPUnit",new IPUnitComponent().component());
+        HTextTabbedPanel.add("Regex",new RegexComponent().component());
+        HTextTabbedPanel.add("Len",new LenComponent().component());
 
         return HTextTabbedPanel;
     }

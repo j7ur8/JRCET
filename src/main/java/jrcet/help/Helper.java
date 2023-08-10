@@ -1,9 +1,13 @@
 package jrcet.help;
 
-import burp.MyExtender;
-import com.coreyd97.BurpExtenderUtilities.VariableViewPanel;
+
+import burp.api.montoya.ui.editor.HttpRequestEditor;
+import burp.api.montoya.ui.editor.HttpResponseEditor;
+import burp.api.montoya.ui.editor.RawEditor;
 import jrcet.diycomponents.*;
 import jrcet.frame.Setting.Database;
+
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,6 +28,7 @@ import java.util.regex.Pattern;
 
 //import static burp.MyExtender.stdout;
 import static burp.MyExtender.API;
+
 import static jrcet.Main.JrcetComponentList;
 
 public class Helper {
@@ -63,7 +68,7 @@ public class Helper {
             }
 //            API.logging().output().println(i.getClass());
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
-                case "JTabbedPane","JSplitPane","DiyJTextField", "VariableViewPanel", "JPanel", "JList", "JTable", "DiyJComboBox", "JTextArea" -> {
+                case "JTabbedPane","JSplitPane","DiyJTextField", "DiyVariablePanel", "JPanel", "JList", "JTable", "JComboBox", "JTextArea" -> {
                     JComponent cj = getComponent((JComponent) i, tComponentName);
                     if (cj != null) return cj;
                 }
@@ -592,35 +597,46 @@ public class Helper {
         return str.substring(start, end);
     }
 
-    public static String base64Encode(byte[] byteArray){
-        byte[] res = Base64.getEncoder().encode(byteArray);
-        String res2 = new String(res);
-        res2 = res2.replace(System.lineSeparator(),"");
-        return res2;
+    public static String base64Encode2String(byte[] byteArray){
+        return Base64.getEncoder().encodeToString(byteArray);
     }
 
-    public static String base64Encode(String str){
-//        final Base64.Encoder encoder = new Base64.Encoder;
-
-        byte[] b = new byte[]{};
-        try {
-            b = str.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        byte[] res = Base64.getEncoder().encode(b);
-        String res2 = new String(res);
-        //去除base64结果中的换行符，java base64编码默认会76个字母换行一次
-        res2 = res2.replace(System.lineSeparator(),"");
-        return res2;
+    public static byte[] base64Encode2Byte(byte[] byteArray){
+        return Base64.getEncoder().encode(byteArray);
     }
 
-    public static byte[] base64Decode(String str){
-//        final Base64.Decoder decoder = new Base64.Decoder;
-        byte[] byteRes = new byte[]{};
-        byteRes = Base64.getDecoder().decode(str);
-        return byteRes;
+    public static String base64Encode2String(String str){
+        return Base64.getEncoder().encodeToString(str.getBytes(StandardCharsets.UTF_8));
     }
+
+    public static byte[] base64Encode2Byte(String str){
+        return Base64.getEncoder().encode(str.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static byte[] base64Decode2Byte(String str){
+        return Base64.getDecoder().decode(str);
+    }
+
+    public static String base64Decode2String(String str){
+        return new String(Base64.getDecoder().decode(str),StandardCharsets.UTF_8);
+    }
+
+    public static String base64UrlEncode2String(String str){
+        return new String(Base64.getEncoder().encode(str.getBytes(StandardCharsets.UTF_8)),StandardCharsets.UTF_8).replace("=","").replace("+","-").replace("/","_");
+    }
+
+    public static String base64UrlEncode2String(byte[] str){
+        return new String(Base64.getEncoder().encode(str),StandardCharsets.UTF_8).replace("=","").replace("+","-").replace("/","_");
+    }
+
+    public static String base64UrlDecode2String(String str){
+        return new String(Base64.getDecoder().decode(str.replace("-","+").replace("_","/")),StandardCharsets.UTF_8);
+    }
+
+    public static byte[] base64UrlDecode2Byte(String str){
+        return Base64.getDecoder().decode(str.replace("-","+").replace("_","/"));
+    }
+
 
     public static boolean notAndDeleteZip(File file) {
 
@@ -710,6 +726,94 @@ public class Helper {
     public static boolean isBase64(String str) {
         String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
         return Pattern.matches(base64Pattern, str);
+    }
+
+
+
+    public static HttpResponseEditor createHttpResponseEditor(){
+        HttpResponseEditor a = API.userInterface().createHttpResponseEditor();
+        return a;
+    }
+
+    public static HttpRequestEditor createHttpRequestEditor(){
+        HttpRequestEditor a = API.userInterface().createHttpRequestEditor();
+        return a;
+    }
+
+    public static RawEditor createRawEditor(){
+        RawEditor a = API.userInterface().createRawEditor();
+        return a;
+    }
+
+
+    public static DiyJTextAreaScrollPane createDiyJTextAreaScrollPane(String name){
+        return new DiyJTextAreaScrollPane(name);
+    }
+
+    public static String getEncoding(String str) {
+        String encode = "UTF-8";
+        try {
+            if (isEncoding(str, encode)) { // 判断是不是UTF-8
+                return encode;
+            }
+        } catch (Exception exception2) {
+        }
+        encode = "GB2312";
+        try {
+            if (isEncoding(str, encode)) { // 判断是不是GB2312
+                return encode;
+            }
+        } catch (Exception exception) {
+        }
+        encode = "ISO-8859-1";
+        try {
+            if (isEncoding(str, encode)) { // 判断是不是ISO-8859-1
+                return encode;
+            }
+        } catch (Exception exception1) {
+        }
+
+        encode = "GBK";
+        try {
+            if (isEncoding(str, encode)) { // 判断是不是GBK
+                return encode;
+            }
+        } catch (Exception exception3) {
+        }
+        return ""; // 如果都不是，说明输入的内容不属于常见的编码格式。
+    }
+
+    public static boolean isEncoding(String str, String encode) {
+        try {
+            if (str.equals(new String(str.getBytes(), encode))) {
+                return true;
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static String byte2hex(byte[] bytes) {
+        char[] HEX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f' };
+        final int nBytes = bytes.length;
+        char[] result = new char[2 * nBytes];         //  1 hex contains two chars
+        //  hex = [0-f][0-f], e.g 0f or ff
+
+        int j = 0;
+        for (byte aByte : bytes) {                    // loop byte by byte
+
+            // 0xF0 = FFFF 0000
+            result[j++] = HEX[(0xF0 & aByte) >>> 4];    // get the top 4 bits, first half hex char
+
+            // 0x0F = 0000 FFFF
+            result[j++] = HEX[(0x0F & aByte)];          // get the bottom 4 bits, second half hex char
+
+            // combine first and second half, we get a complete hex
+        }
+
+        return new String(result);
     }
 
 }

@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class DiyJTextField extends JPanel{
 
-    private JLabel titleLabel;
-    private JTextField bodyField;
+    private final JLabel titleLabel;
+    private final JTextField bodyField;
 
     public  DiyJTextField(String title){
 

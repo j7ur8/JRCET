@@ -19,7 +19,7 @@ public class DencryptComponent extends DiyJComponent {
 
     public static JComponent DencryptComponentPanel = null;
 
-    public JComponent main(){
+    public JComponent component(){
 
         DencryptComponentPanel = new JPanel(new GridBagLayout());
         DencryptComponentPanel.setName("DencryptComponentPanel");
@@ -44,15 +44,15 @@ public class DencryptComponent extends DiyJComponent {
         JTabbedPane DencryptTabbedPane = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
         DencryptTabbedPane.setName("DencryptTabbedPane");
 
-        DencryptTabbedPane.add("Aes",new AesComponent().main());
-        DencryptTabbedPane.add("MD5",new Md5Component().main());
-        DencryptTabbedPane.add("Rsa",new RsaComponent().main());
-        DencryptTabbedPane.add("Hex",new HexComponent().main());
-        DencryptTabbedPane.add("Jwt",new JwtComponent().main());
-        DencryptTabbedPane.add("Url",new UrlComponent().main());
-        DencryptTabbedPane.add("Base", new BaseComponent().main());
-        DencryptTabbedPane.add("Ascii",new AsciiComponent().main());
-        DencryptTabbedPane.add("Unicode",new UnicodeComponent().main());
+        DencryptTabbedPane.add("Aes",new AesComponent().component());
+        DencryptTabbedPane.add("MD5",new Md5Component().component());
+        DencryptTabbedPane.add("Rsa",new RsaComponent().component());
+        DencryptTabbedPane.add("Hex",new HexComponent().component());
+        DencryptTabbedPane.add("Jwt",new JwtComponent().component());
+        DencryptTabbedPane.add("Url",new UrlComponent().component());
+        DencryptTabbedPane.add("Base", new BaseComponent().component());
+        DencryptTabbedPane.add("Ascii",new AsciiComponent().component());
+        DencryptTabbedPane.add("Unicode",new UnicodeComponent().component());
 
         return DencryptTabbedPane;
     }

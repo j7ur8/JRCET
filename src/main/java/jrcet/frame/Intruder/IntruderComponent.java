@@ -15,7 +15,7 @@ public class IntruderComponent extends DiyJComponent {
 
 
     @Override
-    public JComponent main() {
+    public JComponent component() {
 
         IntruderComponentPanel = new JPanel(new GridBagLayout());
         IntruderComponentPanel.setName("IntruderComponentPanel");

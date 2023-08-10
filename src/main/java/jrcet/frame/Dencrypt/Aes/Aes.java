@@ -5,10 +5,12 @@ import jrcet.help.Helper;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
+import static burp.MyExtender.API;
+import static jrcet.frame.Dencrypt.Aes.AesComponent.AesComponentPanel;
 import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
 
@@ -19,6 +21,62 @@ public class Aes {
     private static byte[] key;
     private static byte[] iv;
     private static String returned;
+
+
+    public static JComboBox<?> getModeBox(){
+        return (JComboBox<?>) Helper.getComponent(AesComponentPanel, "AesMenuModeBox");
+    }
+
+    public static JComboBox<?> getKeyBox(){
+        return (JComboBox<?>) Helper.getComponent(AesComponentPanel, "AesMenuKeyBox");
+    }
+
+    public static JComboBox<?> getIvBox(){
+        return (JComboBox<?>) Helper.getComponent(AesComponentPanel, "AesMenuIvBox");
+    }
+
+    public static JTextField getIvField(){
+        return (JTextField) Helper.getComponent(AesComponentPanel, "AesMenuIvField");
+    }
+
+    public static JTextField getKeyField(){
+        return (JTextField) Helper.getComponent(AesComponentPanel, "AesMenuKeyField");
+    }
+    public static String Encrypt(String plainText){
+
+        String Mode = (String) getModeBox().getSelectedItem();
+        String Key = getKeyField().getText();
+        String KeyType = (String) getKeyBox().getSelectedItem();
+        String Iv = getIvField().getText();
+        String IvType = (String) getIvBox().getSelectedItem();
+
+        String result = "";
+        try{
+            result  = Encrypt(plainText, Mode, Key, KeyType, Iv, IvType);
+        }catch (Exception e){
+            API.logging().error().println(result);
+        }
+
+        return result;
+    }
+
+    public static String Decrypt(String plainText){
+
+        String Mode = (String) getModeBox().getSelectedItem();
+        String Key = getKeyField().getText();
+        String KeyType = (String) getKeyBox().getSelectedItem();
+        String Iv = getIvField().getText();
+        String IvType = (String) getIvBox().getSelectedItem();
+
+        String result = "";
+        try{
+            result  = Decrypt(plainText, Mode, Key, KeyType, Iv, IvType);
+        }catch (Exception e){
+            API.logging().error().println(result);
+        }
+
+        return result;
+    }
 
     public static String Encrypt(String plainText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
 
@@ -67,21 +125,17 @@ public class Aes {
         if(returned!=null) return returned;
 
         Cipher cipher = Cipher.getInstance(Mode);
-        switch (Mode){
-            case "AES/ECB/NoPadding":
-            case "AES/ECB/PKCS5Padding":
-                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"));
-                break;
-            case "AES/CBC/NoPadding":
-            case "AES/CBC/PKCS5Padding":
-                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
-                break;
+        switch (Mode) {
+            case "AES/ECB/NoPadding", "AES/ECB/PKCS5Padding" ->
+                    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"));
+            case "AES/CBC/NoPadding", "AES/CBC/PKCS5Padding" ->
+                    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
         }
 
         return new String(cipher.doFinal(b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
     }
 
-    private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) throws UnsupportedEncodingException {
+    private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) {
         returned=null;
         key=null;
         iv=null;
@@ -96,21 +150,16 @@ public class Aes {
         assert InputText != null;
         inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
         len = inputTextByte.length;
+
         //设置key和iv
         String[] s = new String[]{Key, Iv}, t = new String[]{KeyType, IvType};
         for (int i = 0; i < 2; i++) {
-            byte[] r = new byte[0];
-            switch (t[i]) {
-                case "Base64":
-                    r = b64decoder.decode(s[i]);
-                    break;
-                case "Hex":
-                    r = Helper.hexStringToByteArray(s[i]);
-                    break;
-                case "Raw":
-                    r = s[i].getBytes(StandardCharsets.ISO_8859_1);
-                    break;
-            }
+            byte[] r = switch (t[i]) {
+                case "Base64" -> b64decoder.decode(s[i]);
+                case "Hex" -> Helper.hexStringToByteArray(s[i]);
+                case "Raw" -> s[i].getBytes(StandardCharsets.ISO_8859_1);
+                default -> new byte[0];
+            };
             if (i == 0) {  //设置key
                 int len = r.length <= 16 ? 16 : (r.length > 24 ? 32 : 24);
                 key = new byte[len];
@@ -134,5 +183,8 @@ public class Aes {
             }
         }
     }
+
+
+
 
 }

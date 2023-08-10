@@ -1,10 +1,7 @@
 package jrcet.frame.Dencrypt.Hex;
 
-import jrcet.diycomponents.DiyJLabel;
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
+import jrcet.diycomponents.*;
 import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJAddLabel;
-import jrcet.diycomponents.DiyJComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,18 +14,18 @@ import java.util.HashMap;
 
 public class HexComponent extends DiyJComponent {
 
-    public static HashMap<String, GridBagConstraints> ComponentConstraintHashMap = new HashMap<>();
-    public static HashMap<String, JComponent> MainPanelHashMap = new HashMap<>();
-
     public static JComponent HexComponentPanel = null;
 
-    public JComponent main(){
+    public static DiyJTextAreaScrollPane HexPlainArea = new DiyJTextAreaScrollPane("HexPlainArea");
+
+    public static DiyJTextAreaScrollPane HexCipherArea = new DiyJTextAreaScrollPane("HexCipherArea");
+    public JComponent component(){
 
         HexComponentPanel = new JPanel(new GridBagLayout());
         HexComponentPanel.setName("HexComponentPanel");
         HexComponentPanel.setBackground(Color.WHITE);
 
-        HexComponentPanel.add(HexTagTabPanel(),new GridBagConstraints(
+        HexComponentPanel.add(HexMenuPanel(),new GridBagConstraints(
                 0,0,
                 1,1,
                 1,0,
@@ -38,369 +35,108 @@ public class HexComponent extends DiyJComponent {
                 0,0
         ));
 
-        MainPanelHashMap.put("1", HexMainPanel());
-        Helper.setConstraints(ComponentConstraintHashMap, HexComponentPanel, getHexMainPanel("1"),new GridBagConstraints(
+        HexComponentPanel.add(HexFunctionPanel(),new GridBagConstraints(
                 0,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        HexComponentPanel.add(HexAreaPanel(),new GridBagConstraints(
+                0,2,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
-                new Insets(5,5,5,5),
+                new Insets(0,0,0,0),
                 0,0
         ));
+
 
         return HexComponentPanel;
     }
 
-    public JComponent HexTagTabPanel(){
+    public JComponent HexMenuPanel(){
+        JPanel HexMenuPanel = new JPanel(new GridBagLayout());
+        HexMenuPanel.setName("HexMenuPanel");
+        HexMenuPanel.setPreferredSize(new Dimension(0,30));
 
-        JPanel HexTagTabPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT,0,0));
-        HexTagTabPanel.setName("HexTagTabPanel");
-        HexTagTabPanel.setBackground(Color.WHITE);
-        HexTagTabPanel.setBorder(BorderFactory.createMatteBorder(
-                0,0,0,0,
-                new Color(203,208,209))
+        DiyJComboBox<String> HexMenuPlainBox = new DiyJComboBox<>(new String[]{"空白","换行","逗号","空格","制表"});
+        HexMenuPlainBox.setName("HexMenuPlainBox");
+        HexMenuPlainBox.setPreferredSize(new Dimension(0,0));
+        HexMenuPanel.add(HexMenuPlainBox,new GridBagConstraints(
+                0,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJComboBox<String> HexMenuCipherBox = new DiyJComboBox<>(new String[]{"空格","空白","换行","逗号","制表"});
+        HexMenuCipherBox.setName("HexMenuCipherBox");
+        HexMenuCipherBox.setPreferredSize(new Dimension(0,0));
+        HexMenuPanel.add(HexMenuCipherBox,new GridBagConstraints(
+                1,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return HexMenuPanel;
+    }
+
+    public JComponent HexFunctionPanel(){
+        JPanel HexFunctionPanel = new JPanel(new GridBagLayout());
+        HexFunctionPanel.setName("HexMenuPanel");
+        HexFunctionPanel.setPreferredSize(new Dimension(0,30));
+
+
+        DiyJButton HexFunctionDecrypt = new DiyJButton("Decrypt");
+        HexFunctionDecrypt.setName("HexFunctionDecryptButton");
+        HexFunctionPanel.add(HexFunctionDecrypt,new GridBagConstraints(
+                0,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        DiyJButton HexFunctionEncryptButton = new DiyJButton("Encrypt");
+        HexFunctionEncryptButton.setName("HexFunctionEncryptButton");
+        HexFunctionPanel.add(HexFunctionEncryptButton,new GridBagConstraints(
+                1,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+
+
+        return HexFunctionPanel;
+    }
+
+    public JComponent HexAreaPanel(){
+        DiyVariablePanel HexAreaPanel = new DiyVariablePanel(
+                HexPlainArea,"HexPlainArea",
+                HexCipherArea, "HexCipherArea",
+                DiyVariablePanel.View.HORIZONTAL
         );
+        HexAreaPanel.setName("HexAreaPanel");
+        HexAreaPanel.setPreferredSize(new Dimension(0,0));
 
-        DiyJAddLabel HexTagTabSticker1Label = new DiyJAddLabel("1",true);
-        HexTagTabSticker1Label.setName("HexTagTabSticker1Label");
-        HexTagTabSticker1Label.setPanel(getHexMainPanel("1"));
-        HexTagTabPanel.add(HexTagTabSticker1Label);
-
-        DiyJAddLabel HexTabAddLabel = new DiyJAddLabel("···");
-        HexTabAddLabel.setName("HexTabAddLabel");
-        HexTagTabPanel.add(HexTabAddLabel);
-
-        return HexTagTabPanel;
+        return HexAreaPanel;
     }
-
-    public JComponent HexMainPanel(){
-
-        JComponent HexMainPanel = new JPanel(new GridBagLayout());
-        HexMainPanel.setName("HexMainPanel");
-        HexMainPanel.setPreferredSize(new Dimension(0,0));
-
-        HexMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                0,0,
-                1,2,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainPanel.add(HexMainPlainScrollPane(), new GridBagConstraints(
-                1,0,
-                1,1,
-                0.6,0.5,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainPanel.add(HexMainCipherScrollPane(), new GridBagConstraints(
-                1,1,
-                1,1,
-                0.6,0.5,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainPanel.add(HexMainControlPanel(), new GridBagConstraints(
-                2,0,
-                1,2,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return HexMainPanel;
-    }
-
-
-    public JComponent HexMainPlainScrollPane(){
-
-        DiyJTextAreaScrollPane HexMainPlainAreaScrollPane = new DiyJTextAreaScrollPane("HexMainPlainArea");
-        HexMainPlainAreaScrollPane.setText("#输入文件地址或者字符串");
-        HexMainPlainAreaScrollPane.addKeyListener(new HexMainKeyListener());
-
-        return HexMainPlainAreaScrollPane;
-
-    }
-
-    public JComponent HexMainCipherScrollPane(){
-
-        DiyJTextAreaScrollPane HexMainCipherAreaScrollPane = new DiyJTextAreaScrollPane("HexMainCipherArea");
-        HexMainCipherAreaScrollPane.setText("#输入文件地址或者字符串");
-        HexMainCipherAreaScrollPane.addKeyListener(new HexMainKeyListener());
-
-        return HexMainCipherAreaScrollPane;
-    }
-
-    public JComponent HexMainControlPanel(){
-        JComponent HexMainControlPanel = new JPanel(new GridBagLayout());
-        HexMainControlPanel.setName("HexMainControlPanel");
-
-        HexMainControlPanel.add(HexMainControlPlainPanel(), new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0.5,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlPanel.add(HexMainControlCipherPanel(), new GridBagConstraints(
-                0,1,
-                1,1,
-                1,0.5,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return HexMainControlPanel;
-    }
-
-    public JComponent HexMainControlPlainPanel(){
-        JComponent HexMainControlPlainPanel = new JPanel(new GridBagLayout());
-        HexMainControlPlainPanel.setName("HexMainControlPlainPanel");
-        HexMainControlPlainPanel.setPreferredSize(new Dimension(0,0));
-
-        JLabel HexMainControlPlainSeparatorLabel = new JLabel("分割符:");
-        HexMainControlPlainSeparatorLabel.setName("HexMainControlPlainSeparatorLabel");
-        HexMainControlPlainSeparatorLabel.setPreferredSize(new Dimension(45,30));
-
-        JTextField HexMainControlPlainSeparatorField = new JTextField("空白");
-        HexMainControlPlainSeparatorField.setName("HexMainControlPlainSeparatorField");
-        HexMainControlPlainSeparatorField.setPreferredSize(new Dimension(0,30));
-
-        HexMainControlPlainPanel.add(HexMainControlPlainSeparatorLabel, new GridBagConstraints(
-                0,0,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
-
-        HexMainControlPlainPanel.add(HexMainControlPlainSeparatorField, new GridBagConstraints(
-                1,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlPlainPanel.add(HexMainControlSeparatorPanel(), new GridBagConstraints(
-                0,1,
-                2,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-
-        HexMainControlPlainPanel.add(Helper.blackPanel(), new GridBagConstraints(
-                0,3,
-                2,1,
-                1,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return HexMainControlPlainPanel;
-    }
-
-
-    public JComponent HexMainControlCipherPanel(){
-        JComponent HexMainControlCipherPanel = new JPanel(new GridBagLayout());
-        HexMainControlCipherPanel.setName("HexMainControlCipherPanel");
-        HexMainControlCipherPanel.setPreferredSize(new Dimension(0,0));
-
-        JLabel HexMainControlCipherSeparatorLabel = new JLabel("分割符:");
-        HexMainControlCipherSeparatorLabel.setName("HexMainControlCipherSeparatorLabel");
-        HexMainControlCipherSeparatorLabel.setPreferredSize(new Dimension(45,30));
-
-        JTextField HexMainControlCipherSeparatorField = new JTextField("空白");
-        HexMainControlCipherSeparatorField.setName("HexMainControlCipherSeparatorField");
-        HexMainControlCipherSeparatorField.setPreferredSize(new Dimension(0,30));
-
-        HexMainControlCipherPanel.add(HexMainControlCipherSeparatorLabel, new GridBagConstraints(
-                0,0,
-                1,1,
-                0,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,5,0,0),
-                0,0
-        ));
-
-        HexMainControlCipherPanel.add(HexMainControlCipherSeparatorField, new GridBagConstraints(
-                1,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlCipherPanel.add(HexMainControlSeparatorPanel(), new GridBagConstraints(
-                0,1,
-                2,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlCipherPanel.add(Helper.blackPanel(), new GridBagConstraints(
-                0,3,
-                2,1,
-                1,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return HexMainControlCipherPanel;
-    }
-
-    public JComponent HexMainControlSeparatorPanel(){
-
-        JComponent HexMainControlSeparatorPanel = new JPanel(new GridBagLayout());
-        HexMainControlSeparatorPanel.setName("HexMainControlSeparatorPanel");
-        HexMainControlSeparatorPanel.setPreferredSize(new Dimension(0,30));
-
-        DiyJLabel HexMainControlNewlineLabel = new DiyJLabel("换行");
-        HexMainControlNewlineLabel.setName("HexMainControlNewlineLabel");
-
-        DiyJLabel HexMainControlCommaLabel = new DiyJLabel("逗号");
-        HexMainControlCommaLabel.setName("HexMainControlCommaLabel");
-
-        DiyJLabel HexMainControlSpaceLabel = new DiyJLabel("空格");
-        HexMainControlSpaceLabel.setName("HexMainControlSpaceLabel");
-
-        DiyJLabel HexMainControlTabLabel = new DiyJLabel("制表");
-        HexMainControlTabLabel.setName("HexMainControlTabLabel");
-
-        DiyJLabel HexMainControlNullLabel = new DiyJLabel("空白");
-        HexMainControlNullLabel.setName("HexMainControlNullLabel");
-
-        HexMainControlSeparatorPanel.add(HexMainControlNewlineLabel, new GridBagConstraints(
-                0,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlSeparatorPanel.add(HexMainControlCommaLabel, new GridBagConstraints(
-                1,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlSeparatorPanel.add(HexMainControlSpaceLabel, new GridBagConstraints(
-                2,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlSeparatorPanel.add(HexMainControlTabLabel, new GridBagConstraints(
-                3,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        HexMainControlSeparatorPanel.add(HexMainControlNullLabel, new GridBagConstraints(
-                4,0,
-                1,1,
-                1,0,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        for(Component component : HexMainControlSeparatorPanel.getComponents()){
-            component.setPreferredSize(new Dimension(0,25));
-        }
-
-        return HexMainControlSeparatorPanel;
-    }
-
-
-    public JComponent getHexMainPanel(String TagName){
-        return MainPanelHashMap.containsKey(TagName)?(MainPanelHashMap.get(TagName)!=null?MainPanelHashMap.get(TagName):Helper.blackPanel()):Helper.blackPanel();
-    }
-
-    static class HexMainKeyListener implements KeyListener {
-
-        @Override
-        public void keyTyped(KeyEvent e){
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                JTextArea eArea = (JTextArea) e.getSource();
-                JTextArea outputArea = null;
-                JTextField separatorField = null;
-                JTextField separator2Field = null;
-                JComponent rootPanel = (JComponent) eArea.getParent().getParent().getParent();
-                if ("HexMainPlainArea".equals(eArea.getName())) {
-                    outputArea = (JTextArea) Helper.getComponent(rootPanel, "HexMainCipherArea"); assert outputArea != null;
-                    separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert separatorField!=null;
-                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separator2Field!=null;
-                    outputArea.setText(Hex.encrypt(eArea.getText(), separatorField.getText(), separator2Field.getText()));
-                }
-
-                if ("HexMainCipherArea".equals(eArea.getName())) {
-                    outputArea = (JTextArea) Helper.getComponent(rootPanel, "HexMainPlainArea"); assert outputArea != null;
-                    separatorField = (JTextField) Helper.getComponent(rootPanel, "HexMainControlPlainSeparatorField"); assert separatorField!=null;
-                    separator2Field= (JTextField) Helper.getComponent(rootPanel, "HexMainControlCipherSeparatorField"); assert separator2Field!=null;
-                    outputArea.setText(Hex.decrypt(eArea.getText(), separator2Field.getText(), separatorField.getText()));
-                }
-            }
-        }
-    }
-
-
 }

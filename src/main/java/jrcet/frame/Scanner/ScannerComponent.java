@@ -1,9 +1,8 @@
 package jrcet.frame.Scanner;
 
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTabLabel;
+import jrcet.frame.Scanner.Fastjson.FastjsonComponent;
 import jrcet.frame.Scanner.Overauth.OverauthComponent;
-import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,7 @@ public class ScannerComponent extends DiyJComponent {
 
     public static JComponent ScannerComponentPanel = null;
 
-    public JComponent main(){
+    public JComponent component(){
 
         ScannerComponentPanel = new JPanel(new GridBagLayout());
         ScannerComponentPanel.setName("ScannerComponentPanel");
@@ -35,7 +34,9 @@ public class ScannerComponent extends DiyJComponent {
     private JComponent ScannerTabbedPane(){
         JTabbedPane ScannerTabbedPane = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
         ScannerTabbedPane.setName("ScannerTabbedPane");
-        ScannerTabbedPane.add("OverAuth",new OverauthComponent().main());
+        ScannerTabbedPane.add("OverAuth",new OverauthComponent().component());
+
+        ScannerTabbedPane.add("FastJson",new FastjsonComponent().component());
 
         return ScannerTabbedPane;
     }

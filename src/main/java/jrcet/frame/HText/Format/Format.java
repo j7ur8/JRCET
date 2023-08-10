@@ -1,53 +1,83 @@
 package jrcet.frame.HText.Format;
 
+import jrcet.help.Helper;
+
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static burp.MyExtender.API;
+import static jrcet.frame.HText.Format.FormatComponent.FormatComponentPanel;
+
 public class Format {
 
-    public static String FormatMode="Change Separator";
-    public static String FormatFixValue;
-    public static String FormatSourceSeparator="";
-    public static String FormatDestinationSeparator="";
-
-    public static HashMap<String, String > SeparatorMap = new HashMap<String, String>() {
+    public static String Fix = "";
+    public static String Target = "";
+    public static String Result = "";
+    public static HashMap<String, String > SeparatorMap = new HashMap<>() {
         {
-            put("\\n","\n");
-            put("\\t","\t");
-            put("\\0","\0");
+            put("\\n", "\n");
+            put("\\t", "\t");
+            put("\\0", "\0");
+            put("\\r", "\r");
+            put("\\r\\n", "\r\n");
         }
     };
 
-    public static String ReturnedString;
-
-    public static void initFormat(){};
-
     public static String formatting(String text){
 
-        parseSeparator();
+        Fix = getKeyword();
+        Target = getTarget();
+        Result = getResult();
 
-        switch (FormatMode){
-            case "Change Separator":
-                ReturnedString = text.replace(FormatSourceSeparator,FormatDestinationSeparator);
-                break;
-            case "Add AllFix":
-                ReturnedString = FormatFixValue + text.replace("\n",FormatFixValue+"\n"+FormatFixValue) + FormatFixValue;
-                break;
-            case "Add Suffix":
-                ReturnedString = text.replace("\n", FormatFixValue+"\n") + FormatFixValue;
-                break;
-            case "Add Prefix":
-                ReturnedString = FormatFixValue + text.replace("\n", "\n"+FormatFixValue);
-                break;
-            case "Remove AllFix":
-                ReturnedString = text.substring(1,text.length()-1).replace(FormatFixValue+"\n"+FormatFixValue,"\n");
-                break;
-            case "Remove Prefix":
-                ReturnedString =  text.substring(1).replace("\n"+FormatFixValue,"\n");
-                break;
-            case "Remove Suffix":
-                ReturnedString = text.substring(0,text.length()-1).replace(FormatFixValue+"\n","\n");
-                break;
+//        API.logging().output().println(Fix);
+//        API.logging().output().println(Target);
+//        API.logging().output().println(Result);
+
+        parseSeparator();
+        String ReturnedString = "";
+        switch (getMode()) {
+            case "Change Separator" -> ReturnedString = text.replace(Target, Result);
+            case "Add AllFix" ->
+                    ReturnedString = Fix + text.replace("\n", Fix + "\n" + Fix) + Fix;
+            case "Add Suffix" -> ReturnedString = text.replace("\n", Fix + "\n") + Fix;
+            case "Add Prefix" -> ReturnedString = Fix + text.replace("\n", "\n" + Fix);
+            case "Remove AllFix" ->{
+
+                ReturnedString = text.replace(Fix + "\n", "\n");
+
+                ReturnedString = ReturnedString.replace( "\n" + Fix, "\n");
+
+                if(ReturnedString.startsWith(Fix)){
+                    ReturnedString = ReturnedString.substring(Fix.length());
+                }
+
+                if(ReturnedString.endsWith(Fix)){
+                    ReturnedString = ReturnedString.substring(0,ReturnedString.length()-Fix.length());
+                }
+
+                if(ReturnedString.endsWith(Fix+"\n")){
+                    ReturnedString = ReturnedString.substring(0,ReturnedString.length()-Fix.length()-2)+"\n";
+                }
+
+            }
+            case "Remove Prefix" -> {
+                ReturnedString = text.replace("\n" + Fix, "\n");
+                if(ReturnedString.startsWith(Fix)){
+                    ReturnedString = ReturnedString.substring(Fix.length());
+                }
+            }
+
+            case "Remove Suffix" -> {
+                ReturnedString = text.replace(Fix + "\n", "\n");
+                if(ReturnedString.endsWith(Fix)){
+                    ReturnedString = ReturnedString.substring(0,ReturnedString.length()-Fix.length());
+                }
+                if(ReturnedString.endsWith(Fix+"\n")){
+                    ReturnedString = ReturnedString.substring(0,ReturnedString.length()-Fix.length()-2)+"\n";
+                }
+            }
+
         }
         return ReturnedString;
     }
@@ -55,12 +85,43 @@ public class Format {
 
     public static void parseSeparator(){
         for(String key : SeparatorMap.keySet()){
-            FormatFixValue = Objects.equals(FormatFixValue, key)?SeparatorMap.get(key):FormatFixValue;
-            FormatSourceSeparator = Objects.equals(FormatSourceSeparator, key)?SeparatorMap.get(key):FormatSourceSeparator;
-            FormatDestinationSeparator = Objects.equals(FormatDestinationSeparator, key)?SeparatorMap.get(key):FormatDestinationSeparator;
+            Fix = Objects.equals(Fix, key)?SeparatorMap.get(key): Fix;
+            Target = Objects.equals(Target, key)?SeparatorMap.get(key):Target;
+            Result = Objects.equals(Result, key)?SeparatorMap.get(key):Result;
         }
     }
 
+    public static JComboBox<?> getFormatMenuModeBox(){
+        return (JComboBox<?>) Helper.getComponent(FormatComponentPanel,"FormatMenuModeBox");
+    }
+
+    public static String getMode(){
+        return (String) getFormatMenuModeBox().getSelectedItem();
+    }
+
+    public static JTextField getFormatMenuKeywordField(){
+        return (JTextField) Helper.getComponent(FormatComponentPanel,"FormatMenuKeywordField");
+    }
+
+    public static String getKeyword(){
+        return getFormatMenuKeywordField().getText();
+    }
+
+    public static JTextField getFormatMenuTargetField(){
+        return (JTextField) Helper.getComponent(FormatComponentPanel,"FormatMenuTargetField");
+    }
+
+    public static String getTarget(){
+        return getFormatMenuTargetField().getText();
+    }
+
+    public static JTextField getFormatMenuResultField(){
+        return (JTextField) Helper.getComponent(FormatComponentPanel,"FormatMenuResultField");
+    }
+
+    public static String getResult(){
+        return getFormatMenuResultField().getText();
+    }
 
 
 }

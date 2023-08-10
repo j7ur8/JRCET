@@ -1,14 +1,12 @@
 package jrcet.frame;
 
-import com.coreyd97.BurpExtenderUtilities.VariableViewPanel;
 import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTabLabel;
+
 import jrcet.frame.Asset.AssetComponent;
 import jrcet.frame.Dencrypt.DencryptComponent;
 import jrcet.frame.HText.HTextComponent;
 import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.frame.Scanner.ScannerComponent;
-import jrcet.frame.Setting.Setting;
 import jrcet.frame.Setting.SettingComponent;
 import jrcet.frame.Tools.ToolsComponent;
 
@@ -20,7 +18,7 @@ public class Jrcet extends DiyJComponent {
 
     public static JComponent JrcetComponentPanel = null;
 
-    public JComponent main(){
+    public JComponent component(){
 
         JrcetComponentPanel = new JPanel(new GridBagLayout());
         JrcetComponentPanel.setName("JrcetComponentPanel");
@@ -44,14 +42,14 @@ public class Jrcet extends DiyJComponent {
         JrcetTabbedPane.setName("JrcetTabbedPane");
 
         JrcetTabbedPane.setName("JrcetTabbedPane");
-        JrcetTabbedPane.add("Setting", new SettingComponent().main());
+        JrcetTabbedPane.add("Setting", new SettingComponent().component());
         JrcetTabbedPane.add("Exploit",new JPanel());
-        JrcetTabbedPane.add("Dencrypt", new DencryptComponent().main());
-        JrcetTabbedPane.add("HText", new HTextComponent().main());
-        JrcetTabbedPane.add("Tools",new ToolsComponent().main());
-        JrcetTabbedPane.add("Intruder",new IntruderComponent().main());
-        JrcetTabbedPane.add("Scanner",new ScannerComponent().main());
-        JrcetTabbedPane.add("Asset",new AssetComponent().main());
+        JrcetTabbedPane.add("Dencrypt", new DencryptComponent().component());
+        JrcetTabbedPane.add("HText", new HTextComponent().component());
+        JrcetTabbedPane.add("Tools",new ToolsComponent().component());
+        JrcetTabbedPane.add("Intruder",new IntruderComponent().component());
+        JrcetTabbedPane.add("Scanner",new ScannerComponent().component());
+        JrcetTabbedPane.add("Asset",new AssetComponent().component());
 
         JrcetTabbedPane.setSelectedIndex(4);
 

@@ -1,5 +1,8 @@
 package jrcet.frame.Dencrypt.Base;
 
+import jrcet.help.Helper;
+
+import javax.swing.*;
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -8,6 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+
+import static burp.MyExtender.API;
+import static jrcet.frame.Dencrypt.Base.BaseComponent.BaseComponentPanel;
 
 public class Base {
 
@@ -102,81 +108,55 @@ public class Base {
         }
     };
 
-    public static String encrypt(String text, String mode){
-        String returnString = "";
-        switch (mode){
-            case "Base16":
-                returnString = b16Encode(text);
-                break;
-            case "Base32":
-                returnString = b32Encode(text);
-                break;
-            case "Base36":
-                returnString = b36Encode(text);
-                break;
-            case "Base58":
-                returnString = b58Encode(text);
-                break;
-            case "Base62":
-                returnString = b62Encode(text);
-                break;
-            case "Base64":
-                returnString = new String(b64encoder.encode(text.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
-                break;
-            case "Base85":
-                returnString = b85Encode(text);
-                break;
-            case "Base91":
-                returnString = b91Encode(text);
-                break;
-            case "Base92":
-                returnString = b92Encode(text);
-                break;
-            case "Base128":
-                returnString = b128Encode(text);
-                break;
-        }
+    public static JComboBox<?> getBaseMenuTypeBox(){
+        return (JComboBox<?>) Helper.getComponent(BaseComponentPanel,"BaseMenuTypeBox");
+    }
 
-        return returnString;
+    public static String encrypt(String plaintext){
+        return encrypt(plaintext,(String) getBaseMenuTypeBox().getSelectedItem());
+    }
+
+    public static String decrypt(String plaintext){
+        return decrypt(plaintext,(String) getBaseMenuTypeBox().getSelectedItem());
+    }
+
+    public static String encrypt(String text, String mode){
+
+        API.logging().output().println(mode);
+        API.logging().output().println(text);
+
+        return switch (mode) {
+            case "Base16" -> b16Encode(text);
+            case "Base32" -> b32Encode(text);
+            case "Base36" -> b36Encode(text);
+            case "Base58" -> b58Encode(text);
+            case "Base62" -> b62Encode(text);
+            case "Base64" ->
+                    new String(b64encoder.encode(text.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+            case "Base85" -> b85Encode(text);
+            case "Base91" -> b91Encode(text);
+            case "Base92" -> b92Encode(text);
+            case "Base128" -> b128Encode(text);
+            default -> "";
+        };
     }
 
     public static String decrypt(String text, String mode){
 
-        String returnString = "";
-        switch (mode){
-            case "Base16":
-                returnString = b16Decode(text);
-                break;
-            case "Base32":
-                returnString = b32Decode(text);
-                break;
-            case "Base36":
-                returnString = b36Decode(text);
-                break;
-            case "Base58":
-                returnString = b58Decode(text);
-                break;
-            case "Base62":
-                returnString = b62Decode(text);
-                break;
-            case "Base64":
-                returnString = new String(b64decoder.decode(text.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
-                break;
-            case "Base85":
-                returnString = b85Decode(text);
-                break;
-            case "Base91":
-                returnString = b91Decode(text);
-                break;
-            case "Base92":
-                returnString = b92Decode(text);
-                break;
-            case "Base128":
-                returnString = b128Decode(text);
-                break;
-        }
-
-        return returnString;
+        return switch (mode) {
+            case "Base16" -> b16Decode(text);
+            case "Base32" -> b32Decode(text);
+            case "Base36" -> b36Decode(text);
+            case "Base58" -> b58Decode(text);
+            case "Base62" -> b62Decode(text);
+            case "Base64" ->
+                    new String(b64decoder.decode(text.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+            case "Base85" -> b85Decode(text);
+            case "Base91" -> b91Decode(text);
+            case "Base92" -> b92Decode(text);
+            case "Base128" -> b128Decode(text);
+            default -> "";
+        };
     }
 
 
@@ -206,10 +186,11 @@ public class Base {
 
     static public String b32Decode(final String base32)  {
         switch (base32.length() % 8) { // test the length of last subblock
-            case 1: // 5 bits in subblock: 0 useful bits but 5 discarded
-            case 3: // 15 bits in subblock: 8 useful bits but 7 discarded
-            case 6: // 30 bits in subblock: 24 useful bits but 6 discarded
+            // 5 bits in subblock: 0 useful bits but 5 discarded
+            // 15 bits in subblock: 8 useful bits but 7 discarded
+            case 1, 3, 6 -> { // 30 bits in subblock: 24 useful bits but 6 discarded
                 return Base32ErrorCanonicalLength;
+            }
         }
         byte[] bytes = new byte[base32.length() * 5 / 8];
         int offset = 0, i = 0, lookup;
@@ -428,11 +409,8 @@ public class Base {
             }
         }
 
-        StringBuilder b = new StringBuilder();
-        for (int i=0; i < zeroPrefixLength; i++)
-            b.append("0");
-        b.append(withoutLeadingZeroes);
-        return b.toString();
+        return "0".repeat(zeroPrefixLength) +
+                withoutLeadingZeroes;
     }
 
     public static String b58Encode(String text) {
@@ -779,9 +757,7 @@ public class Base {
             }
         }
 
-        byte[] returned = output.toByteArray();
-
-        return new String(returned, StandardCharsets.UTF_8);
+        return output.toString(StandardCharsets.UTF_8);
     }
 
     public static String b91Decode(String text) {
@@ -819,8 +795,7 @@ public class Base {
             output.write((byte) (dbq | dv << dn));
         }
 
-        byte[] returned = output.toByteArray();
-        return new String(returned, StandardCharsets.UTF_8);
+        return output.toString(StandardCharsets.UTF_8);
     }
 
     public static String b92Encode(String text) {

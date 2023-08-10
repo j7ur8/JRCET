@@ -9,22 +9,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static burp.MyExtender.API;
+
 public class IPUnit {
 
-    public static String IPUnitMode = "打印IP段内的全部IP";
-
-    public static String handle(String input){
-        input = Helper.getContent(input);
-        switch (IPUnitMode) {
-            case "打印IP段内的全部IP":
-                return Helper.list2String(parseIpMaskRange(input),"\n");
-            case "判断IP是否属于IP段":
-                return isInRange(input);
-        }
-
-        return "系统错误";
+    public static String printIpRange(String input){
+        return Helper.list2String(parseIpMaskRange(input), "\n");
     }
-
 
     public static String isInRange(String input) {
         String[] ipAndcidr = input.split(" ");
@@ -46,8 +37,10 @@ public class IPUnit {
                 | Integer.parseInt(cidrIps[3]);
 
         if((ipAddr & mask) == (cidrIpAddr & mask)){
+//            API.logging().output().println(ip+" 属于 "+cidr);
             return ip+" 属于 "+cidr;
         }else{
+//            API.logging().output().println(ip+" 不属于 "+cidr);
             return ip+" 不属于 "+cidr;
         }
     }

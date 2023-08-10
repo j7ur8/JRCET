@@ -74,26 +74,7 @@ public class Intruder {
 
     }
 
-    public static void rsaProcessor(){
-        JTextArea publicArea = (JTextArea) Helper.getComponent(tmpRootPanel, "IntruderMainRsaPublicArea"); assert publicArea!=null;
-        JTextArea privateArea = (JTextArea) Helper.getComponent(tmpRootPanel, "IntruderMainRsaPrivateArea"); assert privateArea!=null;
-        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(tmpRootPanel, "IntruderMainRsaTypeBox"); assert modeBox!=null;
 
-        String rsaPublicKey = publicArea.getText();
-        String rsaPrivateKey = privateArea.getText();
-        String rsaMode = (String) modeBox.getSelectedItem();
-
-        try{
-            switch (Objects.requireNonNull(rsaMode)){
-                case "Decrypt":
-                    tmpPayload = Rsa.Decrypt(tmpPayload, Rsa.getPrivateKey(rsaPrivateKey));
-                    break;
-                case "Encrypt":
-                    tmpPayload = Rsa.Encrypt(tmpPayload, Rsa.getPublicKey(rsaPublicKey));
-                    break;
-            }
-        }catch (Exception ignore){}
-    }
 
     public static void baseProcessor(){
         JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(tmpRootPanel, "IntruderMainBaseModeBox"); assert modeBox!=null;
@@ -150,14 +131,14 @@ public class Intruder {
     }
 
     public static String invokeCaptcha(byte[] currentPayload) {
-        tmpPayload= Captcha.identifyCaptcha();
+        tmpPayload= Captcha.identifyCaptchaForIntruder();
         return tmpPayload;
     }
 
     public static String invokeDiy(byte[] currentPayload)  {
 //        String name= new String(currentPayload);
 //        String name = Des.encrypt("lianyitech", new String(currentPayload));
-        String captcha = Captcha.identifyCaptcha();
+        String captcha = Captcha.identifyCaptchaForIntruder();
 
         return captcha;
     }

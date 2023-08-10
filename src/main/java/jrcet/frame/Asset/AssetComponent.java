@@ -15,7 +15,7 @@ public class AssetComponent extends DiyJComponent {
 
     public static JComponent AssetComponentPanel = null;
     @Override
-    public JComponent main() {
+    public JComponent component() {
 
         AssetComponentPanel = new JPanel(new GridBagLayout());
 

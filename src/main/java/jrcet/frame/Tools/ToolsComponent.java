@@ -2,8 +2,6 @@ package jrcet.frame.Tools;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.Tools.Captcha.CaptchaComponent;
-import jrcet.frame.Dencrypt.DencryptComponent;
-import jrcet.frame.HText.HTextComponent;
 import jrcet.frame.Tools.Password.PasswordComponent;
 
 import javax.swing.*;
@@ -14,7 +12,7 @@ public class ToolsComponent extends DiyJComponent {
     public static JComponent ToolsComponentPanel = null;
 
     @Override
-    public JComponent main(){
+    public JComponent component(){
         ToolsComponentPanel = new JPanel(new GridBagLayout());
         ToolsComponentPanel.setName("ToolsComponentPanel");
         ToolsComponentPanel.setBackground(Color.WHITE);
@@ -39,8 +37,8 @@ public class ToolsComponent extends DiyJComponent {
 
         ToolsTabbedPane.add("RScript", new JPanel());
 
-        ToolsTabbedPane.add("Captcha", new CaptchaComponent().main());
-        ToolsTabbedPane.add("Password", new PasswordComponent().main());
+        ToolsTabbedPane.add("Captcha", new CaptchaComponent().component());
+        ToolsTabbedPane.add("Password", new PasswordComponent().component());
 
         ToolsTabbedPane.setSelectedIndex(1);
         return ToolsTabbedPane;

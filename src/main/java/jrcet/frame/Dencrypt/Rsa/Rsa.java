@@ -8,8 +8,11 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 
+import static burp.MyExtender.API;
 import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
+import static jrcet.frame.Dencrypt.Rsa.RsaComponent.RsaPrivateArea;
+import static jrcet.frame.Dencrypt.Rsa.RsaComponent.RsaPublicArea;
 
 //参考https://blog.csdn.net/qq_40794973/article/details/119464211
 public class Rsa {
@@ -20,10 +23,38 @@ public class Rsa {
     /**
      * RSA最大解密密文大小
      */
-    private static final int MAX_DECRYPT_BLOCK = 128;
+    private static final int MAX_DECRYPT_BLOCK = 256;
 
     private static final String ALGORITHM_NAME = "RSA";
     private static final String MD5_RSA = "MD5withRSA";
+
+
+    public static String encrypt(String plaintext){
+        String publicKey = RsaPublicArea.getText();
+//        API.logging().output().println("plaintext: "+plaintext);
+//        API.logging().output().println("publickey: "+publicKey);
+        String result = "";
+        try{
+            result = Encrypt(plaintext,getPublicKey(publicKey));
+        }catch (Exception e){
+            API.logging().output().println(e);
+        }
+//        API.logging().output().println("result: "+result);
+        return result;
+    }
+
+
+    public static String decrypt(String plaintext){
+        String privateKey = RsaPrivateArea.getText();
+
+        String result = "";
+        try{
+            result = Decrypt(plaintext,getPrivateKey(privateKey));
+        }catch (Exception e){
+            API.logging().output().println(e);
+        }
+        return result;
+    }
 
     /**
      * 获取密钥对
@@ -32,6 +63,7 @@ public class Rsa {
         KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM_NAME);
         generator.initialize(1024);
         return generator.generateKeyPair();
+
     }
     /**
      * 获取base64加密后密钥对
@@ -54,6 +86,16 @@ public class Rsa {
      * @param publicKey base64加密的公钥字符串
      */
     public static PublicKey getPublicKey(String publicKey) throws Exception {
+//        API.logging().output().println(publicKey);
+        publicKey = publicKey.replace("\n","");
+        if(publicKey.startsWith("-----BEGIN PUBLIC KEY-----")){
+            publicKey = publicKey.substring("-----BEGIN PUBLIC KEY-----".length());
+        }
+        if(publicKey.endsWith("-----END PUBLIC KEY-----")){
+            publicKey = publicKey.substring(0,publicKey.length()-"-----END PUBLIC KEY-----".length());
+        }
+
+//        API.logging().output().println(publicKey);
         byte[] decodedKey = b64decoder.decode(publicKey.getBytes());
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decodedKey);
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_NAME);
@@ -89,7 +131,7 @@ public class Rsa {
         out.close();
         // 获取加密内容使用base64进行编码,并以UTF-8为标准转化成字符串
         // 加密后的字符串
-        return new String(b64encoder.encode(encryptedData));
+        return new String(b64encoder.encode(encryptedData),StandardCharsets.UTF_8);
     }
 
     /**
@@ -98,6 +140,17 @@ public class Rsa {
      * @param privateKey base64加密的私钥字符串
      */
     public static PrivateKey getPrivateKey(String privateKey) throws Exception {
+//        API.logging().output().println(privateKey);
+        privateKey = privateKey.replace("\n","");
+        if(privateKey.startsWith("-----BEGIN PRIVATE KEY-----")){
+            privateKey = privateKey.substring("-----BEGIN PRIVATE KEY-----".length());
+        }
+        if(privateKey.endsWith("-----END PRIVATE KEY-----")){
+            privateKey = privateKey.substring(0,privateKey.length()-"-----END PRIVATE KEY-----".length());
+        }
+
+//        API.logging().output().println(privateKey);
+
         byte[] decodedKey = b64decoder.decode(privateKey.getBytes());
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decodedKey);
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_NAME);
@@ -130,10 +183,9 @@ public class Rsa {
             i++;
             offset = i * MAX_DECRYPT_BLOCK;
         }
-        byte[] decryptedData = out.toByteArray();
         out.close();
         // 解密后的内容
-        return new String(decryptedData, StandardCharsets.UTF_8);
+        return out.toString(StandardCharsets.UTF_8);
     }
 
     /**

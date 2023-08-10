@@ -40,27 +40,27 @@ public class Asset {
         getTable().setRowCount(0);
         String fofaSearchString = "";
         String hunterSearchString = "";
-        switch (type){
-            case "AssetMainSearchIpField":
+        switch (type) {
+            case "AssetMainSearchIpField" -> {
                 fofaSearchString = fofaParse("ip", text);
-                hunterSearchString = hunterParse("ip",text);
-                break;
-            case "AssetMainSearchDomainField":
+                hunterSearchString = hunterParse("ip", text);
+            }
+            case "AssetMainSearchDomainField" -> {
                 fofaSearchString = fofaParse("domain", text);
-                hunterSearchString = hunterParse("domain",text);
-                break;
-            case "AssetMainSearchIcpField":
+                hunterSearchString = hunterParse("domain", text);
+            }
+            case "AssetMainSearchIcpField" -> {
                 fofaSearchString = fofaParse("icp", text);
-                hunterSearchString = hunterParse("icp",text);
-                break;
-            case "AssetMainSearchBodyField":
+                hunterSearchString = hunterParse("icp", text);
+            }
+            case "AssetMainSearchBodyField" -> {
                 fofaSearchString = fofaParse("body", text);
-                hunterSearchString = hunterParse("body",text);
-                break;
-            case "AssetMainSearchTitleField":
+                hunterSearchString = hunterParse("body", text);
+            }
+            case "AssetMainSearchTitleField" -> {
                 fofaSearchString = fofaParse("title", text);
-                hunterSearchString = hunterParse("title",text);
-                break;
+                hunterSearchString = hunterParse("title", text);
+            }
         }
         initParam();
         fofaSearch(fofaSearchString);
@@ -90,7 +90,7 @@ public class Asset {
             properties.load(inputStream);
             String key = properties.getProperty("key");
 
-            hunterSearchUrl = java.lang.String.format("https://hunter.qianxin.com/openApi/search?api-key=%s&search=%s&page=%s&page_size=%s",key, Base64Url(Helper.base64Encode(searchString)),page,size);
+            hunterSearchUrl = java.lang.String.format("https://hunter.qianxin.com/openApi/search?api-key=%s&search=%s&page=%s&page_size=%s",key, Base64Url(Helper.base64Encode2String(searchString)),page,size);
             new searchWorker("hunter",hunterSearchUrl).execute();
         }catch (Exception e){
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class Asset {
             String email = properties.getProperty("email");
             String key = properties.getProperty("key");
 
-            fofaSearchUrl = java.lang.String.format("https://fofa.info/api/v1/search/all?email=%s&key=%s&qbase64=%s&fields=base_protocol,protocol,domain,ip,port,title,icp,product,country_name,region,city,lastupdatetime&page=%s&size=%s",email,key,Helper.base64Encode(searchString),page,size);
+            fofaSearchUrl = java.lang.String.format("https://fofa.info/api/v1/search/all?email=%s&key=%s&qbase64=%s&fields=base_protocol,protocol,domain,ip,port,title,icp,product,country_name,region,city,lastupdatetime&page=%s&size=%s",email,key,Helper.base64Encode2String(searchString),page,size);
             new searchWorker("fofa", fofaSearchUrl).execute();
         }catch (Exception e){
             e.printStackTrace();

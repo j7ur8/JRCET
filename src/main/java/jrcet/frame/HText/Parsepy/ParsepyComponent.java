@@ -1,9 +1,12 @@
 package jrcet.frame.HText.Parsepy;
 
+
+import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
 
 
 import jrcet.diycomponents.DiyJTextAreaScrollPane;
+import jrcet.diycomponents.DiyVariablePanel;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -16,15 +19,32 @@ public class ParsepyComponent extends DiyJComponent {
 
     public static JComponent ParsepyComponentPanel = null;
 
+    public static DiyJTextAreaScrollPane ParsepyInputArea = Helper.createDiyJTextAreaScrollPane("ParsepyInputArea");
+
+    public static DiyJTextAreaScrollPane ParsepyOutputArea = Helper.createDiyJTextAreaScrollPane("ParsepyOutputArea");
+
     @Override
-    public JComponent main() {
+    public JComponent component() {
 
         ParsepyComponentPanel = new JPanel(new GridBagLayout());
         ParsepyComponentPanel.setBackground(Color.WHITE);
         ParsepyComponentPanel.setName("ParsepyComponentPanel");
+        ParsepyComponentPanel.setPreferredSize(new Dimension(0,0));
 
-        ParsepyComponentPanel.add(ParsepyMainPanel(),new GridBagConstraints(
+        DiyJButton ParsepyParseButton = new DiyJButton("Parse");
+        ParsepyParseButton.setName("ParsepyParseButton");
+        ParsepyComponentPanel.add(ParsepyParseButton,new GridBagConstraints(
                 0,0,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        ParsepyComponentPanel.add(ParsepyEditorPanel(), new GridBagConstraints(
+                0,1,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -36,80 +56,18 @@ public class ParsepyComponent extends DiyJComponent {
         return ParsepyComponentPanel;
     }
 
-    public JComponent ParsepyMainPanel(){
-        JPanel ParsepyMainPanel = new JPanel(new GridBagLayout());
-        ParsepyMainPanel.setName("ParsepyMainPanel");
-        ParsepyMainPanel.setBackground(Color.WHITE);
-        ParsepyMainPanel.setPreferredSize(new Dimension(0,0));
 
-        ParsepyMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                0,0,
-                1,1,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
 
-        ParsepyMainPanel.add(ParsepyMainInputAreaScrollPane(),new GridBagConstraints(
-                1,0,
-                1,1,
-                0.6,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
+    public JComponent ParsepyEditorPanel(){
+        DiyVariablePanel ParsepyEditorPanel = new DiyVariablePanel(
+                ParsepyInputArea,"ParsepyInputEditor",
+                ParsepyOutputArea, "ParsepyOutputEditor",
+                DiyVariablePanel.View.HORIZONTAL
+        );
 
-        ParsepyMainPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                2,0,
-                1,1,
-                0.2,1,
-                GridBagConstraints.CENTER,
-                GridBagConstraints.BOTH,
-                new Insets(0,0,0,0),
-                0,0
-        ));
-
-        return ParsepyMainPanel;
+        ParsepyEditorPanel.setPreferredSize(new Dimension(0,0));
+        return ParsepyEditorPanel;
     }
 
-    public JComponent ParsepyMainInputAreaScrollPane(){
-        DiyJTextAreaScrollPane ParsepyMainInputAreaScrollPane = new DiyJTextAreaScrollPane("ParsepyMainInputArea");
-
-        ParsepyMainInputAreaScrollPane.setText("#请输入文件路径或\\n分割的字符串...");
-
-        ParsepyMainInputAreaScrollPane.addKeyListener(new ParsepyMainInputAreaKeyListener());
-
-        return  ParsepyMainInputAreaScrollPane;
-    }
-
-    static class ParsepyMainInputAreaKeyListener implements KeyListener {
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
-                JTextArea eArea = (JTextArea) e.getSource();
-                JTextArea outputArea = null;
-                if ("ParsepyMainInputArea".equals(eArea.getName())) {
-                    outputArea = (JTextArea) Helper.getComponent((JComponent) eArea.getParent().getParent().getParent(), "ParsepyMainInputArea");
-                    assert outputArea != null;
-                    outputArea.setText(Parsepy.getPYInitial(eArea.getText()));
-                    outputArea.updateUI();
-                }
-            }
-        }
-    }
 
 }

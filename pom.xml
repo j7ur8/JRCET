@@ -32,19 +32,14 @@
             <version>1.2.83</version>
         </dependency>
         <dependency>
-            <groupId>com.fifesoft</groupId>
-            <artifactId>rsyntaxtextarea</artifactId>
-            <version>3.3.3</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.shibing624</groupId>
             <artifactId>similarity</artifactId>
             <version>1.1.6</version>
         </dependency>
         <dependency>
-            <groupId>com.github.CoreyD97</groupId>
-            <artifactId>Burp-Montoya-Utilities</artifactId>
-            <version>234d21d</version>
+            <groupId>net.portswigger.burp.extensions</groupId>
+            <artifactId>montoya-api</artifactId>
+            <version>2023.5</version>
         </dependency>
     </dependencies>
 

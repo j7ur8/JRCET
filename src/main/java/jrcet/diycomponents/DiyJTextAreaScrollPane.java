@@ -61,7 +61,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                if (e.getModifiers()== InputEvent.META_MASK) {
+                if (e.getModifiersEx() == InputEvent.META_DOWN_MASK) {
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
@@ -107,6 +107,10 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
     public void setText(String text) {
         textBytes = text.getBytes(StandardCharsets.ISO_8859_1);
         textArea.setText(text);
+    }
+
+    public String getText(){
+        return textArea.getText();
     }
 
     public void addKeyListener(KeyListener keyListener) {

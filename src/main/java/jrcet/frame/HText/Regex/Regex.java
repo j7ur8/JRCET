@@ -2,12 +2,15 @@ package jrcet.frame.HText.Regex;
 
 import jrcet.help.Helper;
 
+import javax.swing.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static jrcet.frame.HText.Regex.RegexComponent.RegexComponentPanel;
+
 public class Regex {
 
-    public static String handle(String input, String regex){
+    public static String match(String input, String regex){
 
         input = Helper.getContent(input);
         Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
@@ -19,4 +22,13 @@ public class Regex {
 
         return stringBuilder.substring(1);
     }
+
+    public static String match(String input){
+        return match(input,"("+getRuleField().getText()+")");
+    }
+
+    public static JTextField getRuleField(){
+        return (JTextField) Helper.getComponent(RegexComponentPanel,"RegexMenuRuleField");
+    }
+
 }
