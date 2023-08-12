@@ -51,7 +51,7 @@ public class Jrcet extends DiyJComponent {
         JrcetTabbedPane.add("Scanner",new ScannerComponent().component());
         JrcetTabbedPane.add("Asset",new AssetComponent().component());
 
-        JrcetTabbedPane.setSelectedIndex(4);
+        JrcetTabbedPane.setSelectedIndex(6);
 
         return  JrcetTabbedPane;
     }

@@ -37,6 +37,7 @@ public class ScannerComponent extends DiyJComponent {
         ScannerTabbedPane.add("OverAuth",new OverauthComponent().component());
 
         ScannerTabbedPane.add("FastJson",new FastjsonComponent().component());
+        ScannerTabbedPane.setSelectedIndex(1);
 
         return ScannerTabbedPane;
     }

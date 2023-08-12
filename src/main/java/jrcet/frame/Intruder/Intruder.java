@@ -24,7 +24,7 @@ public class Intruder {
     public static ArrayList<JComponent> IntruderModuleComponentList = new ArrayList<>();
     private static String tmpPayload;
 
-    private static JComponent tmpRootPanel = IntruderComponentPanel;
+    private static final JComponent tmpRootPanel = IntruderComponentPanel;
 
 
     public static void aseProcessor() {

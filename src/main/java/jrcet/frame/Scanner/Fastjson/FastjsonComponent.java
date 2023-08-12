@@ -82,7 +82,7 @@ public class FastjsonComponent extends DiyJComponent {
                 ((DefaultTableCellRenderer) c).setHorizontalAlignment(SwingConstants.CENTER);
                 if(FastjsonEntryMap.get((String) table.getValueAt(row,0)).getRemoved()){
                     c.setEnabled(false);
-                } else if( (column==8 || column==9 || column==10) && table.getValueAt(row,column)!=""){
+                } else if(  column==9  && table.getValueAt(row,column)!=""){
                     c.setForeground(Color.RED);
                 }
                 return c;
@@ -90,7 +90,7 @@ public class FastjsonComponent extends DiyJComponent {
         };
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","Dnslog","FastJson"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","DnsLog","FastJson"};
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         JTable FastjsonLoggerTable = new JTable(model){
@@ -110,7 +110,7 @@ public class FastjsonComponent extends DiyJComponent {
         FastjsonLoggerTable.getColumnModel().getColumn(5).setPreferredWidth(100);
         FastjsonLoggerTable.getColumnModel().getColumn(6).setPreferredWidth(150);
         FastjsonLoggerTable.getColumnModel().getColumn(7).setPreferredWidth(150);
-        FastjsonLoggerTable.getColumnModel().getColumn(8).setPreferredWidth(100);
+        FastjsonLoggerTable.getColumnModel().getColumn(8).setPreferredWidth(300);
         FastjsonLoggerTable.getColumnModel().getColumn(9).setPreferredWidth(100);
 
 

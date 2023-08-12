@@ -31,7 +31,7 @@ public class Fastjson {
             put("Length", 5);
             put("requestTime", 6);
             put("responseTime", 7);
-            put("Dnslog", 8);
+            put("DnsLog", 8);
             put("FastJson", 9);
         }
     };
@@ -40,7 +40,8 @@ public class Fastjson {
 
         List<HttpHeader> httpHeaders = requestToBeSent.headers();
         for(HttpHeader httpHeader: httpHeaders){
-            if(Objects.equals(httpHeader.name().toLowerCase(), "content-type") && Objects.equals(httpHeader.value().toLowerCase(), "application/json")){
+//            API.logging().output().println(httpHeader.name()+":"+httpHeader.value());
+            if(Objects.equals(httpHeader.name().toLowerCase(), "content-type") && httpHeader.value().toLowerCase().contains("application/json")){
                 return true;
             }
         }

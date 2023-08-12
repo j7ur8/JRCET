@@ -40,7 +40,7 @@ public class ToolsComponent extends DiyJComponent {
         ToolsTabbedPane.add("Captcha", new CaptchaComponent().component());
         ToolsTabbedPane.add("Password", new PasswordComponent().component());
 
-        ToolsTabbedPane.setSelectedIndex(1);
+        ToolsTabbedPane.setSelectedIndex(2);
         return ToolsTabbedPane;
     }
 

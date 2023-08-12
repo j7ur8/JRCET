@@ -1,5 +1,7 @@
 package jrcet.frame.Scanner.Fastjson;
 
+import burp.api.montoya.collaborator.CollaboratorClient;
+import burp.api.montoya.collaborator.CollaboratorPayload;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.frame.Dencrypt.Base.Base;
@@ -16,6 +18,9 @@ public class FastjsonTableEntry {
     private String RequestPath;
     private String RequestTime;
 
+    private CollaboratorClient DNSClient;
+
+    private CollaboratorPayload DNSPayload;
     private String ResponseTime;
 
     private String Length;
@@ -57,6 +62,21 @@ public class FastjsonTableEntry {
         this.ResponseTime = inf[7];
     }
 
+    public void setDNSClient (CollaboratorClient collaboratorClient){
+        this.DNSClient = collaboratorClient;
+    }
+
+    public void setDNSPayload(CollaboratorPayload collaboratorPayload){
+        this.DNSPayload = collaboratorPayload;
+    }
+
+    public CollaboratorClient getDNSClient(){
+        return DNSClient;
+    }
+
+    public CollaboratorPayload getDNSPayload(){
+        return DNSPayload;
+    }
     public HttpRequest getRawRequest(){
         return RawRequest;
     }
