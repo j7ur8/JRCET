@@ -68,13 +68,9 @@ public class Helper {
             }
 //            API.logging().output().println(i.getClass());
             switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
-                case "JTabbedPane","JSplitPane","DiyJTextField", "DiyVariablePanel", "JPanel", "JList", "JTable", "JComboBox", "JTextArea" -> {
+                case "DiyJLogTable","JTabbedPane","JSplitPane","DiyJTextField", "DiyVariablePanel", "JPanel", "JList", "JTable", "JComboBox", "JTextArea" -> {
                     JComponent cj = getComponent((JComponent) i, tComponentName);
                     if (cj != null) return cj;
-                }
-                case "DiyJAddLabel", "DiyJTabLabel" -> {
-                    JComponent cd = getComponent(getRenderedComponent(i), tComponentName);
-                    if (cd != null) return cd;
                 }
                 case "DiyJTextAreaScrollPane", "JScrollPane" -> {
                     JComponent cs = getComponent((JComponent) ((JScrollPane) i).getViewport().getView(), tComponentName);
@@ -94,48 +90,27 @@ public class Helper {
 
         for( Component i : tComponent.getComponents()){
 
-            switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)){
-                case "DiyJTextField":
-                case "JPanel":
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
-                    deep+=1;
+            switch (Arrays.asList(String.valueOf(i.getClass()).split("^([^.]*\\.)*")).get(1)) {
+                case "DiyJTextField", "JPanel" -> {
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    ")) + i.getName());
+                    deep += 1;
                     travelComponent((JComponent) i);
-                    deep-=1;
-                    break;
-                case "DiyJAddLabel":
-                case "DiyJTabLabel" :
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
-                    JComponent c = getRenderedComponent(i);
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep+1, "    "))+c.getName());
-                    deep+=2;
-                    travelComponent(c);
-                    deep-=2;
-                    break;
-                case "DiyJTextAreaScrollPane":
-                case "JScrollPane":
-                    JComponent viewPanel = (JComponent) ((JScrollPane)i).getViewport().getComponent(0);
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+viewPanel.getName()+"("+i.getName()+")");
-                    deep+=1;
+                    deep -= 1;
+                }
+                case "DiyJTextAreaScrollPane", "JScrollPane" -> {
+                    JComponent viewPanel = (JComponent) ((JScrollPane) i).getViewport().getComponent(0);
+                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    ")) + viewPanel.getName() + "(" + i.getName() + ")");
+                    deep += 1;
                     travelComponent(viewPanel);
-                    deep-=1;
-                    break;
-                case "DiyJComboBox":
-                case "JList":
-                    JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    "))+i.getName());
-                    break;
+                    deep -= 1;
+                }
+                case "DiyJComboBox", "JList" ->
+                        JrcetComponentList.add(String.join("", Collections.nCopies(deep, "    ")) + i.getName());
             }
         }
     }
 
-    private static JComponent getRenderedComponent(Component i) {
-        JComponent c;
-        try{
-            c = ((DiyJTabLabel) i).getPanel();
-        }catch (Exception e){
-            c = ((DiyJAddLabel) i).getPanel();
-        }
-        return c;
-    }
+
 
     public static String getContent(String text) {
         return Helper.isFile(text)?Helper.readFile(text):text;
@@ -298,69 +273,6 @@ public class Helper {
         return count;
     }
 
-    public static void set4DiyLabel(JComponent tPanel, String[] tStrings){
-        for(int i=0;i<tStrings.length;i++){
-            String s = tStrings[i];
-            DiyJLabel tmpLabel = new DiyJLabel(s);
-            tmpLabel.setPreferredSize(new Dimension(0,30));
-            tmpLabel.setName(tPanel.getName().replace("Panel","Label"+ i +"Panel"));
-
-            tPanel.add(tmpLabel, new GridBagConstraints(
-                    i-((i/4)*4), i/4,
-                    1,1,
-                    0.25,0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,1,2,1),
-                    0,0
-            ));
-        }
-        if(tStrings.length%4!=0){
-            tPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                    tStrings.length%4, (tStrings.length-1)/4,
-                    4-tStrings.length%4,1,
-                    0.25*(4-tStrings.length%4),0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
-        }
-    }
-
-    public static void set4DiyJChangeLabel(JComponent tPanel, String[] tStrings, HashMap<String, JComponent> stringJComponentHashMap){
-        for(int i=0;i<tStrings.length;i++){
-            String s = tStrings[i];
-            DiyJChangeLabel tmpLabel = new DiyJChangeLabel(s);
-            if(stringJComponentHashMap.containsKey(s)){
-                tmpLabel.setPanel(stringJComponentHashMap.get(s));
-            }
-            tmpLabel.setPreferredSize(new Dimension(0,30));
-            tmpLabel.setBorder(null);
-            tmpLabel.setName(tPanel.getName().replace("Panel","Label"+ i +"Panel"));
-
-            tPanel.add(tmpLabel, new GridBagConstraints(
-                    i-((i/4)*4), i/4,
-                    1,1,
-                    0.25,0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,1,2,1),
-                    0,0
-            ));
-        }
-        if(tStrings.length%4!=0){
-            tPanel.add(Helper.blackPanel(),new GridBagConstraints(
-                    tStrings.length%4, (tStrings.length-1)/4,
-                    4-tStrings.length%4,1,
-                    0.25*(4-tStrings.length%4),0,
-                    GridBagConstraints.CENTER,
-                    GridBagConstraints.BOTH,
-                    new Insets(0,0,0,0),
-                    0,0
-            ));
-        }
-    }
 
     //读取文件并返回字符串
     public static String readFile(String filename) {

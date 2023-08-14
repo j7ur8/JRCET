@@ -108,7 +108,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainAesPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"Aes"));
         IntruderMainAesPanel.setPreferredSize(new Dimension(0,150));
 
-        DiyJLabel IntruderMainAesIvLabel = new DiyJLabel(" Iv:");
+        JLabel IntruderMainAesIvLabel = new JLabel(" Iv:");
         IntruderMainAesIvLabel.setName("IntruderMainAesIvLabel");
         IntruderMainAesIvLabel.setPreferredSize(new Dimension(50,30));
         JTextField IntruderMainAesIvField = new JTextField();
@@ -118,7 +118,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainAesIvBox.setName("IntruderMainAesIvBox");
         IntruderMainAesIvBox.setPreferredSize(new Dimension(120,30));
 
-        DiyJLabel IntruderMainAesKeyLabel = new DiyJLabel("Key: ");
+        JLabel IntruderMainAesKeyLabel = new JLabel("Key: ");
         IntruderMainAesKeyLabel.setName("IntruderMainAesKeyLabel");
         IntruderMainAesKeyLabel.setPreferredSize(new Dimension(50,30));
         JTextField IntruderMainAesKeyField = new JTextField();
@@ -128,7 +128,7 @@ public class IntruderComponent extends DiyJComponent {
         IntruderMainAesKeyBox.setName("IntruderMainAesKeyBox");
         IntruderMainAesKeyBox.setPreferredSize(new Dimension(120,30));
 
-        DiyJLabel IntruderMainAesModeLabel = new DiyJLabel(("Mode: "));
+        JLabel IntruderMainAesModeLabel = new JLabel(("Mode: "));
         IntruderMainAesModeLabel.setName("IntruderMainAesModeLabel");
         IntruderMainAesModeLabel.setPreferredSize(new Dimension(50,30));
         DiyJComboBox<String> IntruderMainAesModeBox = new DiyJComboBox<>(new String[]{"AES/ECB/NoPadding", "AES/ECB/PKCS5Padding", "AES/CBC/NoPadding", "AES/CBC/PKCS5Padding"});

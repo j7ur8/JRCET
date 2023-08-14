@@ -43,13 +43,6 @@ public class FastjsonTableEntry {
 
     private boolean Removed = false;
 
-    public void setRemoved(boolean removed) {
-        Removed = removed;
-    }
-
-    public boolean getRemoved(){
-        return Removed;
-    }
 
     public FastjsonTableEntry(String[] inf){
         this.RequestNumber = inf[0];
@@ -61,6 +54,81 @@ public class FastjsonTableEntry {
         this.RequestTime = inf[6];
         this.ResponseTime = inf[7];
     }
+
+
+    public void setRemoved(boolean removed) {
+        Removed = removed;
+    }
+
+    public boolean getRemoved(){
+        return Removed;
+    }
+
+    public void setLength(String length){
+        Length = length;
+    }
+
+    public String getLength(){
+        return Length;
+    }
+
+    public void setResponseTime(String responseTime){
+        this.ResponseTime = responseTime;
+    }
+
+    public String getResponseTime(){
+        return ResponseTime;
+    }
+
+    public void setRequestNumber(String requestNumber){
+        this.RequestNumber = requestNumber;
+    }
+
+    public String getRequestNumber(){
+        return RequestNumber;
+    }
+
+    public void setRequestHost(String requestHost) {
+        RequestHost = requestHost;
+    }
+
+    public String getRequestHost(){
+        return RequestHost;
+    }
+
+
+    public void setRequestMethod(String requestMethod) {
+        RequestMethod = requestMethod;
+    }
+
+    public String getRequestMethod(){
+        return RequestMethod;
+    }
+
+    public void setRequestPath(String requestPath) {
+        RequestPath = requestPath;
+    }
+
+    public String getRequestPath(){
+        return RequestPath;
+    }
+
+    public void setRequestTime(String requestTime) {
+        RequestTime = requestTime;
+    }
+
+    public String getRequestTime(){
+        return RequestTime;
+    }
+
+    public void setRequestTool(String requestTool) {
+        RequestTool = requestTool;
+    }
+
+    public String getRequestTool(){
+        return RequestTool;
+    }
+
 
     public void setDNSClient (CollaboratorClient collaboratorClient){
         this.DNSClient = collaboratorClient;
@@ -95,9 +163,6 @@ public class FastjsonTableEntry {
     public HttpResponse getFastjsonResponse(){
         return FastjsonResponse;
     }
-    public void setResponseTime(String responseTime){
-        ResponseTime = responseTime;
-    }
     public void setSimplifyRawResponse(HttpResponse httpResponse){
         SimplifyRawResponse = httpResponse;
     }
@@ -114,9 +179,6 @@ public class FastjsonTableEntry {
         Fastjson = fastjson;
     }
 
-    public void setLength(String length){
-        Length = length;
-    }
 
     public void setRawRequest(HttpRequest httpRequest){
         RawRequest = httpRequest;

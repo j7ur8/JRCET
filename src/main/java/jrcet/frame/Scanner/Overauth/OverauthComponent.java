@@ -3,6 +3,7 @@ package jrcet.frame.Scanner.Overauth;
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
 import jrcet.diycomponents.DiyJComponent;
+import jrcet.diycomponents.DiyJLogTable;
 import jrcet.diycomponents.DiyJTextField;
 import jrcet.diycomponents.DiyVariablePanel;
 
@@ -76,119 +77,23 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerPanel.setName("OverauthLoggerPanel");
         OverauthLoggerPanel.setBackground(Color.WHITE);
 
-        TableCellRenderer renderer = new DefaultTableCellRenderer() {
-
-
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                c.setEnabled(true);
-                c.setForeground(Color.BLACK);
-                ((DefaultTableCellRenderer) c).setHorizontalAlignment(SwingConstants.CENTER);
-                if(AuthCheckEntryMap.get((String) table.getValueAt(row,0)).Removed){
-                    c.setEnabled(false);
-                } else if( (column==8 || column==9 || column==10) && table.getValueAt(row,column)!=""){
-                    c.setForeground(Color.RED);
-                }
-                return c;
-            }
-        };
-
         Object[][] data = {};
         String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","OverAuth","UnAuth","FlatAuth"};
-
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        JTable OverauthLoggerTable = new JTable(model){
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        DiyJLogTable OverauthLoggerTable = new DiyJLogTable(model);
 
         OverauthLoggerTable.setName("OverauthLoggerTable");
-        OverauthLoggerTable.setDefaultRenderer(Object.class,renderer);
-        OverauthLoggerTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        OverauthLoggerTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-        OverauthLoggerTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-        OverauthLoggerTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-        OverauthLoggerTable.getColumnModel().getColumn(3).setPreferredWidth(200);
-        OverauthLoggerTable.getColumnModel().getColumn(4).setPreferredWidth(300);
-        OverauthLoggerTable.getColumnModel().getColumn(5).setPreferredWidth(100);
-        OverauthLoggerTable.getColumnModel().getColumn(6).setPreferredWidth(150);
-        OverauthLoggerTable.getColumnModel().getColumn(7).setPreferredWidth(150);
-        OverauthLoggerTable.getColumnModel().getColumn(8).setPreferredWidth(100);
-        OverauthLoggerTable.getColumnModel().getColumn(9).setPreferredWidth(100);
-        OverauthLoggerTable.getColumnModel().getColumn(10).setPreferredWidth(200);
-
-
-        OverauthLoggerTable.getSelectionModel().addListSelectionListener(e -> {
-            int selectedRow = OverauthLoggerTable.getSelectedRow();
-            if (!e.getValueIsAdjusting() && selectedRow!=-1) {
-                OverauthTableEntry overauthTableEntry = AuthCheckEntryMap.get(getOverAuthRequestNumber(selectedRow));
-                OverauthAuthHighauthRequestEditor.setRequest(overauthTableEntry.HighAuthRequest);
-                OverauthAuthHighauthResponseEditor.setResponse(overauthTableEntry.simplifyHighAuthResponse);
-                OverauthAuthLowauthRequestEditor.setRequest(overauthTableEntry.LowAuthRequest);
-                OverauthAuthLowauthResponseEditor.setResponse(overauthTableEntry.simplifyLowAuthResponse);
-                OverauthAuthUnauthRequestEditor.setRequest(overauthTableEntry.UnAuthRequest);
-                OverauthAuthUnauthResponseEditor.setResponse(overauthTableEntry.simplifyUnAuthResponse);
-            }
-        });
-
-        JPopupMenu OverauthLoggerTablePopupMenu = new JPopupMenu();
-
-        JMenuItem delMenItem = new JMenuItem();
-        delMenItem.setText("Remove From Scope");
-        delMenItem.addActionListener(evt -> {
-            int row = OverauthLoggerTable.getSelectedRow();
-            try{
-                String rowNumber = getOverAuthRequestNumber(row);
-                AuthCheckUrlList.remove(AuthCheckEntryMap.get(rowNumber).HighAuthRequest.url());
-                AuthCheckEntryMap.get(rowNumber).Removed=true;
-                OverauthAuthHighauthRequestEditor.setRequest(null);
-                OverauthAuthHighauthResponseEditor.setResponse(null);
-                OverauthAuthLowauthRequestEditor.setRequest(null);
-                OverauthAuthLowauthResponseEditor.setResponse(null);
-                OverauthAuthUnauthRequestEditor.setRequest(null);
-                OverauthAuthUnauthResponseEditor.setResponse(null);
-            }catch (Exception e){
-                API.logging().output().println(e);
-            }
-
-        });
-        OverauthLoggerTablePopupMenu.add(delMenItem);
-
-        OverauthLoggerTable.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if(e.getButton()==3){
-                    int focusedRowIndex = OverauthLoggerTable.rowAtPoint(e.getPoint());
-                    if (focusedRowIndex == -1) {
-                        return;
-                    }
-                    //将表格所选项设为当前右键点击的行
-                    OverauthLoggerTable.setRowSelectionInterval(focusedRowIndex, focusedRowIndex);
-                    OverauthLoggerTablePopupMenu.show(OverauthLoggerTable, e.getX(), e.getY());
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
+        OverauthLoggerTable.setColumnPreferredWidth(0, 50);
+        OverauthLoggerTable.setColumnPreferredWidth(1, 75);
+        OverauthLoggerTable.setColumnPreferredWidth(2, 75);
+        OverauthLoggerTable.setColumnPreferredWidth(3, 200);
+        OverauthLoggerTable.setColumnPreferredWidth(4, 300);
+        OverauthLoggerTable.setColumnPreferredWidth(5, 75);
+        OverauthLoggerTable.setColumnPreferredWidth(6, 150);
+        OverauthLoggerTable.setColumnPreferredWidth(7, 150);
+        OverauthLoggerTable.setColumnPreferredWidth(8, 100);
+        OverauthLoggerTable.setColumnPreferredWidth(9, 100);
+        OverauthLoggerTable.setColumnPreferredWidth(10, 200);
 
         JScrollPane OverauthLoggerTableScrollPane = new JScrollPane(OverauthLoggerTable);
         OverauthLoggerTableScrollPane.setName("OverauthLoggerTableScrollPane");

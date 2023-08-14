@@ -6,6 +6,7 @@ import jrcet.frame.Setting.Setting;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,8 +14,13 @@ import java.util.regex.Pattern;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
+import jrcet.help.Helper;
+
+import javax.swing.*;
 
 import static burp.MyExtender.API;
+import static jrcet.frame.Scanner.Fastjson.FastjsonComponent.FastjsonComponentPanel;
+import static jrcet.frame.Scanner.Springboot.SpringbootComponent.SpringbootComponentPanel;
 
 public class Springboot {
 
@@ -22,6 +28,36 @@ public class Springboot {
     private static final HashSet<String> UrlSet = new HashSet<>();
 
     private static String CurrentUrl;
+    private static final HashMap<String, Integer> ColumnMap = new HashMap<>(){
+        {
+            put("#", 0);
+            put("Tool", 1);
+            put("Method", 2);
+            put("Host", 3);
+            put("Path", 4);
+            put("Length", 5);
+            put("requestTime", 6);
+            put("responseTime", 7);
+            put("Type", 8);
+            put("Vul", 9);
+        }
+    };
+
+    public static void setSpringbootLoggerTableValueAt(String value, Integer rowIndex, String columnName){
+        getSpringbootLoggerTable().getModel().setValueAt(value, rowIndex, ColumnMap.get(columnName));
+    }
+
+    public static String getSpringbootRequestNumber(int row){
+        return (String) getSpringbootLoggerTable().getValueAt(row,0);
+    }
+
+    public static JTable getSpringbootLoggerTable(){
+        return (JTable) Helper.getComponent(SpringbootComponentPanel, "SpringbootLoggerTable");
+    }
+
+    public static JCheckBox getSpringbootMenuWorkBox(){
+        return (JCheckBox) Helper.getComponent(SpringbootComponentPanel, "SpringbootMenuWorkBox");
+    }
     public static void doScan(HttpRequestResponse httpRequestResponse){
 
         if(!check(httpRequestResponse)) return;
