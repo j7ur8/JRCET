@@ -6,48 +6,13 @@ import java.util.Objects;
 
 public class Url {
 
-    public static String encode(String string){
-
-        String[] strings = string.split("");
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String s: strings){
-            if("\"'[]{};':/.,<>?!@#$%^&*()_+=-~`|\\".contains(s)){
-                stringBuilder.append("%").append(Hex.encrypt(s, "", ""));
-            }else{
-                stringBuilder.append(s);
-            }
-        }
-
-        return stringBuilder.toString();
-    }
-
     public static String encodeAll(String string){
-
-        String[] strings = string.split("");
-        StringBuilder stringBuilder = new StringBuilder();
-        for(String s: strings){
-            stringBuilder.append("%").append(Hex.encrypt(s, "", ""));
-        }
-
-        return stringBuilder.toString();
+        String res = Hex.encrypt(string,"","%");
+        return "%"+res.substring(0,res.length()-1);
     }
 
     public static String decode(String string){
-        String[] strings = string.split("");
-        String s,tmp;
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0; i< strings.length; i++){
-            s = strings[i];
-            if(Objects.equals(s, "%")){
-                tmp = strings[i+1]+strings[i+2];
-                stringBuilder.append(Hex.decrypt(tmp,"",""));
-                i+=2;
-            }else{
-                stringBuilder.append(s);
-            }
-        }
-
-        return stringBuilder.toString();
+        return Hex.decrypt(string.replace("%",""),"","");
     }
 
     public static void main(String[] args) {

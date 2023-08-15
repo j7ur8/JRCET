@@ -27,35 +27,7 @@ public class Intruder {
     private static final JComponent tmpRootPanel = IntruderComponentPanel;
 
 
-    public static void aseProcessor() {
-        JTextField ivField = (JTextField) Helper.getComponent(tmpRootPanel, "IntruderMainAesIvField"); assert ivField!=null;
-        JComboBox<String> ivBox = (JComboBox<String>) Helper.getComponent(tmpRootPanel, "IntruderMainAesIvBox"); assert ivBox!=null;
-        JTextField keyField = (JTextField) Helper.getComponent(tmpRootPanel, "IntruderMainAesKeyField");assert keyField!=null;
-        JComboBox<String> keyBox = (JComboBox<String>) Helper.getComponent(tmpRootPanel, "IntruderMainAesKeyBox");assert keyBox!=null;
-        JComboBox<String> modeBox = (JComboBox<String>) Helper.getComponent(tmpRootPanel, "IntruderMainAesModeBox");assert modeBox!=null;
-        JComboBox<String> typeBox = (JComboBox<String>) Helper.getComponent(tmpRootPanel, "IntruderMainAesTypeBox");assert typeBox!=null;
 
-        String aesIv = ivField.getText();
-        String aesIvType = (String) ivBox.getSelectedItem();
-        String aesKey = keyField.getText();
-        String aesKeyType = (String) keyBox.getSelectedItem();
-        String aesMode = (String) modeBox.getSelectedItem();
-        String aesType = (String) typeBox.getSelectedItem();
-
-        try {
-            switch (Objects.requireNonNull(aesType)){
-                case "Decrypt":
-                    tmpPayload = Aes.Decrypt(tmpPayload, aesMode, aesKey, aesKeyType, aesIv, aesIvType);
-                    break;
-                case "Encrypt":
-                    tmpPayload = Aes.Encrypt(tmpPayload, aesMode, aesKey, aesKeyType, aesIv, aesIvType);
-                    break;
-            }
-        }catch (Exception ignore){
-
-        }
-
-    }
 
     public static void desProcessor(){
         try{

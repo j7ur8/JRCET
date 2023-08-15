@@ -67,7 +67,7 @@ public class AesComponent extends DiyJComponent {
         AesMenuModeBox.setName("AesMenuModeBox");
         AesMenuModeBox.setPreferredSize(new Dimension(0,0));
         AesMenuPanel.add(AesMenuModeBox, new GridBagConstraints(
-                0,0,
+                AesMenuPanel.getComponentCount(),0,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -76,11 +76,12 @@ public class AesComponent extends DiyJComponent {
                 0,0
         ));
 
+
         DiyJTextField AesMenuIvField = new DiyJTextField("Iv");
         AesMenuIvField.setName("AesMenuIvField");
         AesMenuIvField.setPreferredSize(new Dimension(0,0));
         AesMenuPanel.add(AesMenuIvField, new GridBagConstraints(
-                1,0,
+                AesMenuPanel.getComponentCount(),0,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -93,7 +94,7 @@ public class AesComponent extends DiyJComponent {
         AesMenuIvBox.setName("AesMenuIvBox");
         AesMenuIvBox.setPreferredSize(new Dimension(100,0));
         AesMenuPanel.add(AesMenuIvBox, new GridBagConstraints(
-                2,0,
+                AesMenuPanel.getComponentCount(),0,
                 1,1,
                 0,1,
                 GridBagConstraints.CENTER,
@@ -106,7 +107,7 @@ public class AesComponent extends DiyJComponent {
         AesMenuKeyField.setName("AesMenuKeyField");
         AesMenuKeyField.setPreferredSize(new Dimension(0,0));
         AesMenuPanel.add(AesMenuKeyField, new GridBagConstraints(
-                3,0,
+                AesMenuPanel.getComponentCount(),0,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -119,7 +120,7 @@ public class AesComponent extends DiyJComponent {
         AesMenuKeyBox.setName("AesMenuKeyBox");
         AesMenuKeyBox.setPreferredSize(new Dimension(100,0));
         AesMenuPanel.add(AesMenuKeyBox, new GridBagConstraints(
-                4,0,
+                AesMenuPanel.getComponentCount(),0,
                 1,1,
                 0,1,
                 GridBagConstraints.CENTER,

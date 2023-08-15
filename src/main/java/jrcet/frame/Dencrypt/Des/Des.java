@@ -1,178 +1,186 @@
 package jrcet.frame.Dencrypt.Des;
 
+import jrcet.frame.Dencrypt.Hex.Hex;
 import jrcet.help.Helper;
+import jrcet.help.Similarity.util.StringUtil;
 
 import javax.crypto.Cipher;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import java.security.Key;
-import java.util.Base64;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
+
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+
+import static burp.MyExtender.API;
+import static jrcet.frame.Dencrypt.Des.DesComponent.DesComponentPanel;
+import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
+import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
+import static jrcet.help.Helper.getByteByType;
 
 public class Des {
 
-    /**
-     * 偏移变量，固定占8位字节
-     */
-    private final static String IV_PARAMETER = "lianyite";
-    /**
-     * 密钥算法
-     */
-    private static final String ALGORITHM = "DES";
-    /**
-     * 加密/解密算法-工作模式-填充模式
-     */
-    private static final String CIPHER_ALGORITHM = "DES/ECB/PKCS5Padding";
-    /**
-     * 默认编码
-     */
-    private static final String CHARSET = "utf-8";
+    private static byte[] inputTextByte;
+    private static    int len;
+    private static byte[] key;
+    private static byte[] iv;
+    private static String returned;
 
-    /**
-     * 生成key
-     *
-     * @param password
-     * @return
-     * @throws Exception
-     */
-    private static Key generateKey(String password) throws Exception {
-        DESKeySpec dks = new DESKeySpec(password.getBytes(CHARSET));
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(ALGORITHM);
-        return keyFactory.generateSecret(dks);
+
+    public static JComboBox<?> getModeBox(){
+        return (JComboBox<?>) Helper.getComponent(DesComponentPanel, "DesMenuModeBox");
     }
 
+    public static JComboBox<?> getKeyBox(){
+        return (JComboBox<?>) Helper.getComponent(DesComponentPanel, "DesMenuKeyBox");
+    }
 
-    /**
-     * DES加密字符串
-     *
-     * @param password 加密密码，长度不能够小于8位
-     * @param data 待加密字符串
-     * @return 加密后内容
-     */
-    public static String encrypt(String password, String data) {
-        if (password== null || password.length() < 8) {
-            throw new RuntimeException("加密失败，key不能小于8位");
+    public static JComboBox<?> getIvBox(){
+        return (JComboBox<?>) Helper.getComponent(DesComponentPanel, "DesMenuIvBox");
+    }
+
+    public static JTextField getIvField(){
+        return (JTextField) Helper.getComponent(DesComponentPanel, "DesMenuIvField");
+    }
+
+    public static JTextField getKeyField(){
+        return (JTextField) Helper.getComponent(DesComponentPanel, "DesMenuKeyField");
+    }
+
+    public static String Encrypt(String plainText){
+
+        String Mode = (String) getModeBox().getSelectedItem();
+        String Key = getKeyField().getText();
+        String KeyType = (String) getKeyBox().getSelectedItem();
+        String Iv = getIvField().getText();
+        String IvType = (String) getIvBox().getSelectedItem();
+
+//        API.logging().output().printf("Mode: %s, Key: %s, KeyType: %s, Iv: %s, IvType: %s\n",Mode,Key,KeyType,Iv,IvType);
+        String result = "";
+        try{
+            result  = Encrypt(plainText, Mode, Key, KeyType, Iv, IvType);
+        }catch (Exception e){
+            API.logging().error().println(result);
         }
-        if (data == null)
-            return null;
-        try {
-            Key secretKey = generateKey(password);
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-//            IvParameterSpec iv = new IvParameterSpec(IV_PARAMETER.getBytes(CHARSET));
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            byte[] bytes = cipher.doFinal(data.getBytes(CHARSET));
 
-            //JDK1.8及以上可直接使用Base64，JDK1.7及以下可以使用BASE64Encoder
-            //Android平台可以使用android.util.Base64
-            return new String(Base64.getEncoder().encode(bytes));
+        return result;
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
+    public static String Decrypt(String plainText){
+
+        String Mode = (String) getModeBox().getSelectedItem();
+        String Key = getKeyField().getText();
+        String KeyType = (String) getKeyBox().getSelectedItem();
+        String Iv = getIvField().getText();
+        String IvType = (String) getIvBox().getSelectedItem();
+
+        String result = "";
+        try{
+            result  = Decrypt(plainText, Mode, Key, KeyType, Iv, IvType);
+        }catch (Exception e){
+            API.logging().error().println(result);
+        }
+
+        return result;
+    }
+
+    public static String Encrypt(String plainText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
+
+        repairParam(plainText,Key,KeyType,Iv,IvType);
+
+//        API.logging().output().printf("Mode: %s, Key: %s, KeyType: %s, Iv: %s, IvType: %s\n",Mode,new String(key),KeyType,new String(iv),IvType);
+
+        if(returned!=null) return returned;
+
+        Cipher cipher = Cipher.getInstance(Mode);
+        byte[] plainTextByte = new byte[(len%8==0?len/8:len/8+1)*8];
+
+        switch (Mode){
+            case "DES/ECB/NoPadding":
+                for(int i=0; i<plainTextByte.length;i++){
+                    if(i<len) {
+                        plainTextByte[i]=inputTextByte[i];
+                        continue;
+                    }
+                    plainTextByte[i] = (byte)Integer.parseInt("00",16);
+                }
+                inputTextByte = plainTextByte;
+            case "DES/ECB/PKCS5Padding":
+                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "DES"));
+                break;
+            case "DES/CBC/NoPadding":
+                for(int i=0; i<plainTextByte.length;i++){
+                    if(i<len) {
+                        plainTextByte[i]=inputTextByte[i];
+                        continue;
+                    }
+                    plainTextByte[i] = (byte)Integer.parseInt("00",16);
+                }
+                inputTextByte = plainTextByte;
+            case "DES/CBC/PKCS5Padding":
+                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "DES"), new IvParameterSpec(iv));
+                break;
+        }
+
+        return b64encoder.encodeToString(cipher.doFinal(inputTextByte));
+
+    }
+
+    // 解密
+    public static String Decrypt(String cipherText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
+
+        repairParam(cipherText,Key, KeyType,Iv,IvType);
+        if(returned!=null) return returned;
+
+        Cipher cipher = Cipher.getInstance(Mode);
+        switch (Mode) {
+            case "DES/ECB/NoPadding", "DES/ECB/PKCS5Padding" ->
+                    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "DES"));
+            case "DES/CBC/NoPadding", "DES/CBC/PKCS5Padding" ->
+                    cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "DES"), new IvParameterSpec(iv));
+        }
+
+        return new String(cipher.doFinal(b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
+    }
+
+    private static void repairParam(String InputText, String Key, String KeyType, String Iv, String IvType) {
+
+        returned=null;
+        key=null;
+        iv=null;
+
+        if (StringUtil.isBlank(InputText)) {
+            returned = "请输入需要解密的字符串";
+        }
+
+        //对InputText处理
+        assert InputText != null;
+        inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
+        len = inputTextByte.length;
+
+        //设置key
+        byte[] tmpKey = getByteByType(Key, KeyType);
+        key = new byte[8];
+        for (int j = 0; j < 8; j++) {
+            if (j < tmpKey.length) {
+                key[j] = tmpKey[j];
+            } else {
+                key[j] = (byte)Integer.parseInt("00",16);
+            }
+        }
+
+        //设置iv
+        byte[] tmpIv = getByteByType(Iv, IvType);
+        iv = new byte[8];
+        for (int j = 0; j < 8; j++) {
+            if (j < tmpIv.length) {
+                iv[j] = tmpIv[j];
+            } else {
+                iv[j] = (byte)Integer.parseInt("00",16);
+            }
         }
     }
 
-    /**
-     * DES解密字符串
-     *
-     * @param password 解密密码，长度不能够小于8位
-     * @param data 待解密字符串
-     * @return 解密后内容
-     */
-    public static String decrypt(String password, String data) {
-        if (password== null || password.length() < 8) {
-            throw new RuntimeException("加密失败，key不能小于8位");
-        }
-        if (data == null)
-            return null;
-        try {
-            Key secretKey = generateKey(password);
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-//            IvParameterSpec iv = new IvParameterSpec(IV_PARAMETER.getBytes(CHARSET));
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            return new String(cipher.doFinal(Base64.getDecoder().decode(data.getBytes(CHARSET))), CHARSET);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return data;
-        }
-    }
-
-    /**
-     * DES加密文件
-     *
-     * @param srcFile  待加密的文件
-     * @param destFile 加密后存放的文件路径
-     * @return 加密后的文件路径
-     */
-//    public static String encryptFile(String password, String srcFile, String destFile) {
-//
-//        if (password== null || password.length() < 8) {
-//            throw new RuntimeException("加密失败，key不能小于8位");
-//        }
-//        try {
-//            IvParameterSpec iv = new IvParameterSpec(IV_PARAMETER.getBytes(CHARSET));
-//            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-//            cipher.init(Cipher.ENCRYPT_MODE, generateKey(key), iv);
-//            InputStream is = Files.newInputStream(Paths.get(srcFile));
-//            OutputStream out = Files.newOutputStream(Paths.get(destFile));
-//            CipherInputStream cis = new CipherInputStream(is, cipher);
-//            byte[] buffer = new byte[1024];
-//            int r;
-//            while ((r = cis.read(buffer)) > 0) {
-//                out.write(buffer, 0, r);
-//            }
-//            cis.close();
-//            is.close();
-//            out.close();
-//            return destFile;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return null;
-//    }
-
-    /**
-     * DES解密文件
-     *
-     * @param srcFile  已加密的文件
-     * @param destFile 解密后存放的文件路径
-     * @return 解密后的文件路径
-     */
-//    public static String decryptFile(String password, String srcFile, String destFile) {
-//        if (password== null || password.length() < 8) {
-//            throw new RuntimeException("加密失败，key不能小于8位");
-//        }
-//        try {
-//            File file = new File(destFile);
-//            if (!file.exists()) {
-//                file.getParentFile().mkdirs();
-//                file.createNewFile();
-//            }
-//            IvParameterSpec iv = new IvParameterSpec(IV_PARAMETER.getBytes(CHARSET));
-//            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-//            cipher.init(Cipher.DECRYPT_MODE, generateKey(key), iv);
-//            InputStream is = Files.newInputStream(Paths.get(srcFile));
-//            OutputStream out = Files.newOutputStream(Paths.get(destFile));
-//            CipherOutputStream cos = new CipherOutputStream(out, cipher);
-//            byte[] buffer = new byte[1024];
-//            int r;
-//            while ((r = is.read(buffer)) >= 0) {
-//                cos.write(buffer, 0, r);
-//            }
-//            cos.close();
-//            is.close();
-//            out.close();
-//            return destFile;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return null;
-//    }
-//    public static void main(String[] args) {
-//        String a= encrypt("lianyitech","lifang");
-//        System.out.println(a);
-//    }
-    public static void main(String[] args) {
-//        System.out.println(decrypt("lianyitech","Iv/B6cFc6f7hJsTV3HHCUg=="));
-        System.out.println(decrypt(new String(Helper.base64Decode2Byte("dPHcZQvoZ0qC5AmKkjGXrw==")),"nPHT6L960brRpOfddlpJGC2MOzXrpOU/Iiu22qGteejQESSFsxPNt3lg/ryZhYyHM9SbHggxXJl2ngargHbKmxTwV0/rXahrNxlKtObnCS5nDaYMaMpB//ny04mE11Q6OalOj2mdYiUJnmJNbfdV9iUTUglwNhyGnrIwe33wbPx9bUssUdUptS0t1rrSu21+5h9SaBbBatmpY0RzI1PbkQ=="));
-    }
 }

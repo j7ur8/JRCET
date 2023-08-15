@@ -32,7 +32,7 @@ public class CharBasedSimilarity implements ISimilarity {
             if (word1.equalsIgnoreCase(word2)) {
                 return 1.0;
             } else {
-                List<Character> sameChars = new ArrayList();
+                List<Character> sameChars = new ArrayList<>();
                 String longString = StringUtil.getLongString(word1, word2);
                 String shortString = StringUtil.getShortString(word1, word2);
 

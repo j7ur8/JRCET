@@ -1,18 +1,24 @@
 package jrcet.frame.Dencrypt.Aes;
 
+import jrcet.frame.Dencrypt.Hex.Hex;
 import jrcet.help.Helper;
+import jrcet.help.Similarity.util.StringUtil;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 import static burp.MyExtender.API;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesComponentPanel;
 import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
+import static jrcet.help.Helper.getByteByType;
 
 public class Aes {
 
@@ -42,6 +48,7 @@ public class Aes {
     public static JTextField getKeyField(){
         return (JTextField) Helper.getComponent(AesComponentPanel, "AesMenuKeyField");
     }
+
     public static String Encrypt(String plainText){
 
         String Mode = (String) getModeBox().getSelectedItem();
@@ -82,7 +89,7 @@ public class Aes {
 
         repairParam(plainText,Mode,Key,KeyType,Iv,IvType);
 
-        if(returned!=null) return  returned;
+        if(returned!=null) return returned;
 
         Cipher cipher = Cipher.getInstance(Mode);
         byte[] plainTextByte = new byte[(len%16==0?len/16:len/16+1)*16];
@@ -136,55 +143,43 @@ public class Aes {
     }
 
     private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) {
+
         returned=null;
         key=null;
         iv=null;
 
-        if (InputText == null) {
+        if (StringUtil.isBlank(InputText)) {
             returned = "请输入需要解密的字符串";
         }
-        if (Mode == null) {
-            returned = "请选择模式";
-        }
+
         //对InputText处理
         assert InputText != null;
         inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
         len = inputTextByte.length;
 
-        //设置key和iv
-        String[] s = new String[]{Key, Iv}, t = new String[]{KeyType, IvType};
-        for (int i = 0; i < 2; i++) {
-            byte[] r = switch (t[i]) {
-                case "Base64" -> b64decoder.decode(s[i]);
-                case "Hex" -> Helper.hexStringToByteArray(s[i]);
-                case "Raw" -> s[i].getBytes(StandardCharsets.ISO_8859_1);
-                default -> new byte[0];
-            };
-            if (i == 0) {  //设置key
-                int len = r.length <= 16 ? 16 : (r.length > 24 ? 32 : 24);
-                key = new byte[len];
-                for (int j = 0; j < len; j++) {
-                    if (j < Key.length()) {
-                        key[j] = r[j];
-                    } else {
-                        key[j] = (byte)Integer.parseInt("00",16);
-                    }
-                }
+        //设置key
+        byte[] tmpKey = getByteByType(Key, KeyType);
+        int tmpKeyLen = tmpKey.length <= 16 ? 16 : (tmpKey.length > 24 ? 32 : 24);
+        key = new byte[tmpKeyLen];
+        for (int j = 0; j < tmpKeyLen; j++) {
+            if (j < tmpKey.length) {
+                key[j] = tmpKey[j];
+            } else {
+                key[j] = (byte)Integer.parseInt("00",16);
             }
-            if (i == 1) { //设置iv
-                iv = new byte[16];
-                for (int j = 0; j < 16; j++) {
-                    if (j < Iv.length()) {
-                        iv[j] = r[j];
-                    } else {
-                        iv[j] = (byte)Integer.parseInt("00",16);
-                    }
-                }
+        }
+
+        //设置iv
+        byte[] tmpIv = getByteByType(Iv, IvType);
+//        API.logging().output().println(tmpIv.length);
+        iv = new byte[16];
+        for (int j = 0; j < 16; j++) {
+            if (j < tmpIv.length) {
+                iv[j] = tmpIv[j];
+            } else {
+                iv[j] = (byte)Integer.parseInt("00",16);
             }
         }
     }
-
-
-
 
 }

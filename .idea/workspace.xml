@@ -6,20 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="2cec57e1-b170-4d83-bcc6-c843c606428c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJAddLabel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJChangeLabel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLabel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTabLabel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/IntruderComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/IntruderComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonTableEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonTableEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/OverauthComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/OverauthComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/ScannerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/ScannerComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/Aes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/AesComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/AesComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Base/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Base/Base.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/DencryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/DencryptComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Des/Des.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Des/Des.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Url/Url.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Url/Url.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/Intruder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Intruder/Intruder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordMainTopNameFieldKeyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordMainTopNameFieldKeyListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Similarity/CharBasedSimilarity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/Similarity/CharBasedSimilarity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,6 +211,7 @@
       <workItem from="1691800294674" duration="25092000" />
       <workItem from="1691951574592" duration="1858000" />
       <workItem from="1691970784866" duration="1490000" />
+      <workItem from="1692060385431" duration="9013000" />
     </task>
     <servers />
   </component>

@@ -20,7 +20,7 @@ public class PasswordMainTopNameFieldKeyListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if( (e.getModifiers()== InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
+        if( (e.getModifiersEx() == InputEvent.CTRL_MASK || e.getModifiers() == InputEvent.META_MASK) && e.getKeyCode()==71){
             JTextField sField = (JTextField) e.getSource();
             String v = sField.getText();
             JComponent rootComponent = (JComponent) sField.getParent().getParent();

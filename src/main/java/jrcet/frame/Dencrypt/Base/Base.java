@@ -121,9 +121,9 @@ public class Base {
     }
 
     public static String encrypt(String text, String mode){
-
-        API.logging().output().println(mode);
-        API.logging().output().println(text);
+//
+//        API.logging().output().println(mode);
+//        API.logging().output().println(text);
 
         return switch (mode) {
             case "Base16" -> b16Encode(text);

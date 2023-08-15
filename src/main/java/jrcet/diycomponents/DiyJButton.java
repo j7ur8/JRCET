@@ -4,6 +4,7 @@ import jrcet.frame.Asset.Asset;
 import jrcet.frame.Dencrypt.Aes.Aes;
 import jrcet.frame.Dencrypt.Ascii.Ascii;
 import jrcet.frame.Dencrypt.Base.Base;
+import jrcet.frame.Dencrypt.Des.Des;
 import jrcet.frame.Dencrypt.Hex.Hex;
 import jrcet.frame.Dencrypt.Jwt.Jwt;
 import jrcet.frame.Dencrypt.Md5.Md5;
@@ -33,6 +34,8 @@ import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiCipherArea;
 import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiPlainArea;
 import static jrcet.frame.Dencrypt.Base.BaseComponent.BaseCipherArea;
 import static jrcet.frame.Dencrypt.Base.BaseComponent.BasePlainArea;
+import static jrcet.frame.Dencrypt.Des.DesComponent.DesCipherArea;
+import static jrcet.frame.Dencrypt.Des.DesComponent.DesPlainArea;
 import static jrcet.frame.Dencrypt.Hex.HexComponent.HexCipherArea;
 import static jrcet.frame.Dencrypt.Hex.HexComponent.HexPlainArea;
 import static jrcet.frame.Dencrypt.Jwt.JwtComponent.*;
@@ -129,6 +132,14 @@ public class DiyJButton extends JButton implements  ActionListener {
 
             case "AesFunctionDecryptButton" -> {
                 AesPlainArea.setText(Aes.Decrypt(AesCipherArea.getText()));
+            }
+
+            case "DesFunctionEncryptButton" -> {
+                DesCipherArea.setText(Des.Encrypt(DesPlainArea.getText()));
+            }
+
+            case "DesFunctionDecryptButton" -> {
+                DesPlainArea.setText(Des.Decrypt(DesCipherArea.getText()));
             }
 
             case "Md5FunctionEncryptButton" -> {

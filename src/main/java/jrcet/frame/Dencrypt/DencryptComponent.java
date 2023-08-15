@@ -4,6 +4,7 @@ import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.Dencrypt.Aes.AesComponent;
 import jrcet.frame.Dencrypt.Ascii.AsciiComponent;
 import jrcet.frame.Dencrypt.Base.BaseComponent;
+import jrcet.frame.Dencrypt.Des.DesComponent;
 import jrcet.frame.Dencrypt.Hex.HexComponent;
 //import jrcet.frame.tools.Dencrypt.Jwt.Jwt;
 import jrcet.frame.Dencrypt.Jwt.JwtComponent;
@@ -45,6 +46,7 @@ public class DencryptComponent extends DiyJComponent {
         DencryptTabbedPane.setName("DencryptTabbedPane");
 
         DencryptTabbedPane.add("Aes",new AesComponent().component());
+        DencryptTabbedPane.add("Des",new DesComponent().component());
         DencryptTabbedPane.add("MD5",new Md5Component().component());
         DencryptTabbedPane.add("Rsa",new RsaComponent().component());
         DencryptTabbedPane.add("Hex",new HexComponent().component());
