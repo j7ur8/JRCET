@@ -2,10 +2,7 @@ package jrcet.frame.Scanner.Overauth;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLogTable;
-import jrcet.diycomponents.DiyJTextField;
-import jrcet.diycomponents.DiyVariablePanel;
+import jrcet.diycomponents.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -78,7 +75,7 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerPanel.setBackground(Color.WHITE);
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","OverAuth","UnAuth","FlatAuth"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","OverAuth","UnAuth"};
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         DiyJLogTable OverauthLoggerTable = new DiyJLogTable(model);
 
@@ -93,21 +90,38 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerTable.setColumnPreferredWidth(7, 150);
         OverauthLoggerTable.setColumnPreferredWidth(8, 100);
         OverauthLoggerTable.setColumnPreferredWidth(9, 100);
-        OverauthLoggerTable.setColumnPreferredWidth(10, 200);
 
         JScrollPane OverauthLoggerTableScrollPane = new JScrollPane(OverauthLoggerTable);
         OverauthLoggerTableScrollPane.setName("OverauthLoggerTableScrollPane");
         OverauthLoggerTableScrollPane.setPreferredSize(new Dimension(0,0));
 
+
+        DiyJList OverauthLoggerList = new DiyJList();
+        OverauthLoggerList.setName("OverauthLoggerList");
+        OverauthLoggerList.setPreferredSize(new Dimension(0,0));
+        OverauthLoggerList.setTitle("水平越权");
+
         OverauthLoggerPanel.add(OverauthLoggerTableScrollPane,new GridBagConstraints(
                 0,0,
                 1,1,
-                1,1,
+                0.8,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
+
+        OverauthLoggerPanel.add(OverauthLoggerList,new GridBagConstraints(
+                1,0,
+                1,1,
+                0.1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+
 
         return OverauthLoggerPanel;
     }

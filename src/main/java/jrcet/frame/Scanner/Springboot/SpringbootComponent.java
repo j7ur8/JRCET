@@ -126,11 +126,7 @@ public class SpringbootComponent extends DiyJComponent {
         JTabbedPane jTabbedPane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.WRAP_TAB_LAYOUT);
         jTabbedPane.add("Raw",SpringbootViewRawPanel());
 
-//        jTabbedPane.add("Doc",SpringbootViewDocPanel());
-//        jTabbedPane.add("Druid",SpringbootViewDruidPanel());
-//        jTabbedPane.add("Swagger",SpringbootViewSwaggerPanel());
-//        jTabbedPane.add("Actuator",SpringbootViewActuatorPanel());
-//        jTabbedPane.setSelectedIndex(1);
+
         SpringbootViewPanel.add(jTabbedPane,new GridBagConstraints(
                 0,0,
                 1,1,

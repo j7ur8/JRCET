@@ -67,6 +67,7 @@ public class SpringbootTableEntry {
         this.Length = inf[5];
         this.RequestTime = inf[6];
         this.ResponseTime = inf[7];
+        this.Type = inf[8];
     }
 
     public void setType(String type){
