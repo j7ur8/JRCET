@@ -31,11 +31,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.83</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.github.shibing624</groupId>-->
-<!--            <artifactId>similarity</artifactId>-->
-<!--            <version>1.1.6</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>net.portswigger.burp.extensions</groupId>
             <artifactId>montoya-api</artifactId>
@@ -60,7 +55,6 @@
                     </descriptorRefs>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
-
                 <executions>
                     <execution>
                         <id>make-assembly</id>
@@ -71,7 +65,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- other plugins here -->
         </plugins>
     </build>
 </project>

@@ -14,6 +14,8 @@ public class FastjsonTableEntry {
     private String RequestNumber;
     private String RequestTool;
     private String RequestMethod;
+
+    private Integer RowIndex;
     private String RequestHost;
     private String RequestPath;
     private String RequestTime;
@@ -55,6 +57,13 @@ public class FastjsonTableEntry {
         this.ResponseTime = inf[7];
     }
 
+    public void setRowIndex(Integer rowIndex){
+        RowIndex = rowIndex;
+    }
+
+    public Integer getRowIndex() {
+        return RowIndex;
+    }
 
     public void setRemoved(boolean removed) {
         Removed = removed;
@@ -153,23 +162,14 @@ public class FastjsonTableEntry {
         return FastjsonRequest;
     }
 
-    public HttpResponse getSimplifyFastjsonResponse(){
-        return SimplifyFastjsonResponse;
-    }
 
-    public HttpResponse getSimplifyRawResponse(){
-        return SimplifyRawResponse;
+    public HttpResponse getRawResponse(){
+        return RawResponse;
     }
     public HttpResponse getFastjsonResponse(){
         return FastjsonResponse;
     }
-    public void setSimplifyRawResponse(HttpResponse httpResponse){
-        SimplifyRawResponse = httpResponse;
-    }
 
-    public void setSimplifyFastjsonResponse(HttpResponse httpResponse){
-        SimplifyFastjsonResponse = httpResponse;
-    }
 
     public void setDnslog(String dnslog) {
         Dnslog = dnslog;

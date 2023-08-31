@@ -7,9 +7,11 @@ import burp.api.montoya.http.handler.HttpResponseReceived;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
+import jrcet.diycomponents.DiyJLogTable;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -35,7 +37,9 @@ public class Springboot {
         }
     };
     public static final String SPRINGBOOT = "SPRINGBOOT";
-    public static String SpringbootTableSerialNumber = "1";
+    public static String SpringbootTableSerialNumber = "0";
+
+    private static final ReentrantLock SpringbootTableSerialNumberLock = new ReentrantLock();
     public static ArrayList<String> SpringbootCheckedUrlList = new ArrayList<>();
     public static HashMap<String, SpringbootTableEntry> SpringbootTableEntryMap = new HashMap<>();
 
@@ -43,28 +47,11 @@ public class Springboot {
 
     public static boolean SpringbootDebug = true;
 
-    public static JCheckBox getSpringbootMenuWorkBox(){
-        return (JCheckBox) Helper.getComponent(SpringbootComponentPanel, "SpringbootMenuWorkBox");
-    }
-
-    public static JTable getSpringbootLoggerTable(){
-        return (JTable) Helper.getComponent(SpringbootComponentPanel, "SpringbootLoggerTable");
-    }
-
-    public static String getSpringbootSerialNumber(int row){
-        return (String) getSpringbootLoggerTable().getValueAt(row,0);
-    }
-
-    public static void setSpringbootLoggerTableValueAt(String value, Integer rowIndex, String columnName){
-        getSpringbootLoggerTable().getModel().setValueAt(value, rowIndex, SpringbootColumnMap.get(columnName));
-    }
-
-
-
     public static String springbootCheckRequest(HttpRequestToBeSent requestToBeSent){
 
 
-        String serialNumber = SpringbootTableSerialNumber;
+        String serialNumber = getSpringbootTableSerialNumber();
+
         String requestPath  = requestToBeSent.path();
 
         if(Objects.equals(requestPath, "/")){
@@ -102,41 +89,50 @@ public class Springboot {
                 "",
         };
 
-        if(!SpringbootTableEntryMap.containsKey(serialNumber)){
-            String type="Raw";
-            inf[8] = type;
-            SpringbootTableEntry rowEntry = new SpringbootTableEntry(inf);
-            rowEntry.setRawRequest(requestToBeSent);
-            SpringbootTableEntryMap.put(serialNumber, rowEntry);
-        }
+        String type="Raw";
+        inf[8] = type;
 
         ((DefaultTableModel)getSpringbootLoggerTable().getModel()).addRow(inf);
 
-        SpringbootTableSerialNumber = Integer.toString(Integer.parseInt(SpringbootTableSerialNumber)+1);
+        if(!SpringbootTableEntryMap.containsKey(serialNumber)){
+            SpringbootTableEntry rowEntry = new SpringbootTableEntry(inf);
+            rowEntry.setRawRequest(requestToBeSent);
+            rowEntry.setRowIndex(getSpringbootLoggerTable().getRowByValue(serialNumber));
+            SpringbootTableEntryMap.put(serialNumber, rowEntry);
+        }
+
+
         return  SPRINGBOOT+serialNumber;
     }
 
     public static void springbootCheckResponse(HttpResponseReceived responseReceived, String springbootSerialNumber){
 
-        Integer rowIndex = Integer.parseInt(springbootSerialNumber) - 1;
 
         if(SpringbootDebug)API.logging().output().printf("springbootCheckResponse处理第 %s 个返回包\n", springbootSerialNumber);
 
-        String responseLength = Integer.toString(responseReceived.body().length());
-        String responseTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
-        HttpResponse simplifyRawhttpResponse = responseReceived.withBody(responseReceived.body().subArray(0, Math.min(20000, Integer.parseInt(responseLength))));
+        int    responseLen    = responseReceived.body().length();
+        String responseLength = Integer.toString(responseLen);
+        String responseTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 
-        setSpringbootLoggerTableValueAt(responseLength, rowIndex, "Length");
-        setSpringbootLoggerTableValueAt(responseTime, rowIndex, "responseTime");
+        HttpResponse simplifyRawhttpResponse = responseLen<5000?responseReceived:responseReceived.withBody(responseReceived.body().subArray(0, 5000));
 
+        setSpringbootLoggerTableValueAt(
+                responseLength,
+                SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
+                "Length"
+        );
+        setSpringbootLoggerTableValueAt(
+                responseTime,
+                SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
+                "responseTime"
+        );
 
         SpringbootTableEntryMap.get(springbootSerialNumber).setLength(responseLength);
         SpringbootTableEntryMap.get(springbootSerialNumber).setResponseTime(responseTime);
-        SpringbootTableEntryMap.get(springbootSerialNumber).setRawResponse(responseReceived);
-        SpringbootTableEntryMap.get(springbootSerialNumber).setSimplifyRawResponse(simplifyRawhttpResponse);
+        SpringbootTableEntryMap.get(springbootSerialNumber).setRawResponse(simplifyRawhttpResponse);
+
         SpringbootCheckedUrlList.add(SpringbootTableEntryMap.get(springbootSerialNumber).getRawRequest().url());
 
-        if(SpringbootDebug)API.logging().output().println("springbootCheckResponse开始进行深度检查");
         new springCheckWorker(springbootSerialNumber).execute();
     }
 
@@ -152,17 +148,19 @@ public class Springboot {
         protected Void doInBackground() throws Exception {
             for(String path: SpringbootCheckPaths){
 
-                HttpRequest httpRequest = SpringbootTableEntryMap.get(SerialNumber).getRawRequest().withPath(path);
+                HttpRequest httpRequest = SpringbootTableEntryMap.get(SerialNumber).getRawRequest().withPath(path).withMethod("GET").withBody("");
 
                 String requestUrl = httpRequest.url();
                 if(SpringbootCheckedUrlList.contains(requestUrl)) continue;
 
-                String serialNumber = SpringbootTableSerialNumber;
+                SpringbootCheckedUrlList.add(requestUrl);
+
+                String serialNumber  = getSpringbootTableSerialNumber();
                 String requestMethod = httpRequest.method();
-                String requestHost = httpRequest.httpService().host();
-                String requestTool = "Extensions";
-                String requestPath = httpRequest.path();
-                String requestTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+                String requestHost   = httpRequest.httpService().host();
+                String requestTool   = "Extensions";
+                String requestPath   = httpRequest.path();
+                String requestTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
                 String[] inf = new String[]{
                         serialNumber,
                         requestTool,
@@ -186,20 +184,44 @@ public class Springboot {
                     inf[8]="Actuator";
                 }
 
-                SpringbootTableEntry springbootTableEntry = new SpringbootTableEntry(inf);
                 ((DefaultTableModel)getSpringbootLoggerTable().getModel()).addRow(inf);
 
-                SpringbootCheckedUrlList.add(requestUrl);
+                SpringbootTableEntry springbootTableEntry = new SpringbootTableEntry(inf);
+                springbootTableEntry.setRowIndex(getSpringbootLoggerTable().getRowByValue(serialNumber));
+
                 SpringbootTableEntryMap.put(serialNumber, springbootTableEntry);
 
-                SpringbootTableSerialNumber =Integer.toString(Integer.parseInt(SpringbootTableSerialNumber)+1);
                 new MyRegisterHttpHandler.checkWorker("springboot", serialNumber, httpRequest).execute();
+
                 Thread.sleep(1000);
             }
 
-
             return null;
         }
+    }
+
+    private static String getSpringbootTableSerialNumber() {
+        SpringbootTableSerialNumberLock.lock();
+        SpringbootTableSerialNumber = Integer.toString(Integer.parseInt(SpringbootTableSerialNumber)+1);
+        SpringbootTableSerialNumberLock.unlock();
+
+        return SpringbootTableSerialNumber;
+    }
+
+    public static JCheckBox getSpringbootMenuWorkBox(){
+        return (JCheckBox) Helper.getComponent(SpringbootComponentPanel, "SpringbootMenuWorkBox");
+    }
+
+    public static DiyJLogTable getSpringbootLoggerTable(){
+        return (DiyJLogTable) Helper.getComponent(SpringbootComponentPanel, "SpringbootLoggerTable");
+    }
+
+    public static String getSpringbootSerialNumber(int row){
+        return (String) getSpringbootLoggerTable().getValueAt(row,0);
+    }
+
+    public static void setSpringbootLoggerTableValueAt(String value, Integer rowIndex, String columnName){
+        getSpringbootLoggerTable().getModel().setValueAt(value, rowIndex, SpringbootColumnMap.get(columnName));
     }
 
 }

@@ -1,18 +1,14 @@
 package jrcet.frame.Dencrypt.Aes;
 
-import jrcet.frame.Dencrypt.Hex.Hex;
 import jrcet.help.Helper;
-import jrcet.help.Similarity.util.StringUtil;
+import jrcet.help.StringUtil;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 
 import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
 
 import static burp.MyExtender.API;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesComponentPanel;

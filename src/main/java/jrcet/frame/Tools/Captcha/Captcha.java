@@ -34,7 +34,7 @@ public class Captcha {
             imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode2String(imageText);
             ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode2Byte(imageText));
 
-            return (Objects.equals(tokenRule, "")?"":Helper.matchByRegular(response,tokenRule)) +
+            return (Objects.equals(tokenRule, "") ? "" : Helper.matchByRegular(response,tokenRule)) +
                     getExtStrField().getText()+
                     OCREngine.instance().recognize(ImageIO.read(in));
 

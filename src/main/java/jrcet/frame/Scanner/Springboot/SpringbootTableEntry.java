@@ -11,6 +11,8 @@ public class SpringbootTableEntry {
     private String RequestMethod;
     private String RequestHost;
     private String RequestPath;
+
+    private Integer RowIndex;
     private String RequestTime;
 
     private String ResponseTime;
@@ -91,6 +93,14 @@ public class SpringbootTableEntry {
 
     public String getLength(){
         return Length;
+    }
+
+    public Integer getRowIndex(){
+        return RowIndex;
+    }
+
+    public void setRowIndex(Integer rowIndex){
+        this.RowIndex = rowIndex;
     }
 
     public void setResponseTime(String responseTime){

@@ -1,6 +1,7 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Setting.Setting;
+
+import jrcet.help.Helper;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -91,7 +92,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
         lineNumberList.setCellRenderer(new LineNumberListCellRenderer(textArea));
         lineNumberList.setBorder(
                 BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 0, 0, 1, Setting.gray),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Helper.gray),
                 BorderFactory.createEmptyBorder(0, 1, 0, 2))
         );
 
@@ -100,7 +101,7 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
 
         setPreferredSize(new Dimension(0, 0));
         setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
-        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Setting.gray));
+        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Helper.gray));
         updateLineNumbers();
     }
 

@@ -1,11 +1,14 @@
 package jrcet.diycomponents;
 
 import burp.api.montoya.http.message.params.HttpParameter;
+import burp.api.montoya.http.message.requests.HttpRequest;
+import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.frame.Scanner.Fastjson.FastjsonTableEntry;
 import jrcet.frame.Scanner.Overauth.OverauthTableEntry;
 import jrcet.frame.Scanner.Springboot.SpringbootTableEntry;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -25,19 +28,24 @@ import static jrcet.frame.Scanner.Springboot.SpringbootComponent.*;
 
 public class DiyJLogTable extends JTable {
 
+    private TableModel tableModel = null;
+
     public DiyJLogTable(TableModel model){
         super(model);
 
+        this.tableModel = model;
+
         addPopupMenu();
 
-        getSelectionModel().addListSelectionListener(e-> listSelectionAction());
+        getSelectionModel().addListSelectionListener(this::listSelectionAction);
 
-        setDefaultRenderer(Object.class,setCellRenderer());
+        setDefaultRenderer(Object.class, setCellRenderer());
 
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
-    public TableCellRenderer setCellRenderer(){
+
+    private TableCellRenderer setCellRenderer(){
         return new DefaultTableCellRenderer() {
 
             @Override
@@ -78,7 +86,7 @@ public class DiyJLogTable extends JTable {
         };
     }
 
-    public void addPopupMenu(){
+    private void addPopupMenu(){
         JPopupMenu DiyJLogTablePopupMenu = new JPopupMenu();
 
         JMenuItem delMenItem = new JMenuItem();
@@ -130,12 +138,23 @@ public class DiyJLogTable extends JTable {
         getColumnModel().getColumn(columnIndex).setPreferredWidth(width);
     }
 
+
+    public int getRowByValue(Object value) {
+        for (int i = tableModel.getRowCount() - 1; i >= 0; --i) {
+            if (tableModel.getValueAt(i, 0).equals(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
     public void removeFromScopeAction(){
         int row = getSelectedRow();
-        String requestNumber = "";
+        String serialNumber = "";
         switch (getName()){
             case "OverauthLoggerTable" -> {
-                String rowNumber = getOverAuthRequestNumber(row);
+                String rowNumber = getOverAuthSerialNumber(row);
                 AuthCheckUrlList.remove(AuthCheckEntryMap.get(rowNumber).getHighAuthRequest().url());
                 AuthCheckEntryMap.get(rowNumber).setRemoved(true);
                 OverauthAuthHighauthRequestEditor.setRequest(null);
@@ -146,34 +165,48 @@ public class DiyJLogTable extends JTable {
                 OverauthAuthUnauthResponseEditor.setResponse(null);
             }
             case "FastjsonLoggerTable" -> {
-                requestNumber = getFastjsonRequestNumber(row);
-                FastjsonCheckUrlList.remove(FastjsonEntryMap.get(requestNumber) .getRawRequest().url());
-                FastjsonEntryMap.get(requestNumber).setRemoved(true);
+                serialNumber = getFastjsonSerialNumber(row);
+                FastjsonCheckUrlList.remove(FastjsonEntryMap.get(serialNumber).getRawRequest().url());
+                FastjsonEntryMap.get(serialNumber).setRemoved(true);
                 FastjsonRawRequestEditor.setRequest(null);
                 FastjsonRawResponseEditor.setResponse(null);
                 FastjsonVulRequestEditor.setRequest(null);
                 FastjsonVulResponseEditor.setResponse(null);
             }
             case "SpringbootLoggerTable" -> {
-                requestNumber = getSpringbootSerialNumber(row);
-                SpringbootCheckedUrlList.remove(SpringbootTableEntryMap.get(requestNumber) .getRawRequest().url());
-                SpringbootTableEntryMap.get(requestNumber).setRemoved(true);
+                serialNumber = getSpringbootSerialNumber(row);
+                SpringbootCheckedUrlList.remove(SpringbootTableEntryMap.get(serialNumber) .getRawRequest().url());
+                SpringbootTableEntryMap.get(serialNumber).setRemoved(true);
                 SpringbootRawRequestEditor.setRequest(null);
                 SpringbootRawResponseEditor.setResponse(null);
             }
         }
     }
 
-    public void listSelectionAction(){
+    private void listSelectionAction(ListSelectionEvent e){
+        if(!e.getValueIsAdjusting()){
+            return;
+        }
+
         switch (getName()){
             case "OverauthLoggerTable" -> {
-                OverauthTableEntry overauthTableEntry = AuthCheckEntryMap.get(getOverAuthRequestNumber(getSelectedRow()));
-                OverauthAuthHighauthRequestEditor.setRequest(overauthTableEntry.getHighAuthRequest());
-                OverauthAuthHighauthResponseEditor.setResponse(overauthTableEntry.getSimplifyHighAuthResponse());
-                OverauthAuthLowauthRequestEditor.setRequest(overauthTableEntry.getLowAuthRequest());
-                OverauthAuthLowauthResponseEditor.setResponse(overauthTableEntry.getSimplifyLowAuthResponse());
-                OverauthAuthUnauthRequestEditor.setRequest(overauthTableEntry.getUnAuthRequest());
-                OverauthAuthUnauthResponseEditor.setResponse(overauthTableEntry.getSimplifyUnAuthResponse());
+                OverauthTableEntry overauthTableEntry = AuthCheckEntryMap.get(getOverAuthSerialNumber(getSelectedRow()));
+
+                HttpRequest highAuthRequest = overauthTableEntry.getHighAuthRequest();
+                HttpResponse highAuthResponse = overauthTableEntry.getHighAuthResponse();
+
+                HttpRequest lowAuthRequest = overauthTableEntry.getLowAuthRequest();
+                HttpResponse lowAuthResponse = overauthTableEntry.getLowAuthResponse();
+
+                HttpRequest unAuthRequest = overauthTableEntry.getUnAuthRequest();
+                HttpResponse unAuthResponse = overauthTableEntry.getUnAuthResponse();
+
+                OverauthAuthHighauthRequestEditor.setRequest(highAuthRequest);
+                OverauthAuthHighauthResponseEditor.setResponse(highAuthResponse);
+                OverauthAuthLowauthRequestEditor.setRequest(lowAuthRequest);
+                OverauthAuthLowauthResponseEditor.setResponse(lowAuthResponse);
+                OverauthAuthUnauthRequestEditor.setRequest(unAuthRequest);
+                OverauthAuthUnauthResponseEditor.setResponse(unAuthResponse);
 
                 DiyJList diyJList = getOverauthLoggerList();
                 diyJList.removeAllString();
@@ -182,20 +215,23 @@ public class DiyJLogTable extends JTable {
                 }
             }
             case "FastjsonLoggerTable" -> {
-                FastjsonTableEntry fastjsonTableEntry = FastjsonEntryMap.get(getFastjsonRequestNumber(getSelectedRow()));
+                FastjsonTableEntry fastjsonTableEntry = FastjsonEntryMap.get(getFastjsonSerialNumber(getSelectedRow()));
                 FastjsonRawRequestEditor.setRequest(fastjsonTableEntry.getRawRequest());
-                FastjsonRawResponseEditor.setResponse(fastjsonTableEntry.getSimplifyRawResponse());
+                FastjsonRawResponseEditor.setResponse(fastjsonTableEntry.getRawResponse());
                 FastjsonVulRequestEditor.setRequest(fastjsonTableEntry.getFastjsonRequest());
-                FastjsonVulResponseEditor.setResponse(fastjsonTableEntry.getSimplifyFastjsonResponse());
+                FastjsonVulResponseEditor.setResponse(fastjsonTableEntry.getFastjsonResponse());
             }
             case "SpringbootLoggerTable" -> {
                 SpringbootTableEntry springbootTableEntry = SpringbootTableEntryMap.get(getSpringbootSerialNumber(getSelectedRow()));
 
                 SpringbootRawRequestEditor.setRequest(springbootTableEntry.getRawRequest());
-                SpringbootRawResponseEditor.setResponse(springbootTableEntry.getSimplifyRawResponse());
+                SpringbootRawResponseEditor.setResponse(springbootTableEntry.getRawResponse());
             }
         }
     }
+
+
+
 
     public static void main(String[] args) {
         Object[][] data = {{"1","2","3"},{"11","22","33"}};
@@ -226,6 +262,5 @@ public class DiyJLogTable extends JTable {
         JrcetFrame.setVisible(true);
 
     }
-
 
 }

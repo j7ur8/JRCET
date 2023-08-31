@@ -5,8 +5,6 @@ import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
 import burp.api.montoya.ui.editor.RawEditor;
 import jrcet.diycomponents.*;
-import jrcet.frame.Setting.Database;
-
 
 
 import javax.imageio.ImageIO;
@@ -32,6 +30,8 @@ import static burp.MyExtender.API;
 import static jrcet.Main.JrcetComponentList;
 
 public class Helper {
+
+    public static Color gray =new Color(203,208,209);
 
     /*
     维护的连接
@@ -461,27 +461,7 @@ public class Helper {
         return ret;
     }
 
-    /*
-    获取数据库连接
-     */
-    public static Connection getConnector() {
 
-        try{
-        if(dbConnector!=null && dbConnector.isValid(2)){
-            return dbConnector;
-        }else{
-            String JDBC_DRIVER = Database.JDBC_DRIVER;
-            String DB_URL = Database.DB_URL;
-            String user= Database.user, pass= Database.password;
-
-                Class.forName(JDBC_DRIVER);
-                return DriverManager.getConnection(DB_URL,user,pass);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     public static ImageIcon byte2img(byte[] img) {
         InputStream buffin = new ByteArrayInputStream(img);

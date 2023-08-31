@@ -1,40 +1,31 @@
 package burp;
 
-import burp.api.montoya.collaborator.CollaboratorClient;
-import burp.api.montoya.collaborator.CollaboratorPayload;
-import burp.api.montoya.collaborator.Interaction;
 import burp.api.montoya.core.Annotations;
 import burp.api.montoya.http.handler.*;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
-import burp.api.montoya.internal.ObjectFactoryLocator;
-import jrcet.help.Similarity.CharBasedSimilarity;
-import jrcet.help.Similarity.util.StringUtil;
+import jrcet.help.StringUtil;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 import static burp.MyExtender.API;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
 import static jrcet.frame.Scanner.Overauth.Overauth.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
+import static jrcet.help.Similarity.StringSimilarity.similarity;
 
 public class MyRegisterHttpHandler implements HttpHandler {
 
-    public String[] BlackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js"};
-
-    public static boolean debug = true;
+    public String[] BlackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js","css","svg","otf","woff","woff2"};
 
     @Override
     public RequestToBeSentAction handleHttpRequestToBeSent(HttpRequestToBeSent requestToBeSent) {
 
         //不接受Extensions和Intruder的流量
         String requestTool = requestToBeSent.toolSource().toolType().toolName();
-        String requestMethod = requestToBeSent.method();
         switch (requestTool) {
             case "Extensions", "Intruder" -> {
                 return RequestToBeSentAction.continueWith(requestToBeSent);
@@ -55,8 +46,8 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //sprintboot检查过的url
         String springbootNote = "";
 
-        if(Objects.equals(requestMethod, "GET") && getSpringbootMenuWorkBox().isSelected() && !SpringbootCheckedUrlList.contains(requestToBeSent.url())){
-
+        if(getSpringbootMenuWorkBox().isSelected() && !SpringbootCheckedUrlList.contains(requestToBeSent.url())){
+            API.logging().output().println("start springboot");
             springbootNote = springbootCheckRequest(requestToBeSent);
         }
 
@@ -120,50 +111,56 @@ public class MyRegisterHttpHandler implements HttpHandler {
         protected Void doInBackground() {
 
             HttpRequestResponse httpRequestResponse = API.http().sendRequest(httpRequest);
+
             HttpRequest  ihttpRequest = httpRequestResponse.request();
             HttpResponse ihttpResponse = httpRequestResponse.response();
-            HttpResponse iSimplifyhttpResponse = ihttpResponse.withBody(ihttpResponse.body().subArray(0,Math.min(20000,ihttpResponse.body().length())));
-            int rowIndex = Integer.parseInt(number) - 1;
+            int responseLength = ihttpResponse.body().length();
+            ihttpResponse = responseLength<5000?ihttpResponse:ihttpResponse.withBody(ihttpResponse.body().subArray(0, 4999));
+
+            int rowIndex;
             switch (type) {
                 case "unAuth" -> {
+                    rowIndex = AuthCheckEntryMap.get(number).getRowIndex();
                     AuthCheckEntryMap.get(number).setUnAuthRequest(ihttpRequest);
                     AuthCheckEntryMap.get(number).setUnAuthResponse(ihttpResponse);
-                    AuthCheckEntryMap.get(number).setSimplifyUnAuthResponse(iSimplifyhttpResponse);
-                    double unAuthSimilarity = CharBasedSimilarity.getInstance().getSimilarity(AuthCheckEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
-                    if (unAuthSimilarity >= 0.9) {
+
+                    double unAuthSimilarity = similarity(AuthCheckEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
+
+                    if (unAuthSimilarity >= 0.9 && unAuthSimilarity <=1.0) {
                         AuthCheckEntryMap.get(number).setUnAuth("True");
                         setOverauthLoggerTableValueAt("True", rowIndex, "UnAuth");
                     }
                 }
                 case "lowAuth" -> {
+                    rowIndex = AuthCheckEntryMap.get(number).getRowIndex();
+
                     AuthCheckEntryMap.get(number).setLowAuthRequest(ihttpRequest);
-                    AuthCheckEntryMap.get(number).setUnAuthResponse(ihttpResponse);
-                    AuthCheckEntryMap.get(number).setSimplifyLowAuthResponse(iSimplifyhttpResponse);
-                    double lowAuthSimilarity = CharBasedSimilarity.getInstance().getSimilarity(AuthCheckEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
-                    if (lowAuthSimilarity >= 0.9) {
+                    AuthCheckEntryMap.get(number).setLowAuthResponse(ihttpResponse);
+
+                    double lowAuthSimilarity = similarity(AuthCheckEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
+
+                    if (lowAuthSimilarity >= 0.9 && lowAuthSimilarity <=1.0) {
                         AuthCheckEntryMap.get(number).setOverAuth("True");
                         setOverauthLoggerTableValueAt("True", rowIndex, "OverAuth");
                     }
                 }
 
                 case "fastjson" -> {
-
                     FastjsonEntryMap.get(number).setFastjsonRequest(ihttpRequest);
                     FastjsonEntryMap.get(number).setFastjsonResponse(ihttpResponse);
-                    FastjsonEntryMap.get(number).setSimplifyFastjsonResponse(iSimplifyhttpResponse);
                 }
 
                 case "springboot" -> {
 
-                    String responseLength = Integer.toString(ihttpResponse.body().length());
+                    rowIndex = SpringbootTableEntryMap.get(number).getRowIndex();
+
                     String responseTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
-                    setSpringbootLoggerTableValueAt(responseLength, rowIndex, "Length");
+                    setSpringbootLoggerTableValueAt(String.valueOf(responseLength), rowIndex, "Length");
                     setSpringbootLoggerTableValueAt(responseTime, rowIndex, "responseTime");
 
                     SpringbootTableEntryMap.get(number).setRawRequest(ihttpRequest);
                     SpringbootTableEntryMap.get(number).setRawResponse(ihttpResponse);
-                    SpringbootTableEntryMap.get(number).setSimplifyRawResponse(iSimplifyhttpResponse);
-                    SpringbootTableEntryMap.get(number).setLength(responseLength);
+                    SpringbootTableEntryMap.get(number).setLength(String.valueOf(responseLength));
                     SpringbootTableEntryMap.get(number).setResponseTime(responseTime);
 
                 }

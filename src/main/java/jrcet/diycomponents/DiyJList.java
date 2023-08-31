@@ -1,7 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Jrcet;
-import jrcet.frame.Setting.Setting;
+import jrcet.help.Helper;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -44,7 +43,7 @@ public class DiyJList extends JScrollPane {
     }
 
     public void setTitle(String title){
-        Jlist.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0, Setting.gray),title,TitledBorder.CENTER,TitledBorder.CENTER));
+        Jlist.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0, Helper.gray),title,TitledBorder.CENTER,TitledBorder.CENTER));
     }
 
     public JList<?> getJlist() {

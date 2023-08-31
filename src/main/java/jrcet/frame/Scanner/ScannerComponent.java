@@ -36,10 +36,8 @@ public class ScannerComponent extends DiyJComponent {
         JTabbedPane ScannerTabbedPane = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
         ScannerTabbedPane.setName("ScannerTabbedPane");
         ScannerTabbedPane.add("OverAuth",new OverauthComponent().component());
-
         ScannerTabbedPane.add("FastJson",new FastjsonComponent().component());
         ScannerTabbedPane.add("Springboot",new SpringbootComponent().component());
-        ScannerTabbedPane.setSelectedIndex(2);
 
         return ScannerTabbedPane;
     }

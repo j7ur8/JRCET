@@ -35,12 +35,9 @@ public class ToolsComponent extends DiyJComponent {
         JTabbedPane ToolsTabbedPane = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
         ToolsTabbedPane.setName("ToolsTabbedPane");
 
-        ToolsTabbedPane.add("RScript", new JPanel());
-
         ToolsTabbedPane.add("Captcha", new CaptchaComponent().component());
         ToolsTabbedPane.add("Password", new PasswordComponent().component());
 
-        ToolsTabbedPane.setSelectedIndex(2);
         return ToolsTabbedPane;
     }
 

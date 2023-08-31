@@ -3,9 +3,8 @@ package jrcet.frame.Tools.Captcha;
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
 import jrcet.diycomponents.*;
+import jrcet.help.Helper;
 
-
-import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +24,7 @@ public class CaptchaComponent extends DiyJComponent {
         CaptchaComponentPanel = new JPanel(new GridBagLayout());
         CaptchaComponentPanel.setName("CaptchaComponentPanel");
         CaptchaComponentPanel.setBackground(Color.WHITE);
-        CaptchaComponentPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Setting.gray));
+        CaptchaComponentPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Helper.gray));
 
         CaptchaComponentPanel.add(CaptchaMenuPanel(), new GridBagConstraints(
                 0,0,

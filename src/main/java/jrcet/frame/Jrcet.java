@@ -5,9 +5,7 @@ import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.Asset.AssetComponent;
 import jrcet.frame.Dencrypt.DencryptComponent;
 import jrcet.frame.HText.HTextComponent;
-import jrcet.frame.Intruder.IntruderComponent;
 import jrcet.frame.Scanner.ScannerComponent;
-import jrcet.frame.Setting.SettingComponent;
 import jrcet.frame.Tools.ToolsComponent;
 
 import javax.swing.*;
@@ -42,16 +40,13 @@ public class Jrcet extends DiyJComponent {
         JrcetTabbedPane.setName("JrcetTabbedPane");
 
         JrcetTabbedPane.setName("JrcetTabbedPane");
-        JrcetTabbedPane.add("Setting", new SettingComponent().component());
         JrcetTabbedPane.add("Exploit",new JPanel());
         JrcetTabbedPane.add("Dencrypt", new DencryptComponent().component());
         JrcetTabbedPane.add("HText", new HTextComponent().component());
         JrcetTabbedPane.add("Tools",new ToolsComponent().component());
-        JrcetTabbedPane.add("Intruder",new IntruderComponent().component());
+//        JrcetTabbedPane.add("Intruder",new IntruderComponent().component());
         JrcetTabbedPane.add("Scanner",new ScannerComponent().component());
         JrcetTabbedPane.add("Asset",new AssetComponent().component());
-
-        JrcetTabbedPane.setSelectedIndex(6);
 
         return  JrcetTabbedPane;
     }

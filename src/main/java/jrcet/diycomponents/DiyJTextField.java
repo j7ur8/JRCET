@@ -1,6 +1,6 @@
 package jrcet.diycomponents;
 
-import jrcet.frame.Setting.Setting;
+import jrcet.help.Helper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +16,9 @@ public class DiyJTextField extends JPanel{
 //        setName(title+"Panel");
 
         titleLabel = new JLabel(title);
-        titleLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,1,1,1, Setting.gray),BorderFactory.createEmptyBorder(0,2,1,2)));
+        titleLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,1,1,1, Helper.gray),BorderFactory.createEmptyBorder(0,2,1,2)));
         bodyField = new JTextField();
-        bodyField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,0,1,1, Setting.gray),BorderFactory.createEmptyBorder(0,2,1,2)));
+        bodyField.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,0,1,1, Helper.gray),BorderFactory.createEmptyBorder(0,2,1,2)));
 
         add(titleLabel,  new GridBagConstraints(
                 0,0,

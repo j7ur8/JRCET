@@ -5,16 +5,10 @@ import burp.api.montoya.ui.editor.HttpResponseEditor;
 import jrcet.diycomponents.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import static burp.MyExtender.API;
-import static burp.MyRegisterHttpHandler.*;
-import static jrcet.frame.Scanner.Overauth.Overauth.getOverAuthRequestNumber;
 
 public class OverauthComponent extends DiyJComponent {
 

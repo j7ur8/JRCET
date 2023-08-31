@@ -1,4 +1,4 @@
-package jrcet.help.Similarity.util;
+package jrcet.help;
 
 //
 // Source code recreated from a .class file by IntelliJ IDEA

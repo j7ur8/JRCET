@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,12 +23,12 @@ import java.util.Objects;
 
 import static burp.MyExtender.API;
 import static jrcet.Main.centerInScreen;
-import static jrcet.frame.Setting.Setting.clipboard;
 import static jrcet.frame.Tools.RScript.RScript.*;
 import static jrcet.help.Helper.getEncoding;
 
 public class RScriptContextMenuItemActionListener implements ActionListener {
 
+    private static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private final ContextMenuEvent event;
     private final Map<String,String> URLParameterMap = new HashMap<>();
     private final Map<String,String> CookieParameterMap = new HashMap<>();

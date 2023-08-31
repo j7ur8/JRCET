@@ -2,7 +2,6 @@ package jrcet.frame.Tools.Password;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.frame.Setting.Setting;
 import jrcet.help.Helper;
 
 import javax.swing.*;
@@ -17,7 +16,7 @@ public class PasswordComponent extends DiyJComponent {
         PasswordComponentPanel = new JPanel(new GridBagLayout());
         PasswordComponentPanel.setName("CaptchaComponentPanel");
         PasswordComponentPanel.setBackground(Color.WHITE);
-        PasswordComponentPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Setting.gray));
+        PasswordComponentPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Helper.gray));
 
         PasswordComponentPanel.add(PasswordMainPanel(), new GridBagConstraints(
                 0,0,
@@ -85,7 +84,7 @@ public class PasswordComponent extends DiyJComponent {
         JComponent PasswordMainTopPanel = new JPanel(new GridBagLayout());
         PasswordMainTopPanel.setName("PasswordMainTopPanel");
         PasswordMainTopPanel.setPreferredSize(new Dimension(0,30));
-        PasswordMainTopPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Setting.gray));
+        PasswordMainTopPanel.setBorder(BorderFactory.createMatteBorder(0,0,1,0, Helper.gray));
         PasswordMainTopPanel.setBackground(Color.WHITE);
 
         JTextField PasswordMainTopNameField = new JTextField("");
@@ -133,7 +132,7 @@ public class PasswordComponent extends DiyJComponent {
         PasswordCentralPanel.setName("PasswordCentralPanel");
         PasswordCentralPanel.setPreferredSize(new Dimension(0,0));
         PasswordCentralPanel.setBackground(Color.WHITE);
-        PasswordCentralPanel.setBorder(BorderFactory.createMatteBorder(0,1,0,0, Setting.gray));
+        PasswordCentralPanel.setBorder(BorderFactory.createMatteBorder(0,1,0,0, Helper.gray));
 
         DiyJTextAreaScrollPane PasswordCentralDictAreaScrollPane = new DiyJTextAreaScrollPane("PasswordCentralDictArea");
         PasswordCentralDictAreaScrollPane.setPreferredSize(new Dimension(0,0));

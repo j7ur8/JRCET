@@ -1,25 +1,21 @@
-package burp;
+package jrcet.frame.Intruder;
 
 import burp.api.montoya.core.ByteArray;
-import burp.api.montoya.intruder.IntruderInsertionPoint;
 import burp.api.montoya.intruder.PayloadData;
 import burp.api.montoya.intruder.PayloadProcessingResult;
 import burp.api.montoya.intruder.PayloadProcessor;
-import jrcet.frame.Intruder.Intruder;
+import jrcet.frame.Tools.Captcha.Captcha;
 
-
-public class MyPayloadProcessor implements PayloadProcessor {
+public class CaptchaPayloadProcessor implements PayloadProcessor {
     @Override
     public String displayName() {
-        return "JIntruder";
+        return "J-Captcha";
     }
 
     @Override
     public PayloadProcessingResult processPayload(PayloadData payloadData) {
-        String newPayload = "";
-        newPayload = Intruder.invokeDiy(payloadData.currentPayload().getBytes());
+
+        byte[] newPayload = Captcha.identifyCaptchaForIntruder().getBytes();
         return PayloadProcessingResult.usePayload(ByteArray.byteArray(newPayload));
     }
-
-
 }

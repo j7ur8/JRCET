@@ -2,7 +2,6 @@ package jrcet.frame.Dencrypt.Rsa;
 
 import jrcet.diycomponents.*;
 import jrcet.help.Helper;
-import jrcet.frame.Setting.Setting;
 
 import javax.swing.*;
 

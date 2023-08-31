@@ -16,24 +16,23 @@ public class OverauthTableEntry {
 
     private String ResponseTime;
 
+    private Integer RowIndex;
+
     private String Length;
 
-    private HttpRequest HighAuthRequest;
+    private HttpRequest HighAuthRequest = null;
 
-    private HttpResponse HighAuthResponse;
-    private HttpResponse SimplifyHighAuthResponse;
+    private HttpResponse HighAuthResponse = null;
 
-    private HttpRequest LowAuthRequest;
+    private HttpRequest LowAuthRequest = null;
 
-    private HttpResponse LowAuthResponse;
+    private HttpResponse LowAuthResponse = null;
 
-    private HttpResponse SimplifyLowAuthResponse;
 
-    private HttpRequest UnAuthRequest;
+    private HttpRequest UnAuthRequest = null;
 
-    private HttpResponse UnAuthResponse;
+    private HttpResponse UnAuthResponse = null;
 
-    private HttpResponse SimplifyUnAuthResponse;
 
     private String OverAuth;
 
@@ -81,6 +80,14 @@ public class OverauthTableEntry {
 
     public void setResponseTime(String responseTime){
         this.ResponseTime = responseTime;
+    }
+
+    public void setRowIndex(Integer id){
+        this.RowIndex = id;
+    }
+
+    public Integer getRowIndex(){
+        return RowIndex;
     }
 
     public String getResponseTime(){
@@ -176,6 +183,9 @@ public class OverauthTableEntry {
         return UnAuthRequest;
     }
 
+    public HttpResponse getUnAuthResponse(){
+        return UnAuthResponse;
+    }
     public void setUnAuthResponse(HttpResponse response){
         this.UnAuthResponse = response;
     }
@@ -184,32 +194,6 @@ public class OverauthTableEntry {
         return HighAuthResponse;
     }
 
-    public void setSimplifyUnAuthResponse(HttpResponse response) {
-        this.SimplifyUnAuthResponse = response;
-    }
-
-
-
-    public void setSimplifyHighAuthResponse(HttpResponse response) {
-        this.SimplifyHighAuthResponse = response;
-    }
-
-
-    public HttpResponse getSimplifyHighAuthResponse() {
-        return SimplifyHighAuthResponse;
-    }
-    public void setSimplifyLowAuthResponse(HttpResponse response) {
-        this.SimplifyLowAuthResponse = response;
-    }
-
-
-    public HttpResponse getSimplifyLowAuthResponse() {
-        return SimplifyLowAuthResponse;
-    }
-
-    public HttpResponse getSimplifyUnAuthResponse() {
-        return SimplifyUnAuthResponse;
-    }
 
     public void setUnAuth(String aTrue) {
         this.UnAuth = aTrue;

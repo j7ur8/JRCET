@@ -9,19 +9,21 @@ import burp.api.montoya.http.message.params.ParsedHttpParameter;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.diycomponents.DiyJList;
+import jrcet.diycomponents.DiyJLogTable;
 import jrcet.help.Helper;
-import jrcet.help.Similarity.util.StringUtil;
+import jrcet.help.StringUtil;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
-import static burp.MyExtender.API;
 import static jrcet.frame.Scanner.Overauth.OverauthComponent.OverauthComponentPanel;
 
 public class Overauth {
+
+
 
 
     private static final HashMap<String, Integer> ColumnMap = new HashMap<>(){
@@ -44,7 +46,9 @@ public class Overauth {
 auth
  */
     public static final String AUTH = "AUTH";
-    public static String AuthCheckRequestNumber = "1";
+    public static String OverauthTableSerialNumber = "0";
+    private static final ReentrantLock OverauthTableSerialNumberLock = new ReentrantLock();
+
     public static ArrayList<String> AuthCheckUrlList = new ArrayList<>();
 
     public static HashMap<String, OverauthTableEntry> AuthCheckEntryMap = new HashMap<>();
@@ -56,8 +60,8 @@ auth
         getOverauthLoggerTable().getModel().setValueAt(value, rowIndex, ColumnMap.get(columnName));
     }
 
-    public static JTable getOverauthLoggerTable(){
-        return (JTable) Helper.getComponent(OverauthComponentPanel,"OverauthLoggerTable");
+    public static DiyJLogTable getOverauthLoggerTable(){
+        return (DiyJLogTable) Helper.getComponent(OverauthComponentPanel,"OverauthLoggerTable");
     }
 
     private static JTextField getField(String filedName){
@@ -76,7 +80,7 @@ auth
         return getField("OverauthMenuLowauthField");
     }
 
-    public static String getOverAuthRequestNumber(int row){
+    public static String getOverAuthSerialNumber(int row){
         return (String) getOverauthLoggerTable().getValueAt(row,0);
     }
 
@@ -94,6 +98,7 @@ auth
             return "";
         }
 
+        AuthCheckUrlList.add(requestToBeSent.url());
 
         //设置有水平越权的字段
 
@@ -107,11 +112,11 @@ auth
 
 
         // 设置authcheck table
-        String requestNumber = AuthCheckRequestNumber;
+        String requestNumber = getOverauthTableSerialNumber();
         String requestMethod = requestToBeSent.method();
         String requestTool   = requestToBeSent.toolSource().toolType().toolName();
         String requestPath   = requestToBeSent.path();
-        String requestTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+        String requestTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SS").format(new Date());
         String[] inf         = new String[]{
                 requestNumber,
                 requestTool,
@@ -125,40 +130,43 @@ auth
                 ""
         };
 
+        ((DefaultTableModel) getOverauthLoggerTable().getModel()).addRow(inf);
 
         OverauthTableEntry rowEntry = new OverauthTableEntry(inf);
         rowEntry.setHighAuthRequest(requestToBeSent);
+        rowEntry.setRowIndex(getOverauthLoggerTable().getRowByValue(requestNumber));
         rowEntry.setHorizontalOverAuthParameters(HorizontalOverAuthParameters);
-        AuthCheckEntryMap.put(AuthCheckRequestNumber, rowEntry);
 
-        ((DefaultTableModel) getOverauthLoggerTable().getModel()).addRow(inf);
-
-        AuthCheckRequestNumber = Integer.toString(Integer.parseInt(AuthCheckRequestNumber)+1);
+        AuthCheckEntryMap.put(requestNumber, rowEntry);
 
         return AUTH + requestNumber;
     }
 
-
     public static void authCheckResponse(HttpResponseReceived responseReceived, String authRequestNumber){
 
 
+        int responseLen = responseReceived.body().length();
+        String responseLength = Integer.toString(responseLen);
 
-        AuthCheckEntryMap.get(authRequestNumber).setHighAuthResponse(responseReceived);
+        String responseTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SS").format(new Date());
 
-        String responseLength = Integer.toString(responseReceived.body().length());
-        String responseTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+        HttpResponse highAuthResponse = responseLen<5000?responseReceived:responseReceived.withBody(responseReceived.body().subArray(0, 4999));
 
-
-        HttpResponse iSimplifyHighAuthhttpResponse = responseReceived.withBody(responseReceived.body().subArray(0, Math.min(20000, Integer.parseInt(responseLength))));
-
-        setOverauthLoggerTableValueAt(responseLength,Integer.parseInt(authRequestNumber)-1,"Length");
-        setOverauthLoggerTableValueAt(responseTime,Integer.parseInt(authRequestNumber)-1, "responseTime");
+        setOverauthLoggerTableValueAt(
+                responseLength,
+                AuthCheckEntryMap.get(authRequestNumber).getRowIndex(),
+                "Length"
+        );
+        setOverauthLoggerTableValueAt(
+                responseTime,
+                AuthCheckEntryMap.get(authRequestNumber).getRowIndex(),
+                "responseTime"
+        );
 
         AuthCheckEntryMap.get(authRequestNumber).setLength(responseLength);
         AuthCheckEntryMap.get(authRequestNumber).setResponseTime(responseTime);
-        AuthCheckEntryMap.get(authRequestNumber).setSimplifyHighAuthResponse(iSimplifyHighAuthhttpResponse);
+        AuthCheckEntryMap.get(authRequestNumber).setHighAuthResponse(highAuthResponse);
 
-        AuthCheckUrlList.add(AuthCheckEntryMap.get(authRequestNumber).getHighAuthRequest().url());
 
         // 测试越权
         String highAuth = getOverauthMenuHighauthField().getText();
@@ -181,6 +189,16 @@ auth
         HttpRequest unAuthHttpRequest =  HttpRequest.httpRequest(httpService,highAuthHttpReuqestString.replace(highAuth,""));
 
         new MyRegisterHttpHandler.checkWorker("unAuth",authRequestNumber,unAuthHttpRequest).execute();
+
     }
+
+    private static String getOverauthTableSerialNumber() {
+        OverauthTableSerialNumberLock.lock();
+        OverauthTableSerialNumber = Integer.toString(Integer.parseInt(OverauthTableSerialNumber)+1);
+        OverauthTableSerialNumberLock.unlock();
+
+        return OverauthTableSerialNumber;
+    }
+
 
 }
