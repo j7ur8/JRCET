@@ -13,7 +13,7 @@ import jrcet.frame.Dencrypt.Unicode.Unicode;
 import java.awt.*;
 import java.nio.charset.StandardCharsets;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 
 public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorProvider {
 
@@ -28,7 +28,7 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
         HttpRequestResponse MyHttpRequestResponse;
         RawEditor MyExtenderEditor;
         MyExtensionHttpResponseEditor(){
-            MyExtenderEditor = API.userInterface().createRawEditor();
+            MyExtenderEditor = BurpAPI.userInterface().createRawEditor();
         }
 
         @Override

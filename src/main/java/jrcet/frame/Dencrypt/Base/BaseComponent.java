@@ -67,6 +67,7 @@ public class BaseComponent extends DiyJComponent {
         DiyJComboBox<String> BaseMenuTypeBox = new DiyJComboBox<>(new String[]{"Base16","Base32","Base36","Base58","Base62","Base64","Base85","Base91","Base92","Base128"});
         BaseMenuTypeBox.setName("BaseMenuTypeBox");
         BaseMenuTypeBox.setPreferredSize(new Dimension(0,0));
+        BaseMenuTypeBox.setSelectedIndex(5);
         BaseMenuPanel.add(BaseMenuTypeBox,new GridBagConstraints(
                 0,0,
                 1,1,

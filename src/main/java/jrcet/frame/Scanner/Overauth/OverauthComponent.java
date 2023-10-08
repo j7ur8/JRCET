@@ -8,19 +8,19 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 
 public class OverauthComponent extends DiyJComponent {
 
     public static JComponent OverauthComponentPanel = null;
-    public static HttpRequestEditor OverauthAuthHighauthRequestEditor = API.userInterface().createHttpRequestEditor();
-    public static HttpResponseEditor OverauthAuthHighauthResponseEditor = API.userInterface().createHttpResponseEditor();
+    public static HttpRequestEditor OverauthAuthHighauthRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
+    public static HttpResponseEditor OverauthAuthHighauthResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
 
-    public static HttpRequestEditor OverauthAuthLowauthRequestEditor = API.userInterface().createHttpRequestEditor();
-    public static HttpResponseEditor OverauthAuthLowauthResponseEditor = API.userInterface().createHttpResponseEditor();
+    public static HttpRequestEditor OverauthAuthLowauthRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
+    public static HttpResponseEditor OverauthAuthLowauthResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
 
-    public static HttpRequestEditor OverauthAuthUnauthRequestEditor = API.userInterface().createHttpRequestEditor();
-    public static HttpResponseEditor OverauthAuthUnauthResponseEditor = API.userInterface().createHttpResponseEditor();
+    public static HttpRequestEditor OverauthAuthUnauthRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
+    public static HttpResponseEditor OverauthAuthUnauthResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
 
 
     @Override
@@ -69,7 +69,7 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerPanel.setBackground(Color.WHITE);
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","OverAuth","UnAuth"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","OverAuth","UnAuth"};
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         DiyJLogTable OverauthLoggerTable = new DiyJLogTable(model);
 
@@ -80,10 +80,11 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerTable.setColumnPreferredWidth(3, 200);
         OverauthLoggerTable.setColumnPreferredWidth(4, 300);
         OverauthLoggerTable.setColumnPreferredWidth(5, 75);
-        OverauthLoggerTable.setColumnPreferredWidth(6, 150);
+        OverauthLoggerTable.setColumnPreferredWidth(6, 75);
         OverauthLoggerTable.setColumnPreferredWidth(7, 150);
-        OverauthLoggerTable.setColumnPreferredWidth(8, 100);
+        OverauthLoggerTable.setColumnPreferredWidth(8, 150);
         OverauthLoggerTable.setColumnPreferredWidth(9, 100);
+        OverauthLoggerTable.setColumnPreferredWidth(10, 100);
 
         JScrollPane OverauthLoggerTableScrollPane = new JScrollPane(OverauthLoggerTable);
         OverauthLoggerTableScrollPane.setName("OverauthLoggerTableScrollPane");

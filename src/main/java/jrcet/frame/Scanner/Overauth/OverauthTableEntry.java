@@ -42,6 +42,16 @@ public class OverauthTableEntry {
 
     private boolean Removed = false;
 
+    private String Code;
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
+    public String getCode(){
+        return Code;
+    }
+
 //    public Boolean Check = false;
     public OverauthTableEntry(String[] inf){
         this.RequestNumber = inf[0];

@@ -10,7 +10,7 @@ import javax.swing.*;
 
 import java.nio.charset.StandardCharsets;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Dencrypt.Des.DesComponent.DesComponentPanel;
 import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
@@ -58,7 +58,7 @@ public class Des {
         try{
             result  = Encrypt(plainText, Mode, Key, KeyType, Iv, IvType);
         }catch (Exception e){
-            API.logging().error().println(result);
+            BurpAPI.logging().error().println(result);
         }
 
         return result;
@@ -76,7 +76,7 @@ public class Des {
         try{
             result  = Decrypt(plainText, Mode, Key, KeyType, Iv, IvType);
         }catch (Exception e){
-            API.logging().error().println(result);
+            BurpAPI.logging().error().println(result);
         }
 
         return result;

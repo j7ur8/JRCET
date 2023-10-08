@@ -23,9 +23,6 @@ import static jrcet.frame.Scanner.Overauth.OverauthComponent.OverauthComponentPa
 
 public class Overauth {
 
-
-
-
     private static final HashMap<String, Integer> ColumnMap = new HashMap<>(){
         {
             put("#", 0);
@@ -33,18 +30,16 @@ public class Overauth {
             put("Method", 2);
             put("Host", 3);
             put("Path", 4);
-            put("Length", 5);
-            put("requestTime", 6);
-            put("responseTime", 7);
-            put("OverAuth", 8);
-            put("UnAuth", 9);
-            put("FlatAuth", 10);
+            put("Code", 5);
+            put("Length", 6);
+            put("requestTime", 7);
+            put("responseTime", 8);
+            put("OverAuth", 9);
+            put("UnAuth", 10);
+            put("FlatAuth", 11);
         }
     };
 
-    /*
-auth
- */
     public static final String AUTH = "AUTH";
     public static String OverauthTableSerialNumber = "0";
     private static final ReentrantLock OverauthTableSerialNumberLock = new ReentrantLock();
@@ -54,7 +49,6 @@ auth
     public static HashMap<String, OverauthTableEntry> AuthCheckEntryMap = new HashMap<>();
 
     public static boolean OverauthDebug = true;
-
 
     public static void setOverauthLoggerTableValueAt(String value, Integer rowIndex, String columnName){
         getOverauthLoggerTable().getModel().setValueAt(value, rowIndex, ColumnMap.get(columnName));
@@ -124,6 +118,7 @@ auth
                 requestHost,
                 requestPath,
                 "",
+                "",
                 requestTime,
                 "",
                 "",
@@ -147,7 +142,7 @@ auth
 
         int responseLen = responseReceived.body().length();
         String responseLength = Integer.toString(responseLen);
-
+        String responseCode   = String.valueOf(responseReceived.statusCode());
         String responseTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SS").format(new Date());
 
         HttpResponse highAuthResponse = responseLen<5000?responseReceived:responseReceived.withBody(responseReceived.body().subArray(0, 4999));
@@ -163,6 +158,13 @@ auth
                 "responseTime"
         );
 
+        setOverauthLoggerTableValueAt(
+                responseCode,
+                AuthCheckEntryMap.get(authRequestNumber).getRowIndex(),
+                "Code"
+        );
+
+        AuthCheckEntryMap.get(authRequestNumber).setCode(responseCode);
         AuthCheckEntryMap.get(authRequestNumber).setLength(responseLength);
         AuthCheckEntryMap.get(authRequestNumber).setResponseTime(responseTime);
         AuthCheckEntryMap.get(authRequestNumber).setHighAuthResponse(highAuthResponse);

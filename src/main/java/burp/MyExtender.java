@@ -2,14 +2,12 @@ package burp;
 
 import burp.api.montoya.BurpExtension;
 import burp.api.montoya.MontoyaApi;
-import jrcet.frame.Dencrypt.Hex.Hex;
-import jrcet.frame.Dencrypt.Jwt.Jwt;
 import jrcet.frame.Intruder.*;
 import jrcet.frame.Jrcet;
 
 public class MyExtender implements BurpExtension{
 
-    public static MontoyaApi API;
+    public static MontoyaApi BurpAPI;
 
     public MyExtender(){
     }
@@ -17,25 +15,24 @@ public class MyExtender implements BurpExtension{
     @Override
     public void initialize(MontoyaApi api) {
 
-        MyExtender.API =api;
-        API.extension().setName("JRCET");
-        API.userInterface().registerSuiteTab("JRCET",new Jrcet().component());
+        MyExtender.BurpAPI =api;
+        BurpAPI.extension().setName("JRCET");
+        BurpAPI.userInterface().registerSuiteTab("JRCET",new Jrcet().component());
 
-        API.intruder().registerPayloadProcessor(new CaptchaPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new AesPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new AsciiPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new BasePayloadProcessor());
-        API.intruder().registerPayloadProcessor(new DesPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new HexPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new JwtPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new RsaPayloadProcessor());
-        API.intruder().registerPayloadProcessor(new UnicodePayloadProcessor());
-        API.intruder().registerPayloadProcessor(new UrlPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new CaptchaPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new AesPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new AsciiPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new BasePayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new DesPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new HexPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new JwtPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new RsaPayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new UnicodePayloadProcessor());
+        BurpAPI.intruder().registerPayloadProcessor(new UrlPayloadProcessor());
 
-
-                API.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
-        API.userInterface().registerHttpResponseEditorProvider(new MyRegisterHttpResponseEditorProvider());
-        API.http().registerHttpHandler(new MyRegisterHttpHandler());
+        BurpAPI.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
+        BurpAPI.userInterface().registerHttpResponseEditorProvider(new MyRegisterHttpResponseEditorProvider());
+        BurpAPI.http().registerHttpHandler(new MyRegisterHttpHandler());
 
     }
 

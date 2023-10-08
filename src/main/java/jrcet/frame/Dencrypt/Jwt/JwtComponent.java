@@ -1,9 +1,15 @@
 package jrcet.frame.Dencrypt.Jwt;
 
+import com.alibaba.fastjson.JSONObject;
 import jrcet.diycomponents.*;
+import jrcet.help.Helper;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+
+import static burp.MyExtender.BurpAPI;
 
 
 public class JwtComponent extends DiyJComponent {
@@ -20,6 +26,7 @@ public class JwtComponent extends DiyJComponent {
 
     public static DiyJTextAreaScrollPane JwtPlainPrivateArea = new DiyJTextAreaScrollPane("JwtPlainPrivateArea");
 
+    private static final DiyJComboBox<String> JwtMenuTypeBox = new DiyJComboBox<>(new String[]{"HS256","HS384","HS512","RS256","RS384","RS512","ES256","ES384","ES512"});
 
     public static DiyJTextAreaScrollPane JwtCipherArea = new DiyJTextAreaScrollPane("JwtCipherArea");
     public JComponent component(){
@@ -66,7 +73,6 @@ public class JwtComponent extends DiyJComponent {
         JwtMenuPanel.setName("JwtMenuPanel");
         JwtMenuPanel.setPreferredSize(new Dimension(0,30));
 
-        DiyJComboBox<String> JwtMenuTypeBox = new DiyJComboBox<>(new String[]{"HS256","HS384","HS512","RS256","RS384","RS512","ES256","ES384","ES512"});
         JwtMenuTypeBox.setName("JwtMenuTypeBox");
         JwtMenuTypeBox.setPreferredSize(new Dimension(0,0));
         JwtMenuPanel.add(JwtMenuTypeBox,new GridBagConstraints(
@@ -147,11 +153,38 @@ public class JwtComponent extends DiyJComponent {
 
     public JComponent JwtAreaPanel(){
         JwtCipherArea.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.gray),"JWT Token"));
+        JwtCipherArea.getTextArea().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String jwtToken = JwtCipherArea.getText();
+                if(Jwt.ifValidJWT(jwtToken)){
+                    String[] tokens = jwtToken.split("\\.");
+                    String header = Helper.base64Decode2String(tokens[0]);
+                    JwtPlainHeaderArea.setText(header);
+                    JwtPlainPayloadArea.setText(Helper.base64UrlDecode2String(tokens[1]));
+                    JSONObject headerJson = JSONObject.parseObject(header);
+//                    BurpAPI.logging().output().println(headerJson);
+                    JwtMenuTypeBox.setSelectedItem(headerJson.getString("alg"));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
         DiyVariablePanel JwtAreaPanel = new DiyVariablePanel(
                 JwtCipherArea,"JwtPlainArea",
                 JwtPlainAreaPanel(), "JwtCipherArea",
                 DiyVariablePanel.View.HORIZONTAL
         );
+
+
         JwtAreaPanel.setName("JwtAreaPanel");
         JwtAreaPanel.setPreferredSize(new Dimension(0,0));
 

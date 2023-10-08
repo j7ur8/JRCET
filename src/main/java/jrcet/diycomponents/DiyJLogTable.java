@@ -60,14 +60,14 @@ public class DiyJLogTable extends JTable {
                     case "OverauthLoggerTable" -> {
                         if(AuthCheckEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
-                        } else if( (column==8 || column==9 || column==10) && getValueAt(row,column)!=""){
+                        } else if( (column==9 || column==10 || column==11) && getValueAt(row,column)!=""){
                             c.setForeground(Color.RED);
                         }
                     }
                     case "FastjsonLoggerTable" -> {
                         if(FastjsonEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
-                        } else if(  column==9  && getValueAt(row,column)!=""){
+                        } else if( column==10  && getValueAt(row,column)!=""){
                             c.setForeground(Color.RED);
                         }
                     }
@@ -75,8 +75,10 @@ public class DiyJLogTable extends JTable {
                     case "SpringbootLoggerTable" -> {
                         if(SpringbootTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
-                        } else if((column==9)  && getValueAt(row,column)!=""){
+                        } else if((column==10)  && getValueAt(row,column)!=""){
                             c.setForeground(Color.RED);
+                        }else if( column==5 && getValueAt(row, column).equals("404") ){
+                            c.setEnabled(false);
                         }
                     }
                 }

@@ -33,13 +33,15 @@ public class Fastjson {
             put("Method", 2);
             put("Host", 3);
             put("Path", 4);
-            put("Length", 5);
-            put("requestTime", 6);
-            put("responseTime", 7);
-            put("DnsLog", 8);
-            put("FastJson", 9);
+            put("Code", 5);
+            put("Length", 6);
+            put("requestTime", 7);
+            put("responseTime", 8);
+            put("DnsLog", 9);
+            put("FastJson", 10);
         }
     };
+
 
     public static final String FASTJSON = "FASTJSON";
     public static String FastjsonCheckSerialNumber = "0";
@@ -48,11 +50,8 @@ public class Fastjson {
     public static ArrayList<String> FastjsonCheckUrlList = new ArrayList<>();
     public static HashMap<String, FastjsonTableEntry> FastjsonEntryMap = new HashMap<>();
 
-    public static boolean FastjsonDebug = true;
-
 
     public static String fastjsonCheckRequest(HttpRequestToBeSent requestToBeSent){
-
 
         if(!Fastjson.check(requestToBeSent)) return "";
 
@@ -69,12 +68,12 @@ public class Fastjson {
                 requestHost,
                 requestPath,
                 "",
+                "",
                 requestTime,
                 "",
                 "",
                 ""
         };
-
 
         ((DefaultTableModel)getFastjsonLoggerTable().getModel()).addRow(inf);
 
@@ -89,9 +88,10 @@ public class Fastjson {
 
     public static void fastjsonCheckResponse(HttpResponseReceived responseReceived, String fastjsonSerialNumber){
 
-        Integer rowIndex = FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex();
+
 
         String randomString   = Helper.createRandomString(8);
+        String responseCode   = Integer.toString(responseReceived.statusCode());
         int    responseLen    = responseReceived.body().length();
         String responseLength = Integer.toString(responseLen);
         String responseTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
@@ -99,13 +99,32 @@ public class Fastjson {
 
         HttpResponse simplifyHighAuthhttpResponse = responseLen<5000?responseReceived:responseReceived.withBody(responseReceived.body().subArray(0, 5000));
 
-        CollaboratorClient  collaboratorClient  = API.collaborator().createClient();
+        CollaboratorClient  collaboratorClient  = BurpAPI.collaborator().createClient();
         CollaboratorPayload collaboratorPayload = collaboratorClient.generatePayload(randomString);
 
-        setFastjsonLoggerTableValueAt(responseLength, rowIndex, "Length");
-        setFastjsonLoggerTableValueAt(responseTime, rowIndex, "responseTime");
-        setFastjsonLoggerTableValueAt(collaboratorPayload.toString(),rowIndex,"DnsLog");
+        setFastjsonLoggerTableValueAt(
+                responseLength,
+                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                "Length"
+        );
+        setFastjsonLoggerTableValueAt(
+                responseTime,
+                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                "responseTime"
+        );
+        setFastjsonLoggerTableValueAt(
+                collaboratorPayload.toString(),
+                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                "DnsLog"
+        );
+        setFastjsonLoggerTableValueAt(
+                responseCode,
+                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                "Code"
+        );
 
+
+        FastjsonEntryMap.get(fastjsonSerialNumber).setCode(responseCode);
         FastjsonEntryMap.get(fastjsonSerialNumber).setLength(responseLength);
         FastjsonEntryMap.get(fastjsonSerialNumber).setResponseTime(responseTime);
         FastjsonEntryMap.get(fastjsonSerialNumber).setRawResponse(simplifyHighAuthhttpResponse);
@@ -155,7 +174,6 @@ public class Fastjson {
 
         List<HttpHeader> httpHeaders = requestToBeSent.headers();
         for(HttpHeader httpHeader: httpHeaders){
-//            API.logging().output().println(httpHeader.name()+":"+httpHeader.value());
             if(Objects.equals(httpHeader.name().toLowerCase(), "content-type") && httpHeader.value().toLowerCase().contains("application/json")){
                 return true;
             }

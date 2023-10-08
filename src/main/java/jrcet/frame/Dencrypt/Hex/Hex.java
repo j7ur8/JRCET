@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static burp.MyExtender.API;
 import static jrcet.frame.Dencrypt.Hex.HexComponent.HexComponentPanel;
 
 public class Hex {

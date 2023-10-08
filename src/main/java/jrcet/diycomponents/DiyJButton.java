@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesCipherArea;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesPlainArea;
 import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiCipherArea;
@@ -79,6 +80,7 @@ public class DiyJButton extends JButton implements  ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e){
+
         switch (((DiyJButton) e.getSource()).getName()) {
             case "CaptchaMenuRequestUrlButton" -> {
                 new Captcha.setCaptchaWorker(CaptchaRequestEditor.getRequest()).execute();
@@ -202,7 +204,7 @@ public class DiyJButton extends JButton implements  ActionListener {
                 String JwtToken = JwtCipherArea.getText();
                 String header = JwtToken.substring(0,JwtToken.lastIndexOf("."));
                 String payload = JwtToken.substring(JwtToken.lastIndexOf(".")+1);
-                if(Jwt.verify(JwtToken, JwtPlainSecretArea.getText(), JwtPlainPublicArea.getText())){
+                if(Jwt.verify(JwtToken,JwtPlainHeaderArea.getText(),JwtPlainPayloadArea.getText(), JwtPlainSecretArea.getText(), JwtPlainPrivateArea.getText(),JwtPlainPublicArea.getText())){
                     Jwt.getJwtMenuVerifyLabel().setText("signature verified");
                     Jwt.getJwtMenuVerifyLabel().setForeground(new Color(80,183,236));
                     JwtPlainHeaderArea.setText(Helper.base64UrlDecode2String(header));

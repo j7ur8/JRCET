@@ -8,7 +8,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
 import static jrcet.frame.Dencrypt.Rsa.RsaComponent.RsaPrivateArea;
@@ -37,7 +37,7 @@ public class Rsa {
         try{
             result = Encrypt(plaintext,getPublicKey(publicKey));
         }catch (Exception e){
-            API.logging().output().println(e);
+            BurpAPI.logging().output().println(e);
         }
 //        API.logging().output().println("result: "+result);
         return result;
@@ -51,7 +51,7 @@ public class Rsa {
         try{
             result = Decrypt(plaintext,getPrivateKey(privateKey));
         }catch (Exception e){
-            API.logging().output().println(e);
+            BurpAPI.logging().output().println(e);
         }
         return result;
     }

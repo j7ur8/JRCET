@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Properties;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static burp.api.montoya.http.message.params.HttpParameter.urlParameter;
 import static jrcet.frame.Asset.AssetComponent.AssetComponentPanel;
 
@@ -179,10 +179,10 @@ public class Asset {
 //            API.logging().output().println(url);
             if(Objects.equals(type,"fofa")){
                 fofaSearchUrlRequest = HttpRequest.httpRequestFromUrl(url);
-                return new String(API.http().sendRequest(fofaSearchUrlRequest).response().body().getBytes(),StandardCharsets.UTF_8);
+                return new String(BurpAPI.http().sendRequest(fofaSearchUrlRequest).response().body().getBytes(),StandardCharsets.UTF_8);
             }else if(Objects.equals(type,"hunter")){
                 hunterSearchUrlRequest = HttpRequest.httpRequestFromUrl(url);
-                return new String(API.http().sendRequest(hunterSearchUrlRequest).response().body().getBytes(),StandardCharsets.UTF_8);
+                return new String(BurpAPI.http().sendRequest(hunterSearchUrlRequest).response().body().getBytes(),StandardCharsets.UTF_8);
             }
             return "error";
         }
@@ -220,7 +220,7 @@ public class Asset {
                     getPageLabel().setText(String.format("当前: %s/%s页;",page,fofaTotalSearchPage>hunterTotalSearchPage?fofaTotalSearchPage:hunterTotalSearchPage));
                 });
             } catch (Exception e) {
-                API.logging().error().println(e);
+                BurpAPI.logging().error().println(e);
             }
         }
     }
@@ -272,7 +272,7 @@ public class Asset {
                 getTable().addRow(newRow);
             }
         }catch (Exception e){
-            API.logging().error().println(e);
+            BurpAPI.logging().error().println(e);
         }
 
     }
@@ -308,7 +308,7 @@ public class Asset {
                 getTable().addRow(newRow);
             }
         }catch (Exception e){
-            API.logging().error().println(e);
+            BurpAPI.logging().error().println(e);
         }
 
     }

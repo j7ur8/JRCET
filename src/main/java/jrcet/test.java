@@ -1,13 +1,10 @@
 package jrcet;
 
-import jrcet.help.Helper;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class test {
     public static void main(String[] args) {
-        // 创建 JFrame 对象
-//        Similarity.charBasedSimilarity();
-        System.out.println(Helper.base64UrlEncode2String("11"));
-        System.out.println(Helper.base64Encode2String("11"));
+       System.out.println("/".split("/").length);
     }
-
 }

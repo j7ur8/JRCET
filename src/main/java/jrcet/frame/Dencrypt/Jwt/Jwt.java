@@ -15,7 +15,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Objects;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Dencrypt.Jwt.JwtComponent.JwtComponentPanel;
 
 public class Jwt{
@@ -28,11 +28,16 @@ public class Jwt{
         return (JComboBox<?>) Helper.getComponent(JwtComponentPanel, "JwtMenuTypeBox");
     }
 
+    public static boolean ifValidJWT(String jwtToken){
+
+        String[] tokens = jwtToken.split("\\.");
+
+        return tokens.length >= 2 && Helper.isUrlBase64(tokens[0]) && Helper.isUrlBase64(tokens[1]);
+    }
 
     public static String encrypt(String header, String payload, String signature, String privateKey){
         String type = (String) getJwtMenuTypeBox().getSelectedItem();
-        String message = Helper.base64UrlEncode2String(JSONObject.parseObject(header).toString())+"."+Helper.base64UrlEncode2String(JSONObject.parseObject(payload).toString());
-//        API.logging().output().println(message);
+        String message = Helper.base64UrlEncode2String(header)+"."+Helper.base64UrlEncode2String(payload);
         String result = "";
         try{
             switch (Objects.requireNonNull(type)){
@@ -65,52 +70,16 @@ public class Jwt{
                 }
             }
         }catch ( Exception e){
-            API.logging().error().println(e);
+            BurpAPI.logging().error().println(e);
         }
         return message + "." + result;
     }
 
-    public static boolean verify(String JwtToken, String secret, String publicKey){
-        String type = (String) getJwtMenuTypeBox().getSelectedItem();
-        String text = JwtToken.substring(0,JwtToken.lastIndexOf("."));
-        String signature = JwtToken.substring(JwtToken.lastIndexOf(".")+1);
+    public static boolean verify(String JwtToken,String header, String message, String secret, String privateKey,String publicKey){
 
-//        API.logging().output().println(JwtToken+"\n"+text+"\n"+signature);
-        boolean result = false;
-        try{
-            switch (Objects.requireNonNull(type)){
-                case "HS256" -> {
-                    result = HMACSHA256Verify(text, signature, secret);
-                }
-                case  "HS384" -> {
-                    result = HMACSHA384Verify(text, signature, secret);
-                }
-                case "HS512" -> {
-                    result = HMACSHA512Verify(text, signature, secret);
-                }
-                case "RS256" -> {
-                    result = RSASHA256Verify(text, signature, publicKey);
-                }
-                case "RS384" -> {
-                    result = RSASHA384Verify(text, signature, publicKey);
-                }
-                case "RS512" -> {
-                    result = RSASHA512Verify(text, signature, publicKey);
-                }
-                case "ES256" -> {
-                    result = ECDSASHA256Verify(text, signature, publicKey);
-                }
-                case "ES384" -> {
-                    result = ECDSASHA384Verify(text, signature, publicKey);
-                }
-                case "ES512" -> {
-                    result = ECDSASHA512Verify(text, signature, publicKey);
-                }
-            }
-        }catch ( Exception e){
-            API.logging().error().println(e);
-        }
-        return result;
+        String result = encrypt(header,message,secret,privateKey);
+
+        return JwtToken.equals(result);
     }
 
     //HS256

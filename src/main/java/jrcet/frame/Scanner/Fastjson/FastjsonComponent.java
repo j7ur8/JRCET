@@ -10,16 +10,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 
 public class FastjsonComponent extends DiyJComponent {
 
     public static JComponent FastjsonComponentPanel = null;
-    public static HttpRequestEditor FastjsonRawRequestEditor = API.userInterface().createHttpRequestEditor();
-    public static HttpResponseEditor FastjsonRawResponseEditor = API.userInterface().createHttpResponseEditor();
+    public static HttpRequestEditor FastjsonRawRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
+    public static HttpResponseEditor FastjsonRawResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
 
-    public static HttpRequestEditor FastjsonVulRequestEditor = API.userInterface().createHttpRequestEditor();
-    public static HttpResponseEditor FastjsonVulResponseEditor = API.userInterface().createHttpResponseEditor();
+    public static HttpRequestEditor FastjsonVulRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
+    public static HttpResponseEditor FastjsonVulResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
 
 
     @Override
@@ -68,7 +68,7 @@ public class FastjsonComponent extends DiyJComponent {
         FastjsonLoggerPanel.setBackground(Color.WHITE);
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Length","requestTime","responseTime","DnsLog","FastJson"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","DnsLog","FastJson"};
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         DiyJLogTable FastjsonLoggerTable = new DiyJLogTable(model);
@@ -80,10 +80,11 @@ public class FastjsonComponent extends DiyJComponent {
         FastjsonLoggerTable.setColumnPreferredWidth(3, 200);
         FastjsonLoggerTable.setColumnPreferredWidth(4, 300);
         FastjsonLoggerTable.setColumnPreferredWidth(5, 75);
-        FastjsonLoggerTable.setColumnPreferredWidth(6, 150);
+        FastjsonLoggerTable.setColumnPreferredWidth(6, 75);
         FastjsonLoggerTable.setColumnPreferredWidth(7, 150);
-        FastjsonLoggerTable.setColumnPreferredWidth(8, 350);
-        FastjsonLoggerTable.setColumnPreferredWidth(9, 100);
+        FastjsonLoggerTable.setColumnPreferredWidth(8, 150);
+        FastjsonLoggerTable.setColumnPreferredWidth(9, 350);
+        FastjsonLoggerTable.setColumnPreferredWidth(10, 100);
 
 
         JScrollPane FastjsonLoggerTableScrollPane = new JScrollPane(FastjsonLoggerTable);

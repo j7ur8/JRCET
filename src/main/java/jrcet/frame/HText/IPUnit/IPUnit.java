@@ -9,8 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static burp.MyExtender.API;
-
 public class IPUnit {
 
     public static String printIpRange(String input){

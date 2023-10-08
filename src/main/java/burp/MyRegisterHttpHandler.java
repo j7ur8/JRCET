@@ -3,6 +3,7 @@ package burp;
 import burp.api.montoya.core.Annotations;
 import burp.api.montoya.http.handler.*;
 import burp.api.montoya.http.message.HttpRequestResponse;
+import burp.api.montoya.http.message.MimeType;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.help.StringUtil;
@@ -11,10 +12,11 @@ import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
 import static jrcet.frame.Scanner.Overauth.Overauth.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
+import static jrcet.frame.Scanner.Springboot.Springboot.setSpringbootLoggerTableValueAt;
 import static jrcet.help.Similarity.StringSimilarity.similarity;
 
 public class MyRegisterHttpHandler implements HttpHandler {
@@ -32,9 +34,9 @@ public class MyRegisterHttpHandler implements HttpHandler {
             }
         }
 
+
         //不接受静态文件的请求
         String requestPath = requestToBeSent.path();
-
         for(String ext: BlackExtensionList){
             requestPath = (requestPath.split("\\?"))[0];
             if(requestPath.endsWith(ext)){
@@ -42,14 +44,13 @@ public class MyRegisterHttpHandler implements HttpHandler {
             }
         }
 
-        //不接受已检查过的url
         //sprintboot检查过的url
         String springbootNote = "";
 
         if(getSpringbootMenuWorkBox().isSelected() && !SpringbootCheckedUrlList.contains(requestToBeSent.url())){
-            API.logging().output().println("start springboot");
             springbootNote = springbootCheckRequest(requestToBeSent);
         }
+
 
         //fastjson检查过的url
         String fastjsonNote = "";
@@ -110,17 +111,20 @@ public class MyRegisterHttpHandler implements HttpHandler {
         @Override
         protected Void doInBackground() {
 
-            HttpRequestResponse httpRequestResponse = API.http().sendRequest(httpRequest);
+            HttpRequestResponse httpRequestResponse = BurpAPI.http().sendRequest(httpRequest);
 
             HttpRequest  ihttpRequest = httpRequestResponse.request();
-            HttpResponse ihttpResponse = httpRequestResponse.response();
-            int responseLength = ihttpResponse.body().length();
-            ihttpResponse = responseLength<5000?ihttpResponse:ihttpResponse.withBody(ihttpResponse.body().subArray(0, 4999));
+            HttpResponse httpResponse = httpRequestResponse.response();
+            int responseLength = httpResponse.body().length();
+            HttpResponse ihttpResponse = responseLength<5000?httpResponse:httpResponse.withBody(httpResponse.body().subArray(0, 4999));
+
+            String responseCode = Integer.toString(httpResponse.statusCode());
 
             int rowIndex;
             switch (type) {
                 case "unAuth" -> {
                     rowIndex = AuthCheckEntryMap.get(number).getRowIndex();
+
                     AuthCheckEntryMap.get(number).setUnAuthRequest(ihttpRequest);
                     AuthCheckEntryMap.get(number).setUnAuthResponse(ihttpResponse);
 
@@ -151,13 +155,39 @@ public class MyRegisterHttpHandler implements HttpHandler {
                 }
 
                 case "springboot" -> {
-
                     rowIndex = SpringbootTableEntryMap.get(number).getRowIndex();
+//                    BurpAPI.logging().output().println(responseCode+":"+(!responseCode.equals("404") && !responseCode.startsWith("5"))+":"+SpringbootTableEntryMap.get(number).getType());
+                    if(!responseCode.equals("404") && !responseCode.startsWith("5")){
+                        switch (SpringbootTableEntryMap.get(number).getType()){
+                            case "Swagger", "Actuator" -> {
+                                if(httpResponse.statedMimeType()== MimeType.JSON){
+                                    SpringbootTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True",SpringbootTableEntryMap.get(number).getRowIndex(),"Vul");
+                                }
+                            }
+                            case "Doc" -> {
+                                if(httpResponse.statedMimeType()== MimeType.HTML){
+                                    SpringbootTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True",SpringbootTableEntryMap.get(number).getRowIndex(),"Vul");
+                                }
+                            }
+                            case "Druid" -> {
+                                if(httpResponse.bodyToString().contains("Druid Stat Index") || httpResponse.toString().contains("login.html")){
+                                    SpringbootTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True",SpringbootTableEntryMap.get(number).getRowIndex(),"Vul");
+                                }
+                            }
+                        }
+                    }
+
 
                     String responseTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+
                     setSpringbootLoggerTableValueAt(String.valueOf(responseLength), rowIndex, "Length");
                     setSpringbootLoggerTableValueAt(responseTime, rowIndex, "responseTime");
+                    setSpringbootLoggerTableValueAt(responseCode, rowIndex, "Code");
 
+                    SpringbootTableEntryMap.get(number).setCode(responseCode);
                     SpringbootTableEntryMap.get(number).setRawRequest(ihttpRequest);
                     SpringbootTableEntryMap.get(number).setRawResponse(ihttpResponse);
                     SpringbootTableEntryMap.get(number).setLength(String.valueOf(responseLength));
@@ -172,6 +202,9 @@ public class MyRegisterHttpHandler implements HttpHandler {
     }
 
     public static String getRequestNumber(String type,String notes){
+        if(StringUtil.isBlank(notes)){
+            return "";
+        }
         String[] noteArray = notes.split(",");
         for(String note: noteArray){
             if(note.startsWith(type)){

@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import static burp.MyExtender.API;
 import static jrcet.frame.Dencrypt.Base.BaseComponent.BaseComponentPanel;
 
 public class Base {

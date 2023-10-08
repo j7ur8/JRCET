@@ -5,13 +5,12 @@ import burp.api.montoya.http.message.responses.HttpResponse;
 
 public class SpringbootTableEntry {
 
-    //"#","Tool","Method","Host","Path","Length","requestTime","responseTime","Doc","Druid","Swagger","Actuator"
     private String RequestNumber;
     private String RequestTool;
     private String RequestMethod;
     private String RequestHost;
     private String RequestPath;
-
+    private String RootUrl;
     private Integer RowIndex;
     private String RequestTime;
 
@@ -25,13 +24,11 @@ public class SpringbootTableEntry {
 
     private HttpResponse SimplifyRawResponse;
 
-
     private HttpRequest DocRequest;
 
     private HttpResponse DocResponse;
 
     private HttpResponse SimplifyDocResponse;
-
 
     private HttpRequest DruidRequest;
 
@@ -45,12 +42,9 @@ public class SpringbootTableEntry {
 
     private HttpResponse SimplifyActuatorResponse;
 
-
     private HttpRequest SwaggerRequest;
 
     private HttpResponse SwaggerResponse;
-
-    private HttpRequest SimplifySwaggerRequest;
 
     private HttpResponse SimplifySwaggerResponse;
 
@@ -58,7 +52,34 @@ public class SpringbootTableEntry {
 
     private String Type = "Raw";
 
+    private String Code;
 
+    private String Vul;
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
+    public String getCode(){
+        return Code;
+    }
+
+
+    public void setRootUrl(String rootUrl) {
+        RootUrl = rootUrl;
+    }
+
+    public String getRootUrl(){
+        return RootUrl;
+    }
+
+    public void setVul(String vul){
+        Vul = vul;
+    }
+
+    public String getVul(){
+        return Vul;
+    }
     public SpringbootTableEntry(){}
     public SpringbootTableEntry(String[] inf){
         this.RequestNumber = inf[0];
@@ -66,10 +87,10 @@ public class SpringbootTableEntry {
         this.RequestMethod = inf[2];
         this.RequestHost = inf[3];
         this.RequestPath = inf[4];
-        this.Length = inf[5];
-        this.RequestTime = inf[6];
-        this.ResponseTime = inf[7];
-        this.Type = inf[8];
+        this.Length = inf[6];
+        this.RequestTime = inf[7];
+        this.ResponseTime = inf[8];
+        this.Type = inf[9];
     }
 
     public void setType(String type){

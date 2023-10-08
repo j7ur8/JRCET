@@ -17,7 +17,7 @@ import jrcet.help.Helper;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Springboot.SpringbootComponent.SpringbootComponentPanel;
 
 public class Springboot {
@@ -29,11 +29,12 @@ public class Springboot {
             put("Method", 2);
             put("Host", 3);
             put("Path", 4);
-            put("Length", 5);
-            put("requestTime", 6);
-            put("responseTime", 7);
-            put("Type", 8);
-            put("Vul", 9);
+            put("Code", 5);
+            put("Length", 6);
+            put("requestTime", 7);
+            put("responseTime", 8);
+            put("Type", 9);
+            put("Vul", 10);
         }
     };
     public static final String SPRINGBOOT = "SPRINGBOOT";
@@ -45,31 +46,34 @@ public class Springboot {
 
     public static String[] SpringbootCheckPaths;
 
-    public static boolean SpringbootDebug = true;
 
     public static String springbootCheckRequest(HttpRequestToBeSent requestToBeSent){
 
-
         String serialNumber = getSpringbootTableSerialNumber();
-
         String requestPath  = requestToBeSent.path();
+        String RootUrl = requestToBeSent.url();
 
         if(Objects.equals(requestPath, "/")){
             SpringbootCheckPaths = new String[]{
                     "/swagger-resources",
-                    "/actuator/env",
+                    "/actuator/health",
                     "/druid/index.html",
                     "/doc.html"
             };
         }else{
             String requestRootPath = requestPath.split("/")[1];
+
+            RootUrl = requestToBeSent.withPath("/"+requestRootPath).url();
+            if(SpringbootCheckedUrlList.contains(RootUrl)){
+                return "";
+            }
             SpringbootCheckPaths = new String[]{
                     "/swagger-resources",
-                    "/actuator/env",
+                    "/actuator/health",
                     "/druid/index.html",
                     "/doc.html",
                     String.format("/%s/swagger-resources",requestRootPath),
-                    String.format("/%s/actuator/env",requestRootPath),
+                    String.format("/%s/actuator/health",requestRootPath),
                     String.format("/%s/druid/index.html",requestRootPath),
                     String.format("/%s/doc.html",requestRootPath)
             };
@@ -83,6 +87,7 @@ public class Springboot {
                 requestToBeSent.httpService().host(),
                 requestPath,
                 "",
+                "",
                 requestTime,
                 "",
                 "",
@@ -90,7 +95,7 @@ public class Springboot {
         };
 
         String type="Raw";
-        inf[8] = type;
+        inf[9] = type;
 
         ((DefaultTableModel)getSpringbootLoggerTable().getModel()).addRow(inf);
 
@@ -98,19 +103,17 @@ public class Springboot {
             SpringbootTableEntry rowEntry = new SpringbootTableEntry(inf);
             rowEntry.setRawRequest(requestToBeSent);
             rowEntry.setRowIndex(getSpringbootLoggerTable().getRowByValue(serialNumber));
+            rowEntry.setRootUrl(RootUrl);
             SpringbootTableEntryMap.put(serialNumber, rowEntry);
         }
-
 
         return  SPRINGBOOT+serialNumber;
     }
 
     public static void springbootCheckResponse(HttpResponseReceived responseReceived, String springbootSerialNumber){
 
-
-        if(SpringbootDebug)API.logging().output().printf("springbootCheckResponse处理第 %s 个返回包\n", springbootSerialNumber);
-
         int    responseLen    = responseReceived.body().length();
+        String responseCode   = Integer.toString(responseReceived.statusCode());
         String responseLength = Integer.toString(responseLen);
         String responseTime   = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
 
@@ -126,12 +129,20 @@ public class Springboot {
                 SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
                 "responseTime"
         );
+        setSpringbootLoggerTableValueAt(
+                responseCode,
+                SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
+                "Code"
+        );
 
+        SpringbootTableEntryMap.get(springbootSerialNumber).setCode(responseCode);
         SpringbootTableEntryMap.get(springbootSerialNumber).setLength(responseLength);
         SpringbootTableEntryMap.get(springbootSerialNumber).setResponseTime(responseTime);
         SpringbootTableEntryMap.get(springbootSerialNumber).setRawResponse(simplifyRawhttpResponse);
-
         SpringbootCheckedUrlList.add(SpringbootTableEntryMap.get(springbootSerialNumber).getRawRequest().url());
+        if(!SpringbootCheckedUrlList.contains(SpringbootTableEntryMap.get(springbootSerialNumber).getRootUrl())){
+            SpringbootCheckedUrlList.add(SpringbootTableEntryMap.get(springbootSerialNumber).getRootUrl());
+        }
 
         new springCheckWorker(springbootSerialNumber).execute();
     }
@@ -168,6 +179,7 @@ public class Springboot {
                         requestHost,
                         requestPath,
                         "",
+                        "",
                         requestTime,
                         "",
                         "",
@@ -175,13 +187,13 @@ public class Springboot {
                 };
 
                 if(path.contains("doc.html")){
-                    inf[8]="Doc";
+                    inf[9]="Doc";
                 }else if(path.contains("swagger-resources")){
-                    inf[8]="Swagger";
+                    inf[9]="Swagger";
                 } else if (path.contains("druid/index.html")) {
-                    inf[8]="Druid";
+                    inf[9]="Druid";
                 }else{
-                    inf[8]="Actuator";
+                    inf[9]="Actuator";
                 }
 
                 ((DefaultTableModel)getSpringbootLoggerTable().getModel()).addRow(inf);

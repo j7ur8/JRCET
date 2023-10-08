@@ -1,9 +1,6 @@
 package jrcet.help;
 
 
-import burp.api.montoya.ui.editor.HttpRequestEditor;
-import burp.api.montoya.ui.editor.HttpResponseEditor;
-import burp.api.montoya.ui.editor.RawEditor;
 import jrcet.diycomponents.*;
 
 
@@ -17,7 +14,6 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -25,7 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //import static burp.MyExtender.stdout;
-import static burp.MyExtender.API;
 
 import static jrcet.Main.JrcetComponentList;
 
@@ -428,7 +423,6 @@ public class Helper {
             throw new RuntimeException(e);
         }
     }
-
     /*
     获取当前时间戳
      */
@@ -627,23 +621,25 @@ public class Helper {
         return Pattern.matches(base64Pattern, str);
     }
 
+    public static String aiFindBase64(String reg,String str){
 
-
-    public static HttpResponseEditor createHttpResponseEditor(){
-        HttpResponseEditor a = API.userInterface().createHttpResponseEditor();
-        return a;
+        Pattern r = Pattern.compile(reg, Pattern.DOTALL);
+        Matcher m = r.matcher(str);
+        String res = "";
+        String tmp;
+        while (m.find()){
+            tmp = m.group(1);
+            if(tmp.length()>res.length()){
+                res = tmp;
+            }
+        }
+        return res;
     }
 
-    public static HttpRequestEditor createHttpRequestEditor(){
-        HttpRequestEditor a = API.userInterface().createHttpRequestEditor();
-        return a;
+    public static boolean isUrlBase64(String str) {
+        String base64Pattern = "^([A-Za-z0-9-_]{4})*$";
+        return Pattern.matches(base64Pattern, str);
     }
-
-    public static RawEditor createRawEditor(){
-        RawEditor a = API.userInterface().createRawEditor();
-        return a;
-    }
-
 
     public static DiyJTextAreaScrollPane createDiyJTextAreaScrollPane(String name){
         return new DiyJTextAreaScrollPane(name);

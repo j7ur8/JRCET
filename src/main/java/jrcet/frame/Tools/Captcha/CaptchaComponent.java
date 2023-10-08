@@ -8,17 +8,16 @@ import jrcet.help.Helper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Set;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 
 public class CaptchaComponent extends DiyJComponent {
 
     public static JComponent CaptchaComponentPanel = null;
 
-    public static HttpRequestEditor CaptchaRequestEditor = API.userInterface().createHttpRequestEditor();
+    public static HttpRequestEditor CaptchaRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
 
-    public static HttpResponseEditor CaptchaResponseEditor = API.userInterface().createHttpResponseEditor();
+    public static HttpResponseEditor CaptchaResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
 
     public JComponent component(){
         CaptchaComponentPanel = new JPanel(new GridBagLayout());
@@ -146,6 +145,7 @@ public class CaptchaComponent extends DiyJComponent {
         CaptchaMenuResponsePanel.setBackground(Color.WHITE);
 
         DiyJTextField CaptchaMenuResponseImageField = new DiyJTextField("ImageRule");
+        CaptchaMenuResponseImageField.setText("(([A-Za-z0-9+\\/]{4})*([A-Za-z0-9+\\/]{4}|[A-Za-z0-9+\\/]{3}=|[A-Za-z0-9+\\/]{2}==))");
         CaptchaMenuResponseImageField.setName("CaptchaMenuResponseImageField");
         CaptchaMenuResponseImageField.setPreferredSize(new Dimension(0,0));
 

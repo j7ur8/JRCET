@@ -45,6 +45,8 @@ public class FastjsonTableEntry {
 
     private boolean Removed = false;
 
+    private String Code;
+
 
     public FastjsonTableEntry(String[] inf){
         this.RequestNumber = inf[0];
@@ -55,6 +57,14 @@ public class FastjsonTableEntry {
         this.Length = inf[5];
         this.RequestTime = inf[6];
         this.ResponseTime = inf[7];
+    }
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
+    public String getCode(){
+        return Code;
     }
 
     public void setRowIndex(Integer rowIndex){

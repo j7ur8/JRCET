@@ -15,13 +15,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.Main.centerInScreen;
 import static jrcet.frame.Tools.RScript.RScript.*;
 import static jrcet.help.Helper.getEncoding;
@@ -120,9 +119,9 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
                     case COOKIE -> CookieParameterMap.put(parameter.name(), parameter.value());
                     case BODY -> {
                         BodyParameterMap.put(parameter.name(), parameter.value());
-                        API.logging().output().println(parameter.value());
-                        API.logging().output().println(parameter.value().getBytes());
-                        API.logging().output().println(getEncoding(parameter.value()));
+                        BurpAPI.logging().output().println(parameter.value());
+                        BurpAPI.logging().output().println(parameter.value().getBytes());
+                        BurpAPI.logging().output().println(getEncoding(parameter.value()));
                     }
                 }
             }
@@ -150,7 +149,7 @@ public class RScriptContextMenuItemActionListener implements ActionListener {
 
 
         }catch (Exception ee){
-            API.logging().error().println(ee);
+            BurpAPI.logging().error().println(ee);
         }
 
     }

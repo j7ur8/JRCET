@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static burp.MyExtender.API;
 import static jrcet.frame.HText.Format.FormatComponent.FormatComponentPanel;
 
 public class Format {

@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import static burp.MyExtender.API;
+import static burp.MyExtender.BurpAPI;
 import static jrcet.Main.centerInScreen;
 
 public class DiyJTextAreaScrollPane extends JScrollPane {
@@ -35,38 +35,37 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
         textArea.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
         textArea.setForeground(new Color(34,34,34));
         // 为文本区域添加鼠标监听器，当右键被单击时显示弹出菜单
-        JPopupMenu popupMenu = new JPopupMenu();
-        JMenuItem changeEncodingItem  = new JMenuItem("Change Encoding");
-        changeEncodingItem.setName(name+"EncodingMenuItem");
-        changeEncodingItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(Objects.equals(textEncoding, "UTF-8")){
-                    textBytes=textArea.getText().getBytes(StandardCharsets.UTF_8);
-                    try {
-                        textArea.setText(new String(textBytes, "GBK"));
-                        textEncoding="GBK";
-                    } catch (UnsupportedEncodingException ex) {
-                        API.logging().error().println("Unsupport Encoding at DiyJTextAreaScrollPane.java");
-                    }
-                } else if(Objects.equals(textEncoding, "GBK")){
-                    textArea.setText(new String(textBytes,StandardCharsets.UTF_8));
-                    textEncoding="UTF-8";
-                }
-            }
-        });
-        popupMenu.add(changeEncodingItem);
-        textArea.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-                if (e.getModifiersEx() == InputEvent.META_DOWN_MASK) {
-                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
-                }
-            }
-        });
+//        JPopupMenu popupMenu = new JPopupMenu();
+//        JMenuItem changeEncodingItem  = new JMenuItem("Change Encoding");
+//        changeEncodingItem.setName(name+"EncodingMenuItem");
+//        changeEncodingItem.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if(Objects.equals(textEncoding, "UTF-8")){
+//                    textBytes=textArea.getText().getBytes(StandardCharsets.UTF_8);
+//                    try {
+//                        textArea.setText(new String(textBytes, "GBK"));
+//                        textEncoding="GBK";
+//                    } catch (UnsupportedEncodingException ex) {
+//                        BurpAPI.logging().error().println("Unsupport Encoding at DiyJTextAreaScrollPane.java");
+//                    }
+//                } else if(Objects.equals(textEncoding, "GBK")){
+//                    textArea.setText(new String(textBytes,StandardCharsets.UTF_8));
+//                    textEncoding="UTF-8";
+//                }
+//            }
+//        });
+//        popupMenu.add(changeEncodingItem);
+//        textArea.addMouseListener(new MouseAdapter() {
+//
+//            @Override
+//            public void mouseReleased(MouseEvent e) {
+//
+//                if (e.getModifiersEx() == InputEvent.META_DOWN_MASK) {
+//                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+//                }
+//            }
+//        });
 
         textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -138,6 +137,10 @@ public class DiyJTextAreaScrollPane extends JScrollPane {
         public Integer getElementAt(int index) {
             return index + 1;
         }
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
     }
 
     public class LineNumberListCellRenderer extends JLabel implements ListCellRenderer<Integer> {
