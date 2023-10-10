@@ -18,11 +18,14 @@ import jrcet.frame.HText.Len.Len;
 import jrcet.frame.HText.Parsepy.Parsepy;
 import jrcet.frame.HText.Regex.Regex;
 import jrcet.frame.HText.Sort.Sort;
+import jrcet.frame.Scanner.Springboot.Springboot;
+import jrcet.frame.Scanner.Springboot.SpringbootTableEntry;
 import jrcet.frame.Tools.Captcha.Captcha;
 import jrcet.help.Helper;
 
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,6 +68,11 @@ import static jrcet.frame.HText.Regex.RegexComponent.RegexInputArea;
 import static jrcet.frame.HText.Regex.RegexComponent.RegexOutputArea;
 import static jrcet.frame.HText.Sort.SortComponent.SortInputArea;
 import static jrcet.frame.HText.Sort.SortComponent.SortOutputArea;
+import static jrcet.frame.Scanner.Fastjson.Fastjson.FastjsonCheck;
+import static jrcet.frame.Scanner.Fastjson.Fastjson.clearFastjsonTable;
+import static jrcet.frame.Scanner.Overauth.Overauth.OverauthCheck;
+import static jrcet.frame.Scanner.Overauth.Overauth.clearOverauthTable;
+import static jrcet.frame.Scanner.Springboot.Springboot.*;
 import static jrcet.frame.Tools.Captcha.CaptchaComponent.*;
 
 public class DiyJButton extends JButton implements  ActionListener {
@@ -80,6 +88,7 @@ public class DiyJButton extends JButton implements  ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e){
+
 
         switch (((DiyJButton) e.getSource()).getName()) {
             case "CaptchaMenuRequestUrlButton" -> {
@@ -222,6 +231,51 @@ public class DiyJButton extends JButton implements  ActionListener {
 
             case "AssetMainBodyControlNextButton" -> {
                 Asset.nextPage();
+            }
+
+            case "SpringbootMenuCheckButton" -> {
+                if(SpringbootCheck){
+                    setBackground(Color.RED);
+                    setText("OFF");
+                }else{
+                    setBackground(Color.GREEN);
+                    setText("ON");
+                }
+                SpringbootCheck = !SpringbootCheck;
+            }
+
+            case "SpringbootMenuClearButton" -> {
+                clearSpringbootTable();
+            }
+
+            case "FastjsonMenuCheckButton" -> {
+                if(FastjsonCheck){
+                    setBackground(Color.RED);
+                    setText("OFF");
+                }else{
+                    setBackground(Color.GREEN);
+                    setText("ON");
+                }
+                FastjsonCheck = !FastjsonCheck;
+            }
+
+            case "FastjsonMenuClearButton" -> {
+                clearFastjsonTable();
+            }
+
+            case "OverauthMenuCheckButton" -> {
+                if(OverauthCheck){
+                    setBackground(Color.RED);
+                    setText("OFF");
+                }else{
+                    setBackground(Color.GREEN);
+                    setText("ON");
+                }
+                OverauthCheck = !OverauthCheck;
+            }
+
+            case "OverauthMenuClearButton" -> {
+                clearOverauthTable();
             }
         }
 

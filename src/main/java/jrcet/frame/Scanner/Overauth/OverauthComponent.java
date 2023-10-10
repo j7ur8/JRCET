@@ -37,8 +37,18 @@ public class OverauthComponent extends DiyJComponent {
                 0,0
         ));
 
-        OverauthComponentPanel.add(OverauthVariablePanel(),new GridBagConstraints(
+        OverauthComponentPanel.add(OverauthMenu1Panel(),new GridBagConstraints(
                 0,1,
+                1,1,
+                1,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        OverauthComponentPanel.add(OverauthVariablePanel(),new GridBagConstraints(
+                0,2,
                 1,1,
                 1,1,
                 GridBagConstraints.CENTER,
@@ -147,26 +157,86 @@ public class OverauthComponent extends DiyJComponent {
     }
 
     private  JComponent OverauthMenuPanel(){
-        JPanel OverauthMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        JPanel OverauthMenuPanel = new JPanel(new GridBagLayout());
         OverauthMenuPanel.setName("OverauthMenuPanel");
+        OverauthMenuPanel.setPreferredSize(new Dimension(0,30));
 
-        DiyJTextField  OverauthMenuHostField= new DiyJTextField("目标：");
-        OverauthMenuHostField.setName("OverauthMenuHostField");
-        OverauthMenuHostField.setPreferredSize(new Dimension(300,30));
+        DiyJButton OverauthMenuCheckButton = new DiyJButton("OFF");
+        OverauthMenuCheckButton.setBackground(Color.RED);
+        OverauthMenuCheckButton.setName("OverauthMenuCheckButton");
 
-        DiyJTextField  OverauthMenuHighauthField= new DiyJTextField("高权限：");
-        OverauthMenuHighauthField.setName("OverauthMenuHighauthField");
-        OverauthMenuHighauthField.setPreferredSize(new Dimension(400,30));
+        DiyJButton OverauthMenuClearButton = new DiyJButton("Clear");
+        OverauthMenuClearButton.setName("OverauthMenuClearButton");
 
-        DiyJTextField  OverauthMenuLowauthField= new DiyJTextField("低权限：");
-        OverauthMenuLowauthField.setName("OverauthMenuLowauthField");
-        OverauthMenuLowauthField.setPreferredSize(new Dimension(400,30));
-
-        OverauthMenuPanel.add(OverauthMenuHostField);
-        OverauthMenuPanel.add(OverauthMenuHighauthField);
-        OverauthMenuPanel.add(OverauthMenuLowauthField);
+        OverauthMenuPanel.add(OverauthMenuCheckButton,new GridBagConstraints(
+                0,0,
+                1,1,
+                0.9,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        OverauthMenuPanel.add(OverauthMenuClearButton,new GridBagConstraints(
+                1,0,
+                1,1,
+                0.1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
         return OverauthMenuPanel;
+    }
+
+    private JComponent OverauthMenu1Panel(){
+        JPanel OverauthMenu1Panel = new JPanel(new GridBagLayout());
+        OverauthMenu1Panel.setBackground(Color.WHITE);
+        OverauthMenu1Panel.setName("OverauthMenu1Panel");
+        OverauthMenu1Panel.setPreferredSize(new Dimension(0,30));
+
+        DiyJTextField  OverauthMenuHostField= new DiyJTextField("目标：");
+//        OverauthMenuHostField.setPreferredSize(new Dimension(0,30));
+        OverauthMenuHostField.setName("OverauthMenuHostField");
+
+        DiyJTextField  OverauthMenuHighauthField= new DiyJTextField("高权限：");
+//        OverauthMenuHighauthField.setPreferredSize(new Dimension(0,30));
+        OverauthMenuHighauthField.setName("OverauthMenuHighauthField");
+
+        DiyJTextField  OverauthMenuLowauthField= new DiyJTextField("低权限：");
+//        OverauthMenuLowauthField.setPreferredSize(new Dimension(0,30));
+        OverauthMenuLowauthField.setName("OverauthMenuLowauthField");
+        OverauthMenu1Panel.add(OverauthMenuHostField,new GridBagConstraints(
+                0,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        OverauthMenu1Panel.add(OverauthMenuHighauthField,new GridBagConstraints(
+                1,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        OverauthMenu1Panel.add(OverauthMenuLowauthField,new GridBagConstraints(
+                2,0,
+                1,1,
+                1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        return OverauthMenu1Panel;
+
     }
 
     private JComponent OverauthAuthHighauthPanel(){

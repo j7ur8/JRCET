@@ -58,14 +58,14 @@ public class DiyJLogTable extends JTable {
 
                 switch (table.getName()){
                     case "OverauthLoggerTable" -> {
-                        if(AuthCheckEntryMap.get((String) getValueAt(row,0)).getRemoved()){
+                        if(OverauthLoggerTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
                         } else if( (column==9 || column==10 || column==11) && getValueAt(row,column)!=""){
                             c.setForeground(Color.RED);
                         }
                     }
                     case "FastjsonLoggerTable" -> {
-                        if(FastjsonEntryMap.get((String) getValueAt(row,0)).getRemoved()){
+                        if(FastjsonLoggerTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
                         } else if( column==10  && getValueAt(row,column)!=""){
                             c.setForeground(Color.RED);
@@ -73,7 +73,7 @@ public class DiyJLogTable extends JTable {
                     }
 
                     case "SpringbootLoggerTable" -> {
-                        if(SpringbootTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
+                        if(SpringbootLoggerTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
                         } else if((column==10)  && getValueAt(row,column)!=""){
                             c.setForeground(Color.RED);
@@ -157,8 +157,8 @@ public class DiyJLogTable extends JTable {
         switch (getName()){
             case "OverauthLoggerTable" -> {
                 String rowNumber = getOverAuthSerialNumber(row);
-                AuthCheckUrlList.remove(AuthCheckEntryMap.get(rowNumber).getHighAuthRequest().url());
-                AuthCheckEntryMap.get(rowNumber).setRemoved(true);
+                OverauthCheckUrlList.remove(OverauthLoggerTableEntryMap.get(rowNumber).getHighAuthRequest().url());
+                OverauthLoggerTableEntryMap.get(rowNumber).setRemoved(true);
                 OverauthAuthHighauthRequestEditor.setRequest(null);
                 OverauthAuthHighauthResponseEditor.setResponse(null);
                 OverauthAuthLowauthRequestEditor.setRequest(null);
@@ -168,8 +168,8 @@ public class DiyJLogTable extends JTable {
             }
             case "FastjsonLoggerTable" -> {
                 serialNumber = getFastjsonSerialNumber(row);
-                FastjsonCheckUrlList.remove(FastjsonEntryMap.get(serialNumber).getRawRequest().url());
-                FastjsonEntryMap.get(serialNumber).setRemoved(true);
+                FastjsonCheckUrlList.remove(FastjsonLoggerTableEntryMap.get(serialNumber).getRawRequest().url());
+                FastjsonLoggerTableEntryMap.get(serialNumber).setRemoved(true);
                 FastjsonRawRequestEditor.setRequest(null);
                 FastjsonRawResponseEditor.setResponse(null);
                 FastjsonVulRequestEditor.setRequest(null);
@@ -177,8 +177,8 @@ public class DiyJLogTable extends JTable {
             }
             case "SpringbootLoggerTable" -> {
                 serialNumber = getSpringbootSerialNumber(row);
-                SpringbootCheckedUrlList.remove(SpringbootTableEntryMap.get(serialNumber) .getRawRequest().url());
-                SpringbootTableEntryMap.get(serialNumber).setRemoved(true);
+                SpringbootCheckedUrlList.remove(SpringbootLoggerTableEntryMap.get(serialNumber) .getRawRequest().url());
+                SpringbootLoggerTableEntryMap.get(serialNumber).setRemoved(true);
                 SpringbootRawRequestEditor.setRequest(null);
                 SpringbootRawResponseEditor.setResponse(null);
             }
@@ -192,7 +192,7 @@ public class DiyJLogTable extends JTable {
 
         switch (getName()){
             case "OverauthLoggerTable" -> {
-                OverauthTableEntry overauthTableEntry = AuthCheckEntryMap.get(getOverAuthSerialNumber(getSelectedRow()));
+                OverauthTableEntry overauthTableEntry = OverauthLoggerTableEntryMap.get(getOverAuthSerialNumber(getSelectedRow()));
 
                 HttpRequest highAuthRequest = overauthTableEntry.getHighAuthRequest();
                 HttpResponse highAuthResponse = overauthTableEntry.getHighAuthResponse();
@@ -217,14 +217,14 @@ public class DiyJLogTable extends JTable {
                 }
             }
             case "FastjsonLoggerTable" -> {
-                FastjsonTableEntry fastjsonTableEntry = FastjsonEntryMap.get(getFastjsonSerialNumber(getSelectedRow()));
+                FastjsonTableEntry fastjsonTableEntry = FastjsonLoggerTableEntryMap.get(getFastjsonSerialNumber(getSelectedRow()));
                 FastjsonRawRequestEditor.setRequest(fastjsonTableEntry.getRawRequest());
                 FastjsonRawResponseEditor.setResponse(fastjsonTableEntry.getRawResponse());
                 FastjsonVulRequestEditor.setRequest(fastjsonTableEntry.getFastjsonRequest());
                 FastjsonVulResponseEditor.setResponse(fastjsonTableEntry.getFastjsonResponse());
             }
             case "SpringbootLoggerTable" -> {
-                SpringbootTableEntry springbootTableEntry = SpringbootTableEntryMap.get(getSpringbootSerialNumber(getSelectedRow()));
+                SpringbootTableEntry springbootTableEntry = SpringbootLoggerTableEntryMap.get(getSpringbootSerialNumber(getSelectedRow()));
 
                 SpringbootRawRequestEditor.setRequest(springbootTableEntry.getRawRequest());
                 SpringbootRawResponseEditor.setResponse(springbootTableEntry.getRawResponse());

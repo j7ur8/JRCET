@@ -41,14 +41,14 @@ public class Overauth {
     };
 
     public static final String AUTH = "AUTH";
-    public static String OverauthTableSerialNumber = "0";
-    private static final ReentrantLock OverauthTableSerialNumberLock = new ReentrantLock();
+    public static String OverauthLoggerTableSerialNumber = "0";
+    private static final ReentrantLock OverauthLoggerTableSerialNumberLock = new ReentrantLock();
 
-    public static ArrayList<String> AuthCheckUrlList = new ArrayList<>();
+    public static ArrayList<String> OverauthCheckUrlList = new ArrayList<>();
 
-    public static HashMap<String, OverauthTableEntry> AuthCheckEntryMap = new HashMap<>();
+    public static HashMap<String, OverauthTableEntry> OverauthLoggerTableEntryMap = new HashMap<>();
 
-    public static boolean OverauthDebug = true;
+    public static boolean OverauthCheck = false;
 
     public static void setOverauthLoggerTableValueAt(String value, Integer rowIndex, String columnName){
         getOverauthLoggerTable().getModel().setValueAt(value, rowIndex, ColumnMap.get(columnName));
@@ -92,7 +92,7 @@ public class Overauth {
             return "";
         }
 
-        AuthCheckUrlList.add(requestToBeSent.url());
+        OverauthCheckUrlList.add(requestToBeSent.url());
 
         //设置有水平越权的字段
 
@@ -106,7 +106,7 @@ public class Overauth {
 
 
         // 设置authcheck table
-        String requestNumber = getOverauthTableSerialNumber();
+        String requestNumber = getOverauthLoggerTableSerialNumber();
         String requestMethod = requestToBeSent.method();
         String requestTool   = requestToBeSent.toolSource().toolType().toolName();
         String requestPath   = requestToBeSent.path();
@@ -132,7 +132,7 @@ public class Overauth {
         rowEntry.setRowIndex(getOverauthLoggerTable().getRowByValue(requestNumber));
         rowEntry.setHorizontalOverAuthParameters(HorizontalOverAuthParameters);
 
-        AuthCheckEntryMap.put(requestNumber, rowEntry);
+        OverauthLoggerTableEntryMap.put(requestNumber, rowEntry);
 
         return AUTH + requestNumber;
     }
@@ -149,25 +149,25 @@ public class Overauth {
 
         setOverauthLoggerTableValueAt(
                 responseLength,
-                AuthCheckEntryMap.get(authRequestNumber).getRowIndex(),
+                OverauthLoggerTableEntryMap.get(authRequestNumber).getRowIndex(),
                 "Length"
         );
         setOverauthLoggerTableValueAt(
                 responseTime,
-                AuthCheckEntryMap.get(authRequestNumber).getRowIndex(),
+                OverauthLoggerTableEntryMap.get(authRequestNumber).getRowIndex(),
                 "responseTime"
         );
 
         setOverauthLoggerTableValueAt(
                 responseCode,
-                AuthCheckEntryMap.get(authRequestNumber).getRowIndex(),
+                OverauthLoggerTableEntryMap.get(authRequestNumber).getRowIndex(),
                 "Code"
         );
 
-        AuthCheckEntryMap.get(authRequestNumber).setCode(responseCode);
-        AuthCheckEntryMap.get(authRequestNumber).setLength(responseLength);
-        AuthCheckEntryMap.get(authRequestNumber).setResponseTime(responseTime);
-        AuthCheckEntryMap.get(authRequestNumber).setHighAuthResponse(highAuthResponse);
+        OverauthLoggerTableEntryMap.get(authRequestNumber).setCode(responseCode);
+        OverauthLoggerTableEntryMap.get(authRequestNumber).setLength(responseLength);
+        OverauthLoggerTableEntryMap.get(authRequestNumber).setResponseTime(responseTime);
+        OverauthLoggerTableEntryMap.get(authRequestNumber).setHighAuthResponse(highAuthResponse);
 
 
         // 测试越权
@@ -178,7 +178,7 @@ public class Overauth {
             return ;
         }
 
-        HttpRequest highAuthHttpRequest  = AuthCheckEntryMap.get(authRequestNumber).getHighAuthRequest();
+        HttpRequest highAuthHttpRequest  = OverauthLoggerTableEntryMap.get(authRequestNumber).getHighAuthRequest();
         HttpService httpService          = highAuthHttpRequest.httpService();
 
         String highAuthHttpReuqestString = highAuthHttpRequest.toString();
@@ -194,13 +194,17 @@ public class Overauth {
 
     }
 
-    private static String getOverauthTableSerialNumber() {
-        OverauthTableSerialNumberLock.lock();
-        OverauthTableSerialNumber = Integer.toString(Integer.parseInt(OverauthTableSerialNumber)+1);
-        OverauthTableSerialNumberLock.unlock();
+    private static String getOverauthLoggerTableSerialNumber() {
+        OverauthLoggerTableSerialNumberLock.lock();
+        OverauthLoggerTableSerialNumber = Integer.toString(Integer.parseInt(OverauthLoggerTableSerialNumber)+1);
+        OverauthLoggerTableSerialNumberLock.unlock();
 
-        return OverauthTableSerialNumber;
+        return OverauthLoggerTableSerialNumber;
     }
 
-
+    public static void clearOverauthTable(){
+        ((DefaultTableModel)getOverauthLoggerTable().getModel()).setRowCount(0);
+        OverauthLoggerTableSerialNumber = "0";
+        OverauthLoggerTableEntryMap.clear();
+    }
 }

@@ -59,9 +59,10 @@ public class OverauthTableEntry {
         this.RequestMethod = inf[2];
         this.RequestHost = inf[3];
         this.RequestPath = inf[4];
-        this.Length = inf[5];
-        this.RequestTime = inf[6];
-        this.ResponseTime = inf[7];
+        this.Code = inf[5];
+        this.Length = inf[6];
+        this.RequestTime = inf[7];
+        this.ResponseTime = inf[8];
     }
 
 

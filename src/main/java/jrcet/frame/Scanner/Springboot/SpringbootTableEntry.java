@@ -22,48 +22,16 @@ public class SpringbootTableEntry {
 
     private HttpResponse RawResponse;
 
-    private HttpResponse SimplifyRawResponse;
-
-    private HttpRequest DocRequest;
-
-    private HttpResponse DocResponse;
-
-    private HttpResponse SimplifyDocResponse;
-
-    private HttpRequest DruidRequest;
-
-    private HttpResponse DruidResponse;
-
-    private HttpResponse SimplifyDruidResponse;
-
-    private HttpRequest ActuatorRequest;
-
-    private HttpResponse ActuatorResponse;
-
-    private HttpResponse SimplifyActuatorResponse;
-
-    private HttpRequest SwaggerRequest;
-
-    private HttpResponse SwaggerResponse;
-
-    private HttpResponse SimplifySwaggerResponse;
-
     private boolean Removed = false;
-
     private String Type = "Raw";
-
     private String Code;
-
     private String Vul;
-
     public void setCode(String code) {
         Code = code;
     }
-
     public String getCode(){
         return Code;
     }
-
 
     public void setRootUrl(String rootUrl) {
         RootUrl = rootUrl;
@@ -87,6 +55,7 @@ public class SpringbootTableEntry {
         this.RequestMethod = inf[2];
         this.RequestHost = inf[3];
         this.RequestPath = inf[4];
+        this.Code = inf[5];
         this.Length = inf[6];
         this.RequestTime = inf[7];
         this.ResponseTime = inf[8];
@@ -198,103 +167,5 @@ public class SpringbootTableEntry {
         return RawResponse;
     }
 
-    public void setSimplifyRawResponse(HttpResponse httpResponse){
-        SimplifyRawResponse = httpResponse;
-    }
-    public HttpResponse getSimplifyRawResponse(){
-        return SimplifyRawResponse;
-    }
-
-
-    public void setDocRequest(HttpRequest httpRequest){
-        this.DocRequest = httpRequest;
-    }
-
-    public HttpRequest getDocRequest(){
-        return DocRequest;
-    }
-
-    public void setDocResponse(HttpResponse httpResponse){
-        DocResponse = httpResponse;
-    }
-
-    public HttpResponse getDocResponse(){
-        return DocResponse;
-    }
-
-    public void setSimplifyDocResponse(HttpResponse httpResponse){
-        SimplifyDocResponse = httpResponse;
-    }
-    public HttpResponse getSimplifyDocResponse(){
-        return SimplifyDocResponse;
-    }
-
-    public void setDruidRequest(HttpRequest httpRequest){
-        this.DruidRequest = httpRequest;
-    }
-
-    public HttpRequest getDruidRequest(){
-        return DruidRequest;
-    }
-
-    public void setDruidResponse(HttpResponse httpResponse){
-        DruidResponse = httpResponse;
-    }
-
-    public HttpResponse getDruidResponse(){
-        return DruidResponse;
-    }
-
-    public void setSimplifyDruidResponse(HttpResponse httpResponse){
-        SimplifyDruidResponse = httpResponse;
-    }
-    public HttpResponse getSimplifyDruidResponse(){
-        return SimplifyDruidResponse;
-    }
-
-    public void setActuatorRequest(HttpRequest httpRequest){
-        this.ActuatorRequest = httpRequest;
-    }
-
-    public HttpRequest getActuatorRequest(){
-        return ActuatorRequest;
-    }
-
-    public void setActuatorResponse(HttpResponse httpResponse){
-        ActuatorResponse = httpResponse;
-    }
-
-    public HttpResponse getActuatorResponse(){
-        return ActuatorResponse;
-    }
-
-    public void setSimplifyActuatorResponse(HttpResponse httpResponse){
-        SimplifyActuatorResponse = httpResponse;
-    }
-    public HttpResponse getSimplifyActuatorResponse(){
-        return SimplifyActuatorResponse;
-    }
-    public void setSwaggerRequest(HttpRequest httpRequest){
-        this.SwaggerRequest = httpRequest;
-    }
-
-    public HttpRequest getSwaggerRequest(){
-        return SwaggerRequest;
-    }
-
-    public void setSwaggerResponse(HttpResponse httpResponse){
-        SwaggerResponse = httpResponse;
-    }
-
-    public HttpResponse getSwaggerResponse(){
-        return SwaggerResponse;
-    }
-
-    public void setSimplifySwaggerResponse(HttpResponse httpResponse){
-        SimplifySwaggerResponse = httpResponse;
-    }
-    public HttpResponse getSimplifySwaggerResponse(){
-        return SimplifySwaggerResponse;
-    }
 
 }

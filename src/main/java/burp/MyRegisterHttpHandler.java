@@ -47,7 +47,7 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //sprintboot检查过的url
         String springbootNote = "";
 
-        if(getSpringbootMenuWorkBox().isSelected() && !SpringbootCheckedUrlList.contains(requestToBeSent.url())){
+        if( SpringbootCheck && !SpringbootCheckedUrlList.contains(requestToBeSent.url())){
             springbootNote = springbootCheckRequest(requestToBeSent);
         }
 
@@ -55,13 +55,13 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //fastjson检查过的url
         String fastjsonNote = "";
 
-        if(getFastjsonMenuWorkBox().isSelected() && !FastjsonCheckUrlList.contains(requestToBeSent.url())){
+        if(FastjsonCheck && !FastjsonCheckUrlList.contains(requestToBeSent.url())){
             fastjsonNote = fastjsonCheckRequest(requestToBeSent);
         }
 
         //Overauth检查过的Url
         String authCheckNote = "";
-        if(!AuthCheckUrlList.contains(requestToBeSent.url())){
+        if(OverauthCheck && !OverauthCheckUrlList.contains(requestToBeSent.url())){
             authCheckNote = authCheckRequest(requestToBeSent);
         }
 
@@ -123,58 +123,58 @@ public class MyRegisterHttpHandler implements HttpHandler {
             int rowIndex;
             switch (type) {
                 case "unAuth" -> {
-                    rowIndex = AuthCheckEntryMap.get(number).getRowIndex();
+                    rowIndex = OverauthLoggerTableEntryMap.get(number).getRowIndex();
 
-                    AuthCheckEntryMap.get(number).setUnAuthRequest(ihttpRequest);
-                    AuthCheckEntryMap.get(number).setUnAuthResponse(ihttpResponse);
+                    OverauthLoggerTableEntryMap.get(number).setUnAuthRequest(ihttpRequest);
+                    OverauthLoggerTableEntryMap.get(number).setUnAuthResponse(ihttpResponse);
 
-                    double unAuthSimilarity = similarity(AuthCheckEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
+                    double unAuthSimilarity = similarity(OverauthLoggerTableEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
 
                     if (unAuthSimilarity >= 0.9 && unAuthSimilarity <=1.0) {
-                        AuthCheckEntryMap.get(number).setUnAuth("True");
+                        OverauthLoggerTableEntryMap.get(number).setUnAuth("True");
                         setOverauthLoggerTableValueAt("True", rowIndex, "UnAuth");
                     }
                 }
                 case "lowAuth" -> {
-                    rowIndex = AuthCheckEntryMap.get(number).getRowIndex();
+                    rowIndex = OverauthLoggerTableEntryMap.get(number).getRowIndex();
 
-                    AuthCheckEntryMap.get(number).setLowAuthRequest(ihttpRequest);
-                    AuthCheckEntryMap.get(number).setLowAuthResponse(ihttpResponse);
+                    OverauthLoggerTableEntryMap.get(number).setLowAuthRequest(ihttpRequest);
+                    OverauthLoggerTableEntryMap.get(number).setLowAuthResponse(ihttpResponse);
 
-                    double lowAuthSimilarity = similarity(AuthCheckEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
+                    double lowAuthSimilarity = similarity(OverauthLoggerTableEntryMap.get(number).getHighAuthResponse().bodyToString(), ihttpResponse.bodyToString());
 
                     if (lowAuthSimilarity >= 0.9 && lowAuthSimilarity <=1.0) {
-                        AuthCheckEntryMap.get(number).setOverAuth("True");
+                        OverauthLoggerTableEntryMap.get(number).setOverAuth("True");
                         setOverauthLoggerTableValueAt("True", rowIndex, "OverAuth");
                     }
                 }
 
                 case "fastjson" -> {
-                    FastjsonEntryMap.get(number).setFastjsonRequest(ihttpRequest);
-                    FastjsonEntryMap.get(number).setFastjsonResponse(ihttpResponse);
+                    FastjsonLoggerTableEntryMap.get(number).setFastjsonRequest(ihttpRequest);
+                    FastjsonLoggerTableEntryMap.get(number).setFastjsonResponse(ihttpResponse);
                 }
 
                 case "springboot" -> {
-                    rowIndex = SpringbootTableEntryMap.get(number).getRowIndex();
+                    rowIndex = SpringbootLoggerTableEntryMap.get(number).getRowIndex();
 //                    BurpAPI.logging().output().println(responseCode+":"+(!responseCode.equals("404") && !responseCode.startsWith("5"))+":"+SpringbootTableEntryMap.get(number).getType());
                     if(!responseCode.equals("404") && !responseCode.startsWith("5")){
-                        switch (SpringbootTableEntryMap.get(number).getType()){
+                        switch (SpringbootLoggerTableEntryMap.get(number).getType()){
                             case "Swagger", "Actuator" -> {
                                 if(httpResponse.statedMimeType()== MimeType.JSON){
-                                    SpringbootTableEntryMap.get(number).setVul("True");
-                                    setSpringbootLoggerTableValueAt("True",SpringbootTableEntryMap.get(number).getRowIndex(),"Vul");
+                                    SpringbootLoggerTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
                                 }
                             }
                             case "Doc" -> {
                                 if(httpResponse.statedMimeType()== MimeType.HTML){
-                                    SpringbootTableEntryMap.get(number).setVul("True");
-                                    setSpringbootLoggerTableValueAt("True",SpringbootTableEntryMap.get(number).getRowIndex(),"Vul");
+                                    SpringbootLoggerTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
                                 }
                             }
                             case "Druid" -> {
                                 if(httpResponse.bodyToString().contains("Druid Stat Index") || httpResponse.toString().contains("login.html")){
-                                    SpringbootTableEntryMap.get(number).setVul("True");
-                                    setSpringbootLoggerTableValueAt("True",SpringbootTableEntryMap.get(number).getRowIndex(),"Vul");
+                                    SpringbootLoggerTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
                                 }
                             }
                         }
@@ -187,11 +187,11 @@ public class MyRegisterHttpHandler implements HttpHandler {
                     setSpringbootLoggerTableValueAt(responseTime, rowIndex, "responseTime");
                     setSpringbootLoggerTableValueAt(responseCode, rowIndex, "Code");
 
-                    SpringbootTableEntryMap.get(number).setCode(responseCode);
-                    SpringbootTableEntryMap.get(number).setRawRequest(ihttpRequest);
-                    SpringbootTableEntryMap.get(number).setRawResponse(ihttpResponse);
-                    SpringbootTableEntryMap.get(number).setLength(String.valueOf(responseLength));
-                    SpringbootTableEntryMap.get(number).setResponseTime(responseTime);
+                    SpringbootLoggerTableEntryMap.get(number).setCode(responseCode);
+                    SpringbootLoggerTableEntryMap.get(number).setRawRequest(ihttpRequest);
+                    SpringbootLoggerTableEntryMap.get(number).setRawResponse(ihttpResponse);
+                    SpringbootLoggerTableEntryMap.get(number).setLength(String.valueOf(responseLength));
+                    SpringbootLoggerTableEntryMap.get(number).setResponseTime(responseTime);
 
                 }
 

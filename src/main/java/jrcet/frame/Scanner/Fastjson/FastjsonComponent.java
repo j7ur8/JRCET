@@ -2,6 +2,7 @@ package jrcet.frame.Scanner.Fastjson;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
+import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLogTable;
 import jrcet.diycomponents.DiyVariablePanel;
@@ -158,15 +159,36 @@ public class FastjsonComponent extends DiyJComponent {
     }
 
     private  JComponent FastjsonMenuPanel(){
-        JPanel FastjsonMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        JPanel FastjsonMenuPanel = new JPanel(new GridBagLayout());
         FastjsonMenuPanel.setName("FastjsonMenuPanel");
         FastjsonMenuPanel.setPreferredSize(new Dimension(0,30));
 
-        JCheckBox FastjsonMenuWorkBox = new JCheckBox("开启Fastjson检测");
-        FastjsonMenuWorkBox.setPreferredSize(new Dimension(200,30));
-        FastjsonMenuWorkBox.setName("FastjsonMenuWorkBox");
+        DiyJButton FastjsonMenuCheckButton = new DiyJButton("OFF");
+        FastjsonMenuCheckButton.setName("FastjsonMenuCheckButton");
+        FastjsonMenuCheckButton.setBackground(Color.RED);
 
-        FastjsonMenuPanel.add(FastjsonMenuWorkBox);
+        DiyJButton FastjsonMenuClearButton = new DiyJButton("Clear");
+        FastjsonMenuClearButton.setName("FastjsonMenuClearButton");
+
+        FastjsonMenuPanel.add(FastjsonMenuCheckButton,new GridBagConstraints(
+                0,0,
+                1,1,
+                0.9,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        FastjsonMenuPanel.add(FastjsonMenuClearButton,new GridBagConstraints(
+                1,0,
+                1,1,
+                0.1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
         return FastjsonMenuPanel;
     }

@@ -13,7 +13,6 @@ public class DiyJTextField extends JPanel{
     public  DiyJTextField(String title){
 
         setLayout(new GridBagLayout());
-//        setName(title+"Panel");
 
         titleLabel = new JLabel(title);
         titleLabel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1,1,1,1, Helper.gray),BorderFactory.createEmptyBorder(0,2,1,2)));

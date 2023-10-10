@@ -2,6 +2,7 @@ package jrcet.frame.Scanner.Springboot;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
+import jrcet.diycomponents.DiyJButton;
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.diycomponents.DiyJLogTable;
 import jrcet.diycomponents.DiyVariablePanel;
@@ -78,10 +79,7 @@ public class SpringbootComponent extends DiyJComponent {
         SpringbootLoggerPanel.setName("SpringbootLoggerPanel");
         SpringbootLoggerPanel.setBackground(Color.WHITE);
 
-        Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","Type","Vul"};
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{}, new String[]{"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","Type","Vul"});
         DiyJLogTable SpringbootLoggerTable = new DiyJLogTable(model);
 
         SpringbootLoggerTable.setName("SpringbootLoggerTable");
@@ -154,15 +152,36 @@ public class SpringbootComponent extends DiyJComponent {
 
 
     private  JComponent SpringbootMenuPanel(){
-        JPanel SpringbootMenuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        JPanel SpringbootMenuPanel = new JPanel(new GridBagLayout());
         SpringbootMenuPanel.setName("SpringbootMenuPanel");
         SpringbootMenuPanel.setPreferredSize(new Dimension(0,30));
 
-        JCheckBox SpringbootMenuWorkBox = new JCheckBox("开启Springboot检测");
-        SpringbootMenuWorkBox.setPreferredSize(new Dimension(200,30));
-        SpringbootMenuWorkBox.setName("SpringbootMenuWorkBox");
+        DiyJButton SpringbootMenuCheckButton = new DiyJButton("OFF");
+        SpringbootMenuCheckButton.setName("SpringbootMenuCheckButton");
+        SpringbootMenuCheckButton.setBackground(Color.RED);
 
-        SpringbootMenuPanel.add(SpringbootMenuWorkBox);
+        DiyJButton SpringbootMenuClearButton = new DiyJButton("Clear");
+        SpringbootMenuClearButton.setName("SpringbootMenuClearButton");
+
+        SpringbootMenuPanel.add(SpringbootMenuCheckButton,new GridBagConstraints(
+                0,0,
+                1,1,
+                0.9,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
+        SpringbootMenuPanel.add(SpringbootMenuClearButton,new GridBagConstraints(
+                1,0,
+                1,1,
+                0.1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
 
         return SpringbootMenuPanel;
     }

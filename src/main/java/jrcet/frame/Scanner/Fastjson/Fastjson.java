@@ -44,12 +44,13 @@ public class Fastjson {
 
 
     public static final String FASTJSON = "FASTJSON";
-    public static String FastjsonCheckSerialNumber = "0";
+    public static String FastjsonLoggerTableSerialNumber = "0";
 
     private static final ReentrantLock FastjsonCheckSerialNumberLock = new ReentrantLock();
     public static ArrayList<String> FastjsonCheckUrlList = new ArrayList<>();
-    public static HashMap<String, FastjsonTableEntry> FastjsonEntryMap = new HashMap<>();
+    public static HashMap<String, FastjsonTableEntry> FastjsonLoggerTableEntryMap = new HashMap<>();
 
+    public static boolean FastjsonCheck = false;
 
     public static String fastjsonCheckRequest(HttpRequestToBeSent requestToBeSent){
 
@@ -81,7 +82,7 @@ public class Fastjson {
         rowEntry.setRawRequest(requestToBeSent);
         rowEntry.setRowIndex(getFastjsonLoggerTable().getRowByValue(serialNumber));
 
-        FastjsonEntryMap.put(serialNumber,rowEntry);
+        FastjsonLoggerTableEntryMap.put(serialNumber,rowEntry);
 
         return FASTJSON+serialNumber;
     }
@@ -104,37 +105,37 @@ public class Fastjson {
 
         setFastjsonLoggerTableValueAt(
                 responseLength,
-                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).getRowIndex(),
                 "Length"
         );
         setFastjsonLoggerTableValueAt(
                 responseTime,
-                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).getRowIndex(),
                 "responseTime"
         );
         setFastjsonLoggerTableValueAt(
                 collaboratorPayload.toString(),
-                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).getRowIndex(),
                 "DnsLog"
         );
         setFastjsonLoggerTableValueAt(
                 responseCode,
-                FastjsonEntryMap.get(fastjsonSerialNumber).getRowIndex(),
+                FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).getRowIndex(),
                 "Code"
         );
 
 
-        FastjsonEntryMap.get(fastjsonSerialNumber).setCode(responseCode);
-        FastjsonEntryMap.get(fastjsonSerialNumber).setLength(responseLength);
-        FastjsonEntryMap.get(fastjsonSerialNumber).setResponseTime(responseTime);
-        FastjsonEntryMap.get(fastjsonSerialNumber).setRawResponse(simplifyHighAuthhttpResponse);
-        FastjsonEntryMap.get(fastjsonSerialNumber).setDNSClient(collaboratorClient);
-        FastjsonEntryMap.get(fastjsonSerialNumber).setDNSPayload(collaboratorPayload);
+        FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).setCode(responseCode);
+        FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).setLength(responseLength);
+        FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).setResponseTime(responseTime);
+        FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).setRawResponse(simplifyHighAuthhttpResponse);
+        FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).setDNSClient(collaboratorClient);
+        FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).setDNSPayload(collaboratorPayload);
 
-        FastjsonCheckUrlList.add(FastjsonEntryMap.get(fastjsonSerialNumber).getRawRequest().url());
+        FastjsonCheckUrlList.add(FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).getRawRequest().url());
 
         String fastjsonRequestBody  =  ("\ufeff{,/*aab*/,'x_' : {/*aab*/\"@type\":\"java.net.InetSocketAddress\"{\"address\":/*aab*/,/*aa\"b*/ \"val\" :\""+collaboratorPayload+"\"}}}");
-        HttpRequest fastjsonRequest = FastjsonEntryMap.get(fastjsonSerialNumber).getRawRequest().withBody(ByteArray.byteArray(fastjsonRequestBody.getBytes(StandardCharsets.UTF_8)));
+        HttpRequest fastjsonRequest = FastjsonLoggerTableEntryMap.get(fastjsonSerialNumber).getRawRequest().withBody(ByteArray.byteArray(fastjsonRequestBody.getBytes(StandardCharsets.UTF_8)));
 
         new MyRegisterHttpHandler.checkWorker("fastjson", fastjsonSerialNumber, fastjsonRequest).execute();
 
@@ -149,8 +150,8 @@ public class Fastjson {
         }
         @Override
         protected Void doInBackground() throws Exception {
-            CollaboratorClient collaboratorClient   = FastjsonEntryMap.get(serialNumber).getDNSClient();
-            CollaboratorPayload collaboratorPayload = FastjsonEntryMap.get(serialNumber).getDNSPayload();
+            CollaboratorClient collaboratorClient   = FastjsonLoggerTableEntryMap.get(serialNumber).getDNSClient();
+            CollaboratorPayload collaboratorPayload = FastjsonLoggerTableEntryMap.get(serialNumber).getDNSPayload();
             List<Interaction> interactionList;
 
             for(int i=0; i<20; i++){
@@ -159,7 +160,7 @@ public class Fastjson {
                 if(interactionList.size()!=0){
                     setFastjsonLoggerTableValueAt(
                             "True",
-                            FastjsonEntryMap.get(serialNumber).getRowIndex(),
+                            FastjsonLoggerTableEntryMap.get(serialNumber).getRowIndex(),
                             "FastJson"
                     );
                     break;
@@ -181,10 +182,6 @@ public class Fastjson {
         return false;
     }
 
-    public static JCheckBox getFastjsonMenuWorkBox(){
-        return (JCheckBox) Helper.getComponent(FastjsonComponentPanel, "FastjsonMenuWorkBox");
-    }
-
     public static DiyJLogTable getFastjsonLoggerTable(){
         return (DiyJLogTable) Helper.getComponent(FastjsonComponentPanel, "FastjsonLoggerTable");
     }
@@ -198,12 +195,17 @@ public class Fastjson {
     }
 
 
-
     private static String getSpringbootTableSerialNumber() {
         FastjsonCheckSerialNumberLock.lock();
-        FastjsonCheckSerialNumber = Integer.toString(Integer.parseInt(FastjsonCheckSerialNumber)+1);
+        FastjsonLoggerTableSerialNumber = Integer.toString(Integer.parseInt(FastjsonLoggerTableSerialNumber)+1);
         FastjsonCheckSerialNumberLock.unlock();
 
-        return FastjsonCheckSerialNumber;
+        return FastjsonLoggerTableSerialNumber;
+    }
+
+    public static void clearFastjsonTable() {
+        ((DefaultTableModel)getFastjsonLoggerTable().getModel()).setRowCount(0);
+        FastjsonLoggerTableSerialNumber = "0";
+        FastjsonLoggerTableEntryMap.clear();
     }
 }

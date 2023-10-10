@@ -17,7 +17,6 @@ import jrcet.help.Helper;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Springboot.SpringbootComponent.SpringbootComponentPanel;
 
 public class Springboot {
@@ -38,18 +37,19 @@ public class Springboot {
         }
     };
     public static final String SPRINGBOOT = "SPRINGBOOT";
-    public static String SpringbootTableSerialNumber = "0";
-
+    public static String SpringbootLoggerTableSerialNumber = "0";
     private static final ReentrantLock SpringbootTableSerialNumberLock = new ReentrantLock();
     public static ArrayList<String> SpringbootCheckedUrlList = new ArrayList<>();
-    public static HashMap<String, SpringbootTableEntry> SpringbootTableEntryMap = new HashMap<>();
+    public static HashMap<String, SpringbootTableEntry> SpringbootLoggerTableEntryMap = new HashMap<>();
 
     public static String[] SpringbootCheckPaths;
+
+    public static boolean SpringbootCheck = false;
 
 
     public static String springbootCheckRequest(HttpRequestToBeSent requestToBeSent){
 
-        String serialNumber = getSpringbootTableSerialNumber();
+        String serialNumber = getSpringbootLoggerTableSerialNumber();
         String requestPath  = requestToBeSent.path();
         String RootUrl = requestToBeSent.url();
 
@@ -99,12 +99,12 @@ public class Springboot {
 
         ((DefaultTableModel)getSpringbootLoggerTable().getModel()).addRow(inf);
 
-        if(!SpringbootTableEntryMap.containsKey(serialNumber)){
+        if(!SpringbootLoggerTableEntryMap.containsKey(serialNumber)){
             SpringbootTableEntry rowEntry = new SpringbootTableEntry(inf);
             rowEntry.setRawRequest(requestToBeSent);
             rowEntry.setRowIndex(getSpringbootLoggerTable().getRowByValue(serialNumber));
             rowEntry.setRootUrl(RootUrl);
-            SpringbootTableEntryMap.put(serialNumber, rowEntry);
+            SpringbootLoggerTableEntryMap.put(serialNumber, rowEntry);
         }
 
         return  SPRINGBOOT+serialNumber;
@@ -121,27 +121,27 @@ public class Springboot {
 
         setSpringbootLoggerTableValueAt(
                 responseLength,
-                SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
+                SpringbootLoggerTableEntryMap.get(springbootSerialNumber).getRowIndex(),
                 "Length"
         );
         setSpringbootLoggerTableValueAt(
                 responseTime,
-                SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
+                SpringbootLoggerTableEntryMap.get(springbootSerialNumber).getRowIndex(),
                 "responseTime"
         );
         setSpringbootLoggerTableValueAt(
                 responseCode,
-                SpringbootTableEntryMap.get(springbootSerialNumber).getRowIndex(),
+                SpringbootLoggerTableEntryMap.get(springbootSerialNumber).getRowIndex(),
                 "Code"
         );
 
-        SpringbootTableEntryMap.get(springbootSerialNumber).setCode(responseCode);
-        SpringbootTableEntryMap.get(springbootSerialNumber).setLength(responseLength);
-        SpringbootTableEntryMap.get(springbootSerialNumber).setResponseTime(responseTime);
-        SpringbootTableEntryMap.get(springbootSerialNumber).setRawResponse(simplifyRawhttpResponse);
-        SpringbootCheckedUrlList.add(SpringbootTableEntryMap.get(springbootSerialNumber).getRawRequest().url());
-        if(!SpringbootCheckedUrlList.contains(SpringbootTableEntryMap.get(springbootSerialNumber).getRootUrl())){
-            SpringbootCheckedUrlList.add(SpringbootTableEntryMap.get(springbootSerialNumber).getRootUrl());
+        SpringbootLoggerTableEntryMap.get(springbootSerialNumber).setCode(responseCode);
+        SpringbootLoggerTableEntryMap.get(springbootSerialNumber).setLength(responseLength);
+        SpringbootLoggerTableEntryMap.get(springbootSerialNumber).setResponseTime(responseTime);
+        SpringbootLoggerTableEntryMap.get(springbootSerialNumber).setRawResponse(simplifyRawhttpResponse);
+        SpringbootCheckedUrlList.add(SpringbootLoggerTableEntryMap.get(springbootSerialNumber).getRawRequest().url());
+        if(!SpringbootCheckedUrlList.contains(SpringbootLoggerTableEntryMap.get(springbootSerialNumber).getRootUrl())){
+            SpringbootCheckedUrlList.add(SpringbootLoggerTableEntryMap.get(springbootSerialNumber).getRootUrl());
         }
 
         new springCheckWorker(springbootSerialNumber).execute();
@@ -159,14 +159,14 @@ public class Springboot {
         protected Void doInBackground() throws Exception {
             for(String path: SpringbootCheckPaths){
 
-                HttpRequest httpRequest = SpringbootTableEntryMap.get(SerialNumber).getRawRequest().withPath(path).withMethod("GET").withBody("");
+                HttpRequest httpRequest = SpringbootLoggerTableEntryMap.get(SerialNumber).getRawRequest().withPath(path).withMethod("GET").withBody("");
 
                 String requestUrl = httpRequest.url();
                 if(SpringbootCheckedUrlList.contains(requestUrl)) continue;
 
                 SpringbootCheckedUrlList.add(requestUrl);
 
-                String serialNumber  = getSpringbootTableSerialNumber();
+                String serialNumber  = getSpringbootLoggerTableSerialNumber();
                 String requestMethod = httpRequest.method();
                 String requestHost   = httpRequest.httpService().host();
                 String requestTool   = "Extensions";
@@ -201,7 +201,7 @@ public class Springboot {
                 SpringbootTableEntry springbootTableEntry = new SpringbootTableEntry(inf);
                 springbootTableEntry.setRowIndex(getSpringbootLoggerTable().getRowByValue(serialNumber));
 
-                SpringbootTableEntryMap.put(serialNumber, springbootTableEntry);
+                SpringbootLoggerTableEntryMap.put(serialNumber, springbootTableEntry);
 
                 new MyRegisterHttpHandler.checkWorker("springboot", serialNumber, httpRequest).execute();
 
@@ -212,17 +212,15 @@ public class Springboot {
         }
     }
 
-    private static String getSpringbootTableSerialNumber() {
+    private static String getSpringbootLoggerTableSerialNumber() {
         SpringbootTableSerialNumberLock.lock();
-        SpringbootTableSerialNumber = Integer.toString(Integer.parseInt(SpringbootTableSerialNumber)+1);
+        SpringbootLoggerTableSerialNumber = Integer.toString(Integer.parseInt(SpringbootLoggerTableSerialNumber)+1);
         SpringbootTableSerialNumberLock.unlock();
 
-        return SpringbootTableSerialNumber;
+        return SpringbootLoggerTableSerialNumber;
     }
 
-    public static JCheckBox getSpringbootMenuWorkBox(){
-        return (JCheckBox) Helper.getComponent(SpringbootComponentPanel, "SpringbootMenuWorkBox");
-    }
+
 
     public static DiyJLogTable getSpringbootLoggerTable(){
         return (DiyJLogTable) Helper.getComponent(SpringbootComponentPanel, "SpringbootLoggerTable");
@@ -234,6 +232,12 @@ public class Springboot {
 
     public static void setSpringbootLoggerTableValueAt(String value, Integer rowIndex, String columnName){
         getSpringbootLoggerTable().getModel().setValueAt(value, rowIndex, SpringbootColumnMap.get(columnName));
+    }
+
+    public static void clearSpringbootTable(){
+        ((DefaultTableModel)getSpringbootLoggerTable().getModel()).setRowCount(0);
+        SpringbootLoggerTableSerialNumber = "0";
+        SpringbootLoggerTableEntryMap.clear();
     }
 
 }
