@@ -8,6 +8,7 @@ import burp.api.montoya.ui.editor.RawEditor;
 import burp.api.montoya.ui.editor.extension.EditorCreationContext;
 import burp.api.montoya.ui.editor.extension.ExtensionProvidedHttpResponseEditor;
 import burp.api.montoya.ui.editor.extension.HttpResponseEditorProvider;
+import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.frame.Dencrypt.Unicode.Unicode;
 
 import java.awt.*;
@@ -26,22 +27,22 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
     private static class MyExtensionHttpResponseEditor implements ExtensionProvidedHttpResponseEditor{
 
         HttpRequestResponse MyHttpRequestResponse;
-        RawEditor MyExtenderEditor;
+        DiyJTextAreaScrollPane MyExtenderEditor;
         MyExtensionHttpResponseEditor(){
-            MyExtenderEditor = BurpAPI.userInterface().createRawEditor();
+            MyExtenderEditor = new DiyJTextAreaScrollPane("RepeaterEditor");
+            MyExtenderEditor.getTextArea().setEditable(false);
         }
 
         @Override
         public HttpResponse getResponse() {
-            return HttpResponse.httpResponse(MyExtenderEditor.getContents());
+            return HttpResponse.httpResponse(MyExtenderEditor.getText());
         }
 
         @Override
         public void setRequestResponse(HttpRequestResponse httpRequestResponse) {
             MyHttpRequestResponse = httpRequestResponse;
             HttpResponse httpResponse = MyHttpRequestResponse.response();
-            httpResponse = httpResponse.withBody(Unicode.unicodeToString(new String(httpResponse.body().getBytes(), StandardCharsets.UTF_8)));
-            MyExtenderEditor.setContents(httpResponse.toByteArray());
+            MyExtenderEditor.setText(Unicode.unicodeToString(httpResponse.toString()));
         }
 
         @Override
@@ -57,7 +58,7 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
 
         @Override
         public Component uiComponent() {
-            return MyExtenderEditor.uiComponent();
+            return MyExtenderEditor;
         }
 
         @Override

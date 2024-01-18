@@ -21,7 +21,9 @@ import static jrcet.help.Similarity.StringSimilarity.similarity;
 
 public class MyRegisterHttpHandler implements HttpHandler {
 
-    public String[] BlackExtensionList = new String[]{"js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js","css","svg","otf","woff","woff2"};
+    public String[] BlackExtensionList = new String[]{
+            "js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js","css","svg","otf","woff","woff2","ico","tff"
+    };
 
     @Override
     public RequestToBeSentAction handleHttpRequestToBeSent(HttpRequestToBeSent requestToBeSent) {
@@ -156,8 +158,7 @@ public class MyRegisterHttpHandler implements HttpHandler {
 
                 case "springboot" -> {
                     rowIndex = SpringbootLoggerTableEntryMap.get(number).getRowIndex();
-//                    BurpAPI.logging().output().println(responseCode+":"+(!responseCode.equals("404") && !responseCode.startsWith("5"))+":"+SpringbootTableEntryMap.get(number).getType());
-                    if(!responseCode.equals("404") && !responseCode.startsWith("5")){
+                    if(!responseCode.startsWith("4") && !responseCode.startsWith("5")){
                         switch (SpringbootLoggerTableEntryMap.get(number).getType()){
                             case "Swagger", "Actuator" -> {
                                 if(httpResponse.statedMimeType()== MimeType.JSON){

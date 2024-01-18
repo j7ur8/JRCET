@@ -50,15 +50,18 @@ public class Springboot {
     public static String springbootCheckRequest(HttpRequestToBeSent requestToBeSent){
 
         String serialNumber = getSpringbootLoggerTableSerialNumber();
-        String requestPath  = requestToBeSent.path();
+        String requestPath  = requestToBeSent.path().split("\\?")[0];
         String RootUrl = requestToBeSent.url();
+
+
 
         if(Objects.equals(requestPath, "/")){
             SpringbootCheckPaths = new String[]{
                     "/swagger-resources",
                     "/actuator/health",
                     "/druid/index.html",
-                    "/doc.html"
+                    "/doc.html",
+                    "/monitor"
             };
         }else{
             String requestRootPath = requestPath.split("/")[1];
@@ -72,10 +75,12 @@ public class Springboot {
                     "/actuator/health",
                     "/druid/index.html",
                     "/doc.html",
+                    "/monitor",
                     String.format("/%s/swagger-resources",requestRootPath),
                     String.format("/%s/actuator/health",requestRootPath),
                     String.format("/%s/druid/index.html",requestRootPath),
-                    String.format("/%s/doc.html",requestRootPath)
+                    String.format("/%s/doc.html",requestRootPath),
+                    String.format("/%s/monitor",requestRootPath)
             };
         }
 
@@ -237,6 +242,7 @@ public class Springboot {
     public static void clearSpringbootTable(){
         ((DefaultTableModel)getSpringbootLoggerTable().getModel()).setRowCount(0);
         SpringbootLoggerTableSerialNumber = "0";
+//        SpringbootCheckedUrlList.clear();
         SpringbootLoggerTableEntryMap.clear();
     }
 

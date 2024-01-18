@@ -197,15 +197,15 @@ public class OverauthComponent extends DiyJComponent {
         OverauthMenu1Panel.setPreferredSize(new Dimension(0,30));
 
         DiyJTextField  OverauthMenuHostField= new DiyJTextField("目标：");
-//        OverauthMenuHostField.setPreferredSize(new Dimension(0,30));
+        OverauthMenuHostField.setPreferredSize(new Dimension(0,0));
         OverauthMenuHostField.setName("OverauthMenuHostField");
 
         DiyJTextField  OverauthMenuHighauthField= new DiyJTextField("高权限：");
-//        OverauthMenuHighauthField.setPreferredSize(new Dimension(0,30));
+        OverauthMenuHighauthField.setPreferredSize(new Dimension(0,0));
         OverauthMenuHighauthField.setName("OverauthMenuHighauthField");
 
         DiyJTextField  OverauthMenuLowauthField= new DiyJTextField("低权限：");
-//        OverauthMenuLowauthField.setPreferredSize(new Dimension(0,30));
+        OverauthMenuLowauthField.setPreferredSize(new Dimension(0,0));
         OverauthMenuLowauthField.setName("OverauthMenuLowauthField");
         OverauthMenu1Panel.add(OverauthMenuHostField,new GridBagConstraints(
                 0,0,

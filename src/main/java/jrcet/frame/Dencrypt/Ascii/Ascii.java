@@ -60,7 +60,6 @@ public class Ascii {
 
         boolean isSingle = Helper.isNumeric(text);
 
-
         String[] eStringArray = isSingle?new String[]{text}:Helper.getContent(text).split(parseSeparator(separator));
         StringBuilder eStringBuilder = new StringBuilder();
         for(int i=0; i<eStringArray.length; i++){

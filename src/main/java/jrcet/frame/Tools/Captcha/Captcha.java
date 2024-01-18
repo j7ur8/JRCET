@@ -1,6 +1,7 @@
 package jrcet.frame.Tools.Captcha;
 
 import burp.api.montoya.http.message.requests.HttpRequest;
+import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.help.Helper;
 import jrcet.help.d4ocr.OCREngine;
 
@@ -28,15 +29,18 @@ public class Captcha {
             String imageRule = getImageRuleField().getText();
             String tokenRule = getTokenRuleField().getText();
 
-            String response = new String(BurpAPI.http().sendRequest(CaptchaRequestEditor.getRequest()).response().body().getBytes(),StandardCharsets.UTF_8);
+            HttpResponse httpResponse = BurpAPI.http().sendRequest(CaptchaRequestEditor.getRequest()).response();
 
-            String imageText = Helper.matchByRegular(response, imageRule);
-            imageText = Helper.isBase64(imageText) ? imageText : Helper.base64Encode2String(imageText);
+            byte[] responseBytes = httpResponse.body().getBytes();
+            String responseText = new String(httpResponse.body().getBytes(), StandardCharsets.UTF_8);
 
-//            BurpAPI.logging().output().println(imageText);
-            ByteArrayInputStream in = new ByteArrayInputStream(Helper.base64Decode2Byte(imageText));
+            String imageText = Helper.aiFindBase64(imageRule,responseText);
 
-            return (Objects.equals(tokenRule, "") ? "" : Helper.matchByRegular(response,tokenRule)) +
+            byte[] imageByte = Helper.isBase64(imageText) ? Helper.base64Decode2Byte(imageText) : responseBytes;
+
+            ByteArrayInputStream in = new ByteArrayInputStream(imageByte);
+
+            return (Objects.equals(tokenRule, "") ? "" : Helper.matchByRegular(responseText, tokenRule)) +
                     getExtStrField().getText()+
                     OCREngine.instance().recognize(ImageIO.read(in));
 
@@ -56,7 +60,7 @@ public class Captcha {
 
 //            String imageText = Helper.matchByRegular(responseText, getImageRuleField().getText());
             String imageText = Helper.aiFindBase64(getImageRuleField().getText(),responseText);
-            BurpAPI.logging().output().println(imageText);
+//            BurpAPI.logging().output().println(imageText);
             byte[] imageByte = Helper.isBase64(imageText) ? Helper.base64Decode2Byte(imageText) : responseBytes;
 
             ByteArrayInputStream in = new ByteArrayInputStream(imageByte);
