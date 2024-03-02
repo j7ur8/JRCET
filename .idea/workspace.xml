@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2cec57e1-b170-4d83-bcc6-c843c606428c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpResponseEditorProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpResponseEditorProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Ascii/Ascii.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Ascii/Ascii.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/OverauthComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/OverauthComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/Aes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +266,8 @@
       <workItem from="1700636237429" duration="1683000" />
       <workItem from="1703223007657" duration="248000" />
       <workItem from="1705302665825" duration="587000" />
-      <workItem from="1705562342211" duration="236000" />
+      <workItem from="1705562342211" duration="1240000" />
+      <workItem from="1709393845926" duration="1309000" />
     </task>
     <servers />
   </component>

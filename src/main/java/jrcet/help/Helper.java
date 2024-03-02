@@ -620,6 +620,15 @@ public class Helper {
         String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
         return Pattern.matches(base64Pattern, str);
     }
+    public static boolean isHexString(String str) {
+        char[] hexChar = str.toCharArray();
+        for(char c : hexChar){
+            if(!Character.toString(c).matches("[0-9A-Fa-f]")){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static String aiFindBase64(String reg,String str){
 

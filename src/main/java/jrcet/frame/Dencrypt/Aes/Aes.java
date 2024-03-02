@@ -18,6 +18,7 @@ import static jrcet.help.Helper.getByteByType;
 
 public class Aes {
 
+    private static String inputText;
     private static byte[] inputTextByte;
     private static    int len;
     private static byte[] key;
@@ -57,7 +58,7 @@ public class Aes {
         try{
             result  = Encrypt(plainText, Mode, Key, KeyType, Iv, IvType);
         }catch (Exception e){
-            BurpAPI.logging().error().println(result);
+            BurpAPI.logging().error().println(e);
         }
 
         return result;
@@ -75,7 +76,7 @@ public class Aes {
         try{
             result  = Decrypt(plainText, Mode, Key, KeyType, Iv, IvType);
         }catch (Exception e){
-            BurpAPI.logging().error().println(result);
+            BurpAPI.logging().error().println(e);
         }
 
         return result;
@@ -134,8 +135,7 @@ public class Aes {
             case "AES/CBC/NoPadding", "AES/CBC/PKCS5Padding" ->
                     cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
         }
-
-        return new String(cipher.doFinal(b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
+        return new String(cipher.doFinal(Helper.isHexString(inputText)?Helper.hexStringToByteArray(inputText):b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
     }
 
     private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) {
@@ -143,14 +143,14 @@ public class Aes {
         returned=null;
         key=null;
         iv=null;
-
-        if (StringUtil.isBlank(InputText)) {
+        inputText = InputText;
+        if (StringUtil.isBlank(inputText)) {
             returned = "请输入需要解密的字符串";
         }
 
         //对InputText处理
-        assert InputText != null;
-        inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
+        assert inputText != null;
+        inputTextByte = inputText.getBytes(StandardCharsets.UTF_8);
         len = inputTextByte.length;
 
         //设置key
