@@ -33,7 +33,6 @@ public class OverauthTableEntry {
 
     private HttpResponse UnAuthResponse = null;
 
-
     private String OverAuth;
 
     private String UnAuth;

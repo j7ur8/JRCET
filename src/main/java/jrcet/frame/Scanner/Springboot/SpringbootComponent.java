@@ -20,19 +20,6 @@ public class SpringbootComponent extends DiyJComponent {
     public static JComponent SpringbootComponentPanel = null;
     public static HttpRequestEditor SpringbootRawRequestEditor = BurpAPI.userInterface().createHttpRequestEditor();
     public static HttpResponseEditor SpringbootRawResponseEditor = BurpAPI.userInterface().createHttpResponseEditor();
-//
-//    public static HttpRequestEditor SpringbootSwaggerRequestEditor = API.userInterface().createHttpRequestEditor();
-//    public static HttpResponseEditor SpringbootSwaggerResponseEditor = API.userInterface().createHttpResponseEditor();
-//
-//    public static HttpRequestEditor SpringbootDruidRequestEditor = API.userInterface().createHttpRequestEditor();
-//    public static HttpResponseEditor SpringbootDruidResponseEditor = API.userInterface().createHttpResponseEditor();
-//
-//    public static HttpRequestEditor SpringbootActuatorRequestEditor = API.userInterface().createHttpRequestEditor();
-//    public static HttpResponseEditor SpringbootActuatorResponseEditor = API.userInterface().createHttpResponseEditor();
-//
-//    public static HttpRequestEditor SpringbootDocRequestEditor = API.userInterface().createHttpRequestEditor();
-//    public static HttpResponseEditor SpringbootDocResponseEditor = API.userInterface().createHttpResponseEditor();
-
 
     @Override
     public JComponent component() {
@@ -185,8 +172,6 @@ public class SpringbootComponent extends DiyJComponent {
 
         return SpringbootMenuPanel;
     }
-
-
 
 
 }

@@ -89,8 +89,6 @@ public class Fastjson {
 
     public static void fastjsonCheckResponse(HttpResponseReceived responseReceived, String fastjsonSerialNumber){
 
-
-
         String randomString   = Helper.createRandomString(8);
         String responseCode   = Integer.toString(responseReceived.statusCode());
         int    responseLen    = responseReceived.body().length();

@@ -53,8 +53,6 @@ public class Springboot {
         String requestPath  = requestToBeSent.path().split("\\?")[0];
         String RootUrl = requestToBeSent.url();
 
-
-
         if(Objects.equals(requestPath, "/")){
             SpringbootCheckPaths = new String[]{
                     "/swagger-resources",

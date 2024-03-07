@@ -31,7 +31,9 @@ public class Jwt{
     public static boolean ifValidJWT(String jwtToken){
 
         String[] tokens = jwtToken.split("\\.");
-
+//        BurpAPI.logging().output().println(tokens.length >= 2);
+//        BurpAPI.logging().output().println(Helper.isUrlBase64(tokens[0]));
+//        BurpAPI.logging().output().println(Helper.isUrlBase64(tokens[1]));
         return tokens.length >= 2 && Helper.isUrlBase64(tokens[0]) && Helper.isUrlBase64(tokens[1]);
     }
 
@@ -75,7 +77,7 @@ public class Jwt{
         return message + "." + result;
     }
 
-    public static boolean verify(String JwtToken,String header, String message, String secret, String privateKey,String publicKey){
+    public static boolean verify(String JwtToken,String header, String message, String secret, String privateKey){
 
         String result = encrypt(header,message,secret,privateKey);
 

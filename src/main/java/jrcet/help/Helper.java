@@ -646,7 +646,7 @@ public class Helper {
     }
 
     public static boolean isUrlBase64(String str) {
-        String base64Pattern = "^([A-Za-z0-9-_]{4})*$";
+        String base64Pattern = "^([A-Za-z0-9\\-\\_]{4})*[A-Za-z0-9\\-\\_]{0,3}$";
         return Pattern.matches(base64Pattern, str);
     }
 

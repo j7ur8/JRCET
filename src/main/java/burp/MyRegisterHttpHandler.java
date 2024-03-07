@@ -6,14 +6,17 @@ import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.MimeType;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
+import jrcet.frame.Scanner.Javascript.Javascript;
 import jrcet.help.StringUtil;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
+import static jrcet.frame.Scanner.Javascript.Javascript.*;
 import static jrcet.frame.Scanner.Overauth.Overauth.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.setSpringbootLoggerTableValueAt;
@@ -22,7 +25,7 @@ import static jrcet.help.Similarity.StringSimilarity.similarity;
 public class MyRegisterHttpHandler implements HttpHandler {
 
     public String[] BlackExtensionList = new String[]{
-            "js","png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","js","css","svg","otf","woff","woff2","ico","tff"
+            "png","jpg","jpeg","gif","txt","html","pdf","xls","xlsx","word","ppt","zip","xml","gif","css","svg","otf","woff","woff2","ico","tff"
     };
 
     @Override
@@ -38,18 +41,35 @@ public class MyRegisterHttpHandler implements HttpHandler {
 
 
         //不接受静态文件的请求
-        String requestPath = requestToBeSent.path();
+        String requestPath = requestToBeSent.path().split("\\?")[0];
         for(String ext: BlackExtensionList){
-            requestPath = (requestPath.split("\\?"))[0];
             if(requestPath.endsWith(ext)){
                 return RequestToBeSentAction.continueWith(requestToBeSent);
             }
+        }
+        
+        String requestUrl = requestToBeSent.url();
+
+        //javascript检查过的url
+        String javascriptNote = "";
+
+        if(requestPath.endsWith("js")){
+            if( JavascriptCheck && !JavascriptCheckedUrlList.contains(requestUrl)){
+                javascriptNote = JAVASCRIPT;
+                HttpRequest httpRequest = requestToBeSent.withRemovedHeader("If-Modified-Since");
+
+                Annotations requestAnnotations = requestToBeSent.annotations().withNotes(
+                        javascriptNote+"¥¥"+requestUrl
+                );
+                return RequestToBeSentAction.continueWith(httpRequest, requestAnnotations);
+            }
+            return RequestToBeSentAction.continueWith(requestToBeSent);
         }
 
         //sprintboot检查过的url
         String springbootNote = "";
 
-        if( SpringbootCheck && !SpringbootCheckedUrlList.contains(requestToBeSent.url())){
+        if( SpringbootCheck && !SpringbootCheckedUrlList.contains(requestUrl)){
             springbootNote = springbootCheckRequest(requestToBeSent);
         }
 
@@ -57,13 +77,13 @@ public class MyRegisterHttpHandler implements HttpHandler {
         //fastjson检查过的url
         String fastjsonNote = "";
 
-        if(FastjsonCheck && !FastjsonCheckUrlList.contains(requestToBeSent.url())){
+        if(FastjsonCheck && !FastjsonCheckUrlList.contains(requestUrl)){
             fastjsonNote = fastjsonCheckRequest(requestToBeSent);
         }
 
         //Overauth检查过的Url
         String authCheckNote = "";
-        if(OverauthCheck && !OverauthCheckUrlList.contains(requestToBeSent.url())){
+        if(OverauthCheck && !OverauthCheckUrlList.contains(requestUrl)){
             authCheckNote = authCheckRequest(requestToBeSent);
         }
 
@@ -78,6 +98,12 @@ public class MyRegisterHttpHandler implements HttpHandler {
     public ResponseReceivedAction handleHttpResponseReceived(HttpResponseReceived responseReceived) {
 
         String requestNotes = responseReceived.annotations().notes();
+
+        if(requestNotes!=null && requestNotes.startsWith(JAVASCRIPT+"¥¥")){
+            javascriptCheckResponse(responseReceived);
+            return ResponseReceivedAction.continueWith(responseReceived);
+        }
+
         //判断是否为Fastjson期望的返回包
         String fastjsonRequestNumber = getRequestNumber(FASTJSON, requestNotes);
         if(!fastjsonRequestNumber.equals("")){
@@ -90,6 +116,7 @@ public class MyRegisterHttpHandler implements HttpHandler {
             authCheckResponse(responseReceived,overAuthRequestNumber);
         }
 
+        //判断是否为Sprintboot期望的返回包
         String springbootRequestNumber = getRequestNumber(SPRINGBOOT, requestNotes);
         if(!StringUtil.isBlank(springbootRequestNumber)){
             springbootCheckResponse(responseReceived,springbootRequestNumber);

@@ -2,6 +2,7 @@ package jrcet.frame.Scanner;
 
 import jrcet.diycomponents.DiyJComponent;
 import jrcet.frame.Scanner.Fastjson.FastjsonComponent;
+import jrcet.frame.Scanner.Javascript.JavascriptComponent;
 import jrcet.frame.Scanner.Overauth.OverauthComponent;
 import jrcet.frame.Scanner.Springboot.SpringbootComponent;
 
@@ -38,6 +39,7 @@ public class ScannerComponent extends DiyJComponent {
         ScannerTabbedPane.add("OverAuth",new OverauthComponent().component());
         ScannerTabbedPane.add("FastJson",new FastjsonComponent().component());
         ScannerTabbedPane.add("Springboot",new SpringbootComponent().component());
+        ScannerTabbedPane.add("JavaScript",new JavascriptComponent().component());
 
         return ScannerTabbedPane;
     }

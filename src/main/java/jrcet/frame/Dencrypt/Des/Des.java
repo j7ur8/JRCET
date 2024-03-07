@@ -18,6 +18,7 @@ import static jrcet.help.Helper.getByteByType;
 
 public class Des {
 
+    private static String inputText;
     private static byte[] inputTextByte;
     private static    int len;
     private static byte[] key;
@@ -138,7 +139,7 @@ public class Des {
                     cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "DES"), new IvParameterSpec(iv));
         }
 
-        return new String(cipher.doFinal(b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
+        return new String(cipher.doFinal(Helper.isHexString(inputText)?Helper.hexStringToByteArray(inputText):b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
     }
 
     private static void repairParam(String InputText, String Key, String KeyType, String Iv, String IvType) {
@@ -153,6 +154,7 @@ public class Des {
 
         //对InputText处理
         assert InputText != null;
+        inputText = InputText;
         inputTextByte = InputText.getBytes(StandardCharsets.UTF_8);
         len = inputTextByte.length;
 

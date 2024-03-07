@@ -206,5 +206,6 @@ public class Overauth {
         ((DefaultTableModel)getOverauthLoggerTable().getModel()).setRowCount(0);
         OverauthLoggerTableSerialNumber = "0";
         OverauthLoggerTableEntryMap.clear();
+        OverauthCheckUrlList.clear();
     }
 }

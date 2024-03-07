@@ -70,6 +70,8 @@ import static jrcet.frame.HText.Sort.SortComponent.SortInputArea;
 import static jrcet.frame.HText.Sort.SortComponent.SortOutputArea;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.FastjsonCheck;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.clearFastjsonTable;
+import static jrcet.frame.Scanner.Javascript.Javascript.JavascriptCheck;
+import static jrcet.frame.Scanner.Javascript.Javascript.clearJavascriptTable;
 import static jrcet.frame.Scanner.Overauth.Overauth.OverauthCheck;
 import static jrcet.frame.Scanner.Overauth.Overauth.clearOverauthTable;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
@@ -213,7 +215,7 @@ public class DiyJButton extends JButton implements  ActionListener {
                 String JwtToken = JwtCipherArea.getText();
                 String header = JwtToken.substring(0,JwtToken.lastIndexOf("."));
                 String payload = JwtToken.substring(JwtToken.lastIndexOf(".")+1);
-                if(Jwt.verify(JwtToken,JwtPlainHeaderArea.getText(),JwtPlainPayloadArea.getText(), JwtPlainSecretArea.getText(), JwtPlainPrivateArea.getText(),JwtPlainPublicArea.getText())){
+                if(Jwt.verify(JwtToken,JwtPlainHeaderArea.getText(),JwtPlainPayloadArea.getText(), JwtPlainSecretArea.getText(), JwtPlainPrivateArea.getText())){
                     Jwt.getJwtMenuVerifyLabel().setText("signature verified");
                     Jwt.getJwtMenuVerifyLabel().setForeground(new Color(80,183,236));
                     JwtPlainHeaderArea.setText(Helper.base64UrlDecode2String(header));
@@ -276,6 +278,21 @@ public class DiyJButton extends JButton implements  ActionListener {
 
             case "OverauthMenuClearButton" -> {
                 clearOverauthTable();
+            }
+
+            case "JavascriptMenuCheckButton" -> {
+                if(JavascriptCheck){
+                    setBackground(Color.RED);
+                    setText("OFF");
+                }else{
+                    setBackground(Color.GREEN);
+                    setText("ON");
+                }
+                JavascriptCheck = !JavascriptCheck;
+            }
+
+            case "JavascriptMenuClearButton" -> {
+                clearJavascriptTable();
             }
         }
 

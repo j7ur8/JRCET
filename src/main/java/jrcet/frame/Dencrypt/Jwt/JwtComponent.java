@@ -157,6 +157,7 @@ public class JwtComponent extends DiyJComponent {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String jwtToken = JwtCipherArea.getText();
+//                BurpAPI.logging().output().println(jwtToken);
                 if(Jwt.ifValidJWT(jwtToken)){
                     String[] tokens = jwtToken.split("\\.");
                     String header = Helper.base64Decode2String(tokens[0]);

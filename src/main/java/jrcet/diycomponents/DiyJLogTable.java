@@ -1,5 +1,6 @@
 package jrcet.diycomponents;
 
+import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.message.params.HttpParameter;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
@@ -16,10 +17,14 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
 import static jrcet.frame.Scanner.Fastjson.FastjsonComponent.*;
+import static jrcet.frame.Scanner.Javascript.Javascript.JavascriptResultMap;
+import static jrcet.frame.Scanner.Javascript.JavascriptComponent.JavascriptResultEditor;
 import static jrcet.frame.Scanner.Overauth.Overauth.*;
 import static jrcet.frame.Scanner.Overauth.OverauthComponent.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
@@ -51,7 +56,6 @@ public class DiyJLogTable extends JTable {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
                 c.setEnabled(true);
                 c.setForeground(Color.BLACK);
                 ((DefaultTableCellRenderer) c).setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,6 +83,12 @@ public class DiyJLogTable extends JTable {
                             c.setForeground(Color.RED);
                         }else if( column==5 && getValueAt(row, column).equals("404") ){
                             c.setEnabled(false);
+                        }
+                    }
+
+                    case "JavascriptLoggerTable" -> {
+                        if(getValueAt(row,column).equals(true)){
+                            c.setForeground(Color.RED);
                         }
                     }
                 }
@@ -177,7 +187,7 @@ public class DiyJLogTable extends JTable {
             }
             case "SpringbootLoggerTable" -> {
                 serialNumber = getSpringbootSerialNumber(row);
-                SpringbootCheckedUrlList.remove(SpringbootLoggerTableEntryMap.get(serialNumber) .getRawRequest().url());
+                SpringbootCheckedUrlList.remove(SpringbootLoggerTableEntryMap.get(serialNumber).getRawRequest().url());
                 SpringbootLoggerTableEntryMap.get(serialNumber).setRemoved(true);
                 SpringbootRawRequestEditor.setRequest(null);
                 SpringbootRawResponseEditor.setResponse(null);
@@ -186,7 +196,8 @@ public class DiyJLogTable extends JTable {
     }
 
     private void listSelectionAction(ListSelectionEvent e){
-        if(!e.getValueIsAdjusting()){
+//        BurpAPI.logging().output().println(e.getValueIsAdjusting());
+        if(e.getValueIsAdjusting()){
             return;
         }
 
@@ -228,6 +239,11 @@ public class DiyJLogTable extends JTable {
 
                 SpringbootRawRequestEditor.setRequest(springbootTableEntry.getRawRequest());
                 SpringbootRawResponseEditor.setResponse(springbootTableEntry.getRawResponse());
+            }
+
+            case "JavascriptLoggerTable" -> {
+                String requestUrl = (String) getValueAt(getSelectedRow(),1);
+                JavascriptResultEditor.setContents(ByteArray.byteArray(JavascriptResultMap.get(requestUrl)));
             }
         }
     }
