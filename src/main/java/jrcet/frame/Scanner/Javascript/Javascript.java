@@ -1,6 +1,7 @@
 package jrcet.frame.Scanner.Javascript;
 
 import burp.api.montoya.core.Annotations;
+import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.handler.HttpResponseReceived;
 import jrcet.diycomponents.DiyJLogTable;
 import jrcet.help.Helper;
@@ -13,8 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static burp.MyExtender.BurpAPI;
-import static jrcet.frame.Scanner.Fastjson.FastjsonComponent.FastjsonComponentPanel;
+import static jrcet.frame.Scanner.Javascript.JavascriptComponent.JavascriptAllResultEditor;
 import static jrcet.frame.Scanner.Javascript.JavascriptComponent.JavascriptComponentPanel;
 
 public class Javascript {
@@ -26,6 +26,8 @@ public class Javascript {
     public static String JavascriptLoggerTableSerialNumber = "0";
 
     public static HashMap<String,String> JavascriptResultMap = new HashMap<>();
+
+    public static StringBuilder JavascriptAllResultBuilder=new StringBuilder();
     public static final HashMap<String, String> JavascriptCheckMap = new HashMap<>() {
         {
             put("IDCard", "\\b([1-9]\\d{5}(19|20)\\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx])\\b");
@@ -84,8 +86,9 @@ public class Javascript {
                     case "APPKey"-> javascriptTableEntry.setAPPKey(true);
                     case "WebHook"-> javascriptTableEntry.setWebHook(true);
                 }
-                tmpResult.append(key).append("=>").append(matcher.group(0)).append("\n");
+                tmpResult.append(key).append(":\n\t").append(matcher.group(0)).append("\n");
 //                BurpAPI.logging().output().println(tmpResult);
+
             }
             JavascriptResultMap.put(requestUrl,tmpResult.toString());
         }
@@ -95,33 +98,14 @@ public class Javascript {
         }else{
 //            BurpAPI.logging().output().println("ccc");
 //            BurpAPI.logging().output().println(getJavascriptLoggerTable());
+            JavascriptAllResultBuilder.append("[").append(requestUrl).append("]\n").append(tmpResult).append("\n\n");
             javascriptTableEntry.setNumber(getJavascriptLoggerTableSerialNumber());
             ((DefaultTableModel)getJavascriptLoggerTable().getModel()).addRow(javascriptTableEntry.getRow());
             JavascriptCheckedUrlList.add(requestUrl);
+            JavascriptAllResultEditor.setContents(ByteArray.byteArray(JavascriptAllResultBuilder.toString()));
         }
     }
 
-    public static void main(String[] args) {
-        String string = "412829199903243616\n"
-                + "412829199903243611\n"
-                + "412829199903243612\n" +
-                "APID1111111111111111111111111111111111111111";
-
-        String url="http://www.baidu.com/a.js";
-        StringBuilder tmpResult = new StringBuilder();
-        for(Map.Entry<String,String> entry : JavascriptCheckMap.entrySet()){
-            String key = entry.getKey();
-            String regex = entry.getValue();
-            Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-            Matcher matcher = pattern.matcher(string);
-            while (matcher.find()) {
-                tmpResult.append(key).append("=>").append(matcher.group(0)).append("\n");
-            }
-//            System.out.println(tmpResult);
-            JavascriptResultMap.put(url, tmpResult.toString());
-        }
-        System.out.println("IDCard".split("_")[0]);
-    }
 
     public static void clearJavascriptTable(){
         ((DefaultTableModel)getJavascriptLoggerTable().getModel()).setRowCount(0);

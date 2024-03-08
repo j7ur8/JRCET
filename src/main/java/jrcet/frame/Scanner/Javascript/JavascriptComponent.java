@@ -20,6 +20,8 @@ public class JavascriptComponent extends DiyJComponent {
 
     public static RawEditor JavascriptResultEditor = BurpAPI.userInterface().createRawEditor();
 
+    public static RawEditor JavascriptAllResultEditor = BurpAPI.userInterface().createRawEditor();
+
     @Override
     public JComponent component() {
 
@@ -96,10 +98,10 @@ public class JavascriptComponent extends DiyJComponent {
     }
 
     private JComponent JavascriptViewPanel(){
-        JavascriptResultEditor.setEditable(false);
+        JavascriptAllResultEditor.setEditable(false);
         JPanel JavascriptViewPanel = new JPanel(new GridBagLayout());
         JavascriptViewPanel.setPreferredSize(new Dimension(0,0));
-        JavascriptViewPanel.add(JavascriptResultEditor.uiComponent(), new GridBagConstraints(
+        JavascriptViewPanel.add(JavascriptAllResultEditor.uiComponent(), new GridBagConstraints(
                 0,0,
                 1,1,
                 1,1,
@@ -140,10 +142,21 @@ public class JavascriptComponent extends DiyJComponent {
         JavascriptLoggerTableScrollPane.setName("JavascriptLoggerTableScrollPane");
         JavascriptLoggerTableScrollPane.setPreferredSize(new Dimension(0,0));
 
+        JavascriptResultEditor.setEditable(false);
+        JavascriptResultEditor.uiComponent().setPreferredSize(new Dimension(500,0));
         JavascriptLoggerPanel.add(JavascriptLoggerTableScrollPane,new GridBagConstraints(
                 0,0,
                 1,1,
                 1,1,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+        JavascriptLoggerPanel.add(JavascriptResultEditor.uiComponent(),new GridBagConstraints(
+                1,0,
+                1,1,
+                0,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
