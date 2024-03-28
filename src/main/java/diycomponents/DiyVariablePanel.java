@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package jrcet.diycomponents;
+package diycomponents;
 
 
 

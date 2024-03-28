@@ -1,6 +1,6 @@
 package jrcet.frame;
 
-import jrcet.diycomponents.DiyJComponent;
+import diycomponents.DiyJComponent;
 
 import jrcet.frame.Asset.AssetComponent;
 import jrcet.frame.Dencrypt.DencryptComponent;

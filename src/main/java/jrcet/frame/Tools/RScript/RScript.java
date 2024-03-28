@@ -1,7 +1,7 @@
 package jrcet.frame.Tools.RScript;
 
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.help.Helper;
+import diycomponents.DiyJTextAreaScrollPane;
+import help.Helper;
 
 
 import javax.swing.*;

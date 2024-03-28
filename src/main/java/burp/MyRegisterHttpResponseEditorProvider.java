@@ -1,5 +1,6 @@
 package burp;
 
+import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.MimeType;
 import burp.api.montoya.http.message.responses.HttpResponse;
@@ -8,11 +9,9 @@ import burp.api.montoya.ui.editor.RawEditor;
 import burp.api.montoya.ui.editor.extension.EditorCreationContext;
 import burp.api.montoya.ui.editor.extension.ExtensionProvidedHttpResponseEditor;
 import burp.api.montoya.ui.editor.extension.HttpResponseEditorProvider;
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
 import jrcet.frame.Dencrypt.Unicode.Unicode;
 
 import java.awt.*;
-import java.nio.charset.StandardCharsets;
 
 import static burp.MyExtender.BurpAPI;
 
@@ -27,22 +26,25 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
     private static class MyExtensionHttpResponseEditor implements ExtensionProvidedHttpResponseEditor{
 
         HttpRequestResponse MyHttpRequestResponse;
-        DiyJTextAreaScrollPane MyExtenderEditor;
+//        DiyJTextAreaScrollPane MyExtenderEditor;
+        RawEditor RepeaterUnicodeEditor = BurpAPI.userInterface().createRawEditor();
         MyExtensionHttpResponseEditor(){
-            MyExtenderEditor = new DiyJTextAreaScrollPane("RepeaterEditor");
-            MyExtenderEditor.getTextArea().setEditable(false);
+//            MyExtenderEditor = new DiyJTextAreaScrollPane("RepeaterEditor");
+//            MyExtenderEditor.getTextArea().setEditable(false);
+            RepeaterUnicodeEditor.setEditable(false);
+
         }
 
         @Override
         public HttpResponse getResponse() {
-            return HttpResponse.httpResponse(MyExtenderEditor.getText());
+            return HttpResponse.httpResponse(RepeaterUnicodeEditor.getContents());
         }
 
         @Override
         public void setRequestResponse(HttpRequestResponse httpRequestResponse) {
             MyHttpRequestResponse = httpRequestResponse;
             HttpResponse httpResponse = MyHttpRequestResponse.response();
-            MyExtenderEditor.setText(Unicode.unicodeToString(httpResponse.toString()));
+            RepeaterUnicodeEditor.setContents(ByteArray.byteArray(Unicode.unicodeToString(httpResponse.toString())));
         }
 
         @Override
@@ -53,12 +55,12 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
 
         @Override
         public String caption() {
-            return "Extender";
+            return "Unicode";
         }
 
         @Override
         public Component uiComponent() {
-            return MyExtenderEditor;
+            return RepeaterUnicodeEditor.uiComponent();
         }
 
         @Override

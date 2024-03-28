@@ -8,10 +8,10 @@ import burp.api.montoya.http.message.params.HttpParameterType;
 import burp.api.montoya.http.message.params.ParsedHttpParameter;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
-import jrcet.diycomponents.DiyJList;
-import jrcet.diycomponents.DiyJLogTable;
-import jrcet.help.Helper;
-import jrcet.help.StringUtil;
+import diycomponents.DiyJList;
+import diycomponents.DiyJLogTable;
+import help.Helper;
+import help.StringUtil;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

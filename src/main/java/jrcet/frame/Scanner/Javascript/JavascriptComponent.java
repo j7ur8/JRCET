@@ -1,16 +1,14 @@
 package jrcet.frame.Scanner.Javascript;
 
-import burp.api.montoya.ui.editor.HttpResponseEditor;
 import burp.api.montoya.ui.editor.RawEditor;
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLogTable;
-import jrcet.diycomponents.DiyVariablePanel;
+import diycomponents.DiyJButton;
+import diycomponents.DiyJComponent;
+import diycomponents.DiyJLogTable;
+import diycomponents.DiyVariablePanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
 import static burp.MyExtender.BurpAPI;
 

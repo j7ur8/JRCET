@@ -1,10 +1,7 @@
 package jrcet.frame.HText.Len;
 
-import jrcet.help.Helper;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Len {
 

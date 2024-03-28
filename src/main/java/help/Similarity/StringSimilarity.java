@@ -1,4 +1,4 @@
-package jrcet.help.Similarity;/* package whatever; // don't place package name! */
+package help.Similarity;/* package whatever; // don't place package name! */
 
 public class StringSimilarity {
 

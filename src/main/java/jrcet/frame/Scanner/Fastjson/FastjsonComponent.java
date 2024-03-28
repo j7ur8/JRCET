@@ -2,10 +2,10 @@ package jrcet.frame.Scanner.Fastjson;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJLogTable;
-import jrcet.diycomponents.DiyVariablePanel;
+import diycomponents.DiyJButton;
+import diycomponents.DiyJComponent;
+import diycomponents.DiyJLogTable;
+import diycomponents.DiyVariablePanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

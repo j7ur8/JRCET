@@ -1,16 +1,16 @@
 package jrcet.frame.HText.Alone;
 
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.diycomponents.DiyVariablePanel;
-import jrcet.diycomponents.DiyJComponent;
+import diycomponents.DiyJButton;
+import diycomponents.DiyJTextAreaScrollPane;
+import diycomponents.DiyVariablePanel;
+import diycomponents.DiyJComponent;
 
 
 
 import javax.swing.*;
 import java.awt.*;
 
-import static jrcet.help.Helper.*;
+import static help.Helper.*;
 
 
 public class AloneComponent extends DiyJComponent {

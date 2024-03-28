@@ -1,7 +1,7 @@
 package jrcet.frame.Tools.Password;
 
 import jrcet.frame.HText.Parsepy.Parsepy;
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import java.io.BufferedReader;

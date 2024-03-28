@@ -2,7 +2,7 @@ package jrcet.frame.Scanner.Overauth;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import jrcet.diycomponents.*;
+import diycomponents.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

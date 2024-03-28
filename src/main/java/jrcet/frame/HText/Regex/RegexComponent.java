@@ -1,15 +1,10 @@
 package jrcet.frame.HText.Regex;
 
-import jrcet.diycomponents.*;
+import diycomponents.*;
 
-
-
-import jrcet.help.Helper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.HashMap;
 
 public class RegexComponent extends DiyJComponent {
 

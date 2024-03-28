@@ -6,8 +6,78 @@
   <component name="ChangeListManager">
     <list default="true" id="2cec57e1-b170-4d83-bcc6-c843c606428c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpResponseEditorProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpResponseEditorProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComboBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJComboBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJLogTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJLogTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextAreaScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJTextAreaScrollPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyJTextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJTextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/diycomponents/DiyVariablePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyVariablePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/AssetComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Asset/AssetComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/Aes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/AesComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Aes/AesComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Ascii/Ascii.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Ascii/Ascii.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Ascii/AsciiComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Ascii/AsciiComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Base/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Base/Base.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Base/BaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Base/BaseComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/DencryptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/DencryptComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Des/Des.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Des/Des.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Des/DesComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Des/DesComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Hex/Hex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Hex/Hex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Hex/HexComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Hex/HexComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Jwt/Jwt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Jwt/Jwt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Jwt/JwtComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Jwt/JwtComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Md5/Md5Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Md5/Md5Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Rsa/RsaComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Rsa/RsaComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Unicode/UnicodeComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Unicode/UnicodeComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Url/UrlComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Url/UrlComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Alone/Alone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Alone/Alone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Alone/AloneComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Alone/AloneComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Case/CaseComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Case/CaseComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Format/Format.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Format/Format.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Format/FormatComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Format/FormatComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/HTextComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/HTextComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/IPUnit/IPUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/IPUnit/IPUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/IPUnit/IPUnitComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/IPUnit/IPUnitComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Len/Len.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Len/Len.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Len/LenComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Len/LenComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Parsepy/Parsepy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Parsepy/Parsepy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Parsepy/ParsepyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Parsepy/ParsepyComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Regex/Regex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Regex/Regex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Regex/RegexComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Regex/RegexComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Sort/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Sort/Sort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Sort/SortComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/HText/Sort/SortComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Jrcet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/Fastjson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/Fastjson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Javascript/Javascript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Javascript/Javascript.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Javascript/JavascriptComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Javascript/JavascriptComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/Overauth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/Overauth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/OverauthComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Overauth/OverauthComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/ScannerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/ScannerComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/Springboot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/SpringbootComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Springboot/SpringbootComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/Captcha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/CaptchaComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Captcha/CaptchaComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/Password.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordMainTopNameFieldKeyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/Password/PasswordMainTopNameFieldKeyListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/RScript/RScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/RScript/RScript.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/ToolsComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Tools/ToolsComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/Similarity/StringSimilarity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/Similarity/StringSimilarity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/StringUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/OCREngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/d4ocr/OCREngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/OCREngineOldImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/d4ocr/OCREngineOldImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/utils/IOUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/d4ocr/utils/IOUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/utils/ImageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/d4ocr/utils/ImageUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/help/d4ocr/utils/ONNXRuntimeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/help/d4ocr/utils/ONNXRuntimeUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/listener/RScriptContextMenuItemActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/listener/RScriptContextMenuItemActionListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +93,16 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/contextmenu/InvocationSource.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/EditorCreationContext.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/EditorMode.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/ExtensionProvidedEditor.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/ExtensionProvidedHttpRequestEditor.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/ExtensionProvidedHttpResponseEditor.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/HttpRequestEditorProvider.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/net/portswigger/burp/extensions/montoya-api/2023.5/montoya-api-2023.5.jar!/burp/api/montoya/ui/editor/extension/HttpResponseEditorProvider.class" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -56,7 +136,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/j7ur8/Documents/GitHub/JRCET/src/main/java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/j7ur8/Documents/GitHub/JRCET&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -75,6 +155,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/burp" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
       <recent name="jrcet.frame" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -83,11 +164,11 @@
   </component>
   <component name="RunManager" selected="Application.Javascript">
     <configuration name="DiyJList" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jrcet.diycomponents.DiyJList" />
+      <option name="MAIN_CLASS_NAME" value="diycomponents.DiyJList" />
       <module name="JRCET" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="jrcet.diycomponents.*" />
+          <option name="PATTERN" value="diycomponents.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -96,11 +177,11 @@
       </method>
     </configuration>
     <configuration name="DiyJLogTable" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jrcet.diycomponents.DiyJLogTable" />
+      <option name="MAIN_CLASS_NAME" value="diycomponents.DiyJLogTable" />
       <module name="JRCET" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="jrcet.diycomponents.*" />
+          <option name="PATTERN" value="diycomponents.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -109,11 +190,11 @@
       </method>
     </configuration>
     <configuration name="Helper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jrcet.help.Helper" />
+      <option name="MAIN_CLASS_NAME" value="help.Helper" />
       <module name="JRCET" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="jrcet.help.*" />
+          <option name="PATTERN" value="help.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -271,7 +352,18 @@
       <workItem from="1709539966923" duration="4408000" />
       <workItem from="1709689034824" duration="760000" />
       <workItem from="1709692607712" duration="18662000" />
-      <workItem from="1709878699169" duration="3558000" />
+      <workItem from="1709878699169" duration="3847000" />
+      <workItem from="1710139408615" duration="1494000" />
+      <workItem from="1710141704406" duration="6759000" />
+      <workItem from="1710377330630" duration="232000" />
+      <workItem from="1710378903847" duration="25000" />
+      <workItem from="1710391536904" duration="628000" />
+      <workItem from="1710481263662" duration="2016000" />
+      <workItem from="1711007097278" duration="572000" />
+      <workItem from="1711010049923" duration="15000" />
+      <workItem from="1711277326481" duration="3507000" />
+      <workItem from="1711436565338" duration="1046000" />
+      <workItem from="1711594004646" duration="473000" />
     </task>
     <servers />
   </component>

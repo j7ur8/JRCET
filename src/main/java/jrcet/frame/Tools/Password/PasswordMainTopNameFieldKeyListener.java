@@ -1,6 +1,6 @@
 package jrcet.frame.Tools.Password;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import java.awt.event.InputEvent;

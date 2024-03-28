@@ -13,15 +13,15 @@
  * See the License for the specific language govering permissions and
  * limitations under the License.
  */
-package jrcet.help.d4ocr;
+package help.d4ocr;
 
 
 import ai.onnxruntime.OnnxTensor;
 import com.alibaba.fastjson.JSONArray;
-import jrcet.help.Helper;
-import jrcet.help.d4ocr.utils.IOUtils;
-import jrcet.help.d4ocr.utils.ImageUtils;
-import jrcet.help.d4ocr.utils.ONNXRuntimeUtils;
+import help.Helper;
+import help.d4ocr.utils.IOUtils;
+import help.d4ocr.utils.ImageUtils;
+import help.d4ocr.utils.ONNXRuntimeUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;

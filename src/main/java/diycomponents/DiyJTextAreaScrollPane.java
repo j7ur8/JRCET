@@ -1,7 +1,7 @@
-package jrcet.diycomponents;
+package diycomponents;
 
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -10,11 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
-import static burp.MyExtender.BurpAPI;
 import static jrcet.Main.centerInScreen;
 
 public class DiyJTextAreaScrollPane extends JScrollPane {

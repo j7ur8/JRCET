@@ -1,8 +1,8 @@
 package jrcet.frame.Asset;
 
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextField;
+import diycomponents.DiyJButton;
+import diycomponents.DiyJComponent;
+import diycomponents.DiyJTextField;
 import jrcet.listener.AssetSearchKeyListener;
 
 import javax.swing.*;

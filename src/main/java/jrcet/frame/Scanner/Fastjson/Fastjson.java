@@ -11,8 +11,8 @@ import burp.api.montoya.http.message.HttpHeader;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
 import burp.api.montoya.internal.ObjectFactoryLocator;
-import jrcet.diycomponents.DiyJLogTable;
-import jrcet.help.Helper;
+import diycomponents.DiyJLogTable;
+import help.Helper;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

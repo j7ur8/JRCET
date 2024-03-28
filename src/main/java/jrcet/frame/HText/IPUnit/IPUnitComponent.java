@@ -1,17 +1,11 @@
 package jrcet.frame.HText.IPUnit;
 
 
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
+import help.Helper;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
 
 public class IPUnitComponent extends DiyJComponent {
 

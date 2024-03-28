@@ -13,7 +13,7 @@
  * See the License for the specific language govering permissions and
  * limitations under the License.
  */
-package jrcet.help.d4ocr;
+package help.d4ocr;
 
 import java.awt.image.BufferedImage;
 

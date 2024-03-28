@@ -1,6 +1,6 @@
 package jrcet.frame.HText;
 
-import jrcet.diycomponents.DiyJComponent;
+import diycomponents.DiyJComponent;
 import jrcet.frame.HText.Alone.AloneComponent;
 import jrcet.frame.HText.Case.CaseComponent;
 import jrcet.frame.HText.Format.FormatComponent;

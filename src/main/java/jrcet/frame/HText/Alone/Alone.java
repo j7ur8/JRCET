@@ -1,6 +1,6 @@
 package jrcet.frame.HText.Alone;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;

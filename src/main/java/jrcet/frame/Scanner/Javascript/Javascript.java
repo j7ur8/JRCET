@@ -1,10 +1,9 @@
 package jrcet.frame.Scanner.Javascript;
 
-import burp.api.montoya.core.Annotations;
 import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.handler.HttpResponseReceived;
-import jrcet.diycomponents.DiyJLogTable;
-import jrcet.help.Helper;
+import diycomponents.DiyJLogTable;
+import help.Helper;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;

@@ -1,19 +1,16 @@
 package jrcet.frame.HText.Sort;
 
-import jrcet.diycomponents.DiyJButton;
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.diycomponents.DiyVariablePanel;
-import jrcet.help.Helper;
-import jrcet.diycomponents.DiyJComponent;
+import diycomponents.DiyJButton;
+import diycomponents.DiyJTextAreaScrollPane;
+import diycomponents.DiyVariablePanel;
+import help.Helper;
+import diycomponents.DiyJComponent;
 
 
 
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class SortComponent extends DiyJComponent {
 

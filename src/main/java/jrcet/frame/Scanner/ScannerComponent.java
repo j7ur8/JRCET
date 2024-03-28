@@ -1,6 +1,6 @@
 package jrcet.frame.Scanner;
 
-import jrcet.diycomponents.DiyJComponent;
+import diycomponents.DiyJComponent;
 import jrcet.frame.Scanner.Fastjson.FastjsonComponent;
 import jrcet.frame.Scanner.Javascript.JavascriptComponent;
 import jrcet.frame.Scanner.Overauth.OverauthComponent;

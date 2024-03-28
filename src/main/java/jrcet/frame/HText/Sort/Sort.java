@@ -1,6 +1,6 @@
 package jrcet.frame.HText.Sort;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import java.text.Collator;
 import java.util.*;

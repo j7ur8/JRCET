@@ -1,15 +1,9 @@
 package jrcet.frame.Dencrypt.Hex;
 
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
-
 
 
 public class HexComponent extends DiyJComponent {

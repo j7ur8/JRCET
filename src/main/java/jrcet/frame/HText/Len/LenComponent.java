@@ -1,15 +1,9 @@
 package jrcet.frame.HText.Len;
 
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.HashMap;
-
 
 
 public class LenComponent extends DiyJComponent {

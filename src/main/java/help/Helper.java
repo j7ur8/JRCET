@@ -1,7 +1,7 @@
-package jrcet.help;
+package help;
 
 
-import jrcet.diycomponents.*;
+import diycomponents.*;
 
 
 import javax.imageio.ImageIO;
@@ -13,7 +13,6 @@ import java.awt.datatransfer.Transferable;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -27,11 +26,6 @@ import static jrcet.Main.JrcetComponentList;
 public class Helper {
 
     public static Color gray =new Color(203,208,209);
-
-    /*
-    维护的连接
-     */
-    public static Connection dbConnector = null;//getConnector();
 
     /*
     组件类函数

@@ -1,4 +1,4 @@
-package jrcet.diycomponents;
+package diycomponents;
 
 import jrcet.frame.Asset.Asset;
 import jrcet.frame.Dencrypt.Aes.Aes;
@@ -18,20 +18,16 @@ import jrcet.frame.HText.Len.Len;
 import jrcet.frame.HText.Parsepy.Parsepy;
 import jrcet.frame.HText.Regex.Regex;
 import jrcet.frame.HText.Sort.Sort;
-import jrcet.frame.Scanner.Springboot.Springboot;
-import jrcet.frame.Scanner.Springboot.SpringbootTableEntry;
 import jrcet.frame.Tools.Captcha.Captcha;
-import jrcet.help.Helper;
+import help.Helper;
 
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesCipherArea;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesPlainArea;
 import static jrcet.frame.Dencrypt.Ascii.AsciiComponent.AsciiCipherArea;
@@ -98,6 +94,10 @@ public class DiyJButton extends JButton implements  ActionListener {
             }
             case "CaptchaMenuRequestIdentifyButton" -> {
                 Captcha.identifyCaptcha();
+            }
+
+            case "CaptchaMenuRequestRestButton" -> {
+                Captcha.reset();
             }
             case "AloneExecuteButton" -> {
                 AloneOutputArea.setText(Alone.removeDuplication(AloneInputArea.getText()));

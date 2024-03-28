@@ -1,6 +1,6 @@
 package jrcet.frame.HText.Parsepy;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import java.util.*;
 

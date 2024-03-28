@@ -2,8 +2,8 @@ package jrcet.frame.Tools.Captcha;
 
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
-import jrcet.help.Helper;
-import jrcet.help.d4ocr.OCREngine;
+import help.Helper;
+import help.d4ocr.OCREngine;
 
 
 import javax.imageio.ImageIO;
@@ -13,7 +13,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -22,6 +21,8 @@ import static jrcet.frame.Tools.Captcha.CaptchaComponent.*;
 
 public class Captcha {
 
+    public static String DEFAULT_CODERULE="(([A-Za-z0-9+\\/]{4})*([A-Za-z0-9+\\/]{4}|[A-Za-z0-9+\\/]{3}=|[A-Za-z0-9+\\/]{2}==))";
+    public static String DEFAULT_TOKENRULE = "([a-z0-9]{32})";
 
     public static String identifyCaptchaForIntruder() {
         try {
@@ -116,6 +117,11 @@ public class Captcha {
             CaptchaResponseEditor.setResponse(BurpAPI.http().sendRequest(httpRequest).response());
             return null;
         }
+    }
+
+    public static void reset(){
+        (getImageRuleField()).setText(Captcha.DEFAULT_CODERULE);
+        (getTokenRuleField()).setText(Captcha.DEFAULT_TOKENRULE);
     }
 
     public static JTextField getUrlField(){

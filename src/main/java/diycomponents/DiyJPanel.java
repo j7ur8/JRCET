@@ -1,4 +1,4 @@
-package jrcet.diycomponents;
+package diycomponents;
 
 import javax.swing.*;
 import java.awt.*;

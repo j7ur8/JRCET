@@ -1,11 +1,6 @@
-package jrcet.diycomponents;
-
-import jrcet.frame.HText.Format.Format;
+package diycomponents;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class DiyJComboBox<E> extends JComboBox<E>  {
 

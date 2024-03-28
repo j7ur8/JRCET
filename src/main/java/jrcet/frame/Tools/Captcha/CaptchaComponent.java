@@ -2,8 +2,8 @@ package jrcet.frame.Tools.Captcha;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
+import help.Helper;
 
 
 import javax.swing.*;
@@ -134,6 +134,19 @@ public class CaptchaComponent extends DiyJComponent {
                 0,0
         ));
 
+        DiyJButton CaptchaMenuRequestRestButton = new DiyJButton("重置");
+        CaptchaMenuRequestRestButton.setPreferredSize(new Dimension(80,0));
+        CaptchaMenuRequestRestButton.setName("CaptchaMenuRequestRestButton");
+        CaptchaMenuRequestPanel.add(CaptchaMenuRequestRestButton, new GridBagConstraints(
+                3,0,
+                1,1,
+                0,0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0,0,0,0),
+                0,0
+        ));
+
         return CaptchaMenuRequestPanel;
     }
 
@@ -145,7 +158,7 @@ public class CaptchaComponent extends DiyJComponent {
         CaptchaMenuResponsePanel.setBackground(Color.WHITE);
 
         DiyJTextField CaptchaMenuResponseImageField = new DiyJTextField("ImageRule");
-        CaptchaMenuResponseImageField.setText("(([A-Za-z0-9+\\/]{4})*([A-Za-z0-9+\\/]{4}|[A-Za-z0-9+\\/]{3}=|[A-Za-z0-9+\\/]{2}==))");
+        CaptchaMenuResponseImageField.setText(Captcha.DEFAULT_CODERULE);
         CaptchaMenuResponseImageField.setName("CaptchaMenuResponseImageField");
         CaptchaMenuResponseImageField.setPreferredSize(new Dimension(0,0));
 
@@ -162,6 +175,7 @@ public class CaptchaComponent extends DiyJComponent {
 
         DiyJTextField CaptchaMenuResponseTokenField = new DiyJTextField("TokenRule");
         CaptchaMenuResponseTokenField.setName("CaptchaMenuResponseTokenField");
+        CaptchaMenuResponseTokenField.setText(Captcha.DEFAULT_TOKENRULE);
         CaptchaMenuResponseTokenField.setPreferredSize(new Dimension(0,0));
         CaptchaMenuResponsePanel.add(CaptchaMenuResponseTokenField, new GridBagConstraints(
                 1,0,

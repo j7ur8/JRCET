@@ -1,9 +1,8 @@
-package jrcet.help.d4ocr.utils;
+package help.d4ocr.utils;
 
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
 import ai.onnxruntime.OrtSession;
-import burp.MyExtender;
 
 import java.nio.FloatBuffer;
 import java.util.Map;

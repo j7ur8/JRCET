@@ -1,7 +1,7 @@
 package jrcet.frame.Dencrypt.Aes;
 
-import jrcet.help.Helper;
-import jrcet.help.StringUtil;
+import help.Helper;
+import help.StringUtil;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -14,7 +14,7 @@ import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Dencrypt.Aes.AesComponent.AesComponentPanel;
 import static jrcet.frame.Dencrypt.Base.Base.b64decoder;
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
-import static jrcet.help.Helper.getByteByType;
+import static help.Helper.getByteByType;
 
 public class Aes {
 

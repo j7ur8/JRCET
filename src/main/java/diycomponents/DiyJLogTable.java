@@ -1,4 +1,4 @@
-package jrcet.diycomponents;
+package diycomponents;
 
 import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.message.params.HttpParameter;
@@ -17,10 +17,8 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Objects;
 
 
-import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
 import static jrcet.frame.Scanner.Fastjson.FastjsonComponent.*;
 import static jrcet.frame.Scanner.Javascript.Javascript.JavascriptResultMap;

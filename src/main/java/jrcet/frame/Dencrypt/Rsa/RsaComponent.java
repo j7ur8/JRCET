@@ -1,13 +1,11 @@
 package jrcet.frame.Dencrypt.Rsa;
 
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
 
 import javax.swing.*;
 
 import java.awt.*;
 import java.security.KeyPair;
-import java.util.HashMap;
 
 import static jrcet.frame.Dencrypt.Base.Base.b64encoder;
 

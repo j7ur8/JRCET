@@ -4,7 +4,7 @@ import burp.api.montoya.http.message.requests.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

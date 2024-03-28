@@ -1,6 +1,6 @@
 package jrcet.frame.Tools;
 
-import jrcet.diycomponents.DiyJComponent;
+import diycomponents.DiyJComponent;
 import jrcet.frame.Tools.Captcha.CaptchaComponent;
 import jrcet.frame.Tools.Password.PasswordComponent;
 

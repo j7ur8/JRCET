@@ -1,15 +1,13 @@
 package jrcet.frame.Dencrypt.Jwt;
 
 import com.alibaba.fastjson.JSONObject;
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
+import help.Helper;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-
-import static burp.MyExtender.BurpAPI;
 
 
 public class JwtComponent extends DiyJComponent {

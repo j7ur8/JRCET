@@ -23,7 +23,7 @@ import java.util.Objects;
 import static burp.MyExtender.BurpAPI;
 import static jrcet.Main.centerInScreen;
 import static jrcet.frame.Tools.RScript.RScript.*;
-import static jrcet.help.Helper.getEncoding;
+import static help.Helper.getEncoding;
 
 public class RScriptContextMenuItemActionListener implements ActionListener {
 

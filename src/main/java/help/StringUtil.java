@@ -1,4 +1,4 @@
-package jrcet.help;
+package help;
 
 //
 // Source code recreated from a .class file by IntelliJ IDEA

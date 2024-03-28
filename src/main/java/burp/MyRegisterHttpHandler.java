@@ -6,13 +6,11 @@ import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.MimeType;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
-import jrcet.frame.Scanner.Javascript.Javascript;
-import jrcet.help.StringUtil;
+import help.StringUtil;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
@@ -20,7 +18,7 @@ import static jrcet.frame.Scanner.Javascript.Javascript.*;
 import static jrcet.frame.Scanner.Overauth.Overauth.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.setSpringbootLoggerTableValueAt;
-import static jrcet.help.Similarity.StringSimilarity.similarity;
+import static help.Similarity.StringSimilarity.similarity;
 
 public class MyRegisterHttpHandler implements HttpHandler {
 

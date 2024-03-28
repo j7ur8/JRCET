@@ -1,6 +1,6 @@
 package jrcet.frame.Dencrypt.Base;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import java.io.ByteArrayOutputStream;

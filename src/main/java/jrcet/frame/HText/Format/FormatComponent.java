@@ -1,7 +1,7 @@
 package jrcet.frame.HText.Format;
 
-import jrcet.diycomponents.*;
-import jrcet.help.Helper;
+import diycomponents.*;
+import help.Helper;
 
 import javax.swing.*;
 import java.awt.*;

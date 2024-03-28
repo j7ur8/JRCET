@@ -1,8 +1,8 @@
 package jrcet.frame.Tools.Password;
 
-import jrcet.diycomponents.DiyJComponent;
-import jrcet.diycomponents.DiyJTextAreaScrollPane;
-import jrcet.help.Helper;
+import diycomponents.DiyJComponent;
+import diycomponents.DiyJTextAreaScrollPane;
+import help.Helper;
 
 import javax.swing.*;
 import java.awt.*;

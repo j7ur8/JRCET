@@ -1,6 +1,6 @@
 package jrcet.frame.HText.Format;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package jrcet.diycomponents;
+package diycomponents;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

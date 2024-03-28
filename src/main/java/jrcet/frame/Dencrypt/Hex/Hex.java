@@ -1,6 +1,6 @@
 package jrcet.frame.Dencrypt.Hex;
 
-import jrcet.help.Helper;
+import help.Helper;
 
 import javax.swing.*;
 import java.math.BigInteger;
