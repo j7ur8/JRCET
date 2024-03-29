@@ -3,6 +3,7 @@ package burp;
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
 import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider;
 import jrcet.listener.CaptchaContextMenuItemActionListener;
+import jrcet.listener.PureRequestContextMenuItemActionListener;
 import jrcet.listener.RScriptContextMenuItemActionListener;
 
 import javax.swing.*;
@@ -25,9 +26,13 @@ public class MyContextMenuItemsProvider implements ContextMenuItemsProvider {
         JMenuItem rscriptItem = new JMenuItem("RScript");
         rscriptItem.addActionListener(new RScriptContextMenuItemActionListener(event));
 
+        JMenuItem pureRequestItem = new JMenuItem("PureRequest");
+        pureRequestItem.addActionListener(new PureRequestContextMenuItemActionListener(event));
+
         jMenuItemList.add(captchaItem);
 
         jMenuItemList.add(rscriptItem);
+        jMenuItemList.add(pureRequestItem);
         return jMenuItemList;
     }
 
