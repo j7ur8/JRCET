@@ -185,20 +185,26 @@ public class MyRegisterHttpHandler implements HttpHandler {
                     rowIndex = SpringbootLoggerTableEntryMap.get(number).getRowIndex();
                     if(!responseCode.startsWith("4") && !responseCode.startsWith("5")){
                         switch (SpringbootLoggerTableEntryMap.get(number).getType()){
-                            case "Swagger", "Actuator" -> {
-                                if(httpResponse.statedMimeType()== MimeType.JSON){
+                            case "Swagger" -> {
+                                if(httpResponse.statedMimeType()== MimeType.JSON && httpResponse.bodyToString().toLowerCase().contains("swagger")){
+                                    SpringbootLoggerTableEntryMap.get(number).setVul("True");
+                                    setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
+                                }
+                            }
+                            case "Actuator" -> {
+                                if(httpResponse.statedMimeType()== MimeType.JSON && httpResponse.bodyToString().toLowerCase().contains("status")){
                                     SpringbootLoggerTableEntryMap.get(number).setVul("True");
                                     setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
                                 }
                             }
                             case "Doc" -> {
-                                if(httpResponse.statedMimeType()== MimeType.HTML){
+                                if(httpResponse.statedMimeType()== MimeType.HTML && httpResponse.bodyToString().toLowerCase().contains("webjars")){
                                     SpringbootLoggerTableEntryMap.get(number).setVul("True");
                                     setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
                                 }
                             }
                             case "Druid" -> {
-                                if(httpResponse.bodyToString().contains("Druid Stat Index") || httpResponse.toString().contains("login.html")){
+                                if(httpResponse.bodyToString().toLowerCase().contains("druid") || httpResponse.toString().contains("login.html")){
                                     SpringbootLoggerTableEntryMap.get(number).setVul("True");
                                     setSpringbootLoggerTableValueAt("True", SpringbootLoggerTableEntryMap.get(number).getRowIndex(),"Vul");
                                 }

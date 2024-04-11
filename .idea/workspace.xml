@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2cec57e1-b170-4d83-bcc6-c843c606428c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyContextMenuItemsProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyContextMenuItemsProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -293,7 +294,10 @@
       <workItem from="1711277326481" duration="3507000" />
       <workItem from="1711436565338" duration="1046000" />
       <workItem from="1711594004646" duration="1340000" />
-      <workItem from="1711691999008" duration="531000" />
+      <workItem from="1711691999008" duration="1326000" />
+      <workItem from="1711801647545" duration="922000" />
+      <workItem from="1712799451540" duration="10000" />
+      <workItem from="1712810024951" duration="4561000" />
     </task>
     <servers />
   </component>
