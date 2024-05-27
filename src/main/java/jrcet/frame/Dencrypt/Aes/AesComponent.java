@@ -62,7 +62,9 @@ public class AesComponent extends DiyJComponent {
                 "AES/ECB/PKCS5Padding",
                 "AES/ECB/NoPadding",
                 "AES/CBC/PKCS5Padding",
-                "AES/CBC/NoPadding"
+                "AES/CBC/NoPadding",
+                "AES/CFB/PKCS5Padding",
+                "AES/CFB/NoPadding"
         });
         AesMenuModeBox.setName("AesMenuModeBox");
         AesMenuModeBox.setPreferredSize(new Dimension(0,0));

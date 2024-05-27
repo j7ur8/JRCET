@@ -196,7 +196,4 @@ public class FastjsonComponent extends DiyJComponent {
         return FastjsonMenuPanel;
     }
 
-
-
-
 }

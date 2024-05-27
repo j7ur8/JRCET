@@ -40,7 +40,7 @@ public class Jrcet extends DiyJComponent {
         JrcetTabbedPane.setName("JrcetTabbedPane");
 
         JrcetTabbedPane.setName("JrcetTabbedPane");
-        JrcetTabbedPane.add("Exploit",new JPanel());
+//        JrcetTabbedPane.add("Exploit",new JPanel());
         JrcetTabbedPane.add("Dencrypt", new DencryptComponent().component());
         JrcetTabbedPane.add("HText", new HTextComponent().component());
         JrcetTabbedPane.add("Tools",new ToolsComponent().component());

@@ -84,7 +84,7 @@ public class Aes {
 
     public static String Encrypt(String plainText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
 
-        repairParam(plainText,Mode,Key,KeyType,Iv,IvType);
+        repairParam(plainText, Key,KeyType,Iv,IvType);
 
         if(returned!=null) return returned;
 
@@ -105,6 +105,7 @@ public class Aes {
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"));
                 break;
             case "AES/CBC/NoPadding":
+            case "AES/CFB/NoPadding":
                 for(int i=0; i<plainTextByte.length;i++){
                     if(i<len) {
                         plainTextByte[i]=inputTextByte[i];
@@ -114,6 +115,7 @@ public class Aes {
                 }
                 inputTextByte = plainTextByte;
             case "AES/CBC/PKCS5Padding":
+            case "AES/CFB/PKCS5Padding":
                 cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
                 break;
         }
@@ -125,20 +127,20 @@ public class Aes {
     // 解密
     public static String Decrypt(String cipherText, String Mode, String Key, String KeyType, String Iv, String IvType) throws Exception {
 
-        repairParam(cipherText,Mode,Key, KeyType,Iv,IvType);
+        repairParam(cipherText, Key, KeyType,Iv,IvType);
         if(returned!=null) return returned;
 
         Cipher cipher = Cipher.getInstance(Mode);
         switch (Mode) {
             case "AES/ECB/NoPadding", "AES/ECB/PKCS5Padding" ->
                     cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"));
-            case "AES/CBC/NoPadding", "AES/CBC/PKCS5Padding" ->
+            case "AES/CBC/NoPadding", "AES/CBC/PKCS5Padding","AES/CFB/PKCS5Padding","AES/CFB/NoPadding" ->
                     cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
         }
         return new String(cipher.doFinal(Helper.isHexString(inputText)?Helper.hexStringToByteArray(inputText):b64decoder.decode(inputTextByte)),StandardCharsets.UTF_8).replaceAll("\\u0000","");
     }
 
-    private static void repairParam(String InputText, String Mode, String Key, String KeyType, String Iv, String IvType) {
+    private static void repairParam(String InputText, String Key, String KeyType, String Iv, String IvType) {
 
         returned=null;
         key=null;
