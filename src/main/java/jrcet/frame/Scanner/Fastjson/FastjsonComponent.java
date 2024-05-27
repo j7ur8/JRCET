@@ -170,6 +170,9 @@ public class FastjsonComponent extends DiyJComponent {
         DiyJButton FastjsonMenuClearButton = new DiyJButton("Clear");
         FastjsonMenuClearButton.setName("FastjsonMenuClearButton");
 
+        DiyJButton FastjsonMenuShowAllButton = new DiyJButton("ShowAll");
+        FastjsonMenuShowAllButton.setName("FastjsonMenuShowAllButton");
+
         FastjsonMenuPanel.add(FastjsonMenuCheckButton,new GridBagConstraints(
                 0,0,
                 1,1,

@@ -12,7 +12,7 @@ public class Unicode {
         while (matcher.find()) {
             // 本行为核心代码，处理当前的unicode后4位变为16进制，在转换为对应的char中文字符
             ch = (char) Integer.parseInt(matcher.group(2), 16);
-            str = str.replace(matcher.group(1), ch + "");
+            str = str.replace(matcher.group(1), String.valueOf(ch));
         }
         return str;
     }

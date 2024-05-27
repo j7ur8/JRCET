@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2cec57e1-b170-4d83-bcc6-c843c606428c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpResponseEditorProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/MyRegisterHttpResponseEditorProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/diycomponents/DiyJButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Unicode/Unicode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Dencrypt/Unicode/Unicode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/frame/Scanner/Fastjson/FastjsonComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jrcet/listener/PureRequestContextMenuItemActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jrcet/listener/PureRequestContextMenuItemActionListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,6 +301,10 @@
       <workItem from="1711801647545" duration="922000" />
       <workItem from="1712799451540" duration="10000" />
       <workItem from="1712810024951" duration="4561000" />
+      <workItem from="1712891743136" duration="2000" />
+      <workItem from="1714013492241" duration="546000" />
+      <workItem from="1715328923016" duration="869000" />
+      <workItem from="1716278954587" duration="1146000" />
     </task>
     <servers />
   </component>

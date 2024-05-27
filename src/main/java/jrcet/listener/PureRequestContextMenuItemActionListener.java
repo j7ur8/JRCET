@@ -6,13 +6,10 @@ import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static jrcet.frame.Tools.Captcha.Captcha.getUrlField;
-import static jrcet.frame.Tools.Captcha.CaptchaComponent.CaptchaRequestEditor;
-
 public class PureRequestContextMenuItemActionListener implements ActionListener {
 
     private final String[] unusefulHeaderList = new String[]{
-            "Sec-Fetch-Dest","Sec-Fetch-Mode","Sec-Fetch-Site","sec-ch-ua-mobile","sec-ch-ua","If-Modified-Since","If-None-Match","sec-ch-ua-platform","Origin","Referer"
+            "Sec-Fetch-Dest","Sec-Fetch-Mode","Sec-Fetch-Site","sec-ch-ua-mobile","sec-ch-ua","If-Modified-Since","If-None-Match","sec-ch-ua-platform","Origin","Referer","Upgrade-Insecure-Requests","Sec-Fetch-User","Te"
     };
     private final ContextMenuEvent event;
 

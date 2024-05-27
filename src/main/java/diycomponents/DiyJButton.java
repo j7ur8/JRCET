@@ -89,6 +89,9 @@ public class DiyJButton extends JButton implements  ActionListener {
 
 
         switch (((DiyJButton) e.getSource()).getName()) {
+//            case "FastjsonMenuShowAllButton" -> {
+//
+//            }
             case "CaptchaMenuRequestUrlButton" -> {
                 new Captcha.setCaptchaWorker(CaptchaRequestEditor.getRequest()).execute();
             }

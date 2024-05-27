@@ -12,6 +12,7 @@ import burp.api.montoya.ui.editor.extension.HttpResponseEditorProvider;
 import jrcet.frame.Dencrypt.Unicode.Unicode;
 
 import java.awt.*;
+import java.nio.charset.StandardCharsets;
 
 import static burp.MyExtender.BurpAPI;
 
@@ -44,7 +45,7 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
         public void setRequestResponse(HttpRequestResponse httpRequestResponse) {
             MyHttpRequestResponse = httpRequestResponse;
             HttpResponse httpResponse = MyHttpRequestResponse.response();
-            RepeaterUnicodeEditor.setContents(ByteArray.byteArray(Unicode.unicodeToString(httpResponse.toString())));
+            RepeaterUnicodeEditor.setContents(ByteArray.byteArray(Unicode.unicodeToString(httpResponse.toString()).getBytes(StandardCharsets.UTF_8)));
         }
 
         @Override
