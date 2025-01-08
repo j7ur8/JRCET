@@ -1,11 +1,8 @@
 package diycomponents;
 
 import burp.api.montoya.core.ByteArray;
-import burp.api.montoya.http.message.params.HttpParameter;
-import burp.api.montoya.http.message.requests.HttpRequest;
-import burp.api.montoya.http.message.responses.HttpResponse;
 import jrcet.frame.Scanner.Fastjson.FastjsonTableEntry;
-import jrcet.frame.Scanner.Overauth.OverauthTableEntry;
+import jrcet.frame.Scanner.Overauth.Overauth;
 import jrcet.frame.Scanner.Springboot.SpringbootTableEntry;
 
 import javax.swing.*;
@@ -19,11 +16,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
+import static burp.MyExtender.BurpAPI;
 import static jrcet.frame.Scanner.Fastjson.Fastjson.*;
 import static jrcet.frame.Scanner.Fastjson.FastjsonComponent.*;
 import static jrcet.frame.Scanner.Javascript.Javascript.JavascriptResultMap;
 import static jrcet.frame.Scanner.Javascript.JavascriptComponent.JavascriptResultEditor;
-import static jrcet.frame.Scanner.Overauth.Overauth.*;
 import static jrcet.frame.Scanner.Overauth.OverauthComponent.*;
 import static jrcet.frame.Scanner.Springboot.Springboot.*;
 import static jrcet.frame.Scanner.Springboot.SpringbootComponent.*;
@@ -59,13 +56,13 @@ public class DiyJLogTable extends JTable {
                 ((DefaultTableCellRenderer) c).setHorizontalAlignment(SwingConstants.CENTER);
 
                 switch (table.getName()){
-                    case "OverauthLoggerTable" -> {
-                        if(OverauthLoggerTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
-                            c.setEnabled(false);
-                        } else if( (column==9 || column==10 || column==11) && getValueAt(row,column)!=""){
-                            c.setForeground(Color.RED);
-                        }
-                    }
+//                    case "OverauthLoggerTable" -> {
+//                        if(OverauthLoggerTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
+//                            c.setEnabled(false);
+//                        } else if( (column==9 || column==10 || column==11) && getValueAt(row,column)!=""){
+//                            c.setForeground(Color.RED);
+//                        }
+//                    }
                     case "FastjsonLoggerTable" -> {
                         if(FastjsonLoggerTableEntryMap.get((String) getValueAt(row,0)).getRemoved()){
                             c.setEnabled(false);
@@ -149,7 +146,7 @@ public class DiyJLogTable extends JTable {
     }
 
 
-    public int getRowByValue(Object value) {
+    public int getRowByTopColum(Object value) {
         for (int i = tableModel.getRowCount() - 1; i >= 0; --i) {
             if (tableModel.getValueAt(i, 0).equals(value)) {
                 return i;
@@ -164,9 +161,6 @@ public class DiyJLogTable extends JTable {
         String serialNumber = "";
         switch (getName()){
             case "OverauthLoggerTable" -> {
-                String rowNumber = getOverAuthSerialNumber(row);
-                OverauthCheckUrlList.remove(OverauthLoggerTableEntryMap.get(rowNumber).getHighAuthRequest().url());
-                OverauthLoggerTableEntryMap.get(rowNumber).setRemoved(true);
                 OverauthAuthHighauthRequestEditor.setRequest(null);
                 OverauthAuthHighauthResponseEditor.setResponse(null);
                 OverauthAuthLowauthRequestEditor.setRequest(null);
@@ -194,36 +188,13 @@ public class DiyJLogTable extends JTable {
     }
 
     private void listSelectionAction(ListSelectionEvent e){
-//        BurpAPI.logging().output().println(e.getValueIsAdjusting());
         if(e.getValueIsAdjusting()){
             return;
         }
 
         switch (getName()){
             case "OverauthLoggerTable" -> {
-                OverauthTableEntry overauthTableEntry = OverauthLoggerTableEntryMap.get(getOverAuthSerialNumber(getSelectedRow()));
-
-                HttpRequest highAuthRequest = overauthTableEntry.getHighAuthRequest();
-                HttpResponse highAuthResponse = overauthTableEntry.getHighAuthResponse();
-
-                HttpRequest lowAuthRequest = overauthTableEntry.getLowAuthRequest();
-                HttpResponse lowAuthResponse = overauthTableEntry.getLowAuthResponse();
-
-                HttpRequest unAuthRequest = overauthTableEntry.getUnAuthRequest();
-                HttpResponse unAuthResponse = overauthTableEntry.getUnAuthResponse();
-
-                OverauthAuthHighauthRequestEditor.setRequest(highAuthRequest);
-                OverauthAuthHighauthResponseEditor.setResponse(highAuthResponse);
-                OverauthAuthLowauthRequestEditor.setRequest(lowAuthRequest);
-                OverauthAuthLowauthResponseEditor.setResponse(lowAuthResponse);
-                OverauthAuthUnauthRequestEditor.setRequest(unAuthRequest);
-                OverauthAuthUnauthResponseEditor.setResponse(unAuthResponse);
-
-                DiyJList diyJList = getOverauthLoggerList();
-                diyJList.removeAllString();
-                for(HttpParameter httpParameter: overauthTableEntry.getHorizontalOverAuthParameters()){
-                    diyJList.addString(httpParameter.name()+" = "+httpParameter.value());
-                }
+                new Overauth().setRequestResponse( Integer.parseInt((String) this.getValueAt(this.getSelectedRow(),0)));
             }
             case "FastjsonLoggerTable" -> {
                 FastjsonTableEntry fastjsonTableEntry = FastjsonLoggerTableEntryMap.get(getFastjsonSerialNumber(getSelectedRow()));

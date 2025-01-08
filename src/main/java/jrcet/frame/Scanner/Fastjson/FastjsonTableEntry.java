@@ -8,8 +8,6 @@ import jrcet.frame.Dencrypt.Base.Base;
 
 public class FastjsonTableEntry {
 
-
-
     //"#","Tool","Method","Host","Path","Length","requestTime","responseTime","Dnslog","Fastjson"
     private String RequestNumber;
     private String RequestTool;

@@ -60,7 +60,25 @@ public class SpringbootTableEntry {
         this.RequestTime = inf[7];
         this.ResponseTime = inf[8];
         this.Type = inf[9];
+        this.Vul = inf[10];
     }
+
+    public String[] toTableRow(){
+        return new String[]{
+                RequestNumber,
+                RequestTool,
+                RequestMethod,
+                RequestHost,
+                RequestPath,
+                Code,
+                Length,
+                RequestTime,
+                ResponseTime,
+                Type,
+                Vul
+        };
+    }
+
 
     public void setType(String type){
         this.Type = type;

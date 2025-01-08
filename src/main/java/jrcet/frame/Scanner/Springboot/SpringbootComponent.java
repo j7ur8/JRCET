@@ -2,10 +2,7 @@ package jrcet.frame.Scanner.Springboot;
 
 import burp.api.montoya.ui.editor.HttpRequestEditor;
 import burp.api.montoya.ui.editor.HttpResponseEditor;
-import diycomponents.DiyJButton;
-import diycomponents.DiyJComponent;
-import diycomponents.DiyJLogTable;
-import diycomponents.DiyVariablePanel;
+import diycomponents.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -150,10 +147,11 @@ public class SpringbootComponent extends DiyJComponent {
         DiyJButton SpringbootMenuClearButton = new DiyJButton("Clear");
         SpringbootMenuClearButton.setName("SpringbootMenuClearButton");
 
+
         SpringbootMenuPanel.add(SpringbootMenuCheckButton,new GridBagConstraints(
                 0,0,
                 1,1,
-                0.9,1,
+                0.8,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -163,12 +161,13 @@ public class SpringbootComponent extends DiyJComponent {
         SpringbootMenuPanel.add(SpringbootMenuClearButton,new GridBagConstraints(
                 1,0,
                 1,1,
-                0.1,1,
+                0.2,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
                 0,0
         ));
+
 
         return SpringbootMenuPanel;
     }

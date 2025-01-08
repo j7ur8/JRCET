@@ -714,4 +714,27 @@ public class Helper {
         return new String(result);
     }
 
+    public static String[] get2DeepUrls(String urlPath){
+
+        String[] urlPaths = urlPath.split("\\?")[0].split("/");
+
+        String[] returnedPaths = new String[3];
+        if(urlPaths.length>3){
+            returnedPaths[0]=urlPaths[0];
+            returnedPaths[1]=urlPaths[1];
+            returnedPaths[2]=urlPaths[2];
+        }else{
+            returnedPaths=urlPaths;
+        }
+
+        for(int n=1;n<returnedPaths.length;n++){
+            returnedPaths[n]=returnedPaths[n-1]+"/"+returnedPaths[n];
+        }
+
+        return returnedPaths;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(get2DeepUrls("/a/b/c/d/e/f?a=c&b=c")));
+    }
 }

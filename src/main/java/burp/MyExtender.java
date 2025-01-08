@@ -5,6 +5,8 @@ import burp.api.montoya.MontoyaApi;
 import jrcet.frame.Intruder.*;
 import jrcet.frame.Jrcet;
 
+import java.sql.SQLException;
+
 public class MyExtender implements BurpExtension{
 
     public static MontoyaApi BurpAPI;
@@ -32,7 +34,11 @@ public class MyExtender implements BurpExtension{
 
         BurpAPI.userInterface().registerContextMenuItemsProvider(new MyContextMenuItemsProvider());
         BurpAPI.userInterface().registerHttpResponseEditorProvider(new MyRegisterHttpResponseEditorProvider());
-        BurpAPI.http().registerHttpHandler(new MyRegisterHttpHandler());
+        try {
+            BurpAPI.http().registerHttpHandler(new MyRegisterHttpHandler());
+        } catch (Exception e) {
+            BurpAPI.logging().error().println(e);
+        }
 
     }
 

@@ -80,7 +80,7 @@ public class Fastjson {
 
         FastjsonTableEntry rowEntry = new FastjsonTableEntry(inf);
         rowEntry.setRawRequest(requestToBeSent);
-        rowEntry.setRowIndex(getFastjsonLoggerTable().getRowByValue(serialNumber));
+        rowEntry.setRowIndex(getFastjsonLoggerTable().getRowByTopColum(serialNumber));
 
         FastjsonLoggerTableEntryMap.put(serialNumber,rowEntry);
 
@@ -159,7 +159,7 @@ public class Fastjson {
                     setFastjsonLoggerTableValueAt(
                             "True",
                             FastjsonLoggerTableEntryMap.get(serialNumber).getRowIndex(),
-                            "FastJson"
+                            "Vul"
                     );
                     break;
                 }

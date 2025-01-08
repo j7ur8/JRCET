@@ -79,7 +79,7 @@ public class OverauthComponent extends DiyJComponent {
         OverauthLoggerPanel.setBackground(Color.WHITE);
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","OverAuth","UnAuth"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","LowAuth","UnAuth"};
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         DiyJLogTable OverauthLoggerTable = new DiyJLogTable(model);
 

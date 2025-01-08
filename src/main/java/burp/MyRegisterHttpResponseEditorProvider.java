@@ -30,8 +30,6 @@ public class MyRegisterHttpResponseEditorProvider implements HttpResponseEditorP
 //        DiyJTextAreaScrollPane MyExtenderEditor;
         RawEditor RepeaterUnicodeEditor = BurpAPI.userInterface().createRawEditor();
         MyExtensionHttpResponseEditor(){
-//            MyExtenderEditor = new DiyJTextAreaScrollPane("RepeaterEditor");
-//            MyExtenderEditor.getTextArea().setEditable(false);
             RepeaterUnicodeEditor.setEditable(false);
 
         }

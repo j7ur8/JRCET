@@ -1,6 +1,6 @@
 package diycomponents;
 
-import jrcet.frame.Asset.Asset;
+//import jrcet.frame.Asset.Asset;
 import jrcet.frame.Dencrypt.Aes.Aes;
 import jrcet.frame.Dencrypt.Ascii.Ascii;
 import jrcet.frame.Dencrypt.Base.Base;
@@ -18,6 +18,7 @@ import jrcet.frame.HText.Len.Len;
 import jrcet.frame.HText.Parsepy.Parsepy;
 import jrcet.frame.HText.Regex.Regex;
 import jrcet.frame.HText.Sort.Sort;
+import jrcet.frame.Scanner.Overauth.Overauth;
 import jrcet.frame.Tools.Captcha.Captcha;
 import help.Helper;
 
@@ -230,13 +231,6 @@ public class DiyJButton extends JButton implements  ActionListener {
 
             }
 
-            case "AssetMainBodyControlLastButton" -> {
-                Asset.lastPage();
-            }
-
-            case "AssetMainBodyControlNextButton" -> {
-                Asset.nextPage();
-            }
 
             case "SpringbootMenuCheckButton" -> {
                 if(SpringbootCheck){
@@ -272,11 +266,15 @@ public class DiyJButton extends JButton implements  ActionListener {
                 if(OverauthCheck){
                     setBackground(Color.RED);
                     setText("OFF");
+                    Overauth.delDb();
                 }else{
                     setBackground(Color.GREEN);
                     setText("ON");
+                    Overauth.initDb();
                 }
                 OverauthCheck = !OverauthCheck;
+//                Overauth.iniid
+
             }
 
             case "OverauthMenuClearButton" -> {

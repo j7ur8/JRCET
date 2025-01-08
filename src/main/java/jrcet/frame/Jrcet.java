@@ -2,7 +2,6 @@ package jrcet.frame;
 
 import diycomponents.DiyJComponent;
 
-import jrcet.frame.Asset.AssetComponent;
 import jrcet.frame.Dencrypt.DencryptComponent;
 import jrcet.frame.HText.HTextComponent;
 import jrcet.frame.Scanner.ScannerComponent;
@@ -46,7 +45,7 @@ public class Jrcet extends DiyJComponent {
         JrcetTabbedPane.add("Tools",new ToolsComponent().component());
 //        JrcetTabbedPane.add("Intruder",new IntruderComponent().component());
         JrcetTabbedPane.add("Scanner",new ScannerComponent().component());
-        JrcetTabbedPane.add("Asset",new AssetComponent().component());
+//        JrcetTabbedPane.add("Asset",new AssetComponent().component());
 
         return  JrcetTabbedPane;
     }

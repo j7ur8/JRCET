@@ -69,7 +69,7 @@ public class FastjsonComponent extends DiyJComponent {
         FastjsonLoggerPanel.setBackground(Color.WHITE);
 
         Object[][] data = {};
-        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","DnsLog","FastJson"};
+        String[] columnNames = {"#","Tool","Method","Host","Path","Code","Length","requestTime","responseTime","DnsLog","Vul"};
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         DiyJLogTable FastjsonLoggerTable = new DiyJLogTable(model);
@@ -176,7 +176,7 @@ public class FastjsonComponent extends DiyJComponent {
         FastjsonMenuPanel.add(FastjsonMenuCheckButton,new GridBagConstraints(
                 0,0,
                 1,1,
-                0.9,1,
+                0.8,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
@@ -186,7 +186,7 @@ public class FastjsonComponent extends DiyJComponent {
         FastjsonMenuPanel.add(FastjsonMenuClearButton,new GridBagConstraints(
                 1,0,
                 1,1,
-                0.1,1,
+                0.2,1,
                 GridBagConstraints.CENTER,
                 GridBagConstraints.BOTH,
                 new Insets(0,0,0,0),
