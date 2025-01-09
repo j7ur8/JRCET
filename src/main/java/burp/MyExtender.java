@@ -2,8 +2,10 @@ package burp;
 
 import burp.api.montoya.BurpExtension;
 import burp.api.montoya.MontoyaApi;
+import burp.api.montoya.extension.ExtensionUnloadingHandler;
 import jrcet.frame.Intruder.*;
 import jrcet.frame.Jrcet;
+import jrcet.frame.Scanner.Overauth.OverauthSqlite;
 
 import java.sql.SQLException;
 
@@ -39,6 +41,10 @@ public class MyExtender implements BurpExtension{
         } catch (Exception e) {
             BurpAPI.logging().error().println(e);
         }
+
+        BurpAPI.extension().registerUnloadingHandler(() -> {
+            OverauthSqlite.closeConnection();
+        });
 
     }
 

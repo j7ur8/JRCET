@@ -266,7 +266,6 @@ public class DiyJButton extends JButton implements  ActionListener {
                 if(OverauthCheck){
                     setBackground(Color.RED);
                     setText("OFF");
-                    Overauth.delDb();
                 }else{
                     setBackground(Color.GREEN);
                     setText("ON");

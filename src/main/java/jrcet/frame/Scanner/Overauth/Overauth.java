@@ -2,6 +2,7 @@ package jrcet.frame.Scanner.Overauth;
 
 import burp.MyRegisterHttpHandler;
 import burp.api.montoya.core.ByteArray;
+import burp.api.montoya.extension.ExtensionUnloadingHandler;
 import burp.api.montoya.http.HttpService;
 import burp.api.montoya.http.handler.HttpRequestToBeSent;
 import burp.api.montoya.http.handler.HttpResponseReceived;
@@ -27,6 +28,8 @@ public class Overauth {
 
     private static final ReentrantLock RequestIdLock = new ReentrantLock();
 
+    private static final ReentrantLock AddRowLock = new ReentrantLock();
+
     private static Integer RequestId = 0;
 
     private static final HashMap<String, Integer> ColumnMap = new HashMap<>(){
@@ -49,20 +52,6 @@ public class Overauth {
     public static final String AUTH = "AUTH";
     public static boolean OverauthCheck = false;
 
-
-
-    public static void delDb(){
-        PreparedStatement pstmt = null;
-        try{
-
-             pstmt = OverauthSqlite.getPstmt("DELETE FROM sqlite_sequence WHERE name ='overauth'");
-            OverauthSqlite.uniqUpdate(pstmt);
-        }catch (SQLException e){
-            BurpAPI.logging().error().println(e);
-        }finally {
-            OverauthSqlite.close(pstmt, null);
-        }
-    }
     public static void initDb(){
 
         PreparedStatement pstmt = null;
@@ -167,7 +156,9 @@ public class Overauth {
                 "",
                 ""
         };
-        ((DefaultTableModel) getOverauthLoggerTable().getModel()).addRow(inf);
+
+
+        addTableRow(inf);
 
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -312,6 +303,12 @@ public class Overauth {
 
     }
 
+    private static void addTableRow(String[] inf){
+        AddRowLock.lock();
+        ((DefaultTableModel) getOverauthLoggerTable().getModel()).addRow(inf);
+        AddRowLock.unlock();
+    }
+
 
     private static Integer getOverauthRequestId() {
         RequestIdLock.lock();
@@ -322,7 +319,18 @@ public class Overauth {
     }
 
     public static void clearOverauthTable(){
+        PreparedStatement pstmt = null;
+        try{
+
+            pstmt = OverauthSqlite.getPstmt("DELETE FROM overauth");
+            OverauthSqlite.uniqUpdate(pstmt);
+        }catch (SQLException e){
+            BurpAPI.logging().error().println(e);
+        }finally {
+            OverauthSqlite.close(pstmt, null);
+        }
         ((DefaultTableModel)getOverauthLoggerTable().getModel()).setRowCount(0);
+        RequestId = 0;
     }
 
     public static void setOverauthLoggerTableValueAt(String value, Integer rowIndex, String columnName){

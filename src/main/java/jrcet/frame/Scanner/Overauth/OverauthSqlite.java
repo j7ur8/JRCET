@@ -81,4 +81,14 @@ public class OverauthSqlite {
         pstmt.executeUpdate();
     }
 
+    public static void closeConnection() {
+        try{
+            if(connection!=null){
+                connection.close();
+            }
+        }catch (SQLException e){
+            BurpAPI.logging().error().println(e);
+        }
+
+    }
 }
