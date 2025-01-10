@@ -16,7 +16,6 @@ public class OverauthTableEntry {
 
     private String ResponseTime;
 
-    private Integer RowIndex;
 
     private String Length;
 
@@ -33,7 +32,7 @@ public class OverauthTableEntry {
 
     private HttpResponse UnAuthResponse = null;
 
-    private String OverAuth;
+    private String LowAuth;
 
     private String UnAuth;
 
@@ -52,18 +51,6 @@ public class OverauthTableEntry {
     }
 
 //    public Boolean Check = false;
-    public OverauthTableEntry(String[] inf){
-        this.RequestNumber = inf[0];
-        this.RequestTool = inf[1];
-        this.RequestMethod = inf[2];
-        this.RequestHost = inf[3];
-        this.RequestPath = inf[4];
-        this.Code = inf[5];
-        this.Length = inf[6];
-        this.RequestTime = inf[7];
-        this.ResponseTime = inf[8];
-    }
-
 
     public void setHorizontalOverAuthParameters(ArrayList<ParsedHttpParameter> parsedHttpParameters){
         this.HorizontalOverAuthParameters = parsedHttpParameters;
@@ -71,13 +58,6 @@ public class OverauthTableEntry {
 
     public ArrayList<ParsedHttpParameter> getHorizontalOverAuthParameters(){
         return HorizontalOverAuthParameters;
-    }
-    public void setRemoved(boolean removed) {
-        Removed = removed;
-    }
-
-    public boolean getRemoved(){
-        return Removed;
     }
 
     public void setLength(String length){
@@ -92,13 +72,6 @@ public class OverauthTableEntry {
         this.ResponseTime = responseTime;
     }
 
-    public void setRowIndex(Integer id){
-        this.RowIndex = id;
-    }
-
-    public Integer getRowIndex(){
-        return RowIndex;
-    }
 
     public String getResponseTime(){
         return ResponseTime;
@@ -209,7 +182,7 @@ public class OverauthTableEntry {
         this.UnAuth = aTrue;
     }
 
-    public void setOverAuth(String aTrue) {
-        this.OverAuth = aTrue;
+    public void setLowAuth(String aTrue) {
+        this.LowAuth = aTrue;
     }
 }

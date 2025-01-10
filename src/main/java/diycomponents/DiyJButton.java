@@ -266,10 +266,11 @@ public class DiyJButton extends JButton implements  ActionListener {
                 if(OverauthCheck){
                     setBackground(Color.RED);
                     setText("OFF");
+//                    OverauthSqlite.closeConnection();
                 }else{
                     setBackground(Color.GREEN);
                     setText("ON");
-                    Overauth.initDb();
+//                    Overauth.initDb();
                 }
                 OverauthCheck = !OverauthCheck;
 //                Overauth.iniid

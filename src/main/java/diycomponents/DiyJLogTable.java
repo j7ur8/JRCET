@@ -194,7 +194,7 @@ public class DiyJLogTable extends JTable {
 
         switch (getName()){
             case "OverauthLoggerTable" -> {
-                new Overauth().setRequestResponse( Integer.parseInt((String) this.getValueAt(this.getSelectedRow(),0)));
+                new Overauth().setRequestResponse((String) this.getValueAt(this.getSelectedRow(),0));
             }
             case "FastjsonLoggerTable" -> {
                 FastjsonTableEntry fastjsonTableEntry = FastjsonLoggerTableEntryMap.get(getFastjsonSerialNumber(getSelectedRow()));

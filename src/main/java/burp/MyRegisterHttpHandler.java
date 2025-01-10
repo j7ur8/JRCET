@@ -5,14 +5,12 @@ import burp.api.montoya.http.handler.*;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.http.message.responses.HttpResponse;
-import help.Helper;
 import help.StringUtil;
 import jrcet.frame.Scanner.Overauth.Overauth;
-import jrcet.frame.Scanner.Overauth.OverauthSqlite;
+import jrcet.frame.Scanner.Overauth.OverauthTableEntry;
 
 import javax.swing.*;
 
-import java.sql.*;
 import java.util.Objects;
 
 import static burp.MyExtender.BurpAPI;
@@ -130,67 +128,52 @@ public class MyRegisterHttpHandler implements HttpHandler {
     }
 
     public static class checkWorker extends SwingWorker<Void, Void> {
-        public String number;
-        public String type;
+        public String RequestNumber;
+        public String Type;
         public HttpRequest httpRequest;
-        public checkWorker(String type, String number, HttpRequest httpRequest) {
-            this.type = type;
-            this.number = number;
+        public checkWorker(String Type, String RequestNumber, HttpRequest httpRequest) {
+            this.Type = Type;
+            this.RequestNumber = RequestNumber;
             this.httpRequest = httpRequest;
         }
         @Override
         protected Void doInBackground() {
+
             HttpRequestResponse httpRequestResponse = BurpAPI.http().sendRequest(httpRequest);
 
             HttpResponse httpResponse = httpRequestResponse.response();
             int    responseLength = httpResponse.body().length();
-            String responseString = httpResponse.toString();
-            int    id             = Integer.parseInt(number);
 
             String result = "";
 
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
 
-            switch (type) {
+            switch (Type) {
                 case "UnAuth","LowAuth" -> {
-                    try {
-                        pstmt = OverauthSqlite.getPstmt("select HighAuthResponse from overauth where id = ?");
-                        pstmt.setInt(1, id);
-                        rs = OverauthSqlite.uniqQuery(pstmt);
-                        String HighAuthResponseString = Helper.base64Decode2String(rs.getString(1));
-                        double similarity = similarity(HighAuthResponseString, responseString);
-                        if (similarity >= 0.9 && similarity <= 1.0) {
-                            result = "True";
-                        }
-                    }catch (SQLException e) {
-                        BurpAPI.logging().error().println(e);
-                        BurpAPI.logging().error().println(e);
-                    }finally {
-                        OverauthSqlite.close(pstmt, rs);
-                    }
-                    try{
 
-                        pstmt = OverauthSqlite.getPstmt("update overauth set "+type+"Response=?, "+type+"=? where id=?");
-                        pstmt.setString(1, Helper.base64Encode2String(httpResponse.toByteArray().getBytes()));
-                        pstmt.setString(2, result);
-                        pstmt.setInt(3, id);
-                        OverauthSqlite.uniqUpdate(pstmt);
-                        int row = Overauth.getRowOfOverauthLoggerTableByValue(number);
-                        Overauth.setOverauthLoggerTableValueAt(result, row-1, type);
-                    }catch (SQLException e){
-                        BurpAPI.logging().error().println("update overauth set "+type+"Response=?, "+type+"=? where id=?");
-                        BurpAPI.logging().error().println(e);
-                    }finally {
-                        OverauthSqlite.close(pstmt, rs);
+                    String RequestPath = OverAuthPathMap.get(RequestNumber);
+                    OverauthTableEntry overauthTableEntry = OverAuthTableEntryMap.get(RequestPath);
+                    HttpResponse HighAuthResponse = overauthTableEntry.getHighAuthResponse();
+                    double similarity = similarity(HighAuthResponse.bodyToString(), httpResponse.bodyToString());
+                    if (similarity >= 0.9 && similarity <= 1.0) {
+                        result = "True";
                     }
-
+                    int rowIndex = getRowByRequestNumber(RequestNumber);
+                    if(Type.equals("UnAuth")){
+                        overauthTableEntry.setUnAuth(result);
+                        overauthTableEntry.setUnAuthResponse(httpResponse);
+                        Overauth.setTableValueAt(result, rowIndex, "UnAuth");
+                    }else{
+                        overauthTableEntry.setLowAuth(result);
+                        overauthTableEntry.setLowAuthResponse(httpResponse);
+                        Overauth.setTableValueAt(result, rowIndex, "LowAuth");
+                    }
                 }
 
                 case "fastjson" -> {
                     HttpResponse ihttpResponse = responseLength<5000?httpResponse:httpResponse.withBody(httpResponse.body().subArray(0, 4999));
-                    FastjsonLoggerTableEntryMap.get(number).setFastjsonRequest(httpRequest);
-                    FastjsonLoggerTableEntryMap.get(number).setFastjsonResponse(ihttpResponse);
+                    FastjsonLoggerTableEntryMap.get(RequestNumber).setFastjsonRequest(httpRequest);
+                    FastjsonLoggerTableEntryMap.get(RequestNumber).setFastjsonResponse(ihttpResponse);
+                    break;
                 }
             }
 
